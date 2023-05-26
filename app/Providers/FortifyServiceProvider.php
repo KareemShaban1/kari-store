@@ -33,12 +33,23 @@ class FortifyServiceProvider extends ServiceProvider
             // Config::set('fortify.home', 'backend/dashboard');
         }
 
+        if ($request->is('vendor/*')) {
+            Config::set('fortify.guard', 'vendor');
+            Config::set('fortify.password', 'vendors');
+            Config::set('fortify.prefix', 'vendor');
+            //// redirect admin after login 
+            // Config::set('fortify.home', 'backend/dashboard');
+        }
+
         // redirect user or admin after login 
         $this->app->instance(LoginResponse::class,new class implements LoginResponse {
            public function toResponse($request){
             // $request->user('admin') // admin -> guard_name
                 if ($request->user('admin')) {
-                    return redirect('/backend/dashboard');
+                    return redirect('/admin/dashboard');
+                }
+                if ($request->user('vendor')) {
+                    return redirect('/vendor/dashboard');
                 }
                 return redirect('/');
            } 
@@ -81,9 +92,17 @@ class FortifyServiceProvider extends ServiceProvider
             //// this method will be used in "admin" guard only
             Fortify::authenticateUsing([new CustomAuthentication,'authenticateAdmin']);
             //// put prefix for auth backend pages => /login/admin
-            Fortify::viewPrefix('backend.auth.');
+            Fortify::viewPrefix('backend.auth.admin.');
 
-        } else {
+        } 
+        elseif (Config::get('fortify.guard') == 'vendor') {
+            //// this method will be used in "admin" guard only
+            Fortify::authenticateUsing([new CustomAuthentication,'authenticateVendor']);
+            //// put prefix for auth backend pages => /login/admin
+            Fortify::viewPrefix('backend.auth.vendor.');
+        } 
+        
+        else {
 
             //// this method will be used in "web" guard only
             Fortify::authenticateUsing([new CustomAuthentication , 'authenticateUser']);

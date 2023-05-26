@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('attributes', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->tinyInteger('has_color')->default(0);
             $table->timestamps();
         });
     }

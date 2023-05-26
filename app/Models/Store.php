@@ -26,6 +26,9 @@ class Store extends Model
     public function products(){
         return $this->hasMany(Product::class,'store_id','id');
     }
+    public function category(){
+        return $this->belongsTo(Category::class,'category_id','id');
+        }
 
     public function getLogoImageUrlAttribute(){
         if(!$this->logo_image){

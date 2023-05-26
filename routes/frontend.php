@@ -5,7 +5,10 @@ use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\CheckoutController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\ProductsController;
+use App\Http\Controllers\Frontend\ProfileController;
+use App\Http\Controllers\Frontend\ReviewsController;
 use App\Http\Controllers\Frontend\ShopGridController;
+use App\Models\Review;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
@@ -21,12 +24,21 @@ Route::group([
 
           Route::get('/', [HomeController::class, 'index'])->name('home');
 
+          Route::get('/profile_edit', [ProfileController::class, 'edit'])->name('profile.edit');
+          Route::patch('/profile_update', [ProfileController::class, 'update'])->name('profile.update');
+  
+
           Route::get('/all_products', [ProductsController::class, 'index'])->name('products.show_all');
           Route::get('/products/{product:slug}', [ProductsController::class, 'show'])->name('products.show_product');
 
           Route::resource('cart', CartController::class);
 
+          Route::resource('reviews', ReviewsController::class);
+
+
           Route::get('get_sub_total', [CartController::class,'get_sub_total'])->name('get_sub_total');
+
+          Route::get('get_all_total', [CartController::class,'get_all_total'])->name('get_all_total');
 
           Route::get('/checkout', [CheckoutController::class, 'create'])->name('checkout.create');
           Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');

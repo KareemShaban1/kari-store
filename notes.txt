@@ -61,3 +61,18 @@
             // old('input_name')   // return input value in the previous request
 
 
+
+
+Product Variations
+
+Size : S , M , L , XL
+Color : Red , Green , Blue
+Material: Cotton , Other
+
+
+Product (id , name , price , image , sku , ..... )
+Attribute (id , name)
+Attribute Values (id , attribute_id , key , value) 
+
+Variations (id , product_id , price , sku , image)
+Variations_values (Variation_id , attribute_value_id)

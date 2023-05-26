@@ -10,6 +10,7 @@ return [
           'Banner_Title'=>'Banner Title',
           'Banner_Sub_Title'=>'Banner Sub Title',
           'Offer'=>'Offer',
+          'Offer_Title'=>'Offer Title',
           'Content'=>'Content',
           'Image'=>'الصورة',
           'Control'=>'التحكم',

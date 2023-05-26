@@ -28,6 +28,7 @@ class EmptyCart
     public function handle(OrderCreated $event)
     {
         // make cart empty 
+       
         Cart::empty();
 
     }

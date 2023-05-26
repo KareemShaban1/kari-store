@@ -4,6 +4,7 @@ namespace App\Actions\Fortify;
 
 use App\Models\Admin;
 use App\Models\User;
+use App\Models\Vendor;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -46,4 +47,19 @@ class CustomAuthentication
                     }
                     return false;
           }
+
+          public function authenticateVendor($request)
+          {
+                    $email = $request->email;
+                    $password = $request->password;
+                    // dd($request->all());
+                    $user = Vendor::where('email', '=', $email)->first();
+                    
+                    if ($user && Hash::check($password, $user->password)) {
+                              return $user;
+                    }
+                    return false;
+          }
+
+
 }

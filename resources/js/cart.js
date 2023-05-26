@@ -1,8 +1,11 @@
 
 (function($){
 
-          $('.item-quantity').on('change',function(e){
+          $('.item_quantity').on('change',function(e){
 
+                    e.preventDefault();
+                    var quantity = $(this).data('id');
+                    console.log(quantity);
                     $.ajax({
                               url:"/cart/" + $(this).data('id'),
                               method:'put',

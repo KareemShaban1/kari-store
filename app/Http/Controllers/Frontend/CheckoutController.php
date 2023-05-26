@@ -36,6 +36,7 @@ class CheckoutController extends Controller
 
         $items = $cart->get()->groupBy('product.store_id');
 
+
         DB::beginTransaction();
         try {
             foreach ($items as $store_id => $cart_items) {
@@ -45,22 +46,33 @@ class CheckoutController extends Controller
                     'payment_method' => 'cash_on_delivery',
                 ]);
 
+                // dd($cart_items);
 
                 foreach ($cart_items as $item) {
-                    OrderItem::create([
+                     OrderItem::create([
                         'order_id' => $order->id,
                         'product_id' => $item->product_id,
-                        'product_name' => $item->product->name,
+                         'product_name' => $item->product->name,
                         'price' => $item->product->price,
                         'quantity' => $item->quantity,
                     ]);
+
+                    
                 }
 
+
+                
+
                 foreach ($request->post('address') as $type => $address) {
+
+                    // dd($address);
                     $address["type"] = $type;
                     $order->addresses()->create($address);
+                    
                 }
-            }
+
+            } 
+                
 
 
             DB::commit();

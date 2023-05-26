@@ -9,7 +9,7 @@ class Banner extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'banner_name','image'
+        'banner_name','image','title','sub_title','offer','offer_title','content'
     ];
 
     public function getImageUrlAttribute(){

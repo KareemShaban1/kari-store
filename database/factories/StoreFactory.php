@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Category;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 /**
@@ -21,6 +22,7 @@ class StoreFactory extends Factory
             //
             'name'=>$name,
             'slug'=>Str::slug($name),
+            'category_id'=>Category::inRandomOrder()->first()->id,
             'description'=>$this->faker->sentence(15),
             'logo_image'=>$this->faker->imageUrl,
             'cover_image'=>$this->faker->imageUrl,

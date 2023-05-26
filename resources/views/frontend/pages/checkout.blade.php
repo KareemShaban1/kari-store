@@ -191,7 +191,7 @@
                                                 <div class="single-form form-default">
                                                     {{-- <label>Governorate</label> --}}
                                                     <div class="form-input form">
-                                                        <x-frontend.form.input name="address[billing][governorate]"
+                                                        <x-frontend.form.input name="address[shipping][governorate]"
                                                             placeholder="Governorate" />
                                                     </div>
                                                 </div>
@@ -201,7 +201,7 @@
                                                 <div class="single-form form-default">
                                                     {{-- <label>City</label> --}}
                                                     <div class="form-input form">
-                                                        <x-frontend.form.input name="address[billing][city]"
+                                                        <x-frontend.form.input name="address[shipping][city]"
                                                             placeholder="City" />
                                                     </div>
                                                 </div>
@@ -211,7 +211,7 @@
                                                 <div class="single-form form-default">
                                                     {{-- <label>Post Code</label> --}}
                                                     <div class="form-input form">
-                                                        <x-frontend.form.input name="address[billing][postal_code]"
+                                                        <x-frontend.form.input name="address[shipping][postal_code]"
                                                             placeholder=" Postal Code" />
                                                     </div>
                                                 </div>
@@ -220,7 +220,7 @@
                                                 <div class="single-form form-default">
                                                     {{-- <label>Street Address</label> --}}
                                                     <div class="form-input form">
-                                                        <x-frontend.form.input name="address[billing][street_address]"
+                                                        <x-frontend.form.input name="address[shipping][street_address]"
                                                             placeholder="Street Address" />
                                                     </div>
                                                 </div>

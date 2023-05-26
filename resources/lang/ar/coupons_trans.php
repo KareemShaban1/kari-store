@@ -17,7 +17,7 @@ return [
           'Category_Name'=>'أسم التصنيف',
           'Product_Name'=>'أسم المنتج',
           'Active'=>'مفعل',
-          'Inavtive'=>'غير مفعل',
+          'Inactive'=>'غير مفعل',
           'Control'=>'التحكم',
           'Choose'=>'أختار من القائمة',
           'Add'=>'أضافة',

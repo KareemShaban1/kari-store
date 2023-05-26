@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Cart;
 use App\Models\Product;
 use App\Repositories\Cart\CartModelRepository;
 use App\Repositories\Cart\CartRepository;
@@ -130,9 +131,7 @@ class CartController extends Controller
         $this->cart->total();
     }
 
-    // public function get_sub_total(Request $request){
-    //     $this->cart->get_sub_total($request);
-    // }
+
 
     public function get_sub_total(Request $request)
     {
@@ -143,11 +142,26 @@ class CartController extends Controller
 
         $product_price = Product::where('id', $product_id)->value('price');
         $sub_total = $quantity * $product_price;
-        // return $sub_total;/
+        // return $sub_total;
 
         return view('frontend.pages.price_part', [
-            'sub_total' => $sub_total
+            'sub_total' => $sub_total,
         ]);
-        
+    }
+
+    public function get_all_total(Request $request)
+    {
+
+        $quantity = $request->quantity;
+
+        $total =  Cart::with('product')->get()->sum(function ($item) use ($quantity) {
+            return $quantity * $item->product->price;
+        });
+
+        return view('frontend.pages.total_price_part', [
+            'total' => $total,
+        ]);
+
+        // return $total;
     }
 }

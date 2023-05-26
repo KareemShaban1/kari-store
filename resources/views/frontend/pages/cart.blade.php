@@ -55,35 +55,34 @@
                 <!-- End Cart List Title -->
 
                 @foreach ($cart->get() as $cart_item)
-                    <!-- Cart Single List list -->
+
+                    <!-- Cart Item (product) -->
                     <div class="cart-single-list" id="{{ $cart_item->id }}">
                         <div class="row align-items-center">
+
                             <div class="col-lg-1 col-md-1 col-12">
                                 <a href="{{ Route('products.show_product', $cart_item->product->slug) }}">
                                     <img src="{{ $cart_item->product->image_url }}" alt="#"></a>
                             </div>
+                            
                             <div class="col-lg-4 col-md-3 col-12">
                                 <h5 class="product-name"><a
                                         href="{{ Route('products.show_product', $cart_item->product->slug) }}">
                                         {{ $cart_item->product->name }}</a></h5>
                                 <p class="product-des">
-                                    <span><em>Type:</em> {{ $cart_item->product->id }}</span>
                                     <span><em>Type:</em> {{ $cart_item->product->category->name }}</span>
                                     <span><em>Color:</em> Black</span>
                                 </p>
                             </div>
                             <div class="col-lg-2 col-md-2 col-12">
                                 <div class="count-input">
-
-
-                                    <input class="form-control item-quantity" name="item-quantity"
-                                        data-id="{{ $cart_item->id }}" value="{{ $cart_item->quantity }}">
-                                    <input type="hidden" value="{{ $cart_item->product->id }}" id="product_id"
-                                        name="product_id[{{$cart_item->product->id}}]">
+                                    <input class="form-control item_quantity" name="quantity" 
+                                    data-id="{{$cart_item->id}}"
+                                        data-product-id="{{ $cart_item->product->id }}" value="{{ $cart_item->quantity }}">                                    
                                 </div>
                             </div>
 
-                            <div class="col-lg-2 col-md-2 col-12" id="sub_total">
+                            <div class="col-lg-2 col-md-2 col-12" id="sub_total_{{ $cart_item->product->id }}">
                                 <p>{{ Currency::format($cart_item->quantity * $cart_item->product->price) }}</p>
                             </div>
 
@@ -121,7 +120,9 @@
                             <div class="col-lg-4 col-md-6 col-12">
                                 <div class="right">
                                     <ul>
-                                        <li>Cart Subtotal<span>{{ Currency::format($cart->total()) }}</span></li>
+                                        <div id="total">
+                                        <li>Cart Subtotal<span >{{ Currency::format($cart->total()) }}</span></li>
+                                        </div>
                                         <li>Shipping<span>Free</span></li>
 
                                         <li>You Save<span>$29.00</span></li>
@@ -148,14 +149,10 @@
         <script>
             const csrf_token = "{{ csrf_token() }}";
 
-
             $(document).ready(function() {
-                // apply quantity filter
-                $('.item-quantity').on('keyup', function() {
+                $('.item_quantity').on('keyup', function() {
                     var quantity = $(this).val();
-                    console.log(quantity);
-                    var product_id = $('#product_id').val();
-
+                    var product_id = $(this).data("product-id");
                     console.log(product_id);
                     $.ajax({
                         url: "{{ route('get_sub_total') }}",
@@ -165,13 +162,30 @@
                             product_id: product_id,
                         },
                         success: function(res) {
-                            console.log(res);
-                            $('#sub_total').html(res);
+                            $('#sub_total_' + product_id).html(res);
                         },
                     });
+                }, );
+            });
 
 
-
+            $(document).ready(function() {
+                $('.item_quantity').on('keyup', function() {
+                    var quantity = $(this).val();
+                    var product_id = $(this).data("product-id");
+                    console.log(product_id);
+                    $.ajax({
+                        url: "{{ route('get_all_total') }}",
+                        type: "GET",
+                        data: {
+                            quantity: quantity,
+                            product_id: product_id,
+                        },
+                        success: function(res) {
+                            console.log(res);
+                            $('#total').html(res);
+                        },
+                    });
                 }, );
             });
         </script>

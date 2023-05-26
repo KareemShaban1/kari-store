@@ -171,8 +171,9 @@
                             <ul class="list">
                                 @foreach ($categories as $category)
                                     <li>
-                                        {{-- <a href="" >{{ $category->name }} </a> --}}
-                                        <input type="radio" value="{{ $category->id }}" name="category"
+                                        {{-- <input type="radio" value="{{ $category->id }}" name="category"
+                                            class="category"> --}}
+                                        <input type="checkbox" value="{{ $category->id }}" name="category[]"
                                             class="category">
                                         <label for="">{{ $category->name }}</label>
                                     </li>
@@ -186,7 +187,8 @@
                         <div class="single-widget condition">
                             <h3>Filter by Brand</h3>
                             @foreach ($brands as $brand)
-                                <input type="radio" class="brands" name="brand" value="{{ $brand->id }}">
+                                {{-- <input type="radio" class="brands" name="brand" value="{{ $brand->id }}"> --}}
+                                <input type="checkbox" value="{{ $brand->id }}" name="brand[]" class="brand">
                                 <label>
                                     {{ $brand->name }}
                                 </label>
@@ -201,13 +203,13 @@
                             <h3>Price Range</h3>
                             <div class="middle">
                                 <div id="multi_range">
-                                    <span id="left_value">25</span><span> ~ </span><span id="right_value">75</span>
+                                    <span id="left_value">0</span><span> ~ </span><span id="right_value">10000</span>
                                 </div>
                                 <div class="multi-range-slider my-2">
                                     <input type="range" id="input_left" class="range_slider" min="0"
-                                        max="100" value="25" onmousemove="left_slider(this.value)">
+                                        max="10000" value="0" onmousemove="left_slider(this.value)">
                                     <input type="range" id="input_right" class="range_slider" min="0"
-                                        max="100" value="75" onmousemove="right_slider(this.value)">
+                                        max="10000" value="10000" onmousemove="right_slider(this.value)">
                                     <div class="slider">
                                         <div class="track"></div>
                                         <div class="range"></div>
@@ -349,11 +351,10 @@
     <!-- End Product Grids -->
 
     @push('scripts')
-        <script src="{{asset('backend/assets/js/jquery-3.6.0.min.js')}}"></script>
+        <script src="{{ asset('backend/assets/js/jquery-3.6.0.min.js') }}"></script>
 
 
         <script>
-
             const input_left = document.getElementById("input_left");
             const input_right = document.getElementById("input_right");
             const thumb_left = document.querySelector(".slider > .thumb.left");
@@ -387,142 +388,216 @@
             function left_slider(value) {
                 document.getElementById('left_value').innerHTML = value;
             }
+
             function right_slider(value) {
                 document.getElementById('right_value').innerHTML = value;
             }
 
-            
+
+            // $(document).ready(function() {
+
+
+
+
+
+            //     // apply search filter
+            //     $('#search').on('keyup', function() {
+            //         let search = $(this).val();
+            //         console.log(search);
+            //         $.ajax({
+            //             url: "{{ route('search_products') }}",
+            //             type: "GET",
+            //             data: {
+            //                 search: search
+            //             },
+            //             success: function(res) {
+            //                 console.log(res);
+            //                 $('.show_products').html(res);
+            //             },
+            //         });
+            //     });
+
+            //     // apply category filter
+            //     $('input[name="category[]"]').on('change', function() {
+            //         var selectedCategories = $('input[name="category[]"]:checked').map(function() {
+            //             return $(this).val();
+            //         }).get();
+
+            //         console.log(selectedCategories);
+
+            //         $.ajax({
+            //             url: "{{ route('category_filter') }}",
+            //             type: "GET",
+            //             data: {
+            //                 category: selectedCategories
+            //             },
+            //             success: function(res) {
+            //                 $('.show_products').html(res);
+            //             },
+            //         });
+            //     });
+
+
+            //     $('input[name="brand[]"]').on('change', function() {
+            //         var selectedBrands = $('input[name="brand[]"]:checked').map(function() {
+            //             return $(this).val();
+            //         }).get();
+
+            //         console.log(selectedBrands);
+
+            //         $.ajax({
+            //             url: "{{ route('brand_filter') }}",
+            //             type: "GET",
+            //             data: {
+            //                 brand: selectedBrands
+            //             },
+            //             success: function(res) {
+
+            //                 $('.show_products').html(res);
+            //             },
+            //         });
+            //     });
+
+
+            //     // apply sort filter 
+            //     $('#sort').on('change', function() {
+            //         let sort = $('#sort').val();
+            //         $.ajax({
+            //             url: "{{ route('sort') }}",
+            //             type: "GET",
+            //             data: {
+            //                 sort: sort
+            //             },
+            //             success: function(res) {
+            //                 // console.log(res);
+            //                 $('.show_products').html(res);
+            //             },
+
+            //         });
+            //     });
+
+            //     // apply price filter
+            //     $('.range_slider').on('change', function() {
+            //         let left_value = $('#input_left').val();
+            //         let right_value = $('#input_right').val();
+            //         $.ajax({
+            //             url: "{{ route('price_range') }}",
+            //             method: "GET",
+            //             data: {
+            //                 left_value: left_value,
+            //                 right_value: right_value
+            //             },
+            //             success: function(res) {
+            //                 $('.show_products').html(res);
+            //             }
+            //         });
+            //     });
+
+            //     // apply reset filters
+            //     $('.reset').on('click', function() {
+
+            //         $.ajax({
+            //             url: "{{ route('reset_filters') }}",
+            //             type: "GET",
+            //             success: function(res) {
+            //                 // console.log(res);
+            //                 $('.show_products').html(res);
+            //             },
+
+            //         });
+
+            //     }, );
+
+            //     $.ajax({
+            //         url: "{{ route('all_filters') }}",
+            //         type: "GET",
+            //         data: {
+            //             category: $('input[name="category[]"]:checked').map(function() {
+            //                 return $(this).val();
+            //             }).get(),
+            //             brand: $('input[name="brand[]"]:checked').map(function() {
+            //                 return $(this).val();
+            //             }).get(),
+            //             min_price: $('.min_price').val(),
+            //             max_price: $('.max_price').val(),
+            //             search: $('#search').val()
+            //         },
+            //         success: function(res) {
+            //             $('.show_products').html(res);
+            //         }
+            //     });
+
+
+
+
+            // });
+
+
             $(document).ready(function() {
+                function applyFilters() {
+                    var category = $('.category:checked').map(function() {
+                        return $(this).val();
+                    }).get();
+                    var brand = $('.brand:checked').map(function() {
+                        return $(this).val();
+                    }).get();
+                    var minPrice = $('#left_value').text();
+                    var maxPrice = $('#right_value').text();
+                    var search = $('#search').val();
+                    var sort = $('.sort').val();
 
-                var category = $('.category').val();
-                var brand = $('.brand').val();
-                var min_price = $('.min_price').val();
-                var max_price = $('.max_price').val();
-                var search = $('#search').val();
-                // var sort = $('.sort').val();
-
-                $.ajax({
-                    url: "{{ route('all_filters') }}",
-                    type: "GET",
-                    data: {
-                        category: category,
-                        brand: brand,
-                        min_price: min_price,
-                        max_price: max_price,
-                        search: search
-                    },
-                    success:function(res){
-                        $('.show_products').html(res);
-                    }
-                });
-
-
-                
-                // apply search filter
-                $('#search').on('keyup', function() {
-                    let search = $(this).val();
-                    console.log(search);
                     $.ajax({
-                        url: "{{ route('search_products') }}",
+                        url: "{{ route('all_filters') }}",
                         type: "GET",
                         data: {
-                            search: search
-                        },
-                        success: function(res) {
-                            console.log(res);
-                            $('.show_products').html(res);
-                        },
-                    });
-                });
-
-                // apply category filter
-                $('input[name="category"]').on('click', function() {
-                    
-                    var category = $(this).val();
-                    
-                    console.log(category);
-                    $.ajax({
-                        url: "{{ route('category_filter') }}",
-                        type: "GET",
-                        data: {
-                            category: category
-                        },
-                        success: function(res) {
-                            // console.log(res);
-                            $('.show_products').html(res);
-                        },
-                    });
-                }, );
-
-                // apply brand filter
-                $('input[name="brand"]').on('click', function() {
-                    var brand = $(this).val();
-                    console.log(brand);
-                    $.ajax({
-                        url: "{{ route('brand_filter') }}",
-                        type: "GET",
-                        data: {
-                            brand: brand
-                        },
-                        success: function(res) {
-                            // console.log(res);
-                            $('.show_products').html(res);
-                        },
-                    });
-                }, );
-
-                // apply sort filter 
-                $('#sort').on('change', function() {
-                    let sort = $('#sort').val();
-                    $.ajax({
-                        url: "{{ route('sort') }}",
-                        type: "GET",
-                        data: {
+                            category: category,
+                            brand: brand,
+                            min_price: minPrice,
+                            max_price: maxPrice,
+                            search: search,
                             sort: sort
                         },
                         success: function(res) {
-                            // console.log(res);
                             $('.show_products').html(res);
                         },
-
                     });
+                }
+
+                // Reset filters
+                $('.button').on('click', function(e) {
+                    e.preventDefault();
+                    $('input.category, input.brand').prop('checked', false);
+                    $('#search').val('');
+                    applyFilters();
                 });
 
-                // apply price filter
+                // Apply search filter
+                $('#search').on('keyup', function() {
+                    applyFilters();
+                });
+
+                // Apply category filter
+                $('input.category').on('change', function() {
+                    applyFilters();
+                });
+
+                // Apply brand filter
+                $('input.brand').on('change', function() {
+                    applyFilters();
+                });
+
+                // Apply sort filter
+                $('.sort').on('change', function() {
+                    applyFilters();
+                });
+
+                // Apply price range filter
                 $('.range_slider').on('change', function() {
-                    let left_value = $('#input_left').val();
-                    let right_value = $('#input_right').val();
-                    $.ajax({
-                        url: "{{ route('price_range') }}",
-                        method: "GET",
-                        data: {
-                            left_value: left_value,
-                            right_value: right_value
-                        },
-                        success: function(res) {
-                            $('.show_products').html(res);
-                        }
-                    });
+                    applyFilters();
                 });
 
-                // apply reset filters
-                $('.reset').on('click', function() {
-                    
-                    $.ajax({
-                        url: "{{ route('reset_filters') }}",
-                        type: "GET",
-                        success: function(res) {
-                            // console.log(res);
-                            $('.show_products').html(res);
-                        },
-
-                    });
-
-                }, );
-
-                
-
-
+                // Initialize filters
+                applyFilters();
             });
         </script>
     @endpush
