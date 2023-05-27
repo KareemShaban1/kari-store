@@ -16,8 +16,8 @@
 
 
                     <!-- menu title -->
-                    <li class="mt-10 mb-10 text-muted pl-4 font-medium menu-title">{{ trans('sidebar_trans.Website') }}
-                    </li>
+                    {{-- <li class="mt-10 mb-10 text-muted pl-4 font-medium menu-title">{{ trans('sidebar_trans.Website') }}
+                    </li> --}}
 
 
                     <!-- menu Website Management-->
@@ -67,8 +67,8 @@
                     </li>
 
                     <!-- menu Stores -->
-                    <li class="mt-10 mb-10 text-muted pl-4 font-medium menu-title">{{ trans('sidebar_trans.Stores') }}
-                    </li>
+                    {{-- <li class="mt-10 mb-10 text-muted pl-4 font-medium menu-title">{{ trans('sidebar_trans.Stores') }}
+                    </li> --}}
 
                     <!-- menu Store Management-->
                     <li>
@@ -119,8 +119,8 @@
 
 
                     <!-- menu Products -->
-                    <li class="mt-10 mb-10 text-muted pl-4 font-medium menu-title">
-                        {{ trans('sidebar_trans.Products') }} </li>
+                    {{-- <li class="mt-10 mb-10 text-muted pl-4 font-medium menu-title">
+                        {{ trans('sidebar_trans.Products') }} </li> --}}
 
                     <!-- menu Product Management-->
                     <li>
@@ -294,8 +294,8 @@
 
 
                     <!-- menu Users -->
-                    <li class="mt-10 mb-10 text-muted pl-4 font-medium menu-title">
-                        {{ trans('sidebar_trans.Users') }} </li>
+                    {{-- <li class="mt-10 mb-10 text-muted pl-4 font-medium menu-title">
+                        {{ trans('sidebar_trans.Users') }} </li> --}}
 
                     <!-- menu User Management-->
                     <li>
