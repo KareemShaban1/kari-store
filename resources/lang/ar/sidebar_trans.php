@@ -74,9 +74,11 @@ return [
           'Users'=>'المستخدمين',
           
           'All_Users'=>'كل المستخدمين',
-          ''=>'',
-          ''=>'',
-          ''=>'',
+
+
+          'Product_Variants'=>'Product Variants',
+          'All_Product_Variants'=>'All Product Variants',
+          'Add_Product_Variant'=>'Add Product Variant',
           ''=>'',
           ''=>'',
           ''=>'',

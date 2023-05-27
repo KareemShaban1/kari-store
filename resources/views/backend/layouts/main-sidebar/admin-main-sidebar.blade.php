@@ -216,7 +216,7 @@
                             </li>
 
                             <!-- menu  Attributes Values-->
-                            {{-- <li>
+                            <li>
                                 <a href="javascript:void(0);" data-toggle="collapse"
                                     data-target="#attribute_values-menu">
                                     <div class="pull-left"><i class="fa-brands fa-product-hunt fa-fade"></i><span
@@ -233,7 +233,25 @@
                                     </li>
 
                                 </ul>
-                            </li> --}}
+                            </li>
+
+                              <!-- menu item product_variants-->
+                              <li>
+                                <a href="javascript:void(0);" data-toggle="collapse" data-target="#product_variants-menu">
+                                    <div class="pull-left"><i class="fa-brands fa-product-hunt fa-fade"></i><span
+                                            class="right-nav-text">{{ trans('sidebar_trans.Product_Variants') }} </span></div>
+                                    <div class="pull-right"><i class="ti-plus"></i></div>
+                                    <div class="clearfix"></div>
+                                </a>
+                                <ul id="product_variants-menu" class="collapse">
+                                    {{-- <li> <a href="{{ Route('admin.product_variants.create') }}">{{ trans('sidebar_trans.Add_Product_Variant') }} --}}
+                                        </a> </li>
+                                    <li> <a
+                                            href="{{ Route('admin.product_variants.index') }}">{{ trans('sidebar_trans.All_Product_Variants') }}</a>
+                                    </li>
+
+                                </ul>
+                            </li>
 
 
                             <!-- menu  Coupons-->

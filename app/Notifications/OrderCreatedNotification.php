@@ -35,7 +35,7 @@ class OrderCreatedNotification extends Notification
     {
         
         // channels the notification will send by
-        return ['database','broadcast','mail'];
+        return ['database','broadcast'];
 
         $channels = ['database'];
         if($notifiable->notification_prefernces['order_created']['sms'] ?? false)
@@ -67,7 +67,7 @@ class OrderCreatedNotification extends Notification
                     ->subject("New Order #{$this->order->number}")
                     ->from('notification@kari-store.com' , 'Kari Store')
                     ->greeting("Hi {$notifiable->name}")
-                    ->line("A new Order (#{$this->order->number} Created by {$address->name} from {$address->country_name}  )")
+                    ->line("A new Order (#{$this->order->number} Created by {$address->name}   )")
                     ->action('View Order', url('/checkout'))
                     ->line('Thank you for using our application!');
     }
@@ -78,9 +78,9 @@ class OrderCreatedNotification extends Notification
     {
         $address = $this->order->billingAddreess;
             return [
-                'body' => "A new Order (#{$this->order->number} Created by {$address->name} from {$address->country_name}  )",
+                'body' => "A new Order (#{$this->order->number} Created by {$address->name}   )",
                 'icon'=>'fas fa-file',
-                'url'=>url('/backend/dashboard'),
+                'url'=>url('/admin/dashboard'),
                 'order_id'=>$this->order->id
             ];
     }
@@ -89,7 +89,7 @@ class OrderCreatedNotification extends Notification
     {
         $address = $this->order->billingAddreess;
             return new BroadcastMessage([
-                'body' => "A new Order (#{$this->order->number} Created by {$address->name} from {$address->country_name}  )",
+                'body' => "A new Order (#{$this->order->number} Created by {$address->name}   )",
                 'icon'=>'fas fa-file',
                 'url'=>url('/backend/dashboard'),
                 'order_id'=>$this->order->id

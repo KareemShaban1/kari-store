@@ -38,10 +38,11 @@
                             <th>{{ trans('products_trans.Name') }}</th>
                             <th>{{ trans('products_trans.Brand_Name') }}</th>
                             <th>{{ trans('products_trans.Quantity') }}</th>
-                            <th>{{ trans('products_trans.Tags') }}</th>
+                            {{-- <th>{{ trans('products_trans.Tags') }}</th> --}}
                             <th>{{ trans('products_trans.Category_Name') }}</th>
                             <th>{{ trans('products_trans.Store_Name') }}</th>
                             <th>{{ trans('products_trans.Status') }}</th>
+                            <th>{{ trans('products_trans.Variants_Count') }}</th>
                             <th>{{ trans('products_trans.Add_Variant') }}</th>
                             <th>{{ trans('products_trans.Control') }}</th>
                         </tr>
@@ -56,7 +57,7 @@
                                 <td>{{ $product->name }}</td>
                                 <td>{{ $product->brand->name }}</td>
                                 <td>{{ $product->quantity }}</td>
-                                <td>{{ implode(',',$product->tags()->pluck('name')->toArray() ); }}</td>
+                                {{-- <td>{{ implode(',',$product->tags()->pluck('name')->toArray() ); }}</td> --}}
                                 <td>{{ $product->category->name }}</td>
                                 <td>{{ $product->store->name }}</td>
                                 <td>
@@ -76,7 +77,12 @@
                                 </td>
 
                                 <td>
-                                    <a href="{{Route('admin.products.add_variant',$product->id)}}" class="btn btn-primary btn-sm">
+                                    <a href="{{ route('admin.product_variants.show', $product->id) }}" class="btn btn-info btn-sm">
+                                    {{$product->product_variants_count}}
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="{{Route('admin.product_variants.create',$product->id)}}" class="btn btn-primary btn-sm">
                                         {{ trans('products_trans.Add_Variant') }}
                                     </a>
                                 </td>

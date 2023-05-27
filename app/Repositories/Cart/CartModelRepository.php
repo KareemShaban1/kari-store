@@ -59,7 +59,9 @@ class CartModelRepository implements CartRepository
           }
           public function empty()
           {
+                    // dd(Cart::query());
                     Cart::query()->delete();
+
           }
 
           public function total(): float

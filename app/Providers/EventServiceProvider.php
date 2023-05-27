@@ -24,10 +24,14 @@ class EventServiceProvider extends ServiceProvider
         
         // Event => OrderCreated
         // Listeners => DeduceProductQuantity , SendOrderCreatedNotification , EmptyCart
+        
         OrderCreated::class => [
             DeduceProductQuantity::class,
+            
+            EmptyCart::class,
+           
             SendOrderCreatedNotification::class,
-            EmptyCart::class
+            
         ]
 
         ////// another way 

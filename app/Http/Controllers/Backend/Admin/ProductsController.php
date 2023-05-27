@@ -37,7 +37,13 @@ class ProductsController extends Controller
 
         // $this->authorize('viewAny',Product::class);
         // dd($this->authorize('viewAny',Product::class));
-        $products = Product::with(['category', 'store', 'brand'])->get();
+        $products = Product::with(['category', 'store', 'brand'])
+        ->withCount([
+            'product_variants' => function($query){
+               return $query;
+            }
+        ])
+        ->get();
         // SELECT * FROM products
         // SELECT * FROM categories WHERE id IN (...)
         // SELECT * FROM stores WHERE id IN (....)

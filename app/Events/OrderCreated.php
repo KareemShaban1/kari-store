@@ -24,6 +24,7 @@ class OrderCreated
     public function __construct(Order $order)
     {
         //
+        // dd($order);
         $this->order = $order;
     }
 

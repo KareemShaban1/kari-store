@@ -31,6 +31,7 @@ return [
           'Featured'=>'المميزات',
           'Tags'=>'Tags',
           'Add_Variant'=>'Add Variant',
+          'Variants_Count'=>'Variants Count',
           'Add_Product_Variant'=>'Add Product Variant',
           ''=>'',
           ''=>'',

@@ -41,9 +41,12 @@
                                 <li>
                                     <h6 class="title" data-bs-toggle="collapse" data-bs-target="#collapseThree"
                                         aria-expanded="true" aria-controls="collapseThree">Your Personal Details </h6>
+
+
                                     <section class="checkout-steps-form-content collapse show" id="collapseThree"
                                         aria-labelledby="headingThree" data-bs-parent="#accordionExample">
                                         <div class="row">
+
                                             <div class="col-md-12">
                                                 <div class="single-form form-default">
                                                     {{-- <label>User Name</label> --}}
@@ -60,6 +63,7 @@
                                                     </div>
                                                 </div>
                                             </div>
+
                                             <div class="col-md-6">
                                                 <div class="single-form form-default">
                                                     {{-- <label>Email Address</label> --}}
@@ -78,7 +82,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            
+
                                             <div class="col-md-6">
                                                 <div class="single-form form-default">
                                                     {{-- <label>Governorate</label> --}}
@@ -88,7 +92,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            
+
                                             <div class="col-md-6">
                                                 <div class="single-form form-default">
                                                     {{-- <label>City</label> --}}
@@ -117,7 +121,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                           
+
                                             {{-- <div class="col-md-6">
                                                 <div class="single-form form-default">
                                                     <label>Country</label>
@@ -145,6 +149,7 @@
                                             </div>
                                         </div>
                                     </section>
+
                                 </li>
                                 <li>
                                     <h6 class="title collapsed" data-bs-toggle="collapse" data-bs-target="#collapseFour"
@@ -196,7 +201,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            
+
                                             <div class="col-md-6">
                                                 <div class="single-form form-default">
                                                     {{-- <label>City</label> --}}
@@ -225,7 +230,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                           
+
                                             {{-- <div class="col-md-6">
                                                 <div class="single-form form-default">
                                                     <label>Country</label>
@@ -236,7 +241,7 @@
                                                 </div>
                                             </div> --}}
 
-                                           
+
                                             <div class="col-md-12">
                                                 <div class="steps-form-btn button">
                                                     <button class="btn" data-bs-toggle="collapse"
@@ -370,5 +375,32 @@
         </div>
     </section>
     <!--====== Checkout Form Steps Part Ends ======-->
+
+
+    @push('scripts')
+        <script src="{{ asset('backend/assets/js/jquery-3.6.0.min.js') }}"></script>
+
+
+        <script>
+            $(document).ready(function() {
+                // Get the checkbox and form fields
+                var checkbox = $('#checkbox-3');
+                var billingFields = $('section#collapseThree input');
+                var shippingFields = $('section#collapseFour input');
+
+                // Add event listener to the checkbox
+                checkbox.on('change', function() {
+                    console.log(shippingFields);
+                    // Check if the checkbox is checked
+                    if (checkbox.prop('checked')) {
+                        // Copy values from billing fields to shipping fields
+                        billingFields.each(function(index) {
+                            shippingFields.eq(index).val($(this).val());
+                        });
+                    }
+                });
+            });
+        </script>
+    @endpush
 
 </x-front-layout>

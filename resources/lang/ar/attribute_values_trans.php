@@ -16,7 +16,7 @@ return [
           'Key'=>'أسم قيمة الخاصية',
           'Value'=>'القيمة',
           'Choose'=>'أختار من القائمة',
-          ''=>'',
+          'Attribute_Value_Name'=>'Attribute Value Name',
           ''=>'',
           ''=>'',
           ''=>'',

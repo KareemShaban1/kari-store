@@ -11,7 +11,8 @@ use  App\Http\Controllers\Backend\Admin\ {
   DashboardController,
   OrderController,
   ProductsController,
-  ProfileController,
+    ProductVariantsController,
+    ProfileController,
   RoleController,
   StoresController,
   VendorController,
@@ -50,6 +51,11 @@ Route::group([
 
         Route::resource('/products', ProductsController::class);
         Route::get('/add_variant/{product_id}', [ProductsController::class, 'add_variant'])->name('products.add_variant');
+
+        Route::resource('/product_variants', ProductVariantsController::class);
+        Route::get('/create/{product_id}', [ProductVariantsController::class, 'create'])->name('product_variants.create');
+
+        Route::get('/get_attribute_value/{attribute_id}', [ProductVariantsController::class, 'get_attribute_value'])->name('get_attribute_value');
 
         Route::resource('/attributes', AttributesController::class);
 

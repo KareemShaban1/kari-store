@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Notifications\OrderCreatedNotification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
 
 class SendOrderCreatedNotification
@@ -35,10 +36,12 @@ class SendOrderCreatedNotification
 
         //// get order 
         $order = $event->order;
+        // dd($order);
         //// get store owner of the order item
-        $user = User::where('store_id','=',$order->store_id)->first();
+        // $user = User::where('store_id','=',$order->store_id)->first();
         //// get admin 
         $admin =  Admin::where('id','=',1)->first();
+        // dd($order,$admin);
         
         //// send notification to admin
         $admin->notify(new OrderCreatedNotification($order));

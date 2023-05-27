@@ -12,5 +12,9 @@ class Attribute extends Model
 
     protected $fillable = ['name'];
 
-   
+    public $timestamps = false;
+    public function attribute_value(): HasMany
+    {
+        return $this->hasMany(AttributeValue::class, 'attribute_id', 'id');
+    }
 }

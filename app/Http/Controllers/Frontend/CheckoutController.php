@@ -20,13 +20,13 @@ class CheckoutController extends Controller
     {
         if ($cart->get()->count() == 0) {
             // return redirect()->route('home');
-            throw new InvalidOrderException('Cart is Empty'); 
+            throw new InvalidOrderException('Cart is Empty');
         }
-        
+
 
         return view('frontend.pages.checkout', [
             'cart' => $cart,
-            'countries' =>Countries::getNames('ar')
+            'countries' => Countries::getNames('ar')
         ]);
     }
 
@@ -39,6 +39,8 @@ class CheckoutController extends Controller
 
         DB::beginTransaction();
         try {
+
+            
             foreach ($items as $store_id => $cart_items) {
                 $order = Order::create([
                     'store_id' => $store_id,
@@ -49,30 +51,25 @@ class CheckoutController extends Controller
                 // dd($cart_items);
 
                 foreach ($cart_items as $item) {
-                     OrderItem::create([
+                    OrderItem::create([
                         'order_id' => $order->id,
                         'product_id' => $item->product_id,
-                         'product_name' => $item->product->name,
+                        'product_name' => $item->product->name,
                         'price' => $item->product->price,
                         'quantity' => $item->quantity,
                     ]);
-
-                    
                 }
 
 
-                
+
 
                 foreach ($request->post('address') as $type => $address) {
 
                     // dd($address);
                     $address["type"] = $type;
                     $order->addresses()->create($address);
-                    
                 }
-
-            } 
-                
+            }
 
 
             DB::commit();
@@ -89,6 +86,5 @@ class CheckoutController extends Controller
         }
 
         return redirect()->route('home');
-
     }
 }

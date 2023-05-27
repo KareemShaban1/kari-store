@@ -75,10 +75,12 @@ class Product extends Model
         );
     }
 
-    public function variants()
+    public function product_variants()
     {
-        return $this->hasMany(Variant::class);
+        return $this->hasMany(ProductVariant::class);
     }
+
+
 
     //// many-to-many relationship
     public function attributes()
