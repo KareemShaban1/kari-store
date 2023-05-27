@@ -22,6 +22,7 @@ return new class extends Migration
             $table->float('price')->default(0); 
             $table->float('compare_price')->nullable();
             $table->unsignedSmallInteger('quantity')->default(0);
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }
