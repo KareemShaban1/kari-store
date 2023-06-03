@@ -136,14 +136,8 @@
         <div class="container">
 
 
-
-            {{-- <livewire:show-products :brands="$brands" :categories="$categories" /> --}}
-
             <div class="row">
                 <div class="col-lg-3 col-12">
-
-
-
 
                     <div class="product-sidebar">
 
@@ -237,16 +231,13 @@
                                     <div class="product-sorting dropdown">
                                         <label for="sorting">Sort by:</label>
                                         <select class="form-control" name="sort" id="sort">
-                                            <option>Select Order</option>
-                                            <option>Low Price</option>
-                                            <option>High Price</option>
-                                            <option>A - Z Order</option>
+                                            <option value="default">Select Order</option>
+                                            <option value="Low Price">Low Price</option>
+                                            <option value="High Price">High Price</option>
+                                            <option value="A - Z Order">A - Z Order</option>
                                         </select>
                                         <h3 class="total-show-product">Showing: <span>1 - 12 items</span></h3>
                                     </div>
-
-
-
                                 </div>
 
                                 {{-- <div class="col-lg-5 col-md-4 col-12">
@@ -263,67 +254,67 @@
                                         </div>
                                     </nav>
                                 </div> --}}
+
                             </div>
                         </div>
 
                         <div class="tab-content" id="nav-tabContent">
-                            <div class="tab-pane fade show active" id="nav-grid" role="tabpanel"
-                                aria-labelledby="nav-grid-tab">
-                                <div class="show_products">
+                            <div class="tab-pane fade show active" id="nav-grid"
+                                role="tabpanel"aria-labelledby="nav-grid-tab">
+                                <div class="show_filtered_products">
                                     @include('frontend.pages.show_products')
-
                                 </div>
-                            </div>
 
-                            {{-- <div class="tab-pane fade" id="nav-list" role="tabpanel"
-                                aria-labelledby="nav-list-tab">
-                                <div class="row">
-                        
-                                    @foreach ($products as $prouct)
-                                        <div class="col-lg-12 col-md-12 col-12">
+                                {{-- <div class="show_products">  
+                                    @forelse ($products as $product)
+                                        <div class="col-lg-4 col-md-6 col-12">
                                             <!-- Start Single Product -->
                                             <div class="single-product">
-                                                <div class="row align-items-center">
-                                                    <div class="col-lg-4 col-md-4 col-12">
-                                                        <div class="product-image">
-                                                            <img src="https://via.placeholder.com/335x335"
-                                                                alt="#">
-                                                            <div class="button">
-                                                                <a href="product-details.html" class="btn"><i
-                                                                        class="lni lni-cart"></i> Add to
-                                                                    Cart</a>
-                                                            </div>
-                                                        </div>
+                                                <div class="product-image">
+                                                    <img src="{{ $product->image_url }}" alt="#">
+                                                    @if ($product->sale_percent)
+                                                        <span class="sale-tag">- {{ $product->sale_percent }} %</span>
+                                                    @endif
+                                                    <div class="button">
+                                                        <a href="{{ Route('products.show_product', $product->slug) }}"
+                                                            class="btn"><i class="lni lni-cart"></i>Add to Cart</a>
                                                     </div>
-                                                    <div class="col-lg-8 col-md-8 col-12">
-                                                        <div class="product-info">
-                                                            <span class="category">Watches</span>
-                                                            <h4 class="title">
-                                                                <a href="product-grids.html">{{ $product->name }}</a>
-                                                            </h4>
-                                                            <ul class="review">
-                                                                <li><i class="lni lni-star-filled"></i></li>
-                                                                <li><i class="lni lni-star-filled"></i></li>
-                                                                <li><i class="lni lni-star-filled"></i></li>
-                                                                <li><i class="lni lni-star-filled"></i></li>
-                                                                <li><i class="lni lni-star"></i></li>
-                                                                <li><span>4.0 Review(s)</span></li>
-                                                            </ul>
-                                                            <div class="price">
-                                                                <span>$199.00</span>
-                                                            </div>
-                                                        </div>
+                                                </div>
+                                                <div class="product-info">
+                                                    <span class="category">{{ $product->category->name }}</span>
+                                                    <h4 class="title">
+                                                        <a
+                                                            href="{{ Route('products.show_product', $product->slug) }}">{{ $product->name }}</a>
+                                                    </h4>
+                                                    <ul class="review">
+                                                        <li><i class="lni lni-star-filled"></i></li>
+                                                        <li><i class="lni lni-star-filled"></i></li>
+                                                        <li><i class="lni lni-star-filled"></i></li>
+                                                        <li><i class="lni lni-star-filled"></i></li>
+                                                        <li><i class="lni lni-star"></i></li>
+                                                        <li><span>4.0 Review(s)</span></li>
+                                                    </ul>
+                                                    <div class="price">
+                                                        <span>{{ Currency::format($product->price) }}</span>
+                                                        @if ($product->compare_price)
+                                                            <span
+                                                                class="discount-price">{{ Currency::format($product->compare_price) }}</span>
+                                                        @endif
                                                     </div>
                                                 </div>
                                             </div>
                                             <!-- End Single Product -->
                                         </div>
-                                    @endforeach
-                        
-                        
-                        
+                                    @empty
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div>
+                                                    There are no products
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endforelse
                                 </div>
-                        
                                 <div class="row">
                                     <div class="col-12">
                                         <!-- Pagination -->
@@ -332,14 +323,12 @@
                                                 {{ $products->links() }}
                                             </ul>
                                         </div>
-                        
                                         <!--/ End Pagination -->
                                     </div>
-                                </div>
-                            </div> --}}
+                                </div> --}}
+
+                            </div>
                         </div>
-
-
 
 
                     </div>
@@ -394,145 +383,6 @@
             }
 
 
-            // $(document).ready(function() {
-
-
-
-
-
-            //     // apply search filter
-            //     $('#search').on('keyup', function() {
-            //         let search = $(this).val();
-            //         console.log(search);
-            //         $.ajax({
-            //             url: "{{ route('search_products') }}",
-            //             type: "GET",
-            //             data: {
-            //                 search: search
-            //             },
-            //             success: function(res) {
-            //                 console.log(res);
-            //                 $('.show_products').html(res);
-            //             },
-            //         });
-            //     });
-
-            //     // apply category filter
-            //     $('input[name="category[]"]').on('change', function() {
-            //         var selectedCategories = $('input[name="category[]"]:checked').map(function() {
-            //             return $(this).val();
-            //         }).get();
-
-            //         console.log(selectedCategories);
-
-            //         $.ajax({
-            //             url: "{{ route('category_filter') }}",
-            //             type: "GET",
-            //             data: {
-            //                 category: selectedCategories
-            //             },
-            //             success: function(res) {
-            //                 $('.show_products').html(res);
-            //             },
-            //         });
-            //     });
-
-
-            //     $('input[name="brand[]"]').on('change', function() {
-            //         var selectedBrands = $('input[name="brand[]"]:checked').map(function() {
-            //             return $(this).val();
-            //         }).get();
-
-            //         console.log(selectedBrands);
-
-            //         $.ajax({
-            //             url: "{{ route('brand_filter') }}",
-            //             type: "GET",
-            //             data: {
-            //                 brand: selectedBrands
-            //             },
-            //             success: function(res) {
-
-            //                 $('.show_products').html(res);
-            //             },
-            //         });
-            //     });
-
-
-            //     // apply sort filter 
-            //     $('#sort').on('change', function() {
-            //         let sort = $('#sort').val();
-            //         $.ajax({
-            //             url: "{{ route('sort') }}",
-            //             type: "GET",
-            //             data: {
-            //                 sort: sort
-            //             },
-            //             success: function(res) {
-            //                 // console.log(res);
-            //                 $('.show_products').html(res);
-            //             },
-
-            //         });
-            //     });
-
-            //     // apply price filter
-            //     $('.range_slider').on('change', function() {
-            //         let left_value = $('#input_left').val();
-            //         let right_value = $('#input_right').val();
-            //         $.ajax({
-            //             url: "{{ route('price_range') }}",
-            //             method: "GET",
-            //             data: {
-            //                 left_value: left_value,
-            //                 right_value: right_value
-            //             },
-            //             success: function(res) {
-            //                 $('.show_products').html(res);
-            //             }
-            //         });
-            //     });
-
-            //     // apply reset filters
-            //     $('.reset').on('click', function() {
-
-            //         $.ajax({
-            //             url: "{{ route('reset_filters') }}",
-            //             type: "GET",
-            //             success: function(res) {
-            //                 // console.log(res);
-            //                 $('.show_products').html(res);
-            //             },
-
-            //         });
-
-            //     }, );
-
-            //     $.ajax({
-            //         url: "{{ route('all_filters') }}",
-            //         type: "GET",
-            //         data: {
-            //             category: $('input[name="category[]"]:checked').map(function() {
-            //                 return $(this).val();
-            //             }).get(),
-            //             brand: $('input[name="brand[]"]:checked').map(function() {
-            //                 return $(this).val();
-            //             }).get(),
-            //             min_price: $('.min_price').val(),
-            //             max_price: $('.max_price').val(),
-            //             search: $('#search').val()
-            //         },
-            //         success: function(res) {
-            //             $('.show_products').html(res);
-            //         }
-            //     });
-
-
-
-
-            // });
-
-
             $(document).ready(function() {
                 function applyFilters() {
                     var category = $('.category:checked').map(function() {
@@ -544,7 +394,7 @@
                     var minPrice = $('#left_value').text();
                     var maxPrice = $('#right_value').text();
                     var search = $('#search').val();
-                    var sort = $('.sort').val();
+                    var sort = $('#sort').val();
 
                     $.ajax({
                         url: "{{ route('all_filters') }}",
@@ -558,7 +408,11 @@
                             sort: sort
                         },
                         success: function(res) {
-                            $('.show_products').html(res);
+
+                            $('.show_filtered_products').html(res);
+                            console.log(res);
+
+
                         },
                     });
                 }
@@ -587,7 +441,9 @@
                 });
 
                 // Apply sort filter
-                $('.sort').on('change', function() {
+                $('#sort').on('change', function() {
+                    // var sort = $('#sort').val();
+                    // console.log(sort);
                     applyFilters();
                 });
 
@@ -598,7 +454,28 @@
 
                 // Initialize filters
                 applyFilters();
+
+
+                // pagination part
+                $(document).on('click', '.pagination a', function(event) {
+                    event.preventDefault();
+                    var url = $(this).attr('href');
+                    getProducts(url);
+                });
+
             });
+
+            // pagination part
+            function getProducts(url) {
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    dataType: 'html',
+                    success: function(data) {
+                        $('.show_filtered_products').html(data);
+                    }
+                });
+            }
         </script>
     @endpush
 </x-front-layout>

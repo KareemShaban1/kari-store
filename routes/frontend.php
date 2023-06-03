@@ -43,7 +43,9 @@ Route::group([
           Route::get('/checkout', [CheckoutController::class, 'create'])->name('checkout.create');
           Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
 
-          Route::get('/shop_grid', [ShopGridController::class, 'index'])->name('shop_grid.index');
+          Route::get('/shop_grid/{category_id?}', [ShopGridController::class, 'index'])->name('shop_grid.index');
+
+          Route::get('/categories_filter/{category_id}', [ShopGridController::class, 'categories_filter'])->name('categories_filter');
 
           Route::get('/sort', [ShopGridController::class, 'sortBy'])->name('sort');
 

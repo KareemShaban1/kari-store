@@ -29,7 +29,7 @@ class HomeController extends Controller
         // dd($websiteParts_collection,$websiteParts['parts']['left_show_bar']);
 
         // get latest 8 products which status is active 
-        $products = Product::with('category')->active()->latest()->take(8)->get();
+        $products = Product::with('category','reviews')->active()->latest()->take(8)->get();
         return view('frontend.pages.home',compact('products','banners','websiteParts'));
     }
 }

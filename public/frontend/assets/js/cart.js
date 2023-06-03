@@ -3,7 +3,6 @@
 
           $('.item_quantity').on('change',function(e){
 
-                    // url:"/cart/item_id"
                     $.ajax({
                               url:"/cart/" + $(this).data('id'),
                               method:'put',

@@ -1,7 +1,5 @@
 <div class="row products_show">
 
-          {{-- <livewire:product-layout  /> --}}
-
           @forelse ($products as $product)
               <div class="col-lg-4 col-md-6 col-12">
 
@@ -55,17 +53,16 @@
           @endforelse
 
 
-      </div>
+</div>
 
-      <div class="row">
-          <div class="col-12">
-              <!-- Pagination -->
-              <div class="pagination center">
-                  <ul class="pagination-list">
-                      {{ $products->links() }}
-                  </ul>
-              </div>
-
-              <!--/ End Pagination -->
-          </div>
-      </div>
+<div class="row">
+    <div class="col-12">
+        <!-- Pagination -->
+        <div class="pagination center">
+            <ul class="pagination-list">
+                {{ $products->links() }}
+            </ul> 
+        </div>
+        <!--/ End Pagination -->
+    </div>
+</div>
