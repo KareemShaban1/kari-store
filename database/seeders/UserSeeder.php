@@ -17,18 +17,18 @@ class UserSeeder extends Seeder
     public function run()
     {
         //
-        User::create([
-            'name'=>'kareem shaban',
-            'email'=>'kareemshaban120@gmail.com',
-            'password'=>Hash::make('password'),
-            'type'=>'super-admin'
-        ]);
+        // User::create([
+        //     'name'=>'kareem shaban',
+        //     'email'=>'kareemshaban120@gmail.com',
+        //     'password'=>Hash::make('password'),
+        //     'type'=>'super-admin'
+        // ]);
 
-        // timestamp inserted with null
-        DB::table('users')->insert([
-            'name'=>'Admin ',
-            'email'=>'Admin120@gmail.com',
-            'password'=>Hash::make('password'),
-        ]);
+        // // timestamp inserted with null
+        // DB::table('users')->insert([
+        //     'name'=>'Admin ',
+        //     'email'=>'Admin120@gmail.com',
+        //     'password'=>Hash::make('password'),
+        // ]);
     }
 }

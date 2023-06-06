@@ -18,4 +18,5 @@ class Vendor extends User
     {
         return $this->belongsTo(Store::class, 'store_id');
     }
+    
 }

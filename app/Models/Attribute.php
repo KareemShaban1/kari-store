@@ -10,11 +10,18 @@ class Attribute extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'vendor_id'];
+
+
 
     public $timestamps = false;
     public function attribute_value(): HasMany
     {
         return $this->hasMany(AttributeValue::class, 'attribute_id', 'id');
+    }
+
+    public function vendor()
+    {
+        return $this->belongsTo(Vendor::class, 'vendor_id', 'id');
     }
 }

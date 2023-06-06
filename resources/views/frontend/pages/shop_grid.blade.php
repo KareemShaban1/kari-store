@@ -201,9 +201,9 @@
                                 </div>
                                 <div class="multi-range-slider my-2">
                                     <input type="range" id="input_left" class="range_slider" min="0"
-                                        max="10000" value="0" onmousemove="left_slider(this.value)">
-                                    <input type="range" id="input_right" class="range_slider" min="0"
-                                        max="10000" value="10000" onmousemove="right_slider(this.value)">
+                                        max="1000" value="0" onmousemove="left_slider(this.value)">
+                                    <input type="range" id="input_right" class="range_slider" min="1000"
+                                        max="10000" value="1000" onmousemove="right_slider(this.value)">
                                     <div class="slider">
                                         <div class="track"></div>
                                         <div class="range"></div>
@@ -214,6 +214,8 @@
                             </div>
                         </div>
                         <!-- End Price Filter -->
+
+                        
 
                     </div>
 
@@ -339,11 +341,16 @@
     </section>
     <!-- End Product Grids -->
 
+
+
+
     @push('scripts')
         <script src="{{ asset('backend/assets/js/jquery-3.6.0.min.js') }}"></script>
 
 
         <script>
+
+
             const input_left = document.getElementById("input_left");
             const input_right = document.getElementById("input_right");
             const thumb_left = document.querySelector(".slider > .thumb.left");
@@ -384,6 +391,8 @@
 
 
             $(document).ready(function() {
+
+
                 function applyFilters() {
                     var category = $('.category:checked').map(function() {
                         return $(this).val();
@@ -463,19 +472,20 @@
                     getProducts(url);
                 });
 
-            });
 
-            // pagination part
-            function getProducts(url) {
-                $.ajax({
-                    url: url,
-                    type: 'GET',
-                    dataType: 'html',
-                    success: function(data) {
-                        $('.show_filtered_products').html(data);
-                    }
-                });
-            }
+                // pagination part
+                function getProducts(url) {
+                    $.ajax({
+                        url: url,
+                        type: 'GET',
+                        dataType: 'html',
+                        success: function(data) {
+                            $('.show_filtered_products').html(data);
+                        }
+                    });
+                }
+
+            });
         </script>
     @endpush
 </x-front-layout>

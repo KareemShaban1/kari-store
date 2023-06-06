@@ -7,7 +7,6 @@ use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
 
 class ShopGridController extends Controller
 {
@@ -17,108 +16,25 @@ class ShopGridController extends Controller
 
         $categories = Category::all();
         $brands = Brand::all();
-        if ($category_id) {
+        if ($category_id == null) {
+            $products = Product::where('status', 'active')->paginate(12);
+            // dd($products);
+        } else {
+
             $products = Product::where('status', 'active')
                 ->where('category_id', $category_id)
-                ->paginate(12);
-        } else {
-            $products = Product::where('status', 'active')->paginate(12);
+                ->paginate();
+                
         }
-
 
         return view('frontend.pages.shop_grid', compact('categories', 'brands', 'products'));
     }
-
-    public function categories_filter($category_id)
-    {
-
-        $categories = Category::all();
-        $brands = Brand::all();
-        $products = Product::where('status', 'active')
-            ->where('category_id', $category_id)
-            ->paginate();
-        // dd($products);
-
-        return view('frontend.pages.category_grid', compact('categories', 'category_id', 'brands', 'products'));
-    }
-
-
-    public function sortBy(Request $request)
-    {
-        $products = Product::where('status', 'active')->paginate(12);
-
-        if ($request->sort) {
-            if ($request->sort == "Low Price") {
-                $products = Product::where('status', 'active')->orderBy('price', 'ASC')->paginate(12);
-            } elseif ($request->sort == "High Price") {
-                $products = Product::where('status', 'active')->orderBy('price', 'DESC')->paginate(12);
-            } elseif ($request->sort == "A - Z Order") {
-                $products = Product::where('status', 'active')->orderBy('name', 'ASC')->paginate(12);
-            }
-        }
-        return view('frontend.pages.show_products', compact('products'));
-
-
-    }
-
-    public function search_products(Request $request)
-    {
-
-        $products = Product::where('status', 'active')->paginate(12);
-        if ($request->search != '') {
-
-            $products = Product::where('name', 'LIKE', '%' . $request->search . '%')->paginate();
-            // dd($products); 
-        }
-
-        return view('frontend.pages.show_products', compact('products'));
-    }
-
-
-    public function category_filter(Request $request)
-    {
-        if ($request->has('category')) {
-            $categories = $request->input('category');
-            $products = Product::whereIn('category_id', $categories)->paginate();
-        } else {
-            $products = Product::paginate();
-        }
-
-        return view('frontend.pages.show_products', compact('products'));
-    }
-
-    public function brand_filter(Request $request)
-    {
-        if ($request->has('brand')) {
-            $brands = $request->input('brand');
-            $products = Product::whereIn('brand_id', $brands)->paginate();
-        } else {
-            $products = Product::paginate();
-        }
-
-        return view('frontend.pages.show_products', compact('products'));
-    }
-
 
     public function reset_filters()
     {
         $products = Product::where('status', 'active')->paginate(12);
         return view('frontend.pages.show_products', compact('products'));
     }
-
-
-    public function priceFilter(Request $request)
-    {
-
-        if ($request->has('left_value') || $request->has('right_value')) {
-
-            $products = Product::where('status', 'active')->whereBetween('price', [$request->left_value, $request->right_value])->paginate(12);
-        } else {
-            $products = Product::where('status', 'active')->paginate(12);
-        }
-        return view('frontend.pages.show_products', compact('products'));
-    }
-
 
 
     public function all_filters(Request $request)
@@ -158,10 +74,9 @@ class ShopGridController extends Controller
                 $query->where('status', 'active')->orderBy('price', 'DESC')->paginate(12);
             } elseif ($request->sort == "A - Z Order") {
                 $query->where('status', 'active')->orderBy('name', 'ASC')->paginate(12);
-            }else{
+            } else {
                 $query->where('status', 'active');
             }
-
         }
 
         $products = $query->paginate(12);
@@ -171,8 +86,94 @@ class ShopGridController extends Controller
             return view('frontend.pages.show_products', compact('products'))->render();
         }
 
-      
+
 
         return view('frontend.pages.show_products', compact('products'));
     }
+
+
+
+    // public function categories_filter($category_id)
+    // {
+
+    //     $categories = Category::all();
+    //     $brands = Brand::all();
+    //     $products = Product::where('status', 'active')
+    //         ->where('category_id', $category_id)
+    //         ->paginate();
+    //     // dd($products);
+
+    //     return view('frontend.pages.category_grid', compact('categories', 'category_id', 'brands', 'products'));
+    // }
+
+
+    // public function sortBy(Request $request)
+    // {
+    //     $products = Product::where('status', 'active')->paginate(12);
+
+    //     if ($request->sort) {
+    //         if ($request->sort == "Low Price") {
+    //             $products = Product::where('status', 'active')->orderBy('price', 'ASC')->paginate(12);
+    //         } elseif ($request->sort == "High Price") {
+    //             $products = Product::where('status', 'active')->orderBy('price', 'DESC')->paginate(12);
+    //         } elseif ($request->sort == "A - Z Order") {
+    //             $products = Product::where('status', 'active')->orderBy('name', 'ASC')->paginate(12);
+    //         }
+    //     }
+    //     return view('frontend.pages.show_products', compact('products'));
+    // }
+
+    // public function search_products(Request $request)
+    // {
+
+    //     $products = Product::where('status', 'active')->paginate(12);
+    //     if ($request->search != '') {
+
+    //         $products = Product::where('name', 'LIKE', '%' . $request->search . '%')->paginate();
+    //         // dd($products); 
+    //     }
+
+    //     return view('frontend.pages.show_products', compact('products'));
+    // }
+
+    // public function category_filter(Request $request)
+    // {
+    //     if ($request->has('category')) {
+    //         $categories = $request->input('category');
+    //         $products = Product::whereIn('category_id', $categories)->paginate();
+    //     } else {
+    //         $products = Product::paginate();
+    //     }
+
+    //     return view('frontend.pages.show_products', compact('products'));
+    // }
+
+    // public function brand_filter(Request $request)
+    // {
+    //     if ($request->has('brand')) {
+    //         $brands = $request->input('brand');
+    //         $products = Product::whereIn('brand_id', $brands)->paginate();
+    //     } else {
+    //         $products = Product::paginate();
+    //     }
+
+    //     return view('frontend.pages.show_products', compact('products'));
+    // }
+
+
+    // public function priceFilter(Request $request)
+    // {
+
+    //     if ($request->has('left_value') || $request->has('right_value')) {
+
+    //         $products = Product::where('status', 'active')->whereBetween('price', [$request->left_value, $request->right_value])->paginate(12);
+    //     } else {
+    //         $products = Product::where('status', 'active')->paginate(12);
+    //     }
+    //     return view('frontend.pages.show_products', compact('products'));
+    // }
+
+
+
+   
 }

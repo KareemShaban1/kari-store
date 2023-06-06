@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('attribute_id')->constrained('attributes')->cascadeOnDelete();
             $table->string('name');
             $table->string('value')->nullable();
+            $table->foreignId('vendor_id')->nullable()->constrained('vendors')->nullOnDelete();
             $table->timestamps();
         });
     }

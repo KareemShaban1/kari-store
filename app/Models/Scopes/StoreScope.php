@@ -18,11 +18,11 @@ class StoreScope implements Scope
     public function apply(Builder $builder, Model $model)
     {
         //
-        $user = Auth::user();
+        $vendor = Auth::user('vendor');
 
         // used to get store where of there is user who log in and this user has store 
-            if($user && $user->store_id){
-                $builder->where('store_id','=',$user->store_id);
+            if($vendor && $vendor->store_id){
+                $builder->where('store_id','=',$vendor->store_id);
             }
     }
 }

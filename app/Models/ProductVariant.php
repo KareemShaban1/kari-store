@@ -11,7 +11,7 @@ class ProductVariant extends Model
     protected $table = 'product_variant';
     protected $fillable = [
         'product_id', 'attribute_id', 'attribute_value_id', 'sku', 'quantity',
-        'price', 'compare_price', 'image'
+        'price', 'compare_price', 'image','vendor_id'
     ];
 
 
@@ -44,5 +44,9 @@ class ProductVariant extends Model
     public function attribute_value()
     {
         return $this->belongsTo(AttributeValue::class, 'attribute_value_id', 'id');
+    }
+    public function vendor()
+    {
+        return $this->belongsTo(Vendor::class, 'vendor_id', 'id');
     }
 }

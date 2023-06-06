@@ -23,6 +23,7 @@ return new class extends Migration
             $table->float('compare_price')->nullable();
             $table->unsignedSmallInteger('quantity')->default(0);
             $table->string('image')->nullable();
+            $table->foreignId('vendor_id')->nullable()->constrained('vendors')->nullOnDelete();
             $table->timestamps();
         });
     }

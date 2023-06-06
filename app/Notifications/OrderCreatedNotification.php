@@ -8,6 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\BroadcastMessage;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Support\Facades\Auth;
 
 class OrderCreatedNotification extends Notification
 {
@@ -80,7 +81,7 @@ class OrderCreatedNotification extends Notification
             return [
                 'body' => "A new Order (#{$this->order->number} Created by {$address->name}   )",
                 'icon'=>'fas fa-file',
-                'url'=>url('/admin/dashboard'),
+                'url'=>Auth::user('vendor') ? url('/vendor/dashboard') : url('/admin/dashboard'),
                 'order_id'=>$this->order->id
             ];
     }

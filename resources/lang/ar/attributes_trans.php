@@ -10,7 +10,7 @@ return [
           'Control'=>'التحكم',
           'Add'=>'أضافة',
           'Edit'=>'تعديل',          
-          ''=>'',
+          'Vendor_Name'=>'Vendor Name',
           ''=>'',
           ''=>'',
           ''=>'',

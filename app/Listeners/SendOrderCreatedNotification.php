@@ -5,6 +5,7 @@ namespace App\Listeners;
 use App\Events\OrderCreated;
 use App\Models\Admin;
 use App\Models\User;
+use App\Models\Vendor;
 use App\Notifications\OrderCreatedNotification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
@@ -37,8 +38,8 @@ class SendOrderCreatedNotification
         //// get order 
         $order = $event->order;
         // dd($order);
-        //// get store owner of the order item
-        // $user = User::where('store_id','=',$order->store_id)->first();
+        // get store vendor of the order item
+        $vendor = Vendor::where('store_id','=',$order->store_id)->first();
         //// get admin 
         $admin =  Admin::where('id','=',1)->first();
         // dd($order,$admin);
@@ -46,8 +47,8 @@ class SendOrderCreatedNotification
         //// send notification to admin
         $admin->notify(new OrderCreatedNotification($order));
         
-        //// send notification to store owner
-        // $user->notify(new OrderCreatedNotification($order));
+        // send notification to store vendor
+        $vendor->notify(new OrderCreatedNotification($order));
 
     
         //// if we want send notification to many users

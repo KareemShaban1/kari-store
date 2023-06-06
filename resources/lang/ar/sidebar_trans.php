@@ -79,6 +79,10 @@ return [
           'Product_Variants'=>'Product Variants',
           'All_Product_Variants'=>'All Product Variants',
           'Add_Product_Variant'=>'Add Product Variant',
+
+          'Notifications'=>'الأشعارات',
+          'All_Notifications'=>'كل الاشعارات',
+          
           ''=>'',
           ''=>'',
           ''=>'',

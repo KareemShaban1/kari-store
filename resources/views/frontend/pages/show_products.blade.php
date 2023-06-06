@@ -1,6 +1,7 @@
 <div class="row products_show">
 
           @forelse ($products as $product)
+          
               <div class="col-lg-4 col-md-6 col-12">
 
                   <!-- Start Single Product -->
