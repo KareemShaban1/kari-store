@@ -11,7 +11,7 @@ class Order extends Model
     use HasFactory;
 
     protected $fillable = [
-        'store_id', 'user_id', 'payment_method', 'status', 'status_method'
+        'store_id', 'user_id', 'payment_method', 'status', 'status_method','coupon_id','total'
     ];
 
     protected static function booted()
@@ -84,5 +84,10 @@ class Order extends Model
         return $this->belongsTo(User::class)->withDefault([
             'name' => 'Guest Customer'
         ]);
+    }
+
+    public function coupon()
+    {
+        return $this->belongsTo(Coupon::class);
     }
 }

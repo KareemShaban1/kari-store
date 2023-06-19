@@ -23,7 +23,7 @@ class VendorFactory extends Factory
             'email'=>$this->faker->unique()->safeEmail,
             'password'=>Hash::make('password'),
             'phone'=>$this->faker->phoneNumber,
-            'store_id'=>rand(1,5),
+            'store_id'=>$this->faker->unique()->numberBetween(1,5),
         ];
     }
 }

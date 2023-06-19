@@ -35,7 +35,6 @@ class ProductVariantsController extends Controller
         $product_variants = ProductVariant::where('product_id', '=', $product_id)->get();
         $product =  Product::where('id', '=', $product_id)->first();
 
-        // dd($product);
 
         return view(
             'backend.Admin_Dashboard.product_variant.create',

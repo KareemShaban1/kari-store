@@ -14,7 +14,7 @@ The e-commerce Laravel project includes the following features:
 - Search Functionality: Users can search for products using keywords.
 - User Dashboard: Users have access to a personalized dashboard to manage their orders and account settings.
 - Wishlist: Users can add products to their wishlist for future purchase. (in progress)
-- Coupon Codes: Admins can create and apply coupon codes to offer discounts. (in progress)
+- Coupon Codes: Admins can create and apply coupon codes to offer discounts.
 - Email Notifications: Users receive email notifications for order updates, account activities, and promotional offers.
 
 

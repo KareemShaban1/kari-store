@@ -4,19 +4,29 @@ namespace App\Repositories\Cart;
 
 use Illuminate\Support\Collection;
 use App\Models\Cart;
+use App\Models\Coupon;
 use App\Models\Product;
-use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Auth;
 
 class CartModelRepository implements CartRepository
 {
           protected $items;
+          protected $couponCode;
+
+
 
           public function __construct()
           {
                     // make items = collection
                     $this->items = collect([]);
           }
+
+          public function setCouponCode($request)
+          {
+
+                    $this->couponCode =  $request->input('coupon_code');
+          }
+
 
           public function get(): Collection
           {
@@ -26,6 +36,7 @@ class CartModelRepository implements CartRepository
                     }
                     return $this->items;
           }
+
 
           public function add(Product $product, $quantity = 1)
           {
@@ -38,7 +49,9 @@ class CartModelRepository implements CartRepository
                               $cart = Cart::create([
                                         'user_id' => Auth::id(),
                                         'product_id' => $product->id,
-                                        'quantity' => $quantity
+                                        'quantity' => $quantity,
+                                        'coupon_code' => $this->couponCode, // Store the applied coupon code
+
                               ]);
                               $this->get()->push($cart);
                               return $cart;
@@ -46,10 +59,16 @@ class CartModelRepository implements CartRepository
                     return $item->increment('quantity', $quantity);
           }
 
-          public function update($cart_id, $quantity)
+          public function update($cart_id, $quantity, $product_id)
           {
                     // update cart [product quantity] based on cart id
-                    Cart::where('id', '=', $cart_id)->update(['quantity' => $quantity]);
+                    Cart::where('id', '=', $cart_id)->
+                    where('product_id', $product_id)->
+                    update(
+                              [
+                                        'quantity' => $quantity,
+                              ]
+                    );
           }
 
           public function delete($id)
@@ -59,22 +78,18 @@ class CartModelRepository implements CartRepository
           }
           public function empty()
           {
-                    // dd(Cart::query());
+                    $this->couponCode = null; // Clear the applied coupon code
                     Cart::query()->delete();
-
           }
 
           public function total(): float
           {
-                    // return (float) Cart::join('products', 'products.id', '=', 'carts.product_id')
-                    //           ->selectRaw('SUM(products.price * carts.quantity) as total')
-                    //           ->value('total');
 
-                    //// get sum of all items [product_quantity * product_price] on the cart 
-                    return $this->get()->sum(function ($item) {
+
+                    $subtotal = $this->get()->sum(function ($item) {
                               return $item->quantity * $item->product->price;
                     });
+
+                    return $subtotal;
           }
-
-
 }

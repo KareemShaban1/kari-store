@@ -36,7 +36,9 @@
                             <th>{{ trans('coupons_trans.Id') }}</th>
                             <th>{{ trans('coupons_trans.Coupon_Name') }}</th>
                             <th>{{ trans('coupons_trans.Code') }}</th>
-                            <th>{{ trans('coupons_trans.Category_Name') }}</th>
+                            <th>{{ trans('coupons_trans.Usage_Count') }}</th>
+                            <th>{{ trans('coupons_trans.Expiration_Date') }}</th>
+                            <th>{{ trans('coupons_trans.Store_Name') }}</th>
                             <th>{{ trans('coupons_trans.Control') }}</th>
                         </tr>
                     </thead>
@@ -45,21 +47,23 @@
                             <tr>
 
                                 <td>{{ $coupon->id }}</td>
-                                <td>{{ $coupon->name }}</td>
+                                <td>{{ $coupon->name  }}</td>
                                 <td>{{ $coupon->code }}</td>
-                                <td>{{ $coupon->category->name }}</td>
+                                <td>{{ $coupon->usage_count }}</td>
+                                <td>{{ $coupon->expiration_date }}</td>
+                                <td>{{ $coupon->store->name }}</td>
                                 
                                 <td>
                                     <a href="" class="btn btn-primary btn-sm">
                                         <i class="fa fa-eye"></i>
                                     </a>
 
-                                    <a href="{{ Route('backend.coupons.edit', $coupon->id) }}"
+                                    <a href="{{ Route('admin.coupons.edit', $coupon->id) }}"
                                         class="btn btn-warning btn-sm">
                                         <i class="fa fa-edit"></i>
                                     </a>
 
-                                    <form action="{{ Route('backend.coupons.destroy', $coupon->id) }}" method="post"
+                                    <form action="{{ Route('admin.coupons.destroy', $coupon->id) }}" method="post"
                                         style="display:inline">
                                         @csrf
                                         @method('delete')

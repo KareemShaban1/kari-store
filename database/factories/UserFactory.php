@@ -26,7 +26,7 @@ class UserFactory extends Factory
             'governorate'=>'القليوبية',
             'city'=>'بنها',
             'postal_code'=>'',
-            'street_address'=>'',
+            'street_address'=>'بنها , أتريب',
             'email_verified_at' => now(),
             'remember_token' => Str::random(10),
         ];

@@ -51,7 +51,7 @@
                         </div>
 
                     </div>
-                    
+
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
@@ -65,21 +65,21 @@
 
                         <div class="col-md-4">
                             <div class="form-group">
-                                <x-backend.form.input label="{{ trans('coupons_trans.Type') }}" name="type"
-                                    class="form-control" />
+                                <x-backend.form.input label="{{ trans('coupons_trans.Discount_Amount') }}"
+                                    name="discount_amount" class="form-control" />
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <x-backend.form.input label="{{ trans('coupons_trans.Amount') }}" name="amount"
-                                    class="form-control" />
+                                <x-backend.form.input label="{{ trans('coupons_trans.Discount_Percentage') }}"
+                                    name="discount_percentage" class="form-control" />
                             </div>
                         </div>
 
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>{{ trans('coupons_trans.Status') }}<span class="text-danger">*</span></label>                             
-                                    <div class="form-check">
+                                <label>{{ trans('coupons_trans.Status') }}<span class="text-danger">*</span></label>
+                                <div class="form-check">
                                     <input class="form-check-input" type="radio" name="status" value="active">
                                     <label class="form-check-label">
                                         {{ trans('coupons_trans.Active') }}
@@ -97,63 +97,58 @@
                                 @enderror
                             </div>
                         </div>
-                    </div>        
-
-                       
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label> {{ trans('coupons_trans.Start_Date') }} <span class="text-danger">*</span></label>
-                                <input class="form-control" type="datetime-local" name="start_date">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label> {{ trans('coupons_trans.End_Date') }} <span class="text-danger">*</span></label>
-                                <input class="form-control" type="datetime-local" name="end_date">
-                            </div>
-                        </div>
                     </div>
 
 
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label> {{ trans('coupons_trans.Category_Name') }} <span
+                                <label> {{ trans('coupons_trans.Expiration_Date') }} <span
                                         class="text-danger">*</span></label>
-                                <select name="category_id" id="" class="custom-select mr-sm-2">
+                                <input class="form-control" id="datepicker-action" data-date-format="yyyy-mm-dd"
+                                    {{-- type="datetime-local"  --}} name="expiration_date">
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label> {{ trans('coupons_trans.Store_Name') }} <span
+                                        class="text-danger">*</span></label>
+                                <select name="store_id" id="" class="custom-select mr-sm-2">
                                     <option value="">{{ trans('coupons_trans.Choose') }}</option>
-                                    @foreach ($categories as $category)
-                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                    @foreach ($stores as $store)
+                                        <option value="{{ $store->id }}">{{ $store->name }}</option>
                                     @endforeach
                                 </select>
-                                @error('category_id')
+                                @error('store_id')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </div>
                         </div>
 
+                    </div>
+
+                    <div class="row">
 
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label> {{ trans('coupons_trans.Product_Name') }} <span
-                                        class="text-danger">*</span></label>
-                                <select name="product_id" id="" class="custom-select mr-sm-2">
-                                    <option value="">{{ trans('coupons_trans.Choose') }}</option>
-                                    @foreach ($products as $product)
-                                        <option value="{{ $product->id }}">{{ $product->name }}</option>
-                                    @endforeach
-                                </select>
-                                @error('product_id')
-                                    <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror
+                                <x-backend.form.input label="{{ trans('coupons_trans.Usage_Limit') }}"
+                                    name="usage_limit" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <x-backend.form.input label="{{ trans('coupons_trans.Usage_Count') }}"
+                                    name="usage_count" class="form-control" value="0" />
                             </div>
                         </div>
                     </div>
 
 
-
-              
 
 
 

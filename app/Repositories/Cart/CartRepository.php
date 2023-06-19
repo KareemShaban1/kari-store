@@ -4,6 +4,7 @@
 namespace App\Repositories\Cart;
 
 use App\Models\Product;
+use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 Interface CartRepository {
 
@@ -13,14 +14,15 @@ Interface CartRepository {
           // function to add to cart 
           public function add(Product $product , $quantity = 1);
 
-          // fuction to update the cart based on cart_id
-          public function update($cart_id,$quantity);
+          public function update($cart_id,$quantity,$product_id);
 
           public function delete($cart_id);
 
           public function empty();
 
           public function total();
+
+          public function setCouponCode($request);
 
 
 }

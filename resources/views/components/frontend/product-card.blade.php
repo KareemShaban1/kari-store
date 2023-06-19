@@ -7,11 +7,13 @@
         @endif
         <div class="button">
             <a href="{{ Route('products.show_product', $product->slug) }}" class="btn">
-                <i class="lni lni-cart"></i> Addto Cart</a>
+                <i class="lni lni-cart"></i> Add to Cart</a>
         </div>
     </div>
     <div class="product-info">
-        <span class="category">{{ $product->category->name }}</span>
+        <span class="category">{{ $product->category->name }}  </span>
+        <span class="category">{{ $product->store->name }}  </span>
+
         <h4 class="title">
             <a href="{{ Route('products.show_product', $product->slug) }}">
                 {{ $product->name }}

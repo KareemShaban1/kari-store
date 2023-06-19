@@ -61,35 +61,8 @@
                     <div class="col-lg-4 col-md-4 col-12">
                         <div class="top-left">
                             <ul class="menu-top-link">
-                                {{-- <li>
-                                    <div class="select-position">
-                                        <select id="select4">
-                                            <option value="0" selected>$ USD</option>
-                                            <option value="1">€ EURO</option>
-                                            <option value="2">$ CAD</option>
-                                            <option value="3">₹ INR</option>
-                                            <option value="4">¥ CNY</option>
-                                            <option value="5">৳ BDT</option>
-                                        </select>
-                                    </div>
-                                </li> --}}
+
                                 <li>
-
-                                    {{-- <div class="select-position"> --}}
-
-                                    {{-- <form action="{{ URL::current() }}" method="get">
-                                        <select name="locale" onchange="this.form.submit()">
-                                            @foreach (LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
-                                              
-                                                <option value="{{ $localeCode }}" @selected($localeCode == App::currentLocale())>
-                                                    {{ $properties['native'] }}
-                                                    
-                                                </option>
-                                            @endforeach
-                                            
-                                        </select>
-                                    </form> --}}
-
 
                                     <ul>
                                         @foreach (LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
@@ -101,7 +74,6 @@
                                             </li>
                                         @endforeach
                                     </ul>
-                                    {{-- </div> --}}
                                 </li>
                             </ul>
                         </div>
@@ -111,9 +83,15 @@
                     <div class="col-lg-4 col-md-4 col-12">
                         <div class="top-middle">
                             <ul class="useful-links">
-                                <li><a href="index.html">Home</a></li>
-                                <li><a href="about-us.html">About Us</a></li>
-                                <li><a href="contact.html">Contact Us</a></li>
+                                <li><a href="">
+                                        {{ trans('front_home_trans.Home') }}
+                                    </a></li>
+                                <li><a href="">
+                                        {{ trans('front_home_trans.About_Us') }}
+                                    </a></li>
+                                <li><a href="">
+                                        {{ trans('front_home_trans.Contact_Us') }}
+                                    </a></li>
                             </ul>
                         </div>
                     </div>
@@ -123,7 +101,8 @@
                             @auth('web')
                                 <div class="user">
                                     <i class="lni lni-user"></i>
-                                    {{ Auth::guard('web')->user()->first_name }}
+                                    {{-- {{ Auth::guard('web')->user()->first_name }} --}}
+                                    {{ Auth::user('user')->first_name }}
                                 </div>
                                 <div class="user">
                                     <ul class="user-login">
@@ -144,10 +123,10 @@
                             @else
                                 <ul class="user-login">
                                     <li>
-                                        <a href="{{ Route('login') }}">{{ trans('home_trans.Sign_In') }}</a>
+                                        <a href="{{ Route('login') }}">{{ trans('front_home_trans.Sign_In') }}</a>
                                     </li>
                                     <li>
-                                        <a href="{{ Route('register') }}">{{ trans('home_trans.Register') }}</a>
+                                        <a href="{{ Route('register') }}">{{ trans('front_home_trans.Register') }}</a>
                                     </li>
                                 </ul>
                             @endauth
@@ -194,7 +173,7 @@
                         <div class="middle-right-area">
                             <div class="nav-hotline">
                                 <i class="lni lni-phone"></i>
-                                <h3>{{ trans('home_trans.Hotline') }}
+                                <h3>{{ trans('front_home_trans.Hotline') }}
                                     <span>(+100) 123 456 7890</span>
                                 </h3>
 
@@ -223,11 +202,12 @@
             <div class="row align-items-center">
                 <div class="col-lg-8 col-md-6 col-12">
                     <div class="nav-inner">
- 
+
                         <!-- Start Mega Category Menu -->
                         <div class="mega-category-menu">
 
-                            <span class="cat-button"><i class="lni lni-menu"></i>All Categories</span>
+                            <span class="cat-button">
+                                <i class="lni lni-menu"></i> {{ trans('front_home_trans.All_Categories') }}</span>
 
                             <ul class="sub-category">
 
@@ -235,14 +215,17 @@
                                     {{-- category is parent_category  --}}
                                     @if ($category->parent->name != '-')
                                         <li>
-                                            <a href="{{Route('shop_grid.index',$category->id)}}">{{ $category->parent->name }}</a>
+                                            <a
+                                                href="{{ Route('shop_grid.index', $category->id) }}">{{ $category->parent->name }}</a>
                                             <ul class="inner-sub-category">
                                                 <li><a href="">{{ $category->name }}</a></li>
                                             </ul>
                                         </li>
                                         {{-- @elseif() --}}
                                     @else
-                                        <li><a href="{{Route('shop_grid.index',$category->id)}}">{{ $category->name }}</a></li>
+                                        <li><a
+                                                href="{{ Route('shop_grid.index', $category->id) }}">{{ $category->name }}</a>
+                                        </li>
                                     @endif
                                 @endforeach
 
@@ -263,22 +246,21 @@
                             <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
                                 <ul id="nav" class="navbar-nav ms-auto">
                                     <li class="nav-item">
-                                        <a href="{{ Route('home') }}" class="active"
-                                            aria-label="Toggle navigation">{{ trans('home_trans.Home') }}</a>
+                                        <a href="{{ Route('home') }}" class="nav-link active"
+                                            aria-label="Toggle navigation">{{ trans('front_home_trans.Home') }}</a>
                                     </li>
-
                                     <li class="nav-item">
-                                        <a href="{{ Route('shop_grid.index') }}"
-                                            aria-label="Toggle navigation">Shop</a>
+                                        <a href="{{ Route('shop_grid.index') }}" class="nav-link"
+                                            aria-label="Toggle navigation">{{ trans('front_home_trans.Shop') }}</a>
                                     </li>
-
-                                    <li class="nav-item"><a href="{{ Route('cart.index') }}">Cart</a></li>
+                                   
+                                    <li class="nav-item"><a href="{{ Route('cart.index') }}">{{ trans('front_home_trans.Cart') }}</a></li>
 
                                     <li class="nav-item"><a href="{{ Route('checkout.create') }}">Checkout</a></li>
 
 
                                     <li class="nav-item">
-                                        <a href="contact.html" aria-label="Toggle navigation">Contact Us</a>
+                                        <a href="" aria-label="Toggle navigation">{{ trans('front_home_trans.Contact_Us') }}</a>
                                     </li>
 
                                     <li class="nav-item">
@@ -526,7 +508,21 @@
             ]
         });
     </script> --}}
+    <script src="{{ asset('backend/assets/js/jquery-3.6.0.min.js') }}"></script>
 
+    <script>
+        const navLinks = document.querySelectorAll('.nav-item a');
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                // Remove active class from all links
+                navLinks.forEach(link => link.classList.remove('active'));
+
+                // Add active class to the clicked link
+                this.classList.add('active');
+            });
+        });
+    </script>
 
 
 

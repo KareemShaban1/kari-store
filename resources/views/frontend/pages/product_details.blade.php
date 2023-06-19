@@ -85,7 +85,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-4 col-md-4 col-12">
+                                    {{-- <div class="col-lg-4 col-md-4 col-12">
                                         <div class="form-group">
                                             <label for="color">Battery capacity</label>
                                             <select class="form-control" id="color">
@@ -94,7 +94,7 @@
                                                 <option>8000 mAh</option>
                                             </select>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                     <div class="col-lg-4 col-md-4 col-12">
                                         <div class="form-group quantity">
                                             <label for="color">Quantity</label>

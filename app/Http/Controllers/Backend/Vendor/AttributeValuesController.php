@@ -32,11 +32,22 @@ class AttributeValuesController extends Controller
 
         return redirect()->route('vendor.attribute_values.index')->with('success', 'Attribute Value Inserted Successfully');
     }
-    public function edit()
+    public function edit($id)
     {
+        $attributes = Attribute::all();
+        $attribute_value = AttributeValue::findOrFail($id);
+        return view(
+            'backend.Vendor_Dashboard.attribute_values.edit',
+            compact('attributes', 'attribute_value')
+        );
     }
-    public function update()
+    public function update(Request $request, $id)
     {
+        $attribute_value = AttributeValue::findOrFail($id);
+        $data = $request->all();
+        $data['vendor_id'] = Auth::user('vendor')->id;
+        $attribute_value->update($data);
+        return redirect()->route('vendor.attribute_values.index')->with('success', 'Attribute Value Updated Successfully');
     }
     public function destroy()
     {

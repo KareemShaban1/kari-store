@@ -1,109 +1,7 @@
 <x-front-layout>
 
     @push('styles')
-        <style>
-            #rangeValue {
-                position: relative;
-                text-align: center;
-                width: 60px;
-                font-size: 1.25em;
-                color: #fff;
-                background: #27a0ff;
-                margin-left: 15px;
-                border-radius: 25px;
-                font-weight: 500;
-                box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1), -5px -5px 10px #fff, inset 5px 5px 10px rgba(0, 0, 0, 0.1), inset -5px -5px 5px rgba(255, 255, 255, 0.05);
-            }
-
-            .middle {
-                position: relative;
-                width: 100%;
-                max-width: 500px;
-                margin-top: 10px;
-                display: inline-block;
-            }
-
-            .slider {
-                position: relative;
-                z-index: 1;
-                height: 10px;
-                margin: 0 15px;
-            }
-
-            .slider>.track {
-                position: absolute;
-                z-index: 1;
-                left: 0;
-                right: 0;
-                top: 0;
-                bottom: 0;
-                border-radius: 5px;
-                background-color: #b5d7f1;
-            }
-
-            .slider>.range {
-                position: absolute;
-                z-index: 2;
-                left: 25%;
-                right: 25%;
-                top: 0;
-                bottom: 0;
-                border-radius: 5px;
-                background-color: #27a0ff;
-            }
-
-            .slider>.thumb {
-                position: absolute;
-                z-index: 3;
-                width: 20px;
-                height: 20px;
-                background-color: #27a0ff;
-                border-radius: 50%;
-            }
-
-            .slider>.thumb.left {
-                left: 25%;
-                transform: translate(-15px, -5px);
-            }
-
-            .slider>.thumb.right {
-                right: 25%;
-                transform: translate(15px, -5px);
-            }
-
-            .range_slider {
-                position: absolute;
-                pointer-events: none;
-                -webkit-appearance: none;
-                z-index: 2;
-                height: 5px;
-                width: 100%;
-                opacity: 0;
-            }
-
-            .range_slider::-webkit-slider-thumb {
-                pointer-events: all;
-                width: 30px;
-                height: 30px;
-                border-radius: 0;
-                border: 0 none;
-                background-color: red;
-                cursor: pointer;
-                -webkit-appearance: none;
-            }
-
-            #multi_range {
-                margin: 0 auto;
-                background-color: #27a0ff;
-                border-radius: 20px;
-                margin-top: 20px;
-                text-align: center;
-                width: 90px;
-                font-weight: 500;
-                font-size: 1.25em;
-                color: #fff;
-            }
-        </style>
+        <link rel="stylesheet" href="{{ asset('frontend/assets/css/shop_grid.css') }} " />
     @endpush
 
     <x-slot name="breadcrumbs">
@@ -161,15 +59,15 @@
 
                         <!-- Start Categories Filter -->
                         <div class="single-widget">
-                            <h3>All Categories</h3>
+                            <h3>All Categories </h3>
                             <ul class="list">
                                 @foreach ($categories as $category)
                                     <li>
-                                        {{-- <input type="radio" value="{{ $category->id }}" name="category"
-                                            class="category"> --}}
+
                                         <input type="checkbox" value="{{ $category->id }}" name="category[]"
-                                            class="category">
-                                        <label for="">{{ $category->name }}</label>
+                                            class="category" @checked($category_id == $category->id)>
+                                        <label for="">{{ $category->name }} (
+                                            {{ $category->products()->count() }} )</label>
                                     </li>
                                 @endforeach
                             </ul>
@@ -201,9 +99,9 @@
                                 </div>
                                 <div class="multi-range-slider my-2">
                                     <input type="range" id="input_left" class="range_slider" min="0"
-                                        max="1000" value="0" onmousemove="left_slider(this.value)">
-                                    <input type="range" id="input_right" class="range_slider" min="1000"
-                                        max="10000" value="1000" onmousemove="right_slider(this.value)">
+                                        max="5000" value="0" onmousemove="left_slider(this.value)">
+                                    <input type="range" id="input_right" class="range_slider" min="5000"
+                                        max="10000" value="10000" onmousemove="right_slider(this.value)">
                                     <div class="slider">
                                         <div class="track"></div>
                                         <div class="range"></div>
@@ -215,7 +113,7 @@
                         </div>
                         <!-- End Price Filter -->
 
-                        
+
 
                     </div>
 
@@ -264,70 +162,75 @@
                             <div class="tab-pane fade show active" id="nav-grid"
                                 role="tabpanel"aria-labelledby="nav-grid-tab">
                                 <div class="show_filtered_products">
-                                    @include('frontend.pages.show_products')
-                                </div>
+                                    {{-- @include('frontend.pages.show_products') --}}
 
-                                {{-- <div class="show_products">  
-                                    @forelse ($products as $product)
-                                        <div class="col-lg-4 col-md-6 col-12">
-                                            <!-- Start Single Product -->
-                                            <div class="single-product">
-                                                <div class="product-image">
-                                                    <img src="{{ $product->image_url }}" alt="#">
-                                                    @if ($product->sale_percent)
-                                                        <span class="sale-tag">- {{ $product->sale_percent }} %</span>
-                                                    @endif
-                                                    <div class="button">
-                                                        <a href="{{ Route('products.show_product', $product->slug) }}"
-                                                            class="btn"><i class="lni lni-cart"></i>Add to Cart</a>
-                                                    </div>
-                                                </div>
-                                                <div class="product-info">
-                                                    <span class="category">{{ $product->category->name }}</span>
-                                                    <h4 class="title">
-                                                        <a
-                                                            href="{{ Route('products.show_product', $product->slug) }}">{{ $product->name }}</a>
-                                                    </h4>
-                                                    <ul class="review">
-                                                        <li><i class="lni lni-star-filled"></i></li>
-                                                        <li><i class="lni lni-star-filled"></i></li>
-                                                        <li><i class="lni lni-star-filled"></i></li>
-                                                        <li><i class="lni lni-star-filled"></i></li>
-                                                        <li><i class="lni lni-star"></i></li>
-                                                        <li><span>4.0 Review(s)</span></li>
-                                                    </ul>
-                                                    <div class="price">
-                                                        <span>{{ Currency::format($product->price) }}</span>
-                                                        @if ($product->compare_price)
-                                                            <span
-                                                                class="discount-price">{{ Currency::format($product->compare_price) }}</span>
+
+                                    <div class="row show_products">
+                                        @forelse ($products as $product)
+                                            <div class="col-lg-4 col-md-6 col-12">
+                                                <!-- Start Single Product -->
+                                                <div class="single-product">
+                                                    <div class="product-image">
+                                                        <img src="{{ $product->image_url }}" alt="#">
+                                                        @if ($product->sale_percent)
+                                                            <span class="sale-tag">- {{ $product->sale_percent }}
+                                                                %</span>
                                                         @endif
+                                                        <div class="button">
+                                                            <a href="{{ Route('products.show_product', $product->slug) }}"
+                                                                class="btn"><i class="lni lni-cart"></i>Add to
+                                                                Cart</a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="product-info">
+                                                        <span class="category">{{ $product->category->name }} </span>
+                                                        <span class="category">{{ $product->store->name }} </span>
+                                                        <h4 class="title">
+                                                            <a
+                                                                href="{{ Route('products.show_product', $product->slug) }}">{{ $product->name }}</a>
+                                                        </h4>
+                                                        <ul class="review">
+                                                            <li><i class="lni lni-star-filled"></i></li>
+                                                            <li><i class="lni lni-star-filled"></i></li>
+                                                            <li><i class="lni lni-star-filled"></i></li>
+                                                            <li><i class="lni lni-star-filled"></i></li>
+                                                            <li><i class="lni lni-star"></i></li>
+                                                            <li><span>4.0 Review(s)</span></li>
+                                                        </ul>
+                                                        <div class="price">
+                                                            <span>{{ Currency::format($product->price) }}</span>
+                                                            @if ($product->compare_price)
+                                                                <span
+                                                                    class="discount-price">{{ Currency::format($product->compare_price) }}</span>
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- End Single Product -->
+                                            </div>
+                                        @empty
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div>
+                                                        There are no products
                                                     </div>
                                                 </div>
                                             </div>
-                                            <!-- End Single Product -->
-                                        </div>
-                                    @empty
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div>
-                                                    There are no products
-                                                </div>
-                                            </div>
-                                        </div>
-                                    @endforelse
-                                </div>
-                                <div class="row">
-                                    <div class="col-12">
-                                        <!-- Pagination -->
-                                        <div class="pagination center">
-                                            <ul class="pagination-list">
-                                                {{ $products->links() }}
-                                            </ul>
-                                        </div>
-                                        <!--/ End Pagination -->
+                                        @endforelse
                                     </div>
-                                </div> --}}
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <!-- Pagination -->
+                                            <div class="pagination center">
+                                                <ul class="pagination-list">
+                                                    {{ $products->links() }}
+                                                </ul>
+                                            </div>
+                                            <!--/ End Pagination -->
+                                        </div>
+                                    </div>
+
+                                </div>
 
                             </div>
                         </div>
@@ -346,11 +249,7 @@
 
     @push('scripts')
         <script src="{{ asset('backend/assets/js/jquery-3.6.0.min.js') }}"></script>
-
-
         <script>
-
-
             const input_left = document.getElementById("input_left");
             const input_right = document.getElementById("input_right");
             const thumb_left = document.querySelector(".slider > .thumb.left");
@@ -389,10 +288,9 @@
                 document.getElementById('right_value').innerHTML = value;
             }
 
-
             $(document).ready(function() {
 
-
+                // apply filters function
                 function applyFilters() {
                     var category = $('.category:checked').map(function() {
                         return $(this).val();
@@ -416,14 +314,165 @@
                             search: search,
                             sort: sort
                         },
-                        success: function(res) {
+                        success: function(response) {
+                            console.log(response.products.data.length);
+                            var product_length = response.products.data.length;
+                            var products = response.products.data;
+                            var html = ''; // Variable to store the updated HTML
+                            for (var i = 0; i < product_length; i++) {
+                                var product = products[i];
 
-                            $('.show_filtered_products').html(res);
-                            console.log(res);
+                                // Create HTML elements to display product information
+                                var productHtml =
+                                    '<div class="col-lg-4 col-md-6 col-12">' +
+                                    '<!-- Start Single Product -->' +
+                                    '<div class="single-product">' +
+                                    '<div class="product-image">' +
+                                    '<img src="' + product.image_url + '" alt="#">';
+                                if (product.sale_percent) {
+                                    productHtml += '<span class="sale-tag">- ' + product.sale_percent +
+                                        ' %</span>';
+                                }
+                                productHtml += '<div class="button">' +
+                                    '<a href="' + getProductRoute(product.slug) +
+                                    '" class="btn"><i class="lni lni-cart"></i>Add to Cart</a>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '<div class="product-info">' +
+                                    '<span class="category">' + product.category.name + '</span>' +
+                                    '<span class="category">' + product.store.name + '</span>' +
+                                    '<h4 class="title">' +
+                                    '<a href="' + getProductRoute(product.slug) + '">' + product.name +
+                                    '</a>' +
+                                    '</h4>' +
+                                    '<ul class="review">' +
+                                    '<li><i class="lni lni-star-filled"></i></li>' +
+                                    '<li><i class="lni lni-star-filled"></i></li>' +
+                                    '<li><i class="lni lni-star-filled"></i></li>' +
+                                    '<li><i class="lni lni-star-filled"></i></li>' +
+                                    '<li><i class="lni lni-star"></i></li>' +
+                                    '<li><span>4.0 Review(s)</span></li>' +
+                                    '</ul>' +
+                                    '<div class="price">' +
+                                    '<span>' + product.price + '</span>';
 
+                                if (product.compare_price) {
+                                    productHtml += '<span class="discount-price">' + product.compare_price +
+                                        '</span>';
+                                }
 
+                                productHtml +=
+                                    '</div>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '</div>';
+
+                                html += productHtml;
+                            }
+
+                            function getProductRoute(slug) {
+                                return '{{ route('products.show_product', '') }}/' + slug;
+                            }
+                            // Update the HTML with the new results
+                            $('.show_products').html(html);
+
+                            // Update pagination links
+                            $('.pagination-list').html(response.pagination_links);
                         },
                     });
+                }
+
+                function paginate() {
+
+                    $(document).on('click', '.pagination a', function(event) {
+                        event.preventDefault();
+                        var url = $(this).attr('href');
+                        // var category = $('.category:checked').map(function() {return $(this).val(); }).get();
+                        getProducts(url);
+                    });
+
+                    function getProducts(url) {
+                        $.ajax({
+                            url: url,
+                            type: 'GET',
+                            success: function(response) {
+
+                                var product_length = response.products.data.length;
+
+                                var products = response.products.data;
+
+                                console.log(response.products);
+
+                                var html = ''; // Variable to store the updated HTML
+
+                                for (var i = 0; i < product_length; i++) {
+                                    var product = products[i];
+                                    // Create HTML elements to display product information
+                                    var productHtml =
+                                        '<div class="col-lg-4 col-md-6 col-12">' +
+                                        '<!-- Start Single Product -->' +
+                                        '<div class="single-product">' +
+                                        '<div class="product-image">' +
+                                        '<img src="' + product.image_url + '" alt="#">';
+
+                                    if (product.sale_percent) {
+                                        productHtml += '<span class="sale-tag">- ' + product
+                                            .sale_percent +
+                                            ' %</span>';
+                                    }
+
+                                    productHtml += '<div class="button">' +
+                                        '<a href="' + getProductRoute(product.slug) +
+                                        '" class="btn"><i class="lni lni-cart"></i>Add to Cart</a>' +
+                                        '</div>' +
+                                        '</div>' +
+                                        '<div class="product-info">' +
+                                        '<span class="category">' + product.category.name + '</span>' +
+                                        '<span class="category">' + product.store.name + '</span>' +
+                                        '<h4 class="title">' +
+                                        '<a href="' + getProductRoute(product.slug) + '">' + product.name +
+                                        '</a>' +
+                                        '</h4>' +
+                                        '<ul class="review">' +
+                                        '<li><i class="lni lni-star-filled"></i></li>' +
+                                        '<li><i class="lni lni-star-filled"></i></li>' +
+                                        '<li><i class="lni lni-star-filled"></i></li>' +
+                                        '<li><i class="lni lni-star-filled"></i></li>' +
+                                        '<li><i class="lni lni-star"></i></li>' +
+                                        '<li><span>4.0 Review(s)</span></li>' +
+                                        '</ul>' +
+                                        '<div class="price">' +
+                                        '<span>' + product.price + '</span>';
+
+                                    if (product.compare_price) {
+                                        productHtml += '<span class="discount-price">' + product
+                                            .compare_price +
+                                            '</span>';
+                                    }
+
+                                    productHtml += '</div>' +
+                                        '</div>' +
+                                        '</div>' +
+                                        '</div>' +
+                                        '</div>';
+
+                                    html += productHtml;
+                                }
+
+                                function getProductRoute(slug) {
+                                    return '{{ route('products.show_product', '') }}/' + slug;
+                                }
+
+                                // Update the HTML with the new results
+                                $('.show_products').html(html);
+
+                                // Update pagination links
+                                $('.pagination-list').html(response.pagination_links);
+
+                            },
+                        });
+                    }
                 }
 
                 // Reset filters
@@ -442,6 +491,7 @@
                 // Apply category filter
                 $('input.category').on('change', function() {
                     applyFilters();
+                    paginate();
                 });
 
                 // Apply brand filter
@@ -451,8 +501,6 @@
 
                 // Apply sort filter
                 $('#sort').on('change', function() {
-                    // var sort = $('#sort').val();
-                    // console.log(sort);
                     applyFilters();
                 });
 
@@ -464,26 +512,10 @@
                 // Initialize filters
                 applyFilters();
 
-
-                // pagination part
-                $(document).on('click', '.pagination a', function(event) {
-                    event.preventDefault();
-                    var url = $(this).attr('href');
-                    getProducts(url);
-                });
+                paginate();
 
 
-                // pagination part
-                function getProducts(url) {
-                    $.ajax({
-                        url: url,
-                        type: 'GET',
-                        dataType: 'html',
-                        success: function(data) {
-                            $('.show_filtered_products').html(data);
-                        }
-                    });
-                }
+
 
             });
         </script>

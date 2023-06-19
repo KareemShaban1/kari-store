@@ -17,6 +17,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 
+// Route::get('route/{parameter}/{optional_parameter?}',[Controller,'function/method'])->name('route_name);
+
+// Route::group(
+//     ['middleware' => ['auth:web']],
+//     function () {
+//     });
+
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

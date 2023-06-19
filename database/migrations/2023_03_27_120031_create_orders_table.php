@@ -24,7 +24,8 @@ return new class extends Migration
  
             $table->float('shipping')->default(0);
             $table->float('tax')->default(0);
-            $table->float('discount')->default(0);
+            $table->foreignId('coupon_id')->nullable()->constrained('coupons')->nullOnDelete();
+            // $table->float('discount')->default(0);
             $table->float('total')->default(0);
   
             $table->timestamps();

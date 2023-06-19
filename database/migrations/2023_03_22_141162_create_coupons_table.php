@@ -15,16 +15,16 @@ return new class extends Migration
     {
         Schema::create('coupons', function (Blueprint $table) {
             $table->id();
-            $table->string('code', 255);
-            $table->string('name');
+            $table->string('code', 255)->unique();
+            $table->string('name')->nullable();
             $table->string('description')->nullable();
-            $table->string('type')->nullable();
-            $table->string('amount');
-            $table->string('start_date');
-            $table->string('end_date');
+            $table->string('discount_amount')->nullable();
+            $table->string('discount_percentage')->nullable();
+            $table->string('expiration_date');
+            $table->smallInteger('usage_limit');
+            $table->smallInteger('usage_count');
             $table->enum('status',['active','inactive'])->default('active');
-            $table->foreignId('category_id')->nullable()->constrained('categories')->nullOnDelete();
-            $table->foreignId('product_id')->nullable()->constrained('products')->nullOnDelete();
+            $table->foreignId('store_id')->nullable()->constrained('stores')->nullOnDelete();
             $table->timestamps();
         });
     }

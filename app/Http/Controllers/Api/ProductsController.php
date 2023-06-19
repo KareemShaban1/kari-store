@@ -14,7 +14,7 @@ class ProductsController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth:sanctum')->except('index','show');
+        $this->middleware('auth:sanctum')->except('index', 'show');
     }
 
     /**
@@ -25,9 +25,11 @@ class ProductsController extends Controller
     public function index(Request $request)
     {
 
+
+        // with (relationship:fields)
         $products = Product::filter($request->query())
-        ->with('category:id,name','store:id,name','tags:id,name')
-        ->paginate();
+            ->with('category:id,name', 'store:id,name', 'tags:id,name')
+            ->paginate();
 
         return ProductResource::collection($products);
 
@@ -52,23 +54,23 @@ class ProductsController extends Controller
     {
         //
         $request->validate([
-            'name'=>'required|string|max:255',
-            'description'=>'nullable|string|max:255',
-            'category_id'=>'required|exists:categories,id',
-            'status'=>'in:active,inactive',
-            'price'=>'required|numeric|min:0',
-            'compare_price'=>'nullable|numeric|gt:price',
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string|max:255',
+            'category_id' => 'required|exists:categories,id',
+            'status' => 'in:active,inactive',
+            'price' => 'required|numeric|min:0',
+            'compare_price' => 'nullable|numeric|gt:price',
         ]);
 
-        $user= $request->user();
+        $user = $request->user();
         if ($user->tokenCan('products.create')) {
-            abort(403,'Not Allowed');
+            abort(403, 'Not Allowed');
         }
 
         $product = Product::create($request->all());
 
 
-        return Response::json($product,201);
+        return Response::json($product, 201);
     }
 
     /**
@@ -84,8 +86,8 @@ class ProductsController extends Controller
         return new ProductResource($product);
 
         return $product
-        // return relation that related with product object in json format
-        ->load('category:id,name','store:id,name','tags:id,name');
+            // return relation that related with product object in json format
+            ->load('category:id,name', 'store:id,name', 'tags:id,name');
 
         //// another way
         // ->with('category:id,name','store:id,name','tags:id,name')
@@ -103,23 +105,22 @@ class ProductsController extends Controller
     {
         //
         $request->validate([
-            'name'=>'sometimes|required|string|max:255',
-            'description'=>'nullable|string|max:255',
-            'category_id'=>'sometimes|required|exists:categories,id',
-            'status'=>'in:active,inactive',
-            'price'=>'sometimes|required|numeric|min:0',
-            'compare_price'=>'nullable|numeric|gt:price',
+            'name' => 'sometimes|required|string|max:255',
+            'description' => 'nullable|string|max:255',
+            'category_id' => 'sometimes|required|exists:categories,id',
+            'status' => 'in:active,inactive',
+            'price' => 'sometimes|required|numeric|min:0',
+            'compare_price' => 'nullable|numeric|gt:price',
         ]);
-        $user= $request->user();
+        $user = $request->user();
         if (!$user->tokenCan('products.update')) {
-            abort(403,'Not Allowed');
+            abort(403, 'Not Allowed');
         }
 
         $product->update($request->all());
 
 
         return Response::json($product);
-
     }
 
     /**
@@ -131,16 +132,17 @@ class ProductsController extends Controller
     public function destroy($id)
     {
         //
-        $user= Auth::guard('sanctum')->user();
+        // sanctum guard responsible for api
+        $user = Auth::guard('sanctum')->user();
         if (!$user->tokenCan('products.delete')) {
             return response([
-                'message'=>'Not Allowed'
-            ],403);
+                'message' => 'Not Allowed'
+            ], 403);
         }
         Product::destroy($id);
 
         return response()->json([
-            'message'=>'product deleted successfully'
-        ],200);
+            'message' => 'product deleted successfully'
+        ], 200);
     }
 }

@@ -1,5 +1,7 @@
 <x-front-layout>
 
+
+
     <x-slot name="breadcrumbs">
 
 
@@ -26,6 +28,10 @@
     </x-slot>
 
 
+    <x-frontend.alert type="error" />
+
+    <x-frontend.alert type="success" />
+
     <!--====== Checkout Form Steps Part Start ======-->
 
     <section class="checkout-wrapper section">
@@ -35,7 +41,6 @@
 
                     <form action="{{ Route('checkout.store') }}" method="post">
                         @csrf
-                        {{-- @method('put') --}}
                         <div class="checkout-steps-form-style-1">
                             <ul id="accordionExample">
                                 <li>
@@ -54,11 +59,13 @@
                                                         <div class="col-md-6 form-input form">
                                                             {{-- <input type="text" placeholder="First Name"> --}}
                                                             <x-frontend.form.input name="address[billing][first_name]"
-                                                                placeholder="First Name" />
+                                                                placeholder="First Name"
+                                                                value="{{ Auth::check() ? Auth::user()->first_name : old('address.billing.first_name') }}" />
                                                         </div>
                                                         <div class="col-md-6 form-input form">
                                                             <x-frontend.form.input name="address[billing][last_name]"
-                                                                placeholder="Last Name" />
+                                                                placeholder="Last Name"
+                                                                value="{{ Auth::check() ? Auth::user()->last_name : old('address.billing.last_name') }}" />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -69,7 +76,8 @@
                                                     {{-- <label>Email Address</label> --}}
                                                     <div class="form-input form">
                                                         <x-frontend.form.input name="address[billing][email]"
-                                                            placeholder="Email Address" />
+                                                            placeholder="Email Address"
+                                                            value="{{ Auth::check() ? Auth::user()->email_address : old('address.billing.email') }}" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -78,7 +86,8 @@
                                                     {{-- <label>Phone Number</label> --}}
                                                     <div class="form-input form">
                                                         <x-frontend.form.input name="address[billing][phone_number]"
-                                                            placeholder="Phone Number" />
+                                                            placeholder="Phone Number"
+                                                            value="{{ Auth::check() ? Auth::user()->phone_number : old('address.billing.phone_number') }}" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -88,7 +97,8 @@
                                                     {{-- <label>Governorate</label> --}}
                                                     <div class="form-input form">
                                                         <x-frontend.form.input name="address[billing][governorate]"
-                                                            placeholder="Governorate" />
+                                                            placeholder="Governorate"
+                                                            value="{{ Auth::check() ? Auth::user()->governorate : old('address.billing.governorate') }}" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -98,7 +108,8 @@
                                                     {{-- <label>City</label> --}}
                                                     <div class="form-input form">
                                                         <x-frontend.form.input name="address[billing][city]"
-                                                            placeholder="City" />
+                                                            placeholder="City"
+                                                            value="{{ Auth::check() ? Auth::user()->city : old('address.billing.city') }}" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -108,7 +119,8 @@
                                                     {{-- <label>Post Code</label> --}}
                                                     <div class="form-input form">
                                                         <x-frontend.form.input name="address[billing][postal_code]"
-                                                            placeholder=" Postal Code" />
+                                                            placeholder=" Postal Code"
+                                                            value="{{ Auth::check() ? Auth::user()->postal_code : old('address.billing.postal_code') }}" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -117,7 +129,8 @@
                                                     {{-- <label>Street Address</label> --}}
                                                     <div class="form-input form">
                                                         <x-frontend.form.input name="address[billing][street_address]"
-                                                            placeholder="Street Address" />
+                                                            placeholder="Street Address"
+                                                            value="{{ Auth::check() ? Auth::user()->street_address : old('address.billing.street_address') }}" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -231,15 +244,7 @@
                                                 </div>
                                             </div>
 
-                                            {{-- <div class="col-md-6">
-                                                <div class="single-form form-default">
-                                                    <label>Country</label>
-                                                    <div class="form-input form">
-                                                        <x-frontend.form.select name="address[billing][country]"
-                                                            class="custom-select mr-sm-2" :options="$countries" />
-                                                    </div>
-                                                </div>
-                                            </div> --}}
+                                          
 
 
                                             <div class="col-md-12">
@@ -323,19 +328,26 @@
 
                 <div class="col-lg-4">
                     <div class="checkout-sidebar">
-                        <div class="checkout-sidebar-coupon">
+                        {{-- <div class="checkout-sidebar-coupon">
                             <p>Appy Coupon to get discount!</p>
-                            <form action="#">
+                            <form action="{{ route('checkout.applyCoupon') }}" method="POST">
+                                @csrf
                                 <div class="single-form form-default">
                                     <div class="form-input form">
-                                        <input type="text" placeholder="Coupon Code">
+                                        <input type="text" name="coupon_code" placeholder="Enter coupon code">
                                     </div>
                                     <div class="button">
                                         <button class="btn">apply</button>
                                     </div>
                                 </div>
                             </form>
-                        </div>
+
+                            <form action="{{ route('checkout.removeCoupon') }}" method="POST">
+                                @csrf
+                                <button type="submit">Remove Coupon</button>
+                            </form>
+                         
+                        </div> --}}
                         <div class="checkout-sidebar-price-table mt-30">
                             <h5 class="title">Pricing Table</h5>
 
@@ -350,7 +362,15 @@
                                 </div>
                                 <div class="total-price discount">
                                     <p class="value">Coupon:</p>
-                                    <p class="price">$10.00</p>
+                                    <p class="price">
+                                        <?php 
+                                        // get coupon stored in session , if it exist
+                                        $coupon = Session::get('coupon');
+                                        if($coupon){
+                                            echo $coupon->discount_amount;
+                                        }
+                                        ?>
+                                    </p>
                                 </div>
                             </div>
 

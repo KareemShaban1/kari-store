@@ -6,11 +6,14 @@ use App\Events\OrderCreated;
 use App\Exceptions\InvalidOrderException;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Models\OrderCoupon;
 use App\Models\OrderItem;
+use App\Models\TempSession;
 use App\Repositories\Cart\CartRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 use Symfony\Component\Intl\Countries;
 
 class CheckoutController extends Controller
@@ -30,25 +33,51 @@ class CheckoutController extends Controller
         ]);
     }
 
+   
+
+    // public function removeCoupon()
+    // {
+    //     // Remove the coupon details from the session
+    //     Session::forget('coupon');
+    //     Session::forget('coupon_code');
+
+    //     return redirect()->back()->with('success', 'Coupon removed successfully.');
+    // }
+
     public function store(Request $request, CartRepository $cart)
     {
         $request->validate([]);
 
+        // get items / products of the cart , treat each item as a cart , and group them by store
         $items = $cart->get()->groupBy('product.store_id');
 
+        // get coupon stored in session , if it exist
+        $coupon = Session::get('coupon');
+
+        // get total price of products in cart
+        $total = $cart->total();
+
+        // if there is coupon stored in session 
+        if ($coupon) {
+            // substract coupon discount from total 
+            $total -= $coupon->discount_amount;
+        }
 
         DB::beginTransaction();
         try {
 
-            
+            // for loop on items as key , value  [store_id , cart_item]
+            // each store and its products
             foreach ($items as $store_id => $cart_items) {
+
                 $order = Order::create([
                     'store_id' => $store_id,
-                    'user_id' => Auth::id(),
+                    'user_id' => Auth::user('user')->id,
                     'payment_method' => 'cash_on_delivery',
+                    'total' => $total,
+                    'coupon_id' => $coupon ? $coupon->id : null
                 ]);
 
-                // dd($cart_items);
 
                 foreach ($cart_items as $item) {
                     OrderItem::create([
@@ -59,16 +88,26 @@ class CheckoutController extends Controller
                         'quantity' => $item->quantity,
                     ]);
                 }
+                if ($coupon) {
+                    OrderCoupon::create([
+                        'order_id' => $order->id,
+                        'coupon_id' => $coupon->id,
+                        'user_id'=>Auth::user('user')->id
+                    ]);
 
-
+                    $temp_session = TempSession::where('user_id', Auth::user('user')->id)->first();
+                    $temp_session->delete();
+                }
 
 
                 foreach ($request->post('address') as $type => $address) {
 
-                    // dd($address);
                     $address["type"] = $type;
                     $order->addresses()->create($address);
                 }
+
+                // Remove the coupon details from the session
+                Session::forget('coupon');
             }
 
 

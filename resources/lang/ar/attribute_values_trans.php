@@ -17,7 +17,7 @@ return [
           'Value'=>'القيمة',
           'Choose'=>'أختار من القائمة',
           'Attribute_Value_Name'=>'Attribute Value Name',
-          ''=>'',
+          'Vendor_Name'=>'Vendor Name',
           ''=>'',
           ''=>'',
           ''=>'',

@@ -8144,3 +8144,21 @@ blockquote span {
     display: none;
   }
 }
+
+/* custom css */
+
+.btn-plus{
+ width: 30px; 
+ color: white;
+ background-color: #26be53;
+ margin-left: 10px;
+ font-size: 20px;
+}
+
+.btn-minus{
+  width: 30px; 
+  color: white;
+  background-color: #cd3c3c;
+  margin-right: 10px;
+  font-size: 20px;
+}

@@ -31,7 +31,7 @@
             <div class="card-body">
 
 
-                <form method="post" enctype="multipart/form-data" action="{{ Route('vendor.attribute_values.store') }}"
+                <form method="post" enctype="multipart/form-data" action="{{ Route('vendor.attribute_values.update',$attribute_value->id) }}"
                     autocomplete="off">
 
                     @csrf
@@ -44,7 +44,9 @@
                                 <select name="attribute_id" id="" class="custom-select mr-sm-2">
                                     <option value="">{{ trans('attribute_values_trans.Choose') }}</option>
                                     @foreach ($attributes as $attribute)
-                                        <option value="{{ $attribute->id }}">{{ $attributes->name }}</option>
+                                        <option value="{{ $attribute->id }}"
+                                            @selected($attribute->id == $attribute_value->attribute_id)
+                                            >{{ $attribute->name }}</option>
                                     @endforeach
                                 </select>
                                 @error('attribute_id')
@@ -60,7 +62,8 @@
                             <div class="form-group">
                                 <x-backend.form.input
                                     label="{{ trans('attribute_values_trans.Attribute_Value_Name') }}"
-                                    :value="$attribute_value->name" name="name" class="form-control" />
+                                    :value="$attribute_value->name" 
+                                    name="name" class="form-control" />
                             </div>
                         </div>
 

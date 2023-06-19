@@ -9,13 +9,21 @@ class Coupon extends Model
 {
     use HasFactory;
     protected $fillable =
-    ['name', 'code', 'description', 'type', 'amount', 'status', 'start_date', 'end_date', 'category_id', 'product_id'];
-    public function category()
+    [
+        'name',
+        'code',
+        'description',
+        'discount_amount',
+        'discount_percentage',
+        'status',
+        'expiration_date',
+        'usage_limit',
+        'usage_count',
+        'store_id'
+    ];
+
+    public function store()
     {
-        return $this->belongsTo(Category::class);
-    }
-    public function vendor()
-    {
-        return $this->belongsTo(Vendor::class);
+        return $this->belongsTo(Store::class);
     }
 }
