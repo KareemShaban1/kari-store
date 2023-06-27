@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Backend\Admin;
 
+use App\Events\OrderToDelivery;
 use App\Http\Controllers\Controller;
+use App\Models\Delivery;
 use App\Models\Order;
+use App\Models\OrderDelivery;
 use App\Models\Store;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -18,8 +21,27 @@ class OrderController extends Controller
     public function index()
     {
         //
-        $orders = Order::with('user','store')->get();
-        return view('backend.Admin_Dashboard.orders.index',compact('orders'));
+        $deliveries = Delivery::all();
+        $orders = Order::with('user', 'store', 'products.category')->get();
+        return view('backend.Admin_Dashboard.orders.index', compact('orders', 'deliveries'));
+    }
+
+
+
+
+    public function assignDelivery(Request $request)
+    {   
+        $data = $request->all();
+        // dd($data);
+       $order_delivery =  OrderDelivery::create($data);
+
+        $order = Order::where('id',$order_delivery->order_id)->first();
+        // dd($order);
+        event(new OrderToDelivery($order));
+
+
+        return redirect()->route('admin.orders.index');
+
     }
 
     /**
@@ -32,7 +54,7 @@ class OrderController extends Controller
         //
         $users = User::all();
         $stores = Store::all();
-        return view('backend.Admin_Dashboard.orders.create',compact('users','stores'));
+        return view('backend.Admin_Dashboard.orders.create', compact('users', 'stores'));
     }
 
     /**
@@ -68,7 +90,7 @@ class OrderController extends Controller
         //
         $users = User::all();
         $stores = Store::all();
-        return view('backend.Admin_Dashboard.orders.edit',compact('order','users','stores'));
+        return view('backend.Admin_Dashboard.orders.edit', compact('order', 'users', 'stores'));
     }
 
     /**

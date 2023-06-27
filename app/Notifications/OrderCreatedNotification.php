@@ -4,11 +4,9 @@ namespace App\Notifications;
 
 use App\Models\Order;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\BroadcastMessage;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-use Illuminate\Support\Facades\Auth;
 
 class OrderCreatedNotification extends Notification
 {
@@ -34,25 +32,22 @@ class OrderCreatedNotification extends Notification
      */
     public function via($notifiable)
     {
-        
+
         // channels the notification will send by
         return ['database','broadcast'];
 
         $channels = ['database'];
-        if($notifiable->notification_prefernces['order_created']['sms'] ?? false)
-        {
+        if($notifiable->notification_prefernces['order_created']['sms'] ?? false) {
             $channels[] = 'vonage';
         }
-        if($notifiable->notification_prefernces['order_created']['mail'] ?? false)
-        {
+        if($notifiable->notification_prefernces['order_created']['mail'] ?? false) {
             $channels[] = 'mail';
         }
-        if($notifiable->notification_prefernces['order_created']['broadcast'] ?? false)
-        {
+        if($notifiable->notification_prefernces['order_created']['broadcast'] ?? false) {
             $channels[] = 'broadcast';
         }
         return $channels;
-        
+
     }
 
     /**
@@ -64,9 +59,9 @@ class OrderCreatedNotification extends Notification
     public function toMail($notifiable)
     {
         $address = $this->order->billingAddreess;
-        return (new MailMessage)
+        return (new MailMessage())
                     ->subject("New Order #{$this->order->number}")
-                    ->from('notification@kari-store.com' , 'Kari Store')
+                    ->from('notification@kari-store.com', 'Kari Store')
                     ->greeting("Hi {$notifiable->name}")
                     ->line("A new Order (#{$this->order->number} Created by {$address->name}   )")
                     ->action('View Order', url('/checkout'))
@@ -74,27 +69,41 @@ class OrderCreatedNotification extends Notification
     }
 
 
-    // configurations for database channel  
+    // configurations for database channel
     public function toDatabase($notifiable)
     {
         $address = $this->order->billingAddreess;
-            return [
-                'body' => "A new Order (#{$this->order->number} Created by {$address->name}   )",
-                'icon'=>'fas fa-file',
-                'url'=>Auth::user('vendor') ? url('/vendor/dashboard') : url('/admin/dashboard'),
-                'order_id'=>$this->order->id
-            ];
+        $orderStoreId = $this->order->store_id;
+        // $vendor = Vendor::where('store_id', $orderStoreId)->first();
+        // $notifiable = $this->notifiable;
+
+        if ($notifiable instanceof \App\Models\Admin) {
+            $url = url('/admin/dashboard');
+        } elseif ($notifiable instanceof \App\Models\Vendor) {
+            $url = url('/vendor/dashboard');
+        }elseif ($notifiable instanceof \App\Models\Delivery) {
+            $url = url('/delivery/dashboard');
+        } else {
+            $url = '';
+        }
+
+        return [
+            'body' => "A new Order (#{$this->order->number} Created by {$address->name}   )",
+            'icon' => 'fas fa-file',
+            'url' => $url,
+            'order_id' => $this->order->id
+        ];
     }
 
     public function toBroadcast($notifiable)
     {
         $address = $this->order->billingAddreess;
-            return new BroadcastMessage([
-                'body' => "A new Order (#{$this->order->number} Created by {$address->name}   )",
-                'icon'=>'fas fa-file',
-                'url'=>url('/backend/dashboard'),
-                'order_id'=>$this->order->id
-            ]);
+        return new BroadcastMessage([
+            'body' => "A new Order (#{$this->order->number} Created by {$address->name}   )",
+            'icon'=>'fas fa-file',
+            'url'=>url('/backend/dashboard'),
+            'order_id'=>$this->order->id
+        ]);
     }
 
 

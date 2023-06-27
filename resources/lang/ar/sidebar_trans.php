@@ -83,9 +83,14 @@ return [
           'Notifications'=>'الأشعارات',
           'All_Notifications'=>'كل الاشعارات',
           
-          ''=>'',
-          ''=>'',
-          ''=>'',
+          'Destinations'=>'أماكن الشحن',
+          'Add_Destination'=>'أضافة مكان',
+          'All_Destinations'=>'كل أماكن الشحن',
+
+          'Deliveries'=>'مندوبين الشحن',
+          'All_Deliveries'=>'كل مندوبين الشحن',
+          'Add_Delivery'=>' أضافة مندوب شحن',
+          
           ''=>'',
           ''=>'',
           ''=>'',

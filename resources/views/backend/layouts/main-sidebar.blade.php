@@ -16,6 +16,10 @@
                 @include('backend.layouts.main-sidebar.vendor-main-sidebar')
             @endif
 
+            @if (auth('delivery')->check())
+                @include('backend.layouts.main-sidebar.delivery-main-sidebar')
+            @endif
+
         {{-- </div> --}}
 
         <!-- Left Sidebar End-->

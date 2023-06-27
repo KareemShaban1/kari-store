@@ -2,8 +2,10 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Admin;
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MarkNotificationAsRead
 {
@@ -20,7 +22,7 @@ class MarkNotificationAsRead
         if ($notification_id) {
             $user = $request->user();
             if ($user) {
-               $notification = $user->unreadNotifications()->find($notification_id);
+                $notification = $user->unreadNotifications()->find($notification_id);
 
                 if ($notification) {
                     $notification->markAsRead();

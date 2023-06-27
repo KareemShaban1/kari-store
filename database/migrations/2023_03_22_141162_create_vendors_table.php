@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('vendors', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('email')->unique();
+            $table->string('email')->unique('vendorss');
             $table->string('password');
             $table->string('phone');
             $table->foreignId('store_id')->nullable()->constrained('stores')->nullOnDelete();

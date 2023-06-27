@@ -13,7 +13,7 @@ return [
           'Amount'=>'الكمية',
           'Status'=>'الحالة',
           'Start_Date'=>'تاريخ البداية',
-          'End_Date'=>'تاريخ الأنتهاء',
+          'Expiration_Date'=>'تاريخ الأنتهاء',
           'Category_Name'=>'أسم التصنيف',
           'Product_Name'=>'أسم المنتج',
           'Active'=>'مفعل',

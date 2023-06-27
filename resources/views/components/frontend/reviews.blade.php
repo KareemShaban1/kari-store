@@ -94,10 +94,7 @@
 
                             <ul class="stars">
                                 <?php $rating = $review->rating;
-                                for ($i=1; $i <= $rating ; $i++) { 
-                                    # code...
-                                
-                                ?>
+                                for ($i=1; $i <= $rating ; $i++) { ?>
                                 <li><i class="lni lni-star-filled"></i></li>
                                 <?php
                                 }

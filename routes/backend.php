@@ -9,14 +9,15 @@ use  App\Http\Controllers\Backend\Admin\{
   CategoriesController,
   CouponController,
   DashboardController,
+  DestinationController,
   OrderController,
   ProductsController,
   ProductVariantsController,
-  ProfileController,
   RoleController,
   StoresController,
   VendorController,
   WebsitePartsController,
+  DeliveryController
 };
 
 use  App\Http\Controllers\Backend\Vendor\{
@@ -28,6 +29,14 @@ use  App\Http\Controllers\Backend\Vendor\{
   AttributeValuesController as VendorAttributeValuesController,
   NotificationsController as VendorNotificationsController
 };
+
+use  App\Http\Controllers\Backend\Delivery\{
+
+  DashboardController as DeliveryDashboardController,
+  OrdersController as DeliveryOrdersController,
+
+};
+
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
@@ -58,6 +67,12 @@ Route::group(
 
     Route::resource('/stores', StoresController::class);
 
+    Route::get('/get-cities', [StoresController::class, 'getCities']);
+
+    Route::get('/get-neighborhoods', [StoresController::class, 'getNeighborhoods']);
+
+    Route::resource('/destinations', DestinationController::class);
+
     Route::resource('/vendors', VendorController::class);
 
     Route::resource('/products', ProductsController::class);
@@ -76,39 +91,19 @@ Route::group(
 
     Route::resource('/orders', OrderController::class);
 
+    Route::post('/order/assign_delivery',[OrderController::class,'assignDelivery'])->name('orders.assignDelivery');
+
     Route::resource('/websiteParts', WebsitePartsController::class);
 
     Route::resource('/brands', BrandsController::class);
 
-    // Route::group([
-    //   'prefix' => 'brands',
-    //   'as' => 'brands.'
-    // ], function () {
-    //   Route::get('/', [BrandsController::class, 'index'])->name('index');
-    //   Route::get('/add_brand', [BrandsController::class, 'create'])->name('create');
-    //   Route::post('/store_brand', [BrandsController::class, 'store'])->name('store');
-    //   Route::get('/edit_brand', [BrandsController::class, 'edit'])->name('edit');
-    //   Route::put('/update_brand/{brand_id}', [BrandsController::class, 'update'])->name('update');
-    //   Route::delete('/delete_brand/{brand_id}', [BrandsController::class, 'destroy'])->name('destroy');
-    // });
+    Route::resource('/deliveries', DeliveryController::class);
 
     Route::resource('/roles', RoleController::class);
     Route::resource('/admins', AdminController::class);
 
 
-    // Route::group([
-    //   'prefix'=>'roles',
-    //   'as'=>'roles.'
-    // ],function(){
-    //   Route::get('/roles',[RoleController::class,'index'])->name('index');
-    //   Route::get('/add_role',[RoleController::class,'create'])->name('create');
-    //   Route::post('/store_role',[RoleController::class,'store'])->name('store');
-    //   Route::get('/edit_role/{role_id}',[RoleController::class,'edit'])->name('edit');
-    //   Route::put('/update_role/{role_id}',[RoleController::class,'update'])->name('update');
-    //   Route::delete('/delete_role/{role_id}', [RoleController::class, 'destroy'])->name('destroy');
-
-
-    // });
+    
 
   }
 );
@@ -155,3 +150,26 @@ Route::group([
   Route::get('/notifications', [VendorNotificationsController::class, 'index'])->name('notifications.index');
 
 });
+
+
+
+
+
+// vendor dashboard 
+Route::group([
+  // url prefix
+  'prefix' => LaravelLocalization::setLocale() . '/delivery',
+  'as' => 'delivery.',
+  'middleware' => [
+    'auth:delivery',
+    'verified',
+    'localeCookieRedirect', 'localizationRedirect', 'localeViewPath'
+  ],
+
+  ], function () {
+
+    Route::get('/dashboard', [DeliveryDashboardController::class, 'index'])->name('dashboard');
+
+    Route::resource('/orders', DeliveryOrdersController::class);
+
+  });

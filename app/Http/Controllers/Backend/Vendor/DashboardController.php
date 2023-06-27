@@ -8,7 +8,6 @@ use App\Models\AttributeValue;
 use App\Models\Order;
 use App\Models\Store;
 use App\Models\Vendor;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller

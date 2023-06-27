@@ -140,20 +140,7 @@
                                     </div>
                                 </div>
 
-                                {{-- <div class="col-lg-5 col-md-4 col-12">
-                                    <nav>
-                                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                            <button class="nav-link active" id="nav-grid-tab" data-bs-toggle="tab"
-                                                data-bs-target="#nav-grid" type="button" role="tab"
-                                                aria-controls="nav-grid" aria-selected="true"><i
-                                                    class="lni lni-grid-alt"></i></button>
-                                            <button class="nav-link" id="nav-list-tab" data-bs-toggle="tab"
-                                                data-bs-target="#nav-list" type="button" role="tab"
-                                                aria-controls="nav-list" aria-selected="false"><i
-                                                    class="lni lni-list"></i></button>
-                                        </div>
-                                    </nav>
-                                </div> --}}
+                                
 
                             </div>
                         </div>
@@ -316,12 +303,13 @@
                         },
                         success: function(response) {
                             console.log(response.products.data.length);
+
                             var product_length = response.products.data.length;
                             var products = response.products.data;
                             var html = ''; // Variable to store the updated HTML
                             for (var i = 0; i < product_length; i++) {
                                 var product = products[i];
-
+                                console.log(product.sale_percent);
                                 // Create HTML elements to display product information
                                 var productHtml =
                                     '<div class="col-lg-4 col-md-6 col-12">' +
@@ -354,10 +342,10 @@
                                     '<li><span>4.0 Review(s)</span></li>' +
                                     '</ul>' +
                                     '<div class="price">' +
-                                    '<span>' + product.price + '</span>';
+                                    '<span>' + product.formatted_price + '</span>';
 
-                                if (product.compare_price) {
-                                    productHtml += '<span class="discount-price">' + product.compare_price +
+                                if (product.formatted_compare_price) {
+                                    productHtml += '<span class="discount-price">' + product.formatted_compare_price +
                                         '</span>';
                                 }
 
@@ -383,6 +371,8 @@
                     });
                 }
 
+
+
                 function paginate() {
 
                     $(document).on('click', '.pagination a', function(event) {
@@ -402,12 +392,14 @@
 
                                 var products = response.products.data;
 
-                                console.log(response.products);
+                                // console.log(response.products);
 
                                 var html = ''; // Variable to store the updated HTML
 
                                 for (var i = 0; i < product_length; i++) {
                                     var product = products[i];
+                                    
+
                                     // Create HTML elements to display product information
                                     var productHtml =
                                         '<div class="col-lg-4 col-md-6 col-12">' +
@@ -416,11 +408,16 @@
                                         '<div class="product-image">' +
                                         '<img src="' + product.image_url + '" alt="#">';
 
-                                    if (product.sale_percent) {
-                                        productHtml += '<span class="sale-tag">- ' + product
-                                            .sale_percent +
+                                    // if (product.sale_percent) {
+                                    //     productHtml += '<span class="sale-tag">- ' + product.sale_percent +
+                                    //         ' %</span>';
+                                    // }
+                                    if (product.sale_percent !== undefined && product.sale_percent !==
+                                        null) {
+                                        productHtml += '<span class="sale-tag">- ' + product.sale_percent +
                                             ' %</span>';
                                     }
+
 
                                     productHtml += '<div class="button">' +
                                         '<a href="' + getProductRoute(product.slug) +
@@ -443,11 +440,11 @@
                                         '<li><span>4.0 Review(s)</span></li>' +
                                         '</ul>' +
                                         '<div class="price">' +
-                                        '<span>' + product.price + '</span>';
+                                        '<span>' + product.formatted_price + '</span>';
 
-                                    if (product.compare_price) {
+                                    if (product.formatted_compare_price) {
                                         productHtml += '<span class="discount-price">' + product
-                                            .compare_price +
+                                            .formatted_compare_price +
                                             '</span>';
                                     }
 
@@ -474,6 +471,8 @@
                         });
                     }
                 }
+
+
 
                 // Reset filters
                 $('.button').on('click', function(e) {
@@ -518,6 +517,8 @@
 
 
             });
+
+
         </script>
     @endpush
 </x-front-layout>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Helpers\Currency;
 use App\Http\Controllers\Controller;
 use App\Models\Brand;
 use App\Models\Category;
@@ -37,6 +38,7 @@ class ShopGridController extends Controller
         $products = $this->getFilteredProducts($request);
 
         if ($request->ajax()) {
+            // dd($products->sale_percent);
             return response()->json([
                 'products' => $products,
                 'pagination_links' => $products->appends($request->query())->links()->toHtml(),
@@ -48,6 +50,8 @@ class ShopGridController extends Controller
             'pagination_links' => $products->appends($request->query())->links()->toHtml(),
         ]);
     }
+
+
 
     private function getFilteredProducts(Request $request, $category_id = null)
     {
@@ -92,6 +96,15 @@ class ShopGridController extends Controller
             }
         }
 
-        return $query->with(['category', 'store'])->paginate($this->productPerPage);
+        $products = $query->with(['category', 'store'])->paginate($this->productPerPage);
+
+        // Calculate and append the sale_percent attribute to each product
+        $products->getCollection()->each(function ($product) {
+            $product->sale_percent = $product->salePercent;
+            $product->formatted_price = Currency::format($product->price);
+            $product->formatted_compare_price = $product->compare_price ? Currency::format($product->compare_price) : null;
+        });
+
+        return $products;
     }
 }

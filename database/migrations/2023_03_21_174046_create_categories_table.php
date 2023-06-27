@@ -29,7 +29,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->string('image')->nullable();
             $table->enum('status',['active','inactive'])->default('active');
-            
+            $table->integer('percent')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

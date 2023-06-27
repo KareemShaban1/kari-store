@@ -38,7 +38,20 @@ return new class extends Migration
 
             $table->enum('status',['active','inactive'])->default('active');
 
+            $table->integer('percent')->nullable();
+            $table->string('phone_number')->nullable();
+            // $table->foreignId('governorate_id')->nullable()->constrained('destinations', 'id')->nullOnDelete();
+            // $table->foreignId('city_id')->nullable()->constrained('destinations', 'id')->nullOnDelete();
+            // $table->foreignId('neighborhood_id')->nullable()->constrained('destinations', 'id')->nullOnDelete();
+
+            $table->string('governorate')->nullable();
+            $table->string('city')->nullable();
+            $table->string('neighborhood')->nullable();
+            $table->string('street_address')->nullable();
+
             $table->softDeletes();
+
+            
             
             // 2 columns: created_at updated_at (timestamps)  
             $table->timestamps();

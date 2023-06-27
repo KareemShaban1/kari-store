@@ -7,7 +7,9 @@ use App\Http\Requests\Backend\StoreStoreRequest;
 use App\Http\Requests\Backend\UpdateStoreRequest;
 use App\Http\Traits\UploadImageTrait;
 use App\Models\Category;
+use App\Models\Destination;
 use App\Models\Store;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -24,15 +26,15 @@ class StoresController extends Controller
     {
         //
         $stores = Store::withCount([
-            'products' => function($query){
-                $query->where('status','=','active');
+            'products' => function ($query) {
+                $query->where('status', '=', 'active');
             }
         ])->get();
         return view('backend.Admin_Dashboard.stores.index', compact('stores'));
     }
 
 
-   
+
 
     /**
      * Show the form for creating a new resource.
@@ -42,22 +44,44 @@ class StoresController extends Controller
     public function create()
     {
         //
+        $destinations = Destination::all();
         $categories = Category::all();
-        return view('backend.Admin_Dashboard.stores.create',compact('categories'));
+        return view('backend.Admin_Dashboard.stores.create', compact('categories', 'destinations'));
+    }
+
+    public function getCities(Request $request)
+    {
+        // dd($request->governorate_id);
+
+        $governorateId = $request->governorate_id;
+        $cities = Destination::where('parent_id',$governorateId)->get();
+
+        return response()->json(['cities' => $cities]);
+    }
+
+    public function getNeighborhoods(Request $request)
+    {
+        // dd($request->governorate_id);
+
+        $cityId = $request->city_id;
+        $neighborhoods = Destination::where('parent_id',$cityId)->get();
+
+        return response()->json(['neighborhoods' => $neighborhoods]);
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+         * Store a newly created resource in storage.
+         *
+         * @param  \Illuminate\Http\Request  $request
+         * @return \Illuminate\Http\Response
+         */
     public function store(StoreStoreRequest $request)
     {
+        // dd($request->all());
 
         $request->validated();
 
-        // merge slug to the request 
+        // merge slug to the request
         $request->merge([
             'slug' => Str::slug($request->post('name'))
         ]);
@@ -68,12 +92,14 @@ class StoresController extends Controller
         // assign image to the request
         $data['logo_image'] = $this->uploadImage($request, 'logo_image', 'stores');
         $data['cover_image'] = $this->uploadImage($request, 'cover_image', 'stores');
-
-
+        $data['phone_number']=null;
+        $data['percent']=null;
+        $data['street_address']=null;
+        // dd($data);
         // store the request
         $store = Store::create($data);
 
-        // PRG 
+        // PRG
         return redirect()->route('admin.stores.index');
     }
 
@@ -100,7 +126,7 @@ class StoresController extends Controller
         //
         $store = Store::findOrFail($id);
         $categories = Category::all();
-        return view('backend.Admin_Dashboard.stores.edit', compact('store','categories'));
+        return view('backend.Admin_Dashboard.stores.edit', compact('store', 'categories'));
     }
 
     /**
@@ -122,7 +148,7 @@ class StoresController extends Controller
         $old_logo_image = $store->logo_image;
         $old_cover_image = $store->cover_image;
 
-        // merge slug to the request 
+        // merge slug to the request
         $request->merge(['slug' => Str::slug($request->post('name'))]);
 
         // get all request input except the image input
@@ -155,7 +181,7 @@ class StoresController extends Controller
             Storage::disk('uploads')->delete($old_cover_image);
         }
 
-        // PRG 
+        // PRG
         return redirect()->route('admin.stores.index');
     }
 

@@ -6,20 +6,20 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Backend\StoreProductRequest;
 use App\Http\Requests\Backend\UpdateProductRequest;
 use App\Http\Traits\UploadImageTrait;
-use App\Models\Attribute;
-use App\Models\AttributeValue;
-use App\Models\Brand;
-use App\Models\Category;
-use App\Models\Product;
-use App\Models\Store;
-use App\Models\Tag;
-use Illuminate\Http\Request;
+use App\Models\{
+    Attribute,
+    Brand,
+    Category,
+    Product,
+    Store,
+    Tag
+};
+
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 
 class ProductsController extends Controller
 {
-
     use UploadImageTrait;
 
     public function __construct()
@@ -34,19 +34,23 @@ class ProductsController extends Controller
      */
     public function index()
     {
-
-        // $this->authorize('viewAny',Product::class);
-        // dd($this->authorize('viewAny',Product::class));
-        $products = Product::with(['category', 'store', 'brand'])
-        ->withCount([
-            'product_variants' => function($query){
-               return $query;
-            }
-        ])
-        ->get();
+        /* comments
+        - $this->authorize('viewAny',Product::class);
+        - dd($this->authorize('viewAny',Product::class));
         // SELECT * FROM products
         // SELECT * FROM categories WHERE id IN (...)
         // SELECT * FROM stores WHERE id IN (....)
+         */
+
+
+        $products = Product::with(['category', 'store', 'brand'])
+        ->withCount([
+            'product_variants' => function ($query) {
+                return $query;
+            }
+        ])
+        ->get();
+
 
 
         return view('backend.Admin_Dashboard.products.index', compact('products'));
@@ -96,12 +100,12 @@ class ProductsController extends Controller
         // create product model with the $data array
         $product = Product::create($data);
 
-        // get tags from the request 
+        // get tags from the request
         $tags = json_decode($request->post('tags'));
         $tag_ids = [];
         // get all tags from DB
         $saved_tags = Tag::all();
-        // loop on tags that we get from request 
+        // loop on tags that we get from request
         foreach ($tags as $item) {
             // create slug from this tags
             $slug = Str::slug($item->value);
@@ -243,5 +247,5 @@ class ProductsController extends Controller
             'backend.Admin_Dashboard.products.product_variant',
             compact('attributes', 'product')
         );
-    } 
+    }
 }

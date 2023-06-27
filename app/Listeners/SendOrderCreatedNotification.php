@@ -4,12 +4,9 @@ namespace App\Listeners;
 
 use App\Events\OrderCreated;
 use App\Models\Admin;
-use App\Models\User;
 use App\Models\Vendor;
 use App\Notifications\OrderCreatedNotification;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Support\Facades\Auth;
+
 use Illuminate\Support\Facades\Notification;
 
 class SendOrderCreatedNotification
@@ -35,22 +32,26 @@ class SendOrderCreatedNotification
         // a php issue how send email and this is it's solution
         ini_set('max_execution_time', 300);
 
-        //// get order 
+        //// get order
         $order = $event->order;
-        // dd($order);
+
         // get store vendor of the order item
-        $vendor = Vendor::where('store_id','=',$order->store_id)->first();
-        //// get admin 
-        $admin =  Admin::where('id','=',1)->first();
-        // dd($order,$admin);
-        
+        $vendor = Vendor::where('store_id', '=', $order->store_id)->first();
+        //// get admin
+        $admins = Admin::all();
+        // send notifications to all admins
+        Notification::send($admins, new OrderCreatedNotification($order));
+
         //// send notification to admin
-        $admin->notify(new OrderCreatedNotification($order));
+        // $admin->notify(new OrderCreatedNotification($order));
+
         
         // send notification to store vendor
-        $vendor->notify(new OrderCreatedNotification($order));
+        // Notify the store vendor
+        if ($vendor) {
+            $vendor->notify(new OrderCreatedNotification($order));
+        }
 
-    
         //// if we want send notification to many users
         // $users = User::where('store_id','=',$order->store_id)->get();
         // Notification::send($users , new OrderCreatedNotification($order));

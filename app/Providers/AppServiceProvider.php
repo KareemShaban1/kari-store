@@ -29,6 +29,7 @@ class AppServiceProvider extends ServiceProvider
     {
 
         JsonResource::withoutWrapping();
+
         //
         Validator::extend('filter' , function($attributes,$value,$params){
             return !(in_array(strtolower($value),$params));

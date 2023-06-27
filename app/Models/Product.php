@@ -138,7 +138,16 @@ class Product extends Model
         if (!$this->compare_price) {
             return 0;
         }
-        return number_format(100 - (100 * $this->price / $this->compare_price), 1);
+        if ($this->compare_price === null || $this->price === null) {
+            return 0;
+        }
+        if ($this->compare_price == 0) {
+            return 0;
+        }
+        return number_format(100 - (100 * $this->price / $this->compare_price), 0);
+    
+        
+        // return number_format(100 - (100 * $this->price / $this->compare_price), 0);
     } // $product->sale_percent
 
 

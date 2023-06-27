@@ -39,9 +39,8 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \App\Http\Middleware\UpdateUserLastActiveAt::class,
             \App\Http\Middleware\MarkNotificationAsRead::class
-
         ],
-
+       
         'api' => [
             // \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
             'throttle:api',

@@ -41,6 +41,14 @@ class FortifyServiceProvider extends ServiceProvider
             // Config::set('fortify.home', 'backend/dashboard');
         }
 
+        if ($request->is('delivery/*')) {
+            Config::set('fortify.guard', 'delivery');
+            Config::set('fortify.password', 'deliveries');
+            Config::set('fortify.prefix', 'delivery');
+            //// redirect admin after login 
+            // Config::set('fortify.home', 'backend/dashboard');
+        }
+
         // redirect user or admin after login 
         $this->app->instance(LoginResponse::class,new class implements LoginResponse {
            public function toResponse($request){
@@ -50,6 +58,9 @@ class FortifyServiceProvider extends ServiceProvider
                 }
                 if ($request->user('vendor')) {
                     return redirect('/vendor/dashboard');
+                }
+                if ($request->user('delivery')) {
+                    return redirect('/delivery/dashboard');
                 }
                 return redirect('/');
            } 
@@ -100,6 +111,13 @@ class FortifyServiceProvider extends ServiceProvider
             Fortify::authenticateUsing([new CustomAuthentication,'authenticateVendor']);
             //// put prefix for auth backend pages => /login/admin
             Fortify::viewPrefix('backend.auth.vendor.');
+        } 
+
+        elseif (Config::get('fortify.guard') == 'delivery') {
+            //// this method will be used in "admin" guard only
+            Fortify::authenticateUsing([new CustomAuthentication,'authenticateDelivery']);
+            //// put prefix for auth backend pages => /login/admin
+            Fortify::viewPrefix('backend.auth.delivery.');
         } 
         
         else {

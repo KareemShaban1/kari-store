@@ -98,6 +98,21 @@
                             </li>
 
                             <li>
+                                <a href="javascript:void(0);" data-toggle="collapse" data-target="#destinations-menu">
+                                    <div class="pull-left"><i class="fa-solid fa-store fa-fade"></i><span
+                                            class="right-nav-text">{{ trans('sidebar_trans.Destinations') }}</span></div>
+                                    <div class="pull-right"><i class="ti-plus"></i></div>
+                                    <div class="clearfix"></div>
+                                </a>
+                                <ul id="destinations-menu" class="collapse">
+                                    <li> <a href="{{ Route('admin.destinations.create') }}">{{ trans('sidebar_trans.Add_Destination') }}
+                                        </a> </li>
+                                    <li> <a href="{{ Route('admin.destinations.index') }}">{{ trans('sidebar_trans.All_Destinations') }}
+                                        </a> </li>
+                                </ul>
+                            </li>
+
+                            <li>
                                 <a href="javascript:void(0);" data-toggle="collapse" data-target="#vendors-menu">
                                     <div class="pull-left"><i class="fa-solid fa-store fa-fade"></i><span
                                             class="right-nav-text">{{ trans('sidebar_trans.Vendors') }}</span></div>
@@ -108,6 +123,22 @@
                                     <li> <a href="{{ Route('admin.vendors.create') }}">{{ trans('sidebar_trans.Add_Vendor') }}
                                         </a> </li>
                                     <li> <a href="{{ Route('admin.vendors.index') }}">{{ trans('sidebar_trans.All_Vendors') }}
+                                        </a> </li>
+                                </ul>
+                            </li>
+
+
+                            <li>
+                                <a href="javascript:void(0);" data-toggle="collapse" data-target="#deliveries-menu">
+                                    <div class="pull-left"><i class="fa-solid fa-store fa-fade"></i><span
+                                            class="right-nav-text">{{ trans('sidebar_trans.Deliveries') }}</span></div>
+                                    <div class="pull-right"><i class="ti-plus"></i></div>
+                                    <div class="clearfix"></div>
+                                </a>
+                                <ul id="deliveries-menu" class="collapse">
+                                    <li> <a href="{{ Route('admin.deliveries.create') }}">{{ trans('sidebar_trans.Add_Delivery') }}
+                                        </a> </li>
+                                    <li> <a href="{{ Route('admin.deliveries.index') }}">{{ trans('sidebar_trans.All_Deliveries') }}
                                         </a> </li>
                                 </ul>
                             </li>

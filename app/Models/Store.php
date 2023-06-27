@@ -21,7 +21,8 @@ class Store extends Model
     // const   UPDATED_AT ='updated_at';
 
     protected $fillable = [
-        'name', 'description', 'logo_image', 'cover_image', 'slug', 'status'
+        'name', 'description', 'logo_image', 'cover_image', 'slug', 'status','percent',
+        'phone_number','governorate','city','neighborhood','street_address','category_id'
     ];
 
     public function products()
