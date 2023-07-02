@@ -20,31 +20,34 @@
                         <div class="search-box not-click">
                             <input type="text" class="not-click form-control" placeholder="Search" value=""
                                 name="search">
-                            <button class="search-button" type="submit"> <i class="fa fa-search not-click"></i></button>
+                            <button class="search-button" type="submit"> <i
+                                    class="fa fa-search not-click"></i></button>
                         </div>
                     </div>
                 </li>
             </ul>
-              <!-- top bar right -->
-              <ul class="nav navbar-nav ml-auto">
+            <!-- top bar right -->
+            <ul class="nav navbar-nav ml-auto">
 
                 <div class="btn-group mb-1">
-                    <button type="button" class="btn btn-light btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      @if (App::getLocale() == 'ar')
-                      {{ LaravelLocalization::getCurrentLocaleName() }}
-                     <img src="{{ URL::asset('backend/assets/images/flags/EG.png') }}" alt="">
-                      @else
-                      {{ LaravelLocalization::getCurrentLocaleName() }}
-                      <img src="{{ URL::asset('backend/assets/images/flags/US.png') }}" alt="">
-                      @endif
-                      </button>
+                    <button type="button" class="btn btn-light btn-sm dropdown-toggle" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        @if (App::getLocale() == 'ar')
+                            {{ LaravelLocalization::getCurrentLocaleName() }}
+                            <img src="{{ URL::asset('backend/assets/images/flags/EG.png') }}" alt="">
+                        @else
+                            {{ LaravelLocalization::getCurrentLocaleName() }}
+                            <img src="{{ URL::asset('backend/assets/images/flags/US.png') }}" alt="">
+                        @endif
+                    </button>
                     <div class="dropdown-menu">
-                        @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
-                                <a class="dropdown-item" rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
-                                    {{ $properties['native'] }}
-                                </a>
+                        @foreach (LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                            <a class="dropdown-item" rel="alternate" hreflang="{{ $localeCode }}"
+                                href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                                {{ $properties['native'] }}
+                            </a>
                         @endforeach
-                    </div>  
+                    </div>
                 </div>
 
                 <li class="nav-item fullscreen">
@@ -53,36 +56,38 @@
 
                 <x-dashboard.notification-menu count="7" />
 
-               
+
                 <li class="nav-item dropdown mr-30">
-                    
+
                     <a class="nav-link nav-pill user-avatar" data-toggle="dropdown" href="#" role="button"
                         aria-haspopup="true" aria-expanded="false">
-                        <img src="{{URL::asset('backend/assets/images/profile-avatar.jpg')}}" alt="avatar">
+                        <img src="{{ URL::asset('backend/assets/images/profile-avatar.jpg') }}" alt="avatar">
                     </a>
-                    
+
                     <div class="dropdown-menu dropdown-menu-right">
                         <div class="dropdown-header">
                             <div class="media">
                                 <div class="media-body">
                                     <h5 class="mt-0 mb-0"></h5>
-                                    <span>{{Auth::user()->email}}</span>
+                                    <span>{{ Auth::user()->email }}</span>
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="dropdown-divider"></div>
                         {{-- <a class="dropdown-item" href="#"><i class="text-info ti-settings"></i>الإعدادات</a> --}}
-                       
+
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
-                                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                            this.closest('form').submit(); " role="button">
-                                           
-                                    <i class="text-danger ti-unlock"></i>
-                                    تسجل الخروج
-                                </a>
-                            
+                            <a class="dropdown-item" href="{{ route('logout') }}"
+                                onclick="event.preventDefault();
+                                            this.closest('form').submit(); "
+                                role="button">
+
+                                <i class="text-danger ti-unlock"></i>
+                                تسجل الخروج
+                            </a>
+
                         </form>
                     </div>
                 </li>

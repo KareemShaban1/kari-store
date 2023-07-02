@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Fortify\Fortify;
 use Laravel\Fortify\Contracts\LoginResponse;
+use Laravel\Fortify\Contracts\RegisterResponse;
 
 class FortifyServiceProvider extends ServiceProvider
 {
@@ -29,7 +30,7 @@ class FortifyServiceProvider extends ServiceProvider
             Config::set('fortify.guard', 'admin');
             Config::set('fortify.password', 'admins');
             Config::set('fortify.prefix', 'admin');
-            //// redirect admin after login 
+            /// redirect admin after login 
             // Config::set('fortify.home', 'backend/dashboard');
         }
 
@@ -37,7 +38,7 @@ class FortifyServiceProvider extends ServiceProvider
             Config::set('fortify.guard', 'vendor');
             Config::set('fortify.password', 'vendors');
             Config::set('fortify.prefix', 'vendor');
-            //// redirect admin after login 
+            /// redirect vendor after login 
             // Config::set('fortify.home', 'backend/dashboard');
         }
 
@@ -45,25 +46,31 @@ class FortifyServiceProvider extends ServiceProvider
             Config::set('fortify.guard', 'delivery');
             Config::set('fortify.password', 'deliveries');
             Config::set('fortify.prefix', 'delivery');
-            //// redirect admin after login 
+            /// redirect delivery after login 
             // Config::set('fortify.home', 'backend/dashboard');
         }
 
-        // redirect user or admin after login 
+        // redirect user , admin , vendor and delivery after login 
         $this->app->instance(LoginResponse::class,new class implements LoginResponse {
-           public function toResponse($request){
-            // $request->user('admin') // admin -> guard_name
-                if ($request->user('admin')) {
-                    return redirect('/admin/dashboard');
-                }
-                if ($request->user('vendor')) {
-                    return redirect('/vendor/dashboard');
-                }
-                if ($request->user('delivery')) {
-                    return redirect('/delivery/dashboard');
-                }
-                return redirect('/');
-           } 
+            public function toResponse($request){
+                // $request->user('admin') // admin -> guard_name
+                    if ($request->user('admin')) {
+                        return redirect('/admin/dashboard');
+                    }
+                    if ($request->user('vendor')) {
+                        return redirect('/vendor/dashboard');
+                    }
+                    if ($request->user('delivery')) {
+                        return redirect('/delivery/dashboard');
+                    }
+                    return redirect('/');
+            } 
+        });
+
+        $this->app->instance(RegisterResponse::class,new class implements RegisterResponse {
+            public function toResponse($request){
+                    return redirect('/login');
+            } 
         });
     }
 
@@ -73,15 +80,16 @@ class FortifyServiceProvider extends ServiceProvider
     public function boot(): void
     {
 
-        //// if callback function is on class we will return it in array 
-        //// as a second element and class in first one
-        //// if method was static we will send class "AuthenticateUser::class" 
-        //// if not we will send object "new AuthenticateUser"
+        /// if callback function is on class we will return it in array 
+        /// as a second element and class in first one
+        /// if method was static we will send class "AuthenticateUser::class" 
+        /// if not we will send object "new AuthenticateUser"
         // Fortify::authenticateUsing([new AuthenticateUser,'authenticate']);
 
-
+        $this->app->singleton(RegisterResponseContract::class,RegisterResponse::class);
+        
         // Fortify::createUsersUsing(CreateNewUser::class);
-        Fortify::createUsersUsing(RegisterUser::class);
+        // Fortify::createUsersUsing(RegisterUser::class);
         Fortify::updateUserProfileInformationUsing(UpdateUserProfileInformation::class);
         Fortify::updateUserPasswordsUsing(UpdateUserPassword::class);
         Fortify::resetUserPasswordsUsing(ResetUserPassword::class);
@@ -100,44 +108,36 @@ class FortifyServiceProvider extends ServiceProvider
 
         // custom code
         if (Config::get('fortify.guard') == 'admin') {
-            //// this method will be used in "admin" guard only
+            /// this method will be used in "admin" guard only
             Fortify::authenticateUsing([new CustomAuthentication,'authenticateAdmin']);
-            //// put prefix for auth backend pages => /login/admin
+            /// put prefix for auth backend pages => /login/admin
             Fortify::viewPrefix('backend.auth.admin.');
 
         } 
         elseif (Config::get('fortify.guard') == 'vendor') {
-            //// this method will be used in "admin" guard only
+            /// this method will be used in "admin" guard only
             Fortify::authenticateUsing([new CustomAuthentication,'authenticateVendor']);
-            //// put prefix for auth backend pages => /login/admin
+            /// put prefix for auth backend pages => /login/admin
             Fortify::viewPrefix('backend.auth.vendor.');
         } 
 
         elseif (Config::get('fortify.guard') == 'delivery') {
-            //// this method will be used in "admin" guard only
+            /// this method will be used in "admin" guard only
             Fortify::authenticateUsing([new CustomAuthentication,'authenticateDelivery']);
-            //// put prefix for auth backend pages => /login/admin
+            /// put prefix for auth backend pages => /login/admin
             Fortify::viewPrefix('backend.auth.delivery.');
         } 
         
         else {
 
-            //// this method will be used in "web" guard only
+            /// this method will be used in "web" guard only
             Fortify::authenticateUsing([new CustomAuthentication , 'authenticateUser']);
-            //// put prefix for auth frontend pages =>  /login
+            
+            Fortify::createUsersUsing(RegisterUser::class,'create');
+
+            /// put prefix for auth frontend pages =>  /login
             Fortify::viewPrefix('frontend.auth.');
 
         }
-
-
-        // Fortify::loginView(function () {
-        //     if (Config::get('fortify.guard') == 'web') {
-        //         return view('front.auth.login');
-        //     }
-        //     return view('auth.login');
-        // });
-        // Fortify::loginView('auth.login');
-        // Fortify::registerView('auth.register');
-        // Fortify::forgotPasswordView('auth.forgot-password');
     }
 }

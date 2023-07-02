@@ -27,7 +27,7 @@ class RedirectIfAuthenticated
         // }
 
         if(auth('web')->check()){
-            return redirect('home');
+            return redirect('/');
         }
         if(auth('admin')->check()){
             return redirect('/admin/dashboard');

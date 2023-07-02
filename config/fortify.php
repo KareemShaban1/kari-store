@@ -145,4 +145,9 @@ return [
         ]),
     ],
 
+    'redirects'=>[
+        // if patient register successfully ,  will redirected to this path '/patient/dashboard'
+        'register'=>'/login'
+    ],
+
 ];

@@ -76,3 +76,26 @@ Attribute Values (id , attribute_id , key , value)
 
 Variations (id , product_id , price , sku , image)
 Variations_values (Variation_id , attribute_value_id)
+
+
+
+////////// 
+redirect user to login page after registration
+
+in Laravel\Fortify\Http\Controllers\RegisteredUserController;
+
+1- comment this code =>  $this->guard->login($user);
+
+in App\Http\Controllers\Auth\RegisteredUserController;
+
+1- in store function parameter (RegisterResponse $response)
+2- remove auth 
+3- change the redirect return to 
+        // Custom redirect logic
+        return $response->redirect(route('login'));
+4- add this function in Controller
+        public function registered(Request $request, $user)
+        {
+        // Custom redirect logic
+        return redirect()->route('login');
+        }        

@@ -4,15 +4,11 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use App\Providers\RouteServiceProvider;
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
+use Laravel\Fortify\Http\Responses\RegisterResponse;
 
 class RegisteredUserController extends Controller
 {
@@ -29,7 +25,7 @@ class RegisteredUserController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request , RegisterResponse $response)
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
@@ -37,18 +33,19 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        $user = User::create([
+        User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
 
-        event(new Registered($user));
+        // Custom redirect logic
+        return $response->redirect(route('login'));
+    }
 
-        Auth::login($user);
-
-
-        return redirect(RouteServiceProvider::HOME);
-        // another way : return Redirect::route('dashboard');
+    public function registered(Request $request, $user)
+    {
+        // Custom redirect logic
+        return redirect()->route('login');
     }
 }

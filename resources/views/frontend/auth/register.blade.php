@@ -96,34 +96,34 @@
                                     <label for="reg-phone">Phone Number</label>
                                     <input class="form-control" type="text" name="phone_number" id="reg-phone">
                                     @error('phone_number')
-                                    <div class="alert alert-danger">
-                                        <span class="text-danger">{{ $message }}</span>
-                                    </div>
-                                    @enderror 
+                                        <div class="alert alert-danger">
+                                            <span class="text-danger">{{ $message }}</span>
+                                        </div>
+                                    @enderror
                                 </div>
                             </div>
 
                             <div class="col-md-12 col-sm-6">
                                 <div class="form-group">
                                     <label for="reg-email">Governorate</label>
-                                    <input class="form-control" type="text" name="governorate" >
+                                    <input class="form-control" type="text" name="governorate">
                                     @error('governorate')
-                                    <div class="alert alert-danger">
-                                        <span class="text-danger">{{ $message }}</span>
-                                    </div>
-                                    @enderror 
-                                
+                                        <div class="alert alert-danger">
+                                            <span class="text-danger">{{ $message }}</span>
+                                        </div>
+                                    @enderror
+
                                 </div>
                             </div>
 
                             <div class="col-md-12 col-sm-6">
                                 <div class="form-group">
                                     <label for="reg-email">City</label>
-                                    <input class="form-control" type="text" name="city" >
+                                    <input class="form-control" type="text" name="city">
                                     @error('city')
-                                    <div class="alert alert-danger">
-                                        <span class="text-danger">{{ $message }}</span>
-                                    </div>
+                                        <div class="alert alert-danger">
+                                            <span class="text-danger">{{ $message }}</span>
+                                        </div>
                                     @enderror
                                 </div>
                             </div>
@@ -131,13 +131,13 @@
                             <div class="col-md-12 col-sm-6">
                                 <div class="form-group">
                                     <label for="reg-email">Postal code</label>
-                                    <input class="form-control" type="text" name="postal_code" >
+                                    <input class="form-control" type="text" name="postal_code">
                                     @error('postal_code')
-                                    <div class="alert alert-danger">
-                                        <span class="text-danger">{{ $message }}</span>
-                                    </div>
+                                        <div class="alert alert-danger">
+                                            <span class="text-danger">{{ $message }}</span>
+                                        </div>
                                     @enderror
-                                
+
                                 </div>
                             </div>
 
@@ -145,11 +145,11 @@
                             <div class="col-md-12 col-sm-6">
                                 <div class="form-group">
                                     <label for="reg-email">Street Address</label>
-                                    <input class="form-control" type="text" name="street_address" >
+                                    <input class="form-control" type="text" name="street_address">
                                     @error('street_address')
-                                    <div class="alert alert-danger">
-                                        <span class="text-danger">{{ $message }}</span>
-                                    </div>
+                                        <div class="alert alert-danger">
+                                            <span class="text-danger">{{ $message }}</span>
+                                        </div>
                                     @enderror
                                 </div>
                             </div>
