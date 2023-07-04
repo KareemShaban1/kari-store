@@ -8,7 +8,7 @@
             
             <div class="row">
 
-                @if( $websiteParts['parts']['left_show_bar'] ?? null && $websiteParts['parts']['left_show_bar'] == 1 )
+                @if( $websiteParts['parts']['Slider'] ?? null && $websiteParts['parts']['Slider'] == 1 )
                 <div class="col-lg-12 col-12 custom-padding-right">
                     <div class="slider-head">
                         <!-- Start Hero Slider -->
@@ -54,47 +54,12 @@
                 </div>
                 @endif
 
-                {{-- @if( $websiteParts['parts']['right_show_bar'] ?? null && $websiteParts['parts']['right_show_bar']   )
-                <div class="col-lg-4 col-12">
-                    <div class="row">
-                        <div class="col-lg-12 col-md-6 col-12 md-custom-padding">
-                            <!-- Start Small Banner -->
-                            <div class="hero-small-banner"
-                                style="background-image: url('https://via.placeholder.com/370x250');">
-                                <div class="content">
-                                    <h2>
-                                        <span>New line required</span>
-                                        iPhone 12 Pro Max
-                                    </h2>
-                                    <h3>$259.99</h3>
-                                </div>
-                            </div>
-                            <!-- End Small Banner -->
-                        </div>
-                        <div class="col-lg-12 col-md-6 col-12">
-                            <!-- Start Small Banner -->
-                            <div class="hero-small-banner style2">
-                                <div class="content">
-                                    <h2>Weekly Sale!</h2>
-                                    <p>Saving up to 50% off all online store items this week.</p>
-                                    <div class="button">
-                                        <a class="btn" href="product-grids.html">Shop Now</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Start Small Banner -->
-                        </div>
-                    </div>
-                </div>
-                @endif --}}
-
-
             </div>
         </div>
     </section>
     <!-- End Hero Area -->
 
-    @if( $websiteParts['parts']['featured_categories_section'] ?? null && $websiteParts['parts']['featured_categories_section'] == 1 )
+    @if( $websiteParts['parts']['Featured Categories Section'] ?? null && $websiteParts['parts']['Featured Categories Section'] == 1 )
 
     <!-- Start Featured Categories Area -->
     <section class="featured-categories section">
@@ -219,7 +184,7 @@
     @endif
 
 
-    @if( $websiteParts['parts']['trending_product_section'] ?? null && $websiteParts['parts']['trending_product_section'] == 1 )
+    @if( $websiteParts['parts']['Trending Product Section'] ?? null && $websiteParts['parts']['Trending Product Section'] == 1 )
 
     <!-- Start Trending Product Area -->
     <section class="trending-product section">
@@ -248,7 +213,7 @@
     @endif
 
 
-    @if( $websiteParts['parts']['banner_section'] ?? null && $websiteParts['parts']['banner_section'] == 1 )
+    @if( $websiteParts['parts']['Banner Section'] ?? null && $websiteParts['parts']['Banner Section'] == 1 )
 
     <!-- Start Banner Area -->
     <section class="banner section">
@@ -286,7 +251,7 @@
     @endif
 
 
-    @if( $websiteParts['parts']['special_offers_section'] ?? null && $websiteParts['parts']['special_offers_section'] == 1 )
+    @if( $websiteParts['parts']['Special Offers Section'] ?? null && $websiteParts['parts']['Special Offers Section'] == 1 )
 
     <!-- Start Special Offer -->
     <section class="special-offer section">
@@ -469,14 +434,14 @@
 
 
 
-    @if( $websiteParts['parts']['home_product_list_section'] ?? null && $websiteParts['parts']['home_product_list_section'] == 1 )
+    @if( $websiteParts['parts']['Home Product List Section'] ?? null && $websiteParts['parts']['Home Product List Section'] == 1 )
 
     <!-- Start Home Product List -->
     <section class="home-product-list section">
         <div class="container">
             <div class="row">
 
-                @if( $websiteParts['parts']['best_sellers'] ?? null && $websiteParts['parts']['best_sellers'] == 1 )
+                @if( $websiteParts['parts']['Best Seller'] ?? null && $websiteParts['parts']['Best Seller'] == 1 )
                 <div class="col-lg-4 col-md-4 col-12 custom-responsive-margin">
                     <h4 class="list-title">Best Sellers</h4>
                     <!-- Start Single List -->

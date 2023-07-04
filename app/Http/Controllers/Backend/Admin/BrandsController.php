@@ -37,7 +37,6 @@ class BrandsController extends Controller
     public function store(StoreBrandRequest $request)
     {
         $request->validated();
-        // dd($request->all());
 
         $data = $request->except('image');
         

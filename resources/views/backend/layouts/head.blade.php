@@ -7,6 +7,7 @@
 <!-- Font -->
 <link rel="stylesheet"
     href="https://fonts.googleapis.com/css?family=Poppins:200,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900">
+
 @yield('css')
 
 {{-- Datatables --}}
@@ -16,10 +17,9 @@
 
 
 {{-- tagify --}}
-{{-- <link href="{{ URL::asset('backend/assets/tagify/tagify.css') }}" rel="stylesheet"> --}}
 
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+<link href="{{ URL::asset('backend/assets/css/0.8.18_dist_summernote.min.css')}}" rel="stylesheet">
+<link href="{{ URL::asset('backend/assets/css/0.8.18_dist_summernote-lite.min.css')}}" rel="stylesheet">
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" rel="stylesheet">
 

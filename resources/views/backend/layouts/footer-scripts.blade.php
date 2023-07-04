@@ -1,43 +1,37 @@
-<!-- jquery -->
-{{-- <script src="{{ URL::asset('backend/assets/js/jquery-3.3.1.min.js') }}"></script> --}}
 
-            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-<!-- plugins-jquery -->
+@yield('js')
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+            <!-- plugins-jquery -->
 <script src="{{ URL::asset('backend/assets/js/plugins-jquery.js') }}"></script>
 <!-- plugin_path -->
 <script>
-    var plugin_path = 'js/';
-
+        var plugin_path = '{{ asset('backend/assets/js/') }}';
 </script>
 
-<!-- chart -->
-<script src="{{ URL::asset('backend/assets/js/chart-init.js') }}"></script>
-<!-- calendar -->
-<script src="{{ URL::asset('backend/assets/js/calendar.init.js') }}"></script>
-<!-- charts sparkline -->
-<script src="{{ URL::asset('backend/assets/js/sparkline.init.js') }}"></script>
-<!-- charts morris -->
-<script src="{{ URL::asset('backend/assets/js/morris.init.js') }}"></script>
+
 <!-- datepicker -->
 <script src="{{ URL::asset('backend/assets/js/datepicker.js') }}"></script>
 <!-- sweetalert2 -->
 <script src="{{ URL::asset('backend/assets/js/sweetalert2.js') }}"></script>
 <!-- toastr -->
-@yield('js')
+
 <script src="{{ URL::asset('backend/assets/js/toastr.js') }}"></script>
 <!-- validation -->
 <script src="{{ URL::asset('backend/assets/js/validation.js') }}"></script>
-<!-- lobilist -->
-<script src="{{ URL::asset('backend/assets/js/lobilist.js') }}"></script>
+
 <!-- custom -->
 <script src="{{ URL::asset('backend/assets/js/custom.js') }}"></script>
 
 {{-- Datatables --}}
 <script src="{{ URL::asset('backend/assets/datatables/datatables.min.js') }}"></script>
 
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+<script src="{{ URL::asset('backend/assets/js/0.8.18_dist_summernote-lite.min.js') }}"></script>
+
 <script>
+
     $('#summernote').summernote({
         placeholder: 'Hello ..!',
         tabsize: 2,
@@ -57,7 +51,4 @@
 </script>
 
 
-{{-- Tagify --}}
-{{-- <link href="{{ URL::asset('backend/assets/tagify/tagify.js') }}" rel="stylesheet">
-<link href="{{ URL::asset('backend/assets/tagify/tagify.polyfills.min.js') }}" rel="stylesheet"> --}}
 

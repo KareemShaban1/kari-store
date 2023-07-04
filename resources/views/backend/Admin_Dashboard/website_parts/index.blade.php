@@ -36,6 +36,7 @@
                             <th>{{ trans('websiteParts_trans.Id') }}</th>
                             <th>{{ trans('websiteParts_trans.Key') }}</th>
                             <th>{{ trans('websiteParts_trans.Value') }}</th>
+                            <th>{{ trans('websiteParts_trans.Image') }}</th>
                             <th>{{ trans('websiteParts_trans.Control') }}</th>
                         </tr>
                     </thead>
@@ -48,8 +49,6 @@
 
                                 <td>
                                     {{ $part->key }}
-
-
                                 </td>
 
                                 <td>
@@ -58,6 +57,15 @@
                                     @elseif($part->value == '1')
                                         <span class="text-success">{{ trans('websiteParts_trans.Show') }}</span>
                                     @endif
+                                </td>
+                                <td>
+                                    <img src="{{ $part->image_url }}" 
+                                    @if($part->image) 
+                                    height="100" width="150" 
+                                    @else  
+                                    height="50" width="50" 
+                                    @endif 
+                                    alt="">
                                 </td>
                                 <td>
                                     <a href="" class="btn btn-primary btn-sm">
