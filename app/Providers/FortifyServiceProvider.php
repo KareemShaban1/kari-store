@@ -7,6 +7,7 @@ use App\Actions\Fortify\RegisterUser;
 use App\Actions\Fortify\ResetUserPassword;
 use App\Actions\Fortify\UpdateUserPassword;
 use App\Actions\Fortify\UpdateUserProfileInformation;
+use App\Http\Controllers\Auth\CustomRegisterResponse;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
@@ -30,24 +31,20 @@ class FortifyServiceProvider extends ServiceProvider
             Config::set('fortify.guard', 'admin');
             Config::set('fortify.password', 'admins');
             Config::set('fortify.prefix', 'admin');
-            /// redirect admin after login 
-            // Config::set('fortify.home', 'backend/dashboard');
         }
 
         if ($request->is('vendor/*')) {
             Config::set('fortify.guard', 'vendor');
             Config::set('fortify.password', 'vendors');
             Config::set('fortify.prefix', 'vendor');
-            /// redirect vendor after login 
-            // Config::set('fortify.home', 'backend/dashboard');
+            
         }
 
         if ($request->is('delivery/*')) {
             Config::set('fortify.guard', 'delivery');
             Config::set('fortify.password', 'deliveries');
             Config::set('fortify.prefix', 'delivery');
-            /// redirect delivery after login 
-            // Config::set('fortify.home', 'backend/dashboard');
+            
         }
 
         // redirect user , admin , vendor and delivery after login 
@@ -69,7 +66,7 @@ class FortifyServiceProvider extends ServiceProvider
 
         $this->app->instance(RegisterResponse::class,new class implements RegisterResponse {
             public function toResponse($request){
-                    return redirect('/login');
+                    return redirect('/verify');
             } 
         });
     }
@@ -86,15 +83,21 @@ class FortifyServiceProvider extends ServiceProvider
         /// if not we will send object "new AuthenticateUser"
         // Fortify::authenticateUsing([new AuthenticateUser,'authenticate']);
 
-        $this->app->singleton(RegisterResponseContract::class,RegisterResponse::class);
+        $this->app->singleton(RegisterResponseContract::class,
+        CustomRegisterResponse::class);
         
         // Fortify::createUsersUsing(CreateNewUser::class);
         // Fortify::createUsersUsing(RegisterUser::class);
         Fortify::updateUserProfileInformationUsing(UpdateUserProfileInformation::class);
         Fortify::updateUserPasswordsUsing(UpdateUserPassword::class);
         Fortify::resetUserPasswordsUsing(ResetUserPassword::class);
+        Fortify::verifyEmailView(function () {
+            return view('frontend.auth.verify');
+        });
+        
 
         
+        // rate limiter for login
         RateLimiter::for('login', function (Request $request) {
             $email = (string) $request->email;
             // user can send only 5 requests in one minute
@@ -134,6 +137,8 @@ class FortifyServiceProvider extends ServiceProvider
             Fortify::authenticateUsing([new CustomAuthentication , 'authenticateUser']);
             
             Fortify::createUsersUsing(RegisterUser::class,'create');
+
+        
 
             /// put prefix for auth frontend pages =>  /login
             Fortify::viewPrefix('frontend.auth.');

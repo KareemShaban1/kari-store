@@ -61,7 +61,7 @@
                                 <td>
                                     <img src="{{ $part->image_url }}" 
                                     @if($part->image) 
-                                    height="100" width="150" 
+                                    height="100" width="200" 
                                     @else  
                                     height="50" width="50" 
                                     @endif 

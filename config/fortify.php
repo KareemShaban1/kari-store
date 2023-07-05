@@ -2,6 +2,7 @@
 
 use App\Providers\RouteServiceProvider;
 use Laravel\Fortify\Features;
+
 return [
 
     /*
@@ -145,9 +146,8 @@ return [
         ]),
     ],
 
-    'redirects'=>[
-        // if patient register successfully ,  will redirected to this path '/patient/dashboard'
-        'register'=>'/login'
-    ],
+    // 'redirects'=>[
+    //     'register'=>'/verify'
+    // ],
 
 ];

@@ -3,15 +3,24 @@
 namespace App\Models;
 
 use App\Http\Traits\HasRoles;
+use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Laravel\Fortify\TwoFactorAuthenticatable;
-class User extends Authenticatable
+use Twilio\Rest\Client;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasApiTokens, HasFactory, Notifiable , TwoFactorAuthenticatable , SoftDeletes , HasRoles;
+    use HasApiTokens;
+    use HasFactory;
+    use Notifiable ;
+    use TwoFactorAuthenticatable ;
+    use SoftDeletes ;
+    use HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -29,7 +38,8 @@ class User extends Authenticatable
         'postal_code',
         'street_address',
         'email_verified_at',
-        'remember_token'
+        'remember_token',
+        
     ];
 
     /**
@@ -54,8 +64,42 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function profile(){
+    public function profile()
+    {
 
-        return $this->hasOne(Profile::class,'user_id','id')->withDefault();
+        return $this->hasOne(Profile::class, 'user_id', 'id')->withDefault();
+    }
+
+    /**
+     * Write code on Method
+     *
+     * @return response()
+     */
+    public function generateCode()
+    {
+        $code = rand(1000, 9999);
+
+        UserCode::updateOrCreate(
+            [ 'user_id' => auth()->user()->id ],
+            [ 'code' => $code ]
+        );
+
+        $receiverNumber = auth()->user()->phone;
+        $message = "2FA login code is ". $code;
+
+        try {
+
+            $account_sid = getenv("TWILIO_SID");
+            $auth_token = getenv("TWILIO_TOKEN");
+            $twilio_number = getenv("TWILIO_FROM");
+
+            $client = new Client($account_sid, $auth_token);
+            $client->messages->create($receiverNumber, [
+                'from' => $twilio_number,
+                'body' => $message]);
+
+        } catch (Exception $e) {
+            info("Error: ". $e->getMessage());
+        }
     }
 }

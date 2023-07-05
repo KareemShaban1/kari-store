@@ -20,7 +20,8 @@ return new class extends Migration
             $table->string('email_address')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('phone_number')->nullable()->unique();
+            $table->string('phone_number');
+            $table->boolean('isVerified')->default(false);
             $table->string('governorate')->nullable();
             $table->string('city')->nullable();
             $table->string('postal_code')->nullable();

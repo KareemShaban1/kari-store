@@ -29,6 +29,11 @@
     <div class="account-login section">
         <div class="container">
             <div class="row">
+                @if (session('error'))
+                <div class="alert alert-danger" role="alert">
+                    {{ session('error') }}
+                </div>
+            @endif
                 <div class="col-lg-6 offset-lg-3 col-md-10 offset-md-1 col-12">
                     <div class="register-form">
                         <div class="title">

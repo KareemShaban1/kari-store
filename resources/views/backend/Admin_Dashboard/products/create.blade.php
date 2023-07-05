@@ -1,6 +1,6 @@
 @extends('backend.layouts.master')
 @section('css')
-<link href="{{ URL::asset('backend/assets/tagify/tagify.css') }}" rel="stylesheet">
+    <link href="{{ URL::asset('backend/assets/tagify/tagify.css') }}" rel="stylesheet">
 
 @section('title')
     {{ trans('products_trans.Create_Product') }}
@@ -123,69 +123,20 @@
 
                     </div>
 
-                    {{-- <div class="row">
-                        @if (\App\Models\Attribute::count() > 0)
-                        <div class="col-md-6">
-                            <div class="col-6">
-                                <div class="d-flex">
-                                    <label for="">Color : </label>
 
-                                    <label class="custom-switch form-switch mb-0">
-                                        <input type="checkbox" class="custom-switch-input" name="colors_active" checked>
-                                        <span class="custom-switch-indicator"></span>
-                                    </label>
-
-                                </div>
-                                <select  name="colors[]" class="form-control select2 color-var-select" id="colors-selector" multiple >
-                                    @if(\App\Models\Attribute::where(['has_color'=>1])->count()>0)
-                                        @foreach(\App\Models\Attribute::where(['has_color'=>1])->first()->attribute_values as $color)
-                                            <option value={{$color->value}} @isset($product['colors']) {{in_array($color->color_code,$product['colors'])?'selected':''}} @endisset>{{$color['key']}}</option>
-                                        @endforeach
-                                    @endif
-                                </select>
-                            </div>
-                        </div>
-                        @endif
-                    </div> --}}
 
 
                     <div class="row">
-
-                        {{-- <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="form-group">
-                                <x-backend.form.input label="{{ trans('products_trans.Options') }}" name="options"
+                                <x-backend.form.input label="{{ trans('products_trans.Tags') }}" name="tags" />
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <x-backend.form.input label="{{ trans('products_trans.Quantity') }}" name="quantity"
                                     class="form-control" />
-                            </div>
-                        </div> --}}
-
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <x-backend.form.input label="{{ trans('products_trans.Rating') }}"
-                                  type="number"  name="rating" value="0" class="form-control" />
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <x-backend.form.input label="{{ trans('products_trans.Featured') }}"
-                                type="number" name="featured" value="0" class="form-control" />
-                            </div>
-                        </div>
-
-                    </div>
-
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <x-backend.form.input label="{{ trans('products_trans.Tags') }}" name="tags"  />
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <x-backend.form.input label="{{ trans('products_trans.Quantity') }}"
-                                    name="quantity" class="form-control" />
                             </div>
                         </div>
                     </div>
@@ -195,19 +146,19 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <textarea id="summernote" name="description" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" id="message" name="content" required="">
+                                <textarea id="summernote" name="description"
+                                    class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    id="message" name="content" required="">
                                     {{-- {{ old('content') }} --}}
                                 </textarea>
-
-
-                                {{-- <x-backend.form.textarea label="{{ trans('products_trans.Description') }}"
-                                    name="description" /> --}}
                             </div>
                         </div>
                     </div>
 
 
                     <div class="row">
+
+
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>{{ trans('products_trans.Status') }}<span class="text-danger">*</span></label>
@@ -238,6 +189,43 @@
                                 @enderror
                             </div>
                         </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-3">
+                                        <label>{{ trans('products_trans.Featured') }}
+                                            <span class="text-danger">*</span> : </label>
+                                    </div>
+
+                                    <div class="col-3">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="featured"
+                                                value="1">
+                                            <label class="form-check-label">
+                                                {{ trans('products_trans.Featured') }}
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-3">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="featured"
+                                                value="0" checked>
+                                            <label class="form-check-label">
+                                                {{ trans('products_trans.Not_Featured') }}
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                @error('featured')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+
                     </div>
 
 
@@ -276,7 +264,7 @@
 
 
                 </form>
-                
+
             </div>
         </div>
     </div>
@@ -287,8 +275,8 @@
 @endsection
 @section('js')
 {{-- Tagify --}}
-<script src="{{ asset('backend/assets/tagify/tagify.js') }}" ></script>
-<script src="{{ asset('backend/assets/tagify/tagify.polyfills.min.js') }}" ></script>
+<script src="{{ asset('backend/assets/tagify/tagify.js') }}"></script>
+<script src="{{ asset('backend/assets/tagify/tagify.polyfills.min.js') }}"></script>
 
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
@@ -314,10 +302,7 @@
     }
 
     var inputElm = document.querySelector('[name=tags]'),
-    tagify = new Tagify (inputElm);
-
-
-    
+        tagify = new Tagify(inputElm);
 </script>
 
 {{-- Color enable & disabled --}}

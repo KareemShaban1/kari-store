@@ -1,9 +1,12 @@
 <?php
 
+use App\Http\Controllers\Auth\CustomVerificationController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Frontend\HomeController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\RegisteredUserController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +35,12 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::post('verify', [CustomVerificationController::class, 'verify'])
+    ->name('custom_verification');
+
+Route::get('/verify', function () {
+        return view('frontend.auth.verify');
+    })->name('custom_verification');
 
 require __DIR__.'/backend.php';
 

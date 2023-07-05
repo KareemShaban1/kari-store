@@ -5,10 +5,12 @@ namespace App\Actions\Fortify;
 use App\Actions\Fortify\PasswordValidationRules;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Str;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
+use Twilio\Rest\Client;
 
 class RegisterUser implements CreatesNewUsers
 {
@@ -23,25 +25,37 @@ class RegisterUser implements CreatesNewUsers
      */
     public function create(array $input)
     {
-        Validator::make($input, [
+        $data = Validator::make($input, [
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
             'email_address' => ['required','string','email','max:255',Rule::unique(User::class),],
             'password' => $this->passwordRules(),
-            'phone_number'=>'nullable|min:11',
+            'phone_number'=>'min:11',
             'governorate'=>'nullable',
             'city'=>'nullable',
             'postal_code'=>'nullable',
             'street_address'=>'nullable',
         ])->validate();
 
-        // dd($input);
+        /* Get credentials from .env */
+        $token = getenv("TWILIO_TOKEN");
+        $twilio_sid = getenv("TWILIO_SID");
+        $twilio_verify_sid = getenv("TWILIO_VERIFY_SID");
+        // dd($token,$twilio_sid,$twilio_verify_sid);
+        $twilio = new Client($twilio_sid, $token);
+        $twilio->verify->v2->services($twilio_verify_sid)
+            ->verifications
+            ->create($data['phone_number'], "sms");
 
-        return User::create([
+        Session::put('phone',$input['phone_number']);   
+
+        return 
+        // $user = 
+        User::create([
         'first_name' => $input['first_name'],
         'last_name' => $input['last_name'],
         'email_address' => $input['email_address'],
-        'email_verified_at' => now(),
+        'email_verified_at' => null,
         'password' => Hash::make($input['password']),
         'phone_number' => $input['phone_number'],
         'governorate' => $input['governorate'],
@@ -50,5 +64,7 @@ class RegisterUser implements CreatesNewUsers
         'street_address' => $input['street_address'],
         'remember_token' => Str::random(10),
             ]);
+            // return redirect()->route('custom_verification')->with(['phone_number' => $data['phone_number']]);
+
     }
 }
