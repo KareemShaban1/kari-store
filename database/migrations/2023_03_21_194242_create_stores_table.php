@@ -37,16 +37,11 @@ return new class extends Migration
             $table->string('cover_image')->nullable();
 
             $table->enum('status',['active','inactive'])->default('active');
-
             $table->integer('percent')->nullable();
             $table->string('phone_number')->nullable();
-            // $table->foreignId('governorate_id')->nullable()->constrained('destinations', 'id')->nullOnDelete();
-            // $table->foreignId('city_id')->nullable()->constrained('destinations', 'id')->nullOnDelete();
-            // $table->foreignId('neighborhood_id')->nullable()->constrained('destinations', 'id')->nullOnDelete();
-
-            $table->string('governorate')->nullable();
-            $table->string('city')->nullable();
-            $table->string('neighborhood')->nullable();
+            $table->foreignId('governorate')->nullable()->constrained('destinations', 'id')->nullOnDelete();
+            $table->foreignId('city')->nullable()->constrained('destinations', 'id')->nullOnDelete();
+            $table->foreignId('neighborhood')->nullable()->constrained('destinations', 'id')->nullOnDelete();
             $table->string('street_address')->nullable();
 
             $table->softDeletes();
