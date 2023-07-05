@@ -1,23 +1,20 @@
 
-@yield('js')
-
-
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-            <!-- plugins-jquery -->
+<!-- plugins-jquery -->
 <script src="{{ URL::asset('backend/assets/js/plugins-jquery.js') }}"></script>
 <!-- plugin_path -->
 <script>
         var plugin_path = '{{ asset('backend/assets/js/') }}';
 </script>
 
+@yield('js')
 
 <!-- datepicker -->
 <script src="{{ URL::asset('backend/assets/js/datepicker.js') }}"></script>
 <!-- sweetalert2 -->
 <script src="{{ URL::asset('backend/assets/js/sweetalert2.js') }}"></script>
 <!-- toastr -->
-
 <script src="{{ URL::asset('backend/assets/js/toastr.js') }}"></script>
 <!-- validation -->
 <script src="{{ URL::asset('backend/assets/js/validation.js') }}"></script>

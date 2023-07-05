@@ -38,7 +38,8 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <x-backend.form.input label="{{ trans('categories_trans.Name') }}" name="name" class="form-control" />
+                                <x-backend.form.input label="{{ trans('categories_trans.Name') }}" name="name"
+                                    class="form-control" />
                             </div>
                         </div>
                     </div>
@@ -70,9 +71,8 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <x-backend.form.textarea 
-                                label="{{ trans('categories_trans.Description') }}"
-                                name="description"  />
+                                <x-backend.form.textarea label="{{ trans('categories_trans.Description') }}"
+                                    name="description" />
                             </div>
                         </div>
 
@@ -82,26 +82,68 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>{{ trans('categories_trans.Status') }}<span class="text-danger">*</span></label>
-                                
-                                {{-- <x-backend.form.radio name="status" :options="
-                                ['active'=>'Active','inactive'=>'Inactive']" /> --}}
-                                
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="status" value="active">
-                                    <label class="form-check-label">
-                                        {{ trans('categories_trans.Active') }}
-                                    </label>
+                                <div class="row">
+                                    <div class="col-3">
+                                        <label>{{ trans('categories_trans.Status') }}<span
+                                                class="text-danger">*</span></label>
+                                    </div>
+
+                                    <div class="col-3">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="status"
+                                                value="active">
+                                            <label class="form-check-label">
+                                                {{ trans('categories_trans.Active') }}
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="status"
+                                                value="inactive" checked>
+                                            <label class="form-check-label">
+                                                {{ trans('categories_trans.Inactive') }}
+                                            </label>
+                                        </div>
+                                    </div>
+                                    @error('status')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="status" value="inactive"
-                                        checked>
-                                    <label class="form-check-label">
-                                        {{ trans('categories_trans.Inactive') }}
-                                    </label>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-3">
+                                        <label>{{ trans('categories_trans.Featured') }}
+                                            <span class="text-danger">*</span> : </label>
+                                    </div>
+
+                                    <div class="col-3">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="featured"
+                                                value="1">
+                                            <label class="form-check-label">
+                                                {{ trans('categories_trans.Featured') }}
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-3">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="featured"
+                                                value="0" checked>
+                                            <label class="form-check-label">
+                                                {{ trans('categories_trans.Not_Featured') }}
+                                            </label>
+                                        </div>
+                                    </div>
+
                                 </div>
-                                
-                                @error('status')
+
+                                @error('featured')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </div>

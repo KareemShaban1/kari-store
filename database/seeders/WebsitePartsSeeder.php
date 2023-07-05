@@ -17,18 +17,18 @@ class WebsitePartsSeeder extends Seeder
         DB::table('website_parts')->delete();
 
         $data = [
-            ['key' => 'show_bar', 'value' => '1','image'=>''],
-            ['key' => 'featured_categories_section', 'value' => '1','image'=>''],
-            ['key' => 'trending_product_section', 'value' => '1','image'=>''],
-            ['key' => 'banner_section', 'value' => '1','image'=>''],
-            ['key' => 'special_offers_section', 'value' => '1','image'=>''],
-            ['key' => 'home_product_list_section', 'value' => '1','image'=>''],
-            ['key' => 'brands_section', 'value' => '1','image'=>''],
-            ['key' => 'blog_section', 'value' => '1','image'=>''],
-            ['key' => 'shipping_info_section', 'value' => '1','image'=>''],
-            ['key' => 'best_sellers', 'value' => '1','image'=>''],
-            ['key' => 'new_arrivals', 'value' => '1','image'=>''],
-            ['key' => 'top_rated', 'value' => '1','image'=>''],
+            ['key' => 'Slider', 'value' => '1','image'=>''],
+            ['key' => 'Featured Categories Section', 'value' => '1','image'=>''],
+            ['key' => 'Trending Product Section', 'value' => '1','image'=>''],
+            ['key' => 'Banner Section', 'value' => '1','image'=>''],
+            ['key' => 'Special Offers Section', 'value' => '1','image'=>''],
+            ['key' => 'Home Product List Section', 'value' => '1','image'=>''],
+            ['key' => 'Brands Section', 'value' => '1','image'=>''],
+            ['key' => 'Blog Section', 'value' => '1','image'=>''],
+            ['key' => 'Shipping Info Section', 'value' => '1','image'=>''],
+            ['key' => 'Best Sellers', 'value' => '1','image'=>''],
+            ['key' => 'New Arrivals', 'value' => '1','image'=>''],
+            ['key' => 'Top Rated', 'value' => '1','image'=>''],
         ];
 
         DB::table('website_parts')->insert($data);

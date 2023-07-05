@@ -42,6 +42,7 @@
                             <th>{{ trans('categories_trans.Parent') }}</th>
                             <th>{{ trans('categories_trans.Number_Of_Products') }}</th>
                             <th>{{ trans('categories_trans.Status') }}</th>
+                            <th>{{ trans('categories_trans.Featured') }}</th>
                             <th>{{ trans('categories_trans.Created_at') }}</th>
                             <th>{{ trans('categories_trans.Control') }}</th>
                         </tr>
@@ -72,6 +73,17 @@
                                     @elseif($category->status == 'inactive')
                                         <span class="badge badge-rounded badge-danger p-2 mb-2">
                                             {{ trans('categories_trans.Inactive') }}
+                                        </span>
+                                    @endif
+                                </td>
+                                <td>
+                                    @if ($category->featured == '1')
+                                        <span class="badge badge-rounded badge-success p-2 mb-2">
+                                            {{ trans('categories_trans.Featured') }}
+                                        </span>
+                                    @elseif($category->featured == '0')
+                                        <span class="badge badge-rounded badge-danger p-2 mb-2">
+                                            {{ trans('categories_trans.Not_Featured') }}
                                         </span>
                                     @endif
                                 </td>

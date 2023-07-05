@@ -1,6 +1,6 @@
 <x-front-layout title="{{ config('app.name') }}">
 
-    <!-- Start Hero Area -->
+    <!-- Start Slider Area -->
     <section class="hero-area">
         <div class="container">
 
@@ -57,10 +57,10 @@
             </div>
         </div>
     </section>
-    <!-- End Hero Area -->
+    <!-- End Slider Area -->
+
 
     @if( $websiteParts['parts']['Featured Categories Section'] ?? null && $websiteParts['parts']['Featured Categories Section'] == 1 )
-
     <!-- Start Featured Categories Area -->
     <section class="featured-categories section">
         <div class="container">
@@ -74,10 +74,11 @@
                 </div>
             </div>
             <div class="row">
+                @foreach ($featured_categories as $featured_category)
                 <div class="col-lg-4 col-md-6 col-12">
                     <!-- Start Single Category -->
                     <div class="single-category">
-                        <h3 class="heading">TV & Audios</h3>
+                        <h3 class="heading">{{ $featured_category->name }}</h3>
                         <ul>
                             <li><a href="product-grids.html">Smart Television</a></li>
                             <li><a href="product-grids.html">QLED TV</a></li>
@@ -86,101 +87,19 @@
                             <li><a href="product-grids.html">View All</a></li>
                         </ul>
                         <div class="images">
-                            <img src="https://via.placeholder.com/180x180" alt="#">
+                            <img src="{{ $featured_category->image_url }}"
+                            height="180" width="180" alt="#">
                         </div>
                     </div>
                     <!-- End Single Category -->
                 </div>
-                <div class="col-lg-4 col-md-6 col-12">
-                    <!-- Start Single Category -->
-                    <div class="single-category">
-                        <h3 class="heading">Desktop & Laptop</h3>
-                        <ul>
-                            <li><a href="product-grids.html">Smart Television</a></li>
-                            <li><a href="product-grids.html">QLED TV</a></li>
-                            <li><a href="product-grids.html">Audios</a></li>
-                            <li><a href="product-grids.html">Headphones</a></li>
-                            <li><a href="product-grids.html">View All</a></li>
-                        </ul>
-                        <div class="images">
-                            <img src="https://via.placeholder.com/180x180" alt="#">
-                        </div>
-                    </div>
-                    <!-- End Single Category -->
-                </div>
-                <div class="col-lg-4 col-md-6 col-12">
-                    <!-- Start Single Category -->
-                    <div class="single-category">
-                        <h3 class="heading">Cctv Camera</h3>
-                        <ul>
-                            <li><a href="product-grids.html">Smart Television</a></li>
-                            <li><a href="product-grids.html">QLED TV</a></li>
-                            <li><a href="product-grids.html">Audios</a></li>
-                            <li><a href="product-grids.html">Headphones</a></li>
-                            <li><a href="product-grids.html">View All</a></li>
-                        </ul>
-                        <div class="images">
-                            <img src="https://via.placeholder.com/180x180" alt="#">
-                        </div>
-                    </div>
-                    <!-- End Single Category -->
-                </div>
-                <div class="col-lg-4 col-md-6 col-12">
-                    <!-- Start Single Category -->
-                    <div class="single-category">
-                        <h3 class="heading">Dslr Camera</h3>
-                        <ul>
-                            <li><a href="product-grids.html">Smart Television</a></li>
-                            <li><a href="product-grids.html">QLED TV</a></li>
-                            <li><a href="product-grids.html">Audios</a></li>
-                            <li><a href="product-grids.html">Headphones</a></li>
-                            <li><a href="product-grids.html">View All</a></li>
-                        </ul>
-                        <div class="images">
-                            <img src="https://via.placeholder.com/180x180" alt="#">
-                        </div>
-                    </div>
-                    <!-- End Single Category -->
-                </div>
-                <div class="col-lg-4 col-md-6 col-12">
-                    <!-- Start Single Category -->
-                    <div class="single-category">
-                        <h3 class="heading">Smart Phones</h3>
-                        <ul>
-                            <li><a href="product-grids.html">Smart Television</a></li>
-                            <li><a href="product-grids.html">QLED TV</a></li>
-                            <li><a href="product-grids.html">Audios</a></li>
-                            <li><a href="product-grids.html">Headphones</a></li>
-                            <li><a href="product-grids.html">View All</a></li>
-                        </ul>
-                        <div class="images">
-                            <img src="https://via.placeholder.com/180x180" alt="#">
-                        </div>
-                    </div>
-                    <!-- End Single Category -->
-                </div>
-                <div class="col-lg-4 col-md-6 col-12">
-                    <!-- Start Single Category -->
-                    <div class="single-category">
-                        <h3 class="heading">Game Console</h3>
-                        <ul>
-                            <li><a href="product-grids.html">Smart Television</a></li>
-                            <li><a href="product-grids.html">QLED TV</a></li>
-                            <li><a href="product-grids.html">Audios</a></li>
-                            <li><a href="product-grids.html">Headphones</a></li>
-                            <li><a href="product-grids.html">View All</a></li>
-                        </ul>
-                        <div class="images">
-                            <img src="https://via.placeholder.com/180x180" alt="#">
-                        </div>
-                    </div>
-                    <!-- End Single Category -->
-                </div>
+                @endforeach
+            
+                
             </div>
         </div>
     </section>
     <!-- End Features Area -->
-
     @endif
 
 
@@ -441,7 +360,7 @@
         <div class="container">
             <div class="row">
 
-                @if( $websiteParts['parts']['Best Seller'] ?? null && $websiteParts['parts']['Best Seller'] == 1 )
+                @if( $websiteParts['parts']['Best Sellers'] ?? null && $websiteParts['parts']['Best Sellers'] == 1 )
                 <div class="col-lg-4 col-md-4 col-12 custom-responsive-margin">
                     <h4 class="list-title">Best Sellers</h4>
                     <!-- Start Single List -->
@@ -489,7 +408,7 @@
                 </div>
                 @endif
 
-                @if( $websiteParts['parts']['new_arrivals'] ?? null && $websiteParts['parts']['new_arrivals'] == 1 )
+                @if( $websiteParts['parts']['New Arrivals'] ?? null && $websiteParts['parts']['New Arrivals'] == 1 )
                 <div class="col-lg-4 col-md-4 col-12 custom-responsive-margin">
                     <h4 class="list-title">New Arrivals</h4>
                     <!-- Start Single List -->
@@ -537,7 +456,7 @@
                 </div>
                 @endif
 
-                @if( $websiteParts['parts']['top_rated'] ?? null && $websiteParts['parts']['top_rated'] == 1 )
+                @if( $websiteParts['parts']['Top Rated'] ?? null && $websiteParts['parts']['Top Rated'] == 1 )
                 <div class="col-lg-4 col-md-4 col-12">
                     <h4 class="list-title">Top Rated</h4>
                     <!-- Start Single List -->
@@ -591,7 +510,7 @@
 
     @endif
 
-    @if( $websiteParts['parts']['brands_section'] ?? null && $websiteParts['parts']['brands_section'] == 1 )
+    @if( $websiteParts['parts']['Brands Section'] ?? null && $websiteParts['parts']['Brands Section'] == 1 )
 
     <!-- Start Brands Area -->
     <div class="brands">
@@ -635,7 +554,7 @@
 
     @endif
 
-    @if( $websiteParts['parts']['blog_section'] ?? null && $websiteParts['parts']['blog_section'] == 1 )
+    @if( $websiteParts['parts']['Blog Section'] ?? null && $websiteParts['parts']['Blog Section'] == 1 )
 
     <!-- Start Blog Section Area -->
     <section class="blog-section section">
@@ -724,7 +643,7 @@
 
     @endif
 
-    @if( $websiteParts['parts']['shipping_info_section'] ?? null && $websiteParts['parts']['shipping_info_section'] == 1 )
+    @if( $websiteParts['parts']['Shipping Info Section'] ?? null && $websiteParts['parts']['Shipping Info Section   '] == 1 )
 
     <!-- Start Shipping Info -->
     <section class="shipping-info">

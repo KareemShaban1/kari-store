@@ -49,8 +49,7 @@
                             <h2 class="title text-center">{{ $product->name }}</h2>
                             <p class="category">
                                 <i class="lni lni-tag"></i> {{ $product->category->name }}
-                                <a href="javascript:void(0)">Action
-                                    cameras</a>
+                                {{-- <a href="javascript:void(0)">Action cameras</a> --}}
                             </p>
                             <h3 class="price">{{ Currency::format($product->price) }}
                                 @if ($product->compare_price)
@@ -85,16 +84,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    {{-- <div class="col-lg-4 col-md-4 col-12">
-                                        <div class="form-group">
-                                            <label for="color">Battery capacity</label>
-                                            <select class="form-control" id="color">
-                                                <option>5100 mAh</option>
-                                                <option>6200 mAh</option>
-                                                <option>8000 mAh</option>
-                                            </select>
-                                        </div>
-                                    </div> --}}
+                                    
                                     <div class="col-lg-4 col-md-4 col-12">
                                         <div class="form-group quantity">
                                             <label for="color">Quantity</label>
@@ -107,16 +97,21 @@
                                             </select>
                                         </div>
                                     </div>
+
                                 </div>
+                                
+                                
                                 <div class="bottom-content">
                                     <div class="row align-items-end">
+                                        
                                         <div class="col-lg-4 col-md-4 col-12">
                                             <div class="button cart-button">
                                                 <button class="btn" type="submit" style="width: 100%;">Add to
                                                     Cart</button>
                                             </div>
                                         </div>
-                                        <div class="col-lg-4 col-md-4 col-12">
+                                        
+                                        {{-- <div class="col-lg-4 col-md-4 col-12">
                                             <div class="wish-button">
                                                 <button class="btn"><i class="lni lni-reload"></i> Compare</button>
                                             </div>
@@ -126,7 +121,8 @@
                                                 <button class="btn"><i class="lni lni-heart"></i> To
                                                     Wishlist</button>
                                             </div>
-                                        </div>
+                                        </div> --}}
+                                    
                                     </div>
                                 </div>
 

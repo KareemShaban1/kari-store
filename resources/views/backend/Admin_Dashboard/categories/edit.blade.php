@@ -31,7 +31,8 @@
             <div class="card-body">
 
 
-                <form method="post" enctype="multipart/form-data" action="{{Route('admin.categories.update',[$category->id])}}" autocomplete="off">
+                <form method="post" enctype="multipart/form-data"
+                    action="{{ Route('admin.categories.update', [$category->id]) }}" autocomplete="off">
 
                     @csrf
                     @method('put')
@@ -39,7 +40,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <x-backend.form.input label="{{ trans('categories_trans.Name') }}" name="name"
-                                :value="$category->name" class="form-control" />
+                                    :value="$category->name" class="form-control" />
                                 {{-- <label>{{ trans('categories_trans.Name') }}<span class="text-danger">*</span></label>
                                 <input type="text" name="name" value="{{old('name',$category->name)}}" class="form-control">
                                 @error('name')
@@ -61,8 +62,8 @@
                                 <select name="parent_id" id="" class="custom-select mr-sm-2">
                                     <option value="">{{ trans('categories_trans.No_Parent') }}</option>
                                     @foreach ($parents as $parent)
-                                        <option value="{{ $parent->id }}" 
-                                            @selected($category->parent_id == $parent->id)>{{ $parent->name }}</option>
+                                        <option value="{{ $parent->id }}" @selected($category->parent_id == $parent->id)>
+                                            {{ $parent->name }}</option>
                                     @endforeach
                                 </select>
                                 @error('parent_id')
@@ -77,35 +78,61 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <x-backend.form.textarea 
-                                label="{{ trans('categories_trans.Description') }}"
-                                name="description" value="{{$category->description}}" />
+                                <x-backend.form.textarea label="{{ trans('categories_trans.Description') }}"
+                                    name="description" value="{{ $category->description }}" />
                             </div>
                         </div>
 
                     </div>
 
                     <div class="row">
+
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>{{ trans('categories_trans.Status') }}<span class="text-danger">*</span></label>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="status" value="active" @checked($category->status == 'active')>
+                                    <input class="form-check-input" type="radio" name="status" value="active"
+                                        @checked($category->status == 'active')>
                                     <label class="form-check-label">
-                                      {{ trans('categories_trans.Active') }}
+                                        {{ trans('categories_trans.Active') }}
                                     </label>
-                                  </div>
-                                  <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="status" value="inactive" @checked($category->status == 'inactive') >
-                                    <label class="form-check-label" >
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="status" value="inactive"
+                                        @checked($category->status == 'inactive')>
+                                    <label class="form-check-label">
                                         {{ trans('categories_trans.Inactive') }}
                                     </label>
-                                  </div>
+                                </div>
                                 @error('status')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </div>
                         </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>{{ trans('categories_trans.Featured') }}<span class="text-danger">*</span></label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="featured" value="1"
+                                        @checked($category->featured == '1')>
+                                    <label class="form-check-label">
+                                        {{ trans('categories_trans.Featured') }}
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="featured" value="0"
+                                        @checked($category->featured == '0')>
+                                    <label class="form-check-label">
+                                        {{ trans('categories_trans.Not_Featured') }}
+                                    </label>
+                                </div>
+                                @error('featured')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                    
                     </div>
 
                     <br>
@@ -116,26 +143,26 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label> {{trans('categories_trans.Image')}}<span class="text-danger">*</span></label>
+                                <label> {{ trans('categories_trans.Image') }}<span class="text-danger">*</span></label>
                                 <div class="avatar-img">
                                     {{-- <label class="avatar-label circle" for="upload-photo" >+</label>
                                     <img class="avatar" src="{{URL::asset('assets/images/user.png')}}" alt=""> --}}
-                                    <input onchange="preview()" type="file" name="image" accept="image/*" id="upload-photo" />
+                                    <input onchange="preview()" type="file" name="image" accept="image/*"
+                                        id="upload-photo" />
                                 </div>
                                 @error('image')
-                                <p class="alert alert-danger">{{ $message }}</p>
-                                @enderror 
+                                    <p class="alert alert-danger">{{ $message }}</p>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="border rounded-lg text-center p-3">
-                                <img src="{{$category->image_url}}" 
-                                height="200" width="200"
-                                class="img-fluid" id="frame" />
+                                <img src="{{ $category->image_url }}" height="200" width="200" class="img-fluid"
+                                    id="frame" />
                             </div>
                         </div>
                     </div>
-                   
+
 
 
 
@@ -160,7 +187,7 @@
 @section('js')
 <script>
     function preview() {
-    frame.src=URL.createObjectURL(event.target.files[0]);
-}
+        frame.src = URL.createObjectURL(event.target.files[0]);
+    }
 </script>
 @endsection
