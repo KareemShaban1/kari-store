@@ -14,16 +14,12 @@
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/LineIcons.3.0.css') }}" />
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/tiny-slider.css') }}" />
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/glightbox.min.css') }}" />
-    {{-- <link rel="stylesheet" href="{{ asset('frontend/assets/css/main.css') }}" /> --}}
 
     @if (App::getLocale() == 'en')
         <link rel="stylesheet" href="{{ asset('frontend/assets/css/main.css') }}" />
     @else
         <link rel="stylesheet" href="{{ asset('frontend/assets/css/rtl.css') }}" />
     @endif
-
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 
 
 
@@ -102,7 +98,9 @@
                                 <div class="user">
                                     <i class="lni lni-user"></i>
                                     {{-- {{ Auth::guard('web')->user()->first_name }} --}}
-                                    {{ Auth::user('user')->first_name }}
+                                    <a href="{{ Route('profile.edit') }}">
+                                        {{ Auth::user('user')->first_name }}
+                                    </a> 
                                 </div>
                                 <div class="user">
                                     <ul class="user-login">
@@ -253,7 +251,7 @@
                                         <a href="{{ Route('shop_grid.index') }}" class="nav-link"
                                             aria-label="Toggle navigation">{{ trans('front_home_trans.Shop') }}</a>
                                     </li>
-                                   
+                                
                                     <li class="nav-item"><a href="{{ Route('cart.index') }}">{{ trans('front_home_trans.Cart') }}</a></li>
 
                                     <li class="nav-item"><a href="{{ Route('checkout.create') }}">Checkout</a></li>
@@ -263,20 +261,7 @@
                                         <a href="" aria-label="Toggle navigation">{{ trans('front_home_trans.Contact_Us') }}</a>
                                     </li>
 
-                                    <li class="nav-item">
-                                        <a class="dd-menu collapsed" href="javascript:void(0)"
-                                            data-bs-toggle="collapse" data-bs-target="#submenu-1-2"
-                                            aria-controls="navbarSupportedContent" aria-expanded="false"
-                                            aria-label="Toggle navigation">Pages</a>
-                                        <ul class="sub-menu collapse" id="submenu-1-2">
-                                            <li class="nav-item"><a href="about-us.html">About Us</a></li>
-                                            <li class="nav-item"><a href="faq.html">Faq</a></li>
-                                            <li class="nav-item"><a href="login.html">Login</a></li>
-                                            <li class="nav-item"><a href="register.html">Register</a></li>
-                                            <li class="nav-item"><a href="mail-success.html">Mail Success</a></li>
-                                            <li class="nav-item"><a href="404.html">404 Error</a></li>
-                                        </ul>
-                                    </li>
+                                
                                 </ul>
                             </div> <!-- navbar collapse -->
                         </nav>
@@ -491,7 +476,8 @@
     <script src="{{ asset('frontend/assets/js/glightbox.min.js') }}"></script>
     <script src="{{ asset('frontend/assets/js/main.js') }}"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+
+    {{-- <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script> --}}
     {{-- <script>
         $('#summernote').summernote({
             placeholder: 'Hello ..!',

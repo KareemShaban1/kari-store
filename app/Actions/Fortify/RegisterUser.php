@@ -30,12 +30,13 @@ class RegisterUser implements CreatesNewUsers
             'last_name' => ['required', 'string', 'max:255'],
             'email_address' => ['required','string','email','max:255',Rule::unique(User::class),],
             'password' => $this->passwordRules(),
-            'phone_number'=>'min:11',
+            'phone_number'=>'required:min:11',
             'governorate'=>'nullable',
             'city'=>'nullable',
             'postal_code'=>'nullable',
             'street_address'=>'nullable',
         ])->validate();
+        
 
         /* Get credentials from .env */
         $token = getenv("TWILIO_TOKEN");

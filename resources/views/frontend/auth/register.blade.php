@@ -1,6 +1,8 @@
 <x-front-layout>
 
-
+@php
+    $destinations = App\Models\Destination::all();
+@endphp
     <x-slot name="breadcrumbs">
 
 
@@ -108,7 +110,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-12 col-sm-6">
+                            {{-- <div class="col-md-12 col-sm-6">
                                 <div class="form-group">
                                     <label for="reg-email">Governorate</label>
                                     <input class="form-control" type="text" name="governorate">
@@ -131,6 +133,83 @@
                                         </div>
                                     @enderror
                                 </div>
+                            </div> --}}
+
+
+                            <div class="row">
+
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label> governorate<span class="text-danger">*</span></label>
+                                        <select name="governorate" id="" class="custom-select mr-sm-2"
+                                            required>
+
+                                            <option disabled selected>أختار من القائمة </option>
+                                            @foreach ($destinations as $destination)
+                                                @if ($destination->rank == '1')
+                                                    <option value="{{ $destination->id }}">
+                                                        {{ $destination->name }}</option>
+                                                @endif
+                                            @endforeach
+                                        </select>
+                                        @error('parent_id')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <div class="row">
+
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label> city<span class="text-danger">*</span></label>
+                                        <select name="city" id="" class="custom-select mr-sm-2"
+                                            required>
+
+                                            <option disabled>أختار من القائمة </option>
+                                            @foreach ($destinations as $destination)
+                                                @if ($destination->rank == '2')
+                                                    <option value="{{ $destination->id }}">
+                                                        {{ $destination->name }}</option>
+                                                @endif
+                                            @endforeach
+                                        </select>
+                                        @error('parent_id')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <div class="row">
+
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label> neighburhood<span class="text-danger">*</span></label>
+                                        <select name="neighborhood" id=""
+                                            class="custom-select mr-sm-2" required>
+
+                                            <option disabled>أختار من القائمة </option>
+                                            @foreach ($destinations as $destination)
+                                                @if ($destination->rank == '3')
+                                                    <option value="{{ $destination->id }}">
+                                                        {{ $destination->name }}</option>
+                                                @endif
+                                            @endforeach
+                                        </select>
+                                        @error('parent_id')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+
+
                             </div>
 
                             <div class="col-md-12 col-sm-6">
@@ -176,5 +255,72 @@
     </div>
     <!-- End Account Register Area -->
 
+    @push('scripts')
+        <script>
+            
+            $(document).ready(function() {
+                // When the "governorate" dropdown value changes
+                $('select[name="governorate"]').on('change', function() {
+                    var governorateId = $(this).val(); // Get the selected governorate ID
+
+                    console.log(governorateId);
+
+                    // Make an AJAX request to fetch cities based on the selected governorate
+                    $.ajax({
+                        url: '/user/get-cities',
+                        method: 'GET',
+                        data: {
+                            governorate_id: governorateId
+                        },
+                        success: function(response) {
+                            // Clear the current city options
+                            $('select[name="city"]').empty();
+                            $('select[name="city"]').append(
+                                '<option disabled selected>أختار من القائمة</option>');
+
+                            $.each(response.cities, function(key, city) {
+                                $('select[name="city"]').append('<option value="' + city
+                                    .id + '">' + city.name + '</option>');
+                            });
+                        },
+                        error: function(xhr, status, error) {
+                            console.error(error);
+                        }
+                    });
+                });
+
+                // When the "city" dropdown value changes
+                $('select[name="city"]').on('change', function() {
+                    var cityId = $(this).val(); // Get the selected city ID
+
+                    console.log(cityId);
+
+                    // Make an AJAX request to fetch neighborhoods based on the selected governorate
+                    $.ajax({
+                        url: '/user/get-neighborhoods',
+                        method: 'GET',
+                        data: {
+                            city_id: cityId
+                        },
+                        success: function(response) {
+                            // Clear the current neighborhood options
+                            $('select[name="neighborhood"]').empty();
+                            $('select[name="neighborhood"]').append(
+                                '<option disabled selected>أختار من القائمة</option>');
+
+                            $.each(response.neighborhoods, function(key, neighborhood) {
+                                $('select[name="neighborhood"]').append('<option value="' +
+                                    neighborhood.id + '">' + neighborhood.name +
+                                    '</option>');
+                            });
+                        },
+                        error: function(xhr, status, error) {
+                            console.error(error);
+                        }
+                    });
+                });
+            });
+        </script>
+    @endpush
 
 </x-front-layout>

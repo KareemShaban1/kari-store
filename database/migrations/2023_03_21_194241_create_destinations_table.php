@@ -17,9 +17,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('parent_id')->nullable()->constrained('destinations', 'id')->nullOnDelete();
             $table->string('name')->unique();
-            $table->enum('rank', [0, 1, 2, 3])->default('1');
+            $table->enum('rank', [0, 1, 2, 3])->default(1);
             $table->float('price')->nullable();
-            $table->timestamps();
+            $table->timestamps(); 
 
         });
     }

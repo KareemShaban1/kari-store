@@ -29,6 +29,10 @@
         <!-- End Breadcrumbs -->
     </x-slot>
 
+    <x-frontend.alert type="error" />
+
+    <x-frontend.alert type="success" />
+
     <!-- Start Product Grids -->
     <section class="product-grids section">
         <div class="container">

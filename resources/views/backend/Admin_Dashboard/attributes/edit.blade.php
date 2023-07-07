@@ -33,7 +33,6 @@
 
                 <form method="post" enctype="multipart/form-data"
                     action="{{ Route('admin.attributes.update', $attribute->id) }}" autocomplete="off">
-
                     @csrf
                     @method('PUT')
                     <div class="row">

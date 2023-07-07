@@ -48,7 +48,8 @@ class FortifyServiceProvider extends ServiceProvider
         }
 
         // redirect user , admin , vendor and delivery after login 
-        $this->app->instance(LoginResponse::class,new class implements LoginResponse {
+        $this->app->instance(LoginResponse::class,
+        new class implements LoginResponse {
             public function toResponse($request){
                 // $request->user('admin') // admin -> guard_name
                     if ($request->user('admin')) {
@@ -134,11 +135,10 @@ class FortifyServiceProvider extends ServiceProvider
         else {
 
             /// this method will be used in "web" guard only
+            // this method return $user or false
             Fortify::authenticateUsing([new CustomAuthentication , 'authenticateUser']);
             
             Fortify::createUsersUsing(RegisterUser::class,'create');
-
-        
 
             /// put prefix for auth frontend pages =>  /login
             Fortify::viewPrefix('frontend.auth.');

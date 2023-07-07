@@ -29,11 +29,14 @@ class CustomVerificationController extends Controller
             ->create(['code' => $data['verification_code'], 'to' => $data['phone_number']]);
             // ->create($data['verification_code'], array('to' => $data['phone_number']));
         if ($verification->valid) {
-            $user = tap(User::where('phone_number', $data['phone_number']))->update(['isVerified' => true]);
+            $user = tap(User::where('phone_number', $data['phone_number']))->
+            update(
+                ['isVerified' => true,
+                'email_verified_at'=>now()]
+            );
             /* Authenticate user */
-            $user->email_verified_at = now();
             Auth::login($user->first());
-            return redirect()->route('login')->with(['message' => 'Phone number verified']);
+            // return redirect()->route('login')->with(['message' => 'Phone number verified']);
         }
         return back()->with(['phone_number' => $data['phone_number'], 'error' => 'Invalid verification code entered!']);
     }
