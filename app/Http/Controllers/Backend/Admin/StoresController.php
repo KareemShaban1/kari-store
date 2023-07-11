@@ -189,6 +189,8 @@ class StoresController extends Controller
             Storage::disk('uploads')->delete($old_cover_image);
         }
 
+        $store->categories()->sync($request->categories_id);
+
         // PRG
         return redirect()->route('admin.stores.index');
     }
