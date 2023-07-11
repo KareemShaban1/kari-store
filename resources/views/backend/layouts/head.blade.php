@@ -18,13 +18,12 @@
 
 {{-- tagify --}}
 
-<link href="{{ URL::asset('backend/assets/css/0.8.18_dist_summernote.min.css')}}" rel="stylesheet">
-<link href="{{ URL::asset('backend/assets/css/0.8.18_dist_summernote-lite.min.css')}}" rel="stylesheet">
+{{-- <link href="{{ URL::asset('backend/assets/css/summernote.min.css')}}" rel="stylesheet"> --}}
+<link href="{{ URL::asset('backend/assets/css/summernote-lite.min.css')}}" rel="stylesheet">
 
+
+{{-- <link href="{{asset('backend/assets/css/fontawesone_all.min.css')}}" rel="stylesheet"> --}}
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" rel="stylesheet">
-
-
-<link href="{{asset('backend/assets/css/fontawesone_all.min.css')}}" rel="stylesheet">
 
 
 <!--- Style css -->

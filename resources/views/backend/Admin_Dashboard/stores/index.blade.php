@@ -37,7 +37,7 @@
                             <th>{{ trans('stores_trans.Id') }}</th>
                             <th>{{ trans('stores_trans.Name') }}</th>
                             <th>{{ trans('stores_trans.Slug') }}</th>
-                            <th>{{ trans('stores_trans.Category_Name') }}</th>
+                            <th>{{ trans('stores_trans.Categories') }}</th>
                             <th>{{ trans('stores_trans.Number_Of_Products') }}</th>
                             <th>{{ trans('stores_trans.Status') }}</th>
                             <th>{{ trans('stores_trans.Created_at') }}</th>
@@ -48,16 +48,22 @@
                         @foreach ($stores as $store)
                             <tr>
                                 <td>
-                                        <img src="{{ asset($store->logo_image_url) }}"
-                                            height="50" width="50" alt="">
+                                    <img src="{{ asset($store->logo_image_url) }}" height="50" width="50"
+                                        alt="">
                                 </td>
                                 <td>{{ $store->id }}</td>
                                 <td>{{ $store->name }}</td>
                                 <td>{{ $store->slug }}</td>
-                                <td>{{ $store->category->name }}</td>
                                 <td>
-                                    <a href="{{ Route('admin.stores.show', $store->category->id) }}">
-                                    {{ $store->products_count }}
+                                    @foreach ($store->categories as $category)
+                                        <span
+                                            class="badge badge-rounded badge-dark p-2 mb-2">{{ $category->name }}</span>
+                                    @endforeach
+                                </td>
+
+                                <td>
+                                    <a href="{{ Route('admin.stores.show', $store->id) }}">
+                                        {{ $store->products_count }}
                                     </a>
                                 </td>
                                 <td>
@@ -74,7 +80,8 @@
                                 <td>{{ $store->created_at }}</td>
 
                                 <td>
-                                    <a href="{{ Route('admin.stores.show', $store->id) }}" class="btn btn-primary btn-sm">
+                                    <a href="{{ Route('admin.stores.show', $store->id) }}"
+                                        class="btn btn-primary btn-sm">
                                         <i class="fa fa-eye"></i>
                                     </a>
                                     <a href="{{ Route('admin.stores.edit', [$store->id]) }}"
@@ -83,8 +90,8 @@
                                     </a>
 
 
-                                    <form action="{{ Route('admin.stores.destroy', $store->id) }}"
-                                        method="post" style="display:inline">
+                                    <form action="{{ Route('admin.stores.destroy', $store->id) }}" method="post"
+                                        style="display:inline">
                                         @csrf
                                         @method('delete')
 

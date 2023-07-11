@@ -15,7 +15,7 @@ class Product extends Model
 
     protected $fillable = [
         'name', 'slug', 'description', 'image', 'category_id', 'brand_id', 'store_id', 'price', 'compare_price', 'status',
-        'rating', 'featured', 'quantity'
+        'rating', 'featured', 'quantity','product_type'
     ];
 
     //// array that have fields/columns that I want to hide in json response using api

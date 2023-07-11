@@ -90,7 +90,7 @@ class ProductsController extends Controller
             'slug' => Str::slug($request->post('name'))
         ]);
 
-        // get requst input array without [image , tags]
+        // get request input array without [image , tags]
         $data = $request->except('image', 'tags');
 
         // add 'image' to the input array $data

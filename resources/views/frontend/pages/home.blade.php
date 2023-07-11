@@ -68,8 +68,8 @@
                 <div class="col-12">
                     <div class="section-title">
                         <h2>Featured Categories</h2>
-                        <p>There are many variations of passages of Lorem Ipsum available, but the majority have
-                            suffered alteration in some form.</p>
+                        {{-- <p>There are many variations of passages of Lorem Ipsum available, but the majority have
+                            suffered alteration in some form.</p> --}}
                     </div>
                 </div>
             </div>
@@ -112,8 +112,8 @@
                 <div class="col-12">
                     <div class="section-title">
                         <h2>Trending Product</h2>
-                        <p>There are many variations of passages of Lorem Ipsum available, but the majority have
-                            suffered alteration in some form.</p>
+                        {{-- <p>There are many variations of passages of Lorem Ipsum available, but the majority have
+                            suffered alteration in some form.</p> --}}
                     </div>
                 </div>
             </div>
@@ -361,51 +361,30 @@
             <div class="row">
 
                 @if( $websiteParts['parts']['Best Sellers'] ?? null && $websiteParts['parts']['Best Sellers'] == 1 )
+                
                 <div class="col-lg-4 col-md-4 col-12 custom-responsive-margin">
                     <h4 class="list-title">Best Sellers</h4>
-                    <!-- Start Single List -->
+                    @foreach ($best_seller_products as $best_seller_product)
+                        <!-- Start Single List -->
                     <div class="single-list">
                         <div class="list-image">
-                            <a href="product-grids.html"><img src="https://via.placeholder.com/100x100"
+                            <a href="product-grids.html">
+                                <img src="{{ $best_seller_product->image_url }}"
                                     alt="#"></a>
                         </div>
                         <div class="list-info">
                             <h3>
-                                <a href="product-grids.html">GoPro Hero4 Silver</a>
+                                <a href="product-grids.html">{{ $best_seller_product->name }}</a>
                             </h3>
-                            <span>$287.99</span>
+                            <span>{{ $best_seller_product->price }}</span>
                         </div>
                     </div>
-                    <!-- End Single List -->
-                    <!-- Start Single List -->
-                    <div class="single-list">
-                        <div class="list-image">
-                            <a href="product-grids.html"><img src="https://via.placeholder.com/100x100"
-                                    alt="#"></a>
-                        </div>
-                        <div class="list-info">
-                            <h3>
-                                <a href="product-grids.html">Puro Sound Labs BT2200</a>
-                            </h3>
-                            <span>$95.00</span>
-                        </div>
-                    </div>
-                    <!-- End Single List -->
-                    <!-- Start Single List -->
-                    <div class="single-list">
-                        <div class="list-image">
-                            <a href="product-grids.html"><img src="https://via.placeholder.com/100x100"
-                                    alt="#"></a>
-                        </div>
-                        <div class="list-info">
-                            <h3>
-                                <a href="product-grids.html">HP OfficeJet Pro 8710</a>
-                            </h3>
-                            <span>$120.00</span>
-                        </div>
-                    </div>
-                    <!-- End Single List -->
+                    <!-- End Single List --> 
+                    @endforeach
+                    
+                    
                 </div>
+                
                 @endif
 
                 @if( $websiteParts['parts']['New Arrivals'] ?? null && $websiteParts['parts']['New Arrivals'] == 1 )

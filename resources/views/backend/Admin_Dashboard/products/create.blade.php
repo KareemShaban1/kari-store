@@ -65,7 +65,7 @@
 
                     <div class="row">
 
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label> {{ trans('products_trans.Category_Name') }} <span
                                         class="text-danger">*</span></label>
@@ -82,7 +82,7 @@
                         </div>
 
 
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label> {{ trans('products_trans.Store_Name') }} <span
                                         class="text-danger">*</span></label>
@@ -99,6 +99,25 @@
                         </div>
 
 
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label> {{ trans('products_trans.Product_Type') }} <span
+                                        class="text-danger">*</span></label>
+                                <select name="product_type" id="" class="custom-select mr-sm-2">
+                                    <option value="">{{ trans('products_trans.Choose') }}</option>
+
+                                    <option value="normal">Normal</option>
+                                    <option value="best_seller">Best Seller</option>
+                                    <option value="new_arrival">New Arrival</option>
+                                    <option value="top_rated">Top Rated</option>
+                                    <option value="other">Other</option>
+
+                                </select>
+                                @error('product_type')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
 
 
 
@@ -236,8 +255,7 @@
                             <div class="form-group">
                                 <label> {{ trans('products_trans.Image') }}<span class="text-danger">*</span></label>
                                 <div class="avatar-img">
-                                    {{-- <label class="avatar-label circle" for="upload-photo" >+</label>
-                                    <img class="avatar" src="{{URL::asset('assets/images/user.png')}}" alt=""> --}}
+
                                     <input onchange="preview()" type="file" name="image" accept="image/*"
                                         id="upload-photo" />
                                 </div>
@@ -278,8 +296,6 @@
 <script src="{{ asset('backend/assets/tagify/tagify.js') }}"></script>
 <script src="{{ asset('backend/assets/tagify/tagify.polyfills.min.js') }}"></script>
 
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 <script>
     $('#summernote').summernote({
         placeholder: 'Hello ..!',

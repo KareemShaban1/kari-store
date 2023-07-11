@@ -10,7 +10,9 @@ use Illuminate\Support\Str;
 
 class Store extends Model
 {
-    use HasFactory, SoftDeletes, Notifiable;
+    use HasFactory;
+    use SoftDeletes;
+    use Notifiable;
     //// defaults
     // protected $connection = 'mysql';
     // protected $table = 'stores';
@@ -22,16 +24,28 @@ class Store extends Model
 
     protected $fillable = [
         'name', 'description', 'logo_image', 'cover_image', 'slug', 'status','percent',
-        'phone_number','governorate','city','neighborhood','street_address','category_id'
+        'phone_number','governorate','city','neighborhood','street_address'
     ];
 
     public function products()
     {
         return $this->hasMany(Product::class, 'store_id', 'id');
     }
-    public function category()
+    // public function categories()
+    // {
+    //     return $this->hasMany(Category::class, 'category_id', 'id');
+    // }
+
+    public function categories()
     {
-        return $this->belongsTo(Category::class, 'category_id', 'id');
+        return $this->belongsToMany(
+            Category::class,       // Related Model
+            'store_categories',    // Pivot table name
+            'store_id',     // Fk in pivot table for the current model
+            'category_id',         // Fk in pivot table for the related model
+            'id',             // PK for current model
+            'id'              // Pk for related model
+        );
     }
 
     public function getLogoImageUrlAttribute()

@@ -95,9 +95,15 @@ class StoresController extends Controller
         $data['phone_number']=null;
         $data['percent']=null;
         $data['street_address']=null;
+        
+        
         // dd($data);
         // store the request
         $store = Store::create($data);
+
+        // dd($store);
+
+        $store->categories()->sync($request->categories_id);
 
         // PRG
         return redirect()->route('admin.stores.index');
@@ -125,8 +131,10 @@ class StoresController extends Controller
     {
         //
         $store = Store::findOrFail($id);
+        $destinations = Destination::all();
         $categories = Category::all();
-        return view('backend.Admin_Dashboard.stores.edit', compact('store', 'categories'));
+        return view('backend.Admin_Dashboard.stores.edit', 
+        compact('store', 'categories','destinations'));
     }
 
     /**

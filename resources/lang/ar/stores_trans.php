@@ -19,7 +19,7 @@ return [
           'Edit_Store'=>'تعديل متجر',
           'All_Stores'=>'كل المتاجر',
           'Stores'=>'المتاجر',
-          'Category_Name'=>'أسم التصنيف',
+          'Categories'=>' التصنيفات',
           'Choose'=>'أختار من القائمة',
           ''=>'',
           ''=>'',

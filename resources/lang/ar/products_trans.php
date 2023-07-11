@@ -35,7 +35,7 @@ return [
           'Add_Product_Variant'=>'Add Product Variant',
           'Featured'=>'مميز',
           'Not_Featured'=>'غير مميز',
-          ''=>'',
+          'Product_Type'=>'نوع المنتج',
           ''=>'',
           ''=>'',
           ''=>'',

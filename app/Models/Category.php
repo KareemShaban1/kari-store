@@ -11,7 +11,8 @@ class Category extends Model
     use HasFactory;
     // SoftDeletes;
     protected $fillable = [
-        'name','parent_id','description','image','slug','status','featured'
+        'name','parent_id','description','image','slug','status',
+        'featured' , 'product_type'
     ];
 
     //// reverse of fillable

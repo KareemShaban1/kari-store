@@ -31,9 +31,6 @@ class ProductFactory extends Factory
             'featured'=>rand(0,1),
             'category_id'=>Category::inRandomOrder()->first()->id,
             'store_id'=>Store::inRandomOrder()->first()->id,
-
-
-
         ];
     }
 }
