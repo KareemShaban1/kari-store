@@ -56,11 +56,15 @@ class AdminController extends Controller
         //
         $request->validate([
             'name'=>'required',
-            'role'=>'required|array'
+            'role'=>'nullable|array'
         ]);
 
         $admin = Admin::create($request->all());
-        $admin->roles()->attach($request->roles);
+
+        if($request->roles){
+            $admin->roles()->attach($request->roles);
+        }
+        
 
         return redirect()->route('admin.admins.index');
     }
@@ -108,7 +112,7 @@ class AdminController extends Controller
         //
         $request->validate([
             'name'=>'required',
-            'roles'=>'required|array'
+            'roles'=>'nullable|array'
         ]);
         // dd($request->all());
 
@@ -117,8 +121,10 @@ class AdminController extends Controller
         $data['password'] = $request->password ? $request->password : $admin->password; 
 
         $admin->update($data);
-
-        $admin->roles()->sync($request->roles);
+        if($request->roles){
+            $admin->roles()->sync($request->roles);
+        }
+        
 
         return redirect()->route('admin.admins.index');
 

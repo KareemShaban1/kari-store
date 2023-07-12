@@ -24,7 +24,7 @@ class WebsitePartsSeeder extends Seeder
             ['key' => 'Special Offers Section', 'value' => '1','image'=>''],
             ['key' => 'Home Product List Section', 'value' => '1','image'=>''],
             ['key' => 'Brands Section', 'value' => '1','image'=>''],
-            ['key' => 'Blog Section', 'value' => '1','image'=>''],
+            ['key' => 'Blog Section', 'value' => '0','image'=>''],
             ['key' => 'Shipping Info Section', 'value' => '1','image'=>''],
             ['key' => 'Best Sellers', 'value' => '1','image'=>''],
             ['key' => 'New Arrivals', 'value' => '1','image'=>''],

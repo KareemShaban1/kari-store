@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
 class AuthServiceProvider extends ServiceProvider
@@ -34,8 +35,10 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         // check if user super-admin
-        Gate::before(function($user,$ability){
-            if($user->super_admin){
+        $admin = Auth::user('admin');
+        Gate::before(function($admin,$ability){
+            
+            if($admin->super_admin == 1){
                 return true;
             }
         });

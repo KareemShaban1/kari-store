@@ -28,7 +28,7 @@ return new class extends Migration
             $table->unsignedSmallInteger('quantity')->default(0);
             // $table->json('options')->nullable();
             $table->boolean('featured')->default(0);
-            $table->enum('product_type',['normal','best_seller','new_arrival','top_rated','other'])->default('normal');
+            // $table->enum('product_type',['normal','best_seller','new_arrival','top_rated','other'])->default('normal');
             $table->enum('status',['active','draft','archived'])->default('active');
             $table->softDeletes();
             $table->timestamps();

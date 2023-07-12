@@ -355,139 +355,96 @@
 
     @if( $websiteParts['parts']['Home Product List Section'] ?? null && $websiteParts['parts']['Home Product List Section'] == 1 )
 
-    <!-- Start Home Product List -->
-    <section class="home-product-list section">
-        <div class="container">
-            <div class="row">
+        <!-- Start Home Product List -->
+        <section class="home-product-list section">
+            <div class="container">
+                <div class="row">
 
-                @if( $websiteParts['parts']['Best Sellers'] ?? null && $websiteParts['parts']['Best Sellers'] == 1 )
-                
-                <div class="col-lg-4 col-md-4 col-12 custom-responsive-margin">
-                    <h4 class="list-title">Best Sellers</h4>
-                    @foreach ($best_seller_products as $best_seller_product)
-                        <!-- Start Single List -->
-                    <div class="single-list">
-                        <div class="list-image">
-                            <a href="product-grids.html">
-                                <img src="{{ $best_seller_product->image_url }}"
-                                    alt="#"></a>
-                        </div>
-                        <div class="list-info">
-                            <h3>
-                                <a href="product-grids.html">{{ $best_seller_product->name }}</a>
-                            </h3>
-                            <span>{{ $best_seller_product->price }}</span>
-                        </div>
+                    @if( $websiteParts['parts']['Best Sellers'] ?? null && $websiteParts['parts']['Best Sellers'] == 1 )
+                    {{-- @php
+                        $best_seller_products= App\Models\Product::where('product_type','=','best_seller')->active()->latest()->take(4)->get();
+                        $new_arrival_products= App\Models\Product::where('product_type','=','new_arrival')->active()->latest()->take(4)->get();
+                        $top_rated_products= App\Models\Product::where('product_type','=','top_rated')->active()->latest()->take(4)->get();
+                    @endphp --}}
+                    <div class="col-lg-4 col-md-4 col-12 custom-responsive-margin">
+                        <h4 class="list-title">Best Sellers</h4>
+                        {{-- @foreach ($best_seller_products as $best_seller_product)
+                            <!-- Start Single List -->
+                            <div class="single-list">
+                                <div class="list-image">
+                                    <a href="product-grids.html">
+                                        <img src="{{ $best_seller_product->image_url }}"
+                                            alt="#"></a>
+                                </div>
+                                <div class="list-info">
+                                    <h3>
+                                        <a href="product-grids.html">{{ $best_seller_product->name }}</a>
+                                    </h3>
+                                    <span>{{ $best_seller_product->price }}</span>
+                                </div>
+                            </div>
+                        <!-- End Single List --> 
+                        @endforeach --}}
+                        
+                        
                     </div>
-                    <!-- End Single List --> 
-                    @endforeach
                     
+                    @endif
+
+                    @if( $websiteParts['parts']['New Arrivals'] ?? null && $websiteParts['parts']['New Arrivals'] == 1 )
+                    <div class="col-lg-4 col-md-4 col-12 custom-responsive-margin">
+                        <h4 class="list-title">New Arrivals</h4>
+                        
+                        {{-- @foreach ($new_arrival_products as $new_arrival_product)
+                        
+                            <div class="single-list">
+                                <div class="list-image">
+                                    <a href="product-grids.html">
+                                        <img src="{{ $new_arrival_product->image_url }}"
+                                            alt="#"></a>
+                                </div>
+                                <div class="list-info">
+                                    <h3>
+                                        <a href="product-grids.html">{{ $new_arrival_product->name }}</a>
+                                    </h3>
+                                    <span>{{ $new_arrival_product->price }}</span>
+                                </div>
+                            </div>
+                        @endforeach --}}
+                            
+                    </div>
+                    @endif
+
+                    @if( $websiteParts['parts']['Top Rated'] ?? null && $websiteParts['parts']['Top Rated'] == 1 )
+                    <div class="col-lg-4 col-md-4 col-12">
+                        <h4 class="list-title">Top Rated</h4>
+                        {{-- @foreach ($top_rated_products as $top_rated_product)
+                        
+                            <div class="single-list">
+                                <div class="list-image">
+                                    <a href="product-grids.html">
+                                        <img src="{{ $top_rated_product->image_url }}"
+                                            alt="#"></a>
+                                </div>
+                                <div class="list-info">
+                                    <h3>
+                                        <a href="product-grids.html">{{ $top_rated_product->name }}</a>
+                                    </h3>
+                                    <span>{{ $top_rated_product->price }}</span>
+                                </div>
+                            </div>
+                        
+                        @endforeach --}}
                     
+                    </div>
+                    @endif
                 </div>
-                
-                @endif
-
-                @if( $websiteParts['parts']['New Arrivals'] ?? null && $websiteParts['parts']['New Arrivals'] == 1 )
-                <div class="col-lg-4 col-md-4 col-12 custom-responsive-margin">
-                    <h4 class="list-title">New Arrivals</h4>
-                    <!-- Start Single List -->
-                    <div class="single-list">
-                        <div class="list-image">
-                            <a href="product-grids.html"><img src="https://via.placeholder.com/100x100"
-                                    alt="#"></a>
-                        </div>
-                        <div class="list-info">
-                            <h3>
-                                <a href="product-grids.html">iPhone X 256 GB Space Gray</a>
-                            </h3>
-                            <span>$1150.00</span>
-                        </div>
-                    </div>
-                    <!-- End Single List -->
-                    <!-- Start Single List -->
-                    <div class="single-list">
-                        <div class="list-image">
-                            <a href="product-grids.html"><img src="https://via.placeholder.com/100x100"
-                                    alt="#"></a>
-                        </div>
-                        <div class="list-info">
-                            <h3>
-                                <a href="product-grids.html">Canon EOS M50 Mirrorless Camera</a>
-                            </h3>
-                            <span>$950.00</span>
-                        </div>
-                    </div>
-                    <!-- End Single List -->
-                    <!-- Start Single List -->
-                    <div class="single-list">
-                        <div class="list-image">
-                            <a href="product-grids.html"><img src="https://via.placeholder.com/100x100"
-                                    alt="#"></a>
-                        </div>
-                        <div class="list-info">
-                            <h3>
-                                <a href="product-grids.html">Microsoft Xbox One S</a>
-                            </h3>
-                            <span>$298.00</span>
-                        </div>
-                    </div>
-                    <!-- End Single List -->
-                </div>
-                @endif
-
-                @if( $websiteParts['parts']['Top Rated'] ?? null && $websiteParts['parts']['Top Rated'] == 1 )
-                <div class="col-lg-4 col-md-4 col-12">
-                    <h4 class="list-title">Top Rated</h4>
-                    <!-- Start Single List -->
-                    <div class="single-list">
-                        <div class="list-image">
-                            <a href="product-grids.html"><img src="https://via.placeholder.com/100x100"
-                                    alt="#"></a>
-                        </div>
-                        <div class="list-info">
-                            <h3>
-                                <a href="product-grids.html">Samsung Gear 360 VR Camera</a>
-                            </h3>
-                            <span>$68.00</span>
-                        </div>
-                    </div>
-                    <!-- End Single List -->
-                    <!-- Start Single List -->
-                    <div class="single-list">
-                        <div class="list-image">
-                            <a href="product-grids.html"><img src="https://via.placeholder.com/100x100"
-                                    alt="#"></a>
-                        </div>
-                        <div class="list-info">
-                            <h3>
-                                <a href="product-grids.html">Samsung Galaxy S9+ 64 GB</a>
-                            </h3>
-                            <span>$840.00</span>
-                        </div>
-                    </div>
-                    <!-- End Single List -->
-                    <!-- Start Single List -->
-                    <div class="single-list">
-                        <div class="list-image">
-                            <a href="product-grids.html"><img src="https://via.placeholder.com/100x100"
-                                    alt="#"></a>
-                        </div>
-                        <div class="list-info">
-                            <h3>
-                                <a href="product-grids.html">Zeus Bluetooth Headphones</a>
-                            </h3>
-                            <span>$28.00</span>
-                        </div>
-                    </div>
-                    <!-- End Single List -->
-                </div>
-                @endif
             </div>
-        </div>
-    </section>
-    <!-- End Home Product List -->
+        </section>
+        <!-- End Home Product List -->
 
     @endif
+
 
     @if( $websiteParts['parts']['Brands Section'] ?? null && $websiteParts['parts']['Brands Section'] == 1 )
 

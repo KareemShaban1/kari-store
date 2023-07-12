@@ -49,7 +49,7 @@
 
                         @foreach (app('abilities') as $ability_code => $ability_name)
                             <div class="row mb-2">
-                                <div class="col-md-6">
+                                <div class="col-md-6" style="text-align: right">
                                     {{$ability_name}}
                                 </div>
                                 <div class="col-md-2">
@@ -70,11 +70,10 @@
 
 
 
-            <button type="submit"
-                class="btn btn-success btn-md nextBtn btn-lg ">{{ trans('roles_trans.Add') }}</button>
+                    <button type="submit" class="btn btn-success btn-md nextBtn btn-lg ">{{ trans('roles_trans.Add') }}</button>
 
 
-            </form>
+                </form>
 
 
 

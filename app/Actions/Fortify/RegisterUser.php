@@ -25,6 +25,7 @@ class RegisterUser implements CreatesNewUsers
      */
     public function create(array $input)
     {
+        
         $data = Validator::make($input, [
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
@@ -36,6 +37,9 @@ class RegisterUser implements CreatesNewUsers
             'postal_code'=>'nullable',
             'street_address'=>'nullable',
         ])->validate();
+
+        $phone_number = '+2' . $data['phone_number'];
+
         
 
         /* Get credentials from .env */
@@ -46,9 +50,9 @@ class RegisterUser implements CreatesNewUsers
         $twilio = new Client($twilio_sid, $token);
         $twilio->verify->v2->services($twilio_verify_sid)
             ->verifications
-            ->create($data['phone_number'], "sms");
+            ->create($phone_number, "sms");
 
-        Session::put('phone',$input['phone_number']);   
+        Session::put('phone',$phone_number);   
 
         return 
         // $user = 

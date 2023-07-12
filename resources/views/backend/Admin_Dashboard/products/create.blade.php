@@ -24,7 +24,12 @@
 </div>
 <!-- breadcrumb -->
 @endsection
+
+
 @section('content')
+
+<x-backend.alert />
+
 <!-- row -->
 <div class="row">
     <div class="col-md-12 mb-30">
@@ -99,12 +104,12 @@
                         </div>
 
 
-                        <div class="col-md-4">
+                        {{-- <div class="col-md-4">
                             <div class="form-group">
                                 <label> {{ trans('products_trans.Product_Type') }} <span
                                         class="text-danger">*</span></label>
                                 <select name="product_type" id="" class="custom-select mr-sm-2">
-                                    <option value="">{{ trans('products_trans.Choose') }}</option>
+                                    <option value="" selected>{{ trans('products_trans.Choose') }}</option>
 
                                     <option value="normal">Normal</option>
                                     <option value="best_seller">Best Seller</option>
@@ -117,7 +122,7 @@
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </div>
-                        </div>
+                        </div> --}}
 
 
 

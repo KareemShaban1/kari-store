@@ -33,7 +33,7 @@ class OrderController extends Controller
     {   
         $data = $request->all();
         // dd($data);
-       $order_delivery =  OrderDelivery::create($data);
+        $order_delivery =  OrderDelivery::create($data);
 
         $order = Order::where('id',$order_delivery->order_id)->first();
         // dd($order);

@@ -101,7 +101,7 @@
                             <div class="col-md-12 col-sm-6">
                                 <div class="form-group">
                                     <label for="reg-phone">Phone Number</label>
-                                    <input class="form-control" type="text" name="phone_number" id="reg-phone">
+                                    <input class="form-control" type="text" name="phone_number">
                                     @error('phone_number')
                                         <div class="alert alert-danger">
                                             <span class="text-danger">{{ $message }}</span>
@@ -138,79 +138,57 @@
 
                             <div class="row">
 
-
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label> governorate<span class="text-danger">*</span></label>
-                                        <select name="governorate" id="" class="custom-select mr-sm-2"
-                                            required>
-
-                                            <option disabled selected>أختار من القائمة </option>
+                                        <select name="governorate" id="" class="custom-select mr-sm-2" required>
+        
+                                            <option disabled selected> اختار المحافظة </option>
                                             @foreach ($destinations as $destination)
                                                 @if ($destination->rank == '1')
-                                                    <option value="{{ $destination->id }}">
-                                                        {{ $destination->name }}</option>
+                                                    <option value="{{ $destination->id }}">{{ $destination->name }}</option>
                                                 @endif
                                             @endforeach
                                         </select>
-                                        @error('parent_id')
+                                        @error('governorate')
                                             <div class="alert alert-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
-
-
+        
                             </div>
+
                             <div class="row">
-
-
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label> city<span class="text-danger">*</span></label>
-                                        <select name="city" id="" class="custom-select mr-sm-2"
-                                            required>
-
-                                            <option disabled>أختار من القائمة </option>
-                                            @foreach ($destinations as $destination)
-                                                @if ($destination->rank == '2')
-                                                    <option value="{{ $destination->id }}">
-                                                        {{ $destination->name }}</option>
-                                                @endif
-                                            @endforeach
+                                        <select name="city" id="" class="custom-select mr-sm-2" required>
+                                            <option disabled selected> اختار المدينة </option>
+                                        
                                         </select>
-                                        @error('parent_id')
+                                        @error('city')
                                             <div class="alert alert-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
-
-
+        
                             </div>
+
                             <div class="row">
-
-
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label> neighburhood<span class="text-danger">*</span></label>
-                                        <select name="neighborhood" id=""
-                                            class="custom-select mr-sm-2" required>
-
-                                            <option disabled>أختار من القائمة </option>
-                                            @foreach ($destinations as $destination)
-                                                @if ($destination->rank == '3')
-                                                    <option value="{{ $destination->id }}">
-                                                        {{ $destination->name }}</option>
-                                                @endif
-                                            @endforeach
+                                        <select name="neighborhood" id="" class="custom-select mr-sm-2" required>
+                                            <option disabled selected> اختار المنطقة </option>
+                                        
                                         </select>
-                                        @error('parent_id')
+                                        @error('neighborhood')
                                             <div class="alert alert-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
-
-
+                            
                             </div>
+
+
+
 
                             <div class="col-md-12 col-sm-6">
                                 <div class="form-group">

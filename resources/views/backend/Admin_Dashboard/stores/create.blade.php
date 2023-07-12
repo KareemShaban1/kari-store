@@ -68,7 +68,6 @@
 
                     <div class="row">
 
-
                         <div class="col-md-4">
                             <div class="form-group">
                                 <select name="governorate" id="" class="custom-select mr-sm-2" required>
@@ -80,14 +79,11 @@
                                         @endif
                                     @endforeach
                                 </select>
-                                @error('parent_id')
+                                @error('governorate')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </div>
                         </div>
-
-
-                        
 
 
                         <div class="col-md-4">
@@ -96,7 +92,7 @@
                                     <option disabled selected> اختار المدينة </option>
                                 
                                 </select>
-                                @error('parent_id')
+                                @error('city')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </div>
@@ -109,12 +105,14 @@
                                     <option disabled selected> اختار المنطقة </option>
                                 
                                 </select>
-                                @error('parent_id')
+                                @error('neighborhood')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </div>
                         </div>
+                    
                     </div>
+
 
                     <div class="row">
                         <div class="col-md-6">

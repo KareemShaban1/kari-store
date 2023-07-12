@@ -25,6 +25,7 @@ class StoreProductRequest extends FormRequest
     {
         return [
             //
+            'name'=>'required'
         ];
     }
 }

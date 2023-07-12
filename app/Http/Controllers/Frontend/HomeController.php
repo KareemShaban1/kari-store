@@ -34,8 +34,10 @@ class HomeController extends Controller
 
         // get latest 8 products which status is active 
         $products = Product::with('category','store','reviews')->active()->latest()->take(8)->get();
-        $best_seller_products = Product::where('product_type','=','best_seller')->active()->latest()->take(4)->get();
+        // $best_seller_products = Product::where('product_type','=','best_seller')->active()->latest()->take(4)->get();
         return view('frontend.pages.home',
-        compact('products','banners','websiteParts','featured_categories','best_seller_products'));
+        compact('products','banners','websiteParts','featured_categories'
+            // ,'best_seller_products'
+    ));
     }
 }

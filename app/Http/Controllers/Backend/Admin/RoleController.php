@@ -11,7 +11,7 @@ class RoleController extends Controller
 
     public function __construct()
     {
-        // $this->authorizeResource(Role::class);
+        $this->authorizeResource(Role::class,'roles');
     }
     /**
      * Display a listing of the resource.
