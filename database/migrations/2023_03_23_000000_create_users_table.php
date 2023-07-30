@@ -21,11 +21,14 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->enum('gender',['male','female'])->default('male');
-            $table->string('phone_number');
+            $table->string('phone_number')->unique();
             $table->boolean('isVerified')->default(false);
-            $table->string('governorate')->nullable();
-            $table->string('city')->nullable();
-            $table->string('neighborhood')->nullable();
+            // $table->string('governorate')->nullable();
+            // $table->string('city')->nullable();
+            // $table->string('neighborhood')->nullable();
+            $table->foreignId('governorate_id')->nullable()->constrained('destinations')->nullOnDelete();
+            $table->foreignId('city_id')->nullable()->constrained('destinations')->nullOnDelete();
+            $table->foreignId('neighborhood_id')->nullable()->constrained('destinations')->nullOnDelete();
             $table->string('postal_code')->nullable();
             $table->string('street_address')->nullable();
             $table->timestamp('last_active_at')->nullable();

@@ -53,7 +53,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <select  name="categories_id[]" class="custom-select mr-sm-2" multiple required>
-                                    <option value="">اختر تصنيفات</option>
+                                    
                                     @foreach ($categories as $category)
                                         <option value="{{ $category->id }}">{{ $category->name }}</option>
                                     @endforeach

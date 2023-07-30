@@ -43,6 +43,7 @@
                             <p>Registration takes less than a minute but gives you full control over your orders.</p>
                         </div>
 
+                        <x-frontend.alert type="error"/>
 
 
                         <form method="POST" action="{{ route('register') }}">
@@ -52,7 +53,7 @@
                                 <div class="form-group">
                                     <label for="reg-fn">First Name</label>
                                     <input class="form-control" type="text" name="first_name" id="reg-fn"
-                                        required>
+                                        >
                                     @error('first_name')
                                         <div class="alert alert-danger">
                                             <span class="text-danger">{{ $message }}</span>
@@ -64,7 +65,7 @@
                             <div class="col-md-12 col-sm-6">
                                 <div class="form-group">
                                     <label for="reg-fn">Last Name</label>
-                                    <input class="form-control" type="text" name="last_name" id="reg-fn" required>
+                                    <input class="form-control" type="text" name="last_name" id="reg-fn" >
                                 </div>
                                 @error('last_name')
                                     <div class="alert alert-danger">
@@ -77,7 +78,7 @@
                                 <div class="form-group">
                                     <label for="reg-email">E-mail Address</label>
                                     <input class="form-control" type="email" name="email_address" id="reg-email"
-                                        required>
+                                        >
                                     @error('email')
                                         <div class="alert alert-danger">
                                             <span class="text-danger">{{ $message }}</span>
@@ -89,7 +90,7 @@
                             <div class="col-md-12 col-sm-6">
                                 <div class="form-group">
                                     <label for="reg-pass">Password</label>
-                                    <input class="form-control" type="password" name="password" id="reg-pass" required>
+                                    <input class="form-control" type="password" name="password" id="reg-pass" >
                                 </div>
                                 @error('password')
                                     <div class="alert alert-danger">
@@ -140,7 +141,7 @@
 
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <select name="governorate" id="" class="custom-select mr-sm-2" required>
+                                        <select name="governorate_id" id="" class="custom-select mr-sm-2" >
         
                                             <option disabled selected> اختار المحافظة </option>
                                             @foreach ($destinations as $destination)
@@ -160,7 +161,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <select name="city" id="" class="custom-select mr-sm-2" required>
+                                        <select name="city_id" id="" class="custom-select mr-sm-2" >
                                             <option disabled selected> اختار المدينة </option>
                                         
                                         </select>
@@ -175,7 +176,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <select name="neighborhood" id="" class="custom-select mr-sm-2" required>
+                                        <select name="neighborhood_id"  class="custom-select mr-sm-2" >
                                             <option disabled selected> اختار المنطقة </option>
                                         
                                         </select>
@@ -238,7 +239,7 @@
             
             $(document).ready(function() {
                 // When the "governorate" dropdown value changes
-                $('select[name="governorate"]').on('change', function() {
+                $('select[name="governorate_id"]').on('change', function() {
                     var governorateId = $(this).val(); // Get the selected governorate ID
 
                     console.log(governorateId);
@@ -252,12 +253,12 @@
                         },
                         success: function(response) {
                             // Clear the current city options
-                            $('select[name="city"]').empty();
-                            $('select[name="city"]').append(
+                            $('select[name="city_id"]').empty();
+                            $('select[name="city_id"]').append(
                                 '<option disabled selected>أختار من القائمة</option>');
 
                             $.each(response.cities, function(key, city) {
-                                $('select[name="city"]').append('<option value="' + city
+                                $('select[name="city_id"]').append('<option value="' + city
                                     .id + '">' + city.name + '</option>');
                             });
                         },
@@ -268,7 +269,7 @@
                 });
 
                 // When the "city" dropdown value changes
-                $('select[name="city"]').on('change', function() {
+                $('select[name="city_id"]').on('change', function() {
                     var cityId = $(this).val(); // Get the selected city ID
 
                     console.log(cityId);
@@ -282,13 +283,13 @@
                         },
                         success: function(response) {
                             // Clear the current neighborhood options
-                            $('select[name="neighborhood"]').empty();
-                            $('select[name="neighborhood"]').append(
+                            $('select[name="neighborhood_id"]').empty();
+                            $('select[name="neighborhood_id"]').append(
                                 '<option disabled selected>أختار من القائمة</option>');
 
                             $.each(response.neighborhoods, function(key, neighborhood) {
-                                $('select[name="neighborhood"]').append('<option value="' +
-                                    neighborhood.id + '">' + neighborhood.name +
+                                $('select[name="neighborhood_id"]').append('<option value="' +
+                                neighborhood.id + '">' + neighborhood.name +
                                     '</option>');
                             });
                         },

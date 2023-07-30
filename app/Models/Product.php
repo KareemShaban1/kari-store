@@ -14,8 +14,8 @@ class Product extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'name', 'slug', 'description', 'image', 'category_id', 'brand_id', 'store_id', 'price', 'compare_price', 'status',
-        'rating', 'featured', 'quantity',
+        'name', 'slug', 'description', 'image', 'category_id', 'brand_id', 'store_id', 'price', 'compare_price', 'status', 
+        'featured', 'quantity',
         // 'product_type'
     ];
 
@@ -61,6 +61,7 @@ class Product extends Model
     public function store()
     {
         return $this->belongsTo(Store::class, 'store_id', 'id');
+        
     }
 
     //// many-to-many relationship

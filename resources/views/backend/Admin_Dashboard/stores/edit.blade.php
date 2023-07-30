@@ -55,7 +55,7 @@
     <div class="form-group">
         <label>{{ trans('stores_trans.Categories') }}<span class="text-danger">*</span></label>
         <select name="categories_id[]" class="custom-select mr-sm-2" multiple required>
-            <option value="">اختر تصنيفات</option>
+            
             @foreach ($categories as $category)
                 <option value="{{ $category->id }}" {{ $store->categories->contains('id', $category->id) ? 'selected' : '' }}>
                     {{ $category->name }}

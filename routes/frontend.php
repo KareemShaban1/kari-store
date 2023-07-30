@@ -7,6 +7,7 @@ use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\ProductsController;
 use App\Http\Controllers\Frontend\ProfileController;
 use App\Http\Controllers\Frontend\ReviewsController;
+use App\Http\Controllers\Frontend\SendOTPController;
 use App\Http\Controllers\Frontend\ShopGridController;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
@@ -31,6 +32,8 @@ Route::group([
             Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
         }
     );
+
+    
     Route::get('/', [HomeController::class, 'index'])->name('home');
 
     Route::get('/profile_edit', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -56,6 +59,10 @@ Route::group([
 
     Route::get('auth/user/2fa', [TwoFactorAuthenticationController::class, 'index'])->name('front.2fa');
 
+    Route::get('/send-otp', function () {
+        return view('frontend.pages.send_otp');
+    });
+    Route::post('/send-otp', [SendOTPController::class,'sendOTP'])->name('send-otp');
 
     // Route::get('/categories_filter/{category_id}', [ShopGridController::class, 'categories_filter'])->name('categories_filter');
 
