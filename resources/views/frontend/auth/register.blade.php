@@ -12,13 +12,13 @@
                 <div class="row align-items-center">
                     <div class="col-lg-6 col-md-12 col-12">
                         <div class="breadcrumbs-content">
-                            <h1 class="page-title">Register</h1>
+                            <h1 class="page-title">{{ trans('auth_trans.Register') }}</h1>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-12 col-12">
                         <ul class="breadcrumb-nav">
-                            <li><a href="{{ Route('home') }}"><i class="lni lni-home"></i> Home</a></li>
-                            <li>Register</li>
+                            <li><a href="{{ Route('home') }}"><i class="lni lni-home"></i> {{ trans('auth_trans.Home') }}</a></li>
+                            <li>{{ trans('auth_trans.Register') }}</li>
                         </ul>
                     </div>
                 </div>
@@ -27,20 +27,19 @@
         <!-- End Breadcrumbs -->
     </x-slot>
 
+
+
     <!-- Start Account Register Area -->
     <div class="account-login section">
         <div class="container">
-            <div class="row">
-                @if (session('error'))
-                <div class="alert alert-danger" role="alert">
-                    {{ session('error') }}
-                </div>
-            @endif
-                <div class="col-lg-6 offset-lg-3 col-md-10 offset-md-1 col-12">
+            <div class="row justify-content-center">
+
+                <div class="col-lg-6 col-md-12  col-12">
+                    
                     <div class="register-form">
                         <div class="title">
-                            <h3>No Account? Register</h3>
-                            <p>Registration takes less than a minute but gives you full control over your orders.</p>
+                            <h3>{{ trans('auth_trans.Register') }}</h3>
+                            <p>{{ trans('auth_trans.Registration takes less than a minute but gives you full control over your orders.') }}</p>
                         </div>
 
                         <x-frontend.alert type="error"/>
@@ -51,63 +50,43 @@
 
                             <div class="col-md-12 col-sm-6">
                                 <div class="form-group">
-                                    <label for="reg-fn">First Name</label>
+                                    <label for="reg-fn">{{ trans('auth_trans.First_Name') }}</label>
                                     <input class="form-control" type="text" name="first_name" id="reg-fn"
                                         >
-                                    @error('first_name')
-                                        <div class="alert alert-danger">
-                                            <span class="text-danger">{{ $message }}</span>
-                                        </div>
-                                    @enderror
+                                    
                                 </div>
                             </div>
 
                             <div class="col-md-12 col-sm-6">
                                 <div class="form-group">
-                                    <label for="reg-fn">Last Name</label>
+                                    <label for="reg-fn">{{ trans('auth_trans.Last_Name') }}</label>
                                     <input class="form-control" type="text" name="last_name" id="reg-fn" >
                                 </div>
-                                @error('last_name')
-                                    <div class="alert alert-danger">
-                                        <span class="text-danger">{{ $message }}</span>
-                                    </div>
-                                @enderror
+                                
                             </div>
 
                             <div class="col-md-12 col-sm-6">
                                 <div class="form-group">
-                                    <label for="reg-email">E-mail Address</label>
+                                    <label for="reg-email">{{ trans('auth_trans.Email_Address') }}</label>
                                     <input class="form-control" type="email" name="email_address" id="reg-email"
                                         >
-                                    @error('email')
-                                        <div class="alert alert-danger">
-                                            <span class="text-danger">{{ $message }}</span>
-                                        </div>
-                                    @enderror
+                                    
                                 </div>
                             </div>
 
                             <div class="col-md-12 col-sm-6">
                                 <div class="form-group">
-                                    <label for="reg-pass">Password</label>
+                                    <label for="reg-pass">{{ trans('auth_trans.Password') }}</label>
                                     <input class="form-control" type="password" name="password" id="reg-pass" >
                                 </div>
-                                @error('password')
-                                    <div class="alert alert-danger">
-                                        <span class="text-danger">{{ $message }}</span>
-                                    </div>
-                                @enderror
+                                
                             </div>
 
                             <div class="col-md-12 col-sm-6">
                                 <div class="form-group">
-                                    <label for="reg-phone">Phone Number</label>
+                                    <label for="reg-phone">{{ trans('auth_trans.Phone_Number') }}</label>
                                     <input class="form-control" type="text" name="phone_number">
-                                    @error('phone_number')
-                                        <div class="alert alert-danger">
-                                            <span class="text-danger">{{ $message }}</span>
-                                        </div>
-                                    @enderror
+                                    
                                 </div>
                             </div>
 
@@ -143,16 +122,14 @@
                                     <div class="form-group">
                                         <select name="governorate_id" id="" class="custom-select mr-sm-2" >
         
-                                            <option disabled selected> اختار المحافظة </option>
+                                            <option disabled selected> {{ trans('auth_trans.Choose_Governorate') }}</option>
                                             @foreach ($destinations as $destination)
                                                 @if ($destination->rank == '1')
                                                     <option value="{{ $destination->id }}">{{ $destination->name }}</option>
                                                 @endif
                                             @endforeach
                                         </select>
-                                        @error('governorate')
-                                            <div class="alert alert-danger">{{ $message }}</div>
-                                        @enderror
+                                        
                                     </div>
                                 </div>
         
@@ -162,12 +139,10 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <select name="city_id" id="" class="custom-select mr-sm-2" >
-                                            <option disabled selected> اختار المدينة </option>
+                                            <option disabled selected> {{ trans('auth_trans.Choose_City') }}</option>
                                         
                                         </select>
-                                        @error('city')
-                                            <div class="alert alert-danger">{{ $message }}</div>
-                                        @enderror
+                                        
                                     </div>
                                 </div>
         
@@ -177,12 +152,10 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <select name="neighborhood_id"  class="custom-select mr-sm-2" >
-                                            <option disabled selected> اختار المنطقة </option>
+                                            <option disabled selected> {{ trans('auth_trans.Choose_Neighborhood') }}</option>
                                         
                                         </select>
-                                        @error('neighborhood')
-                                            <div class="alert alert-danger">{{ $message }}</div>
-                                        @enderror
+                                        
                                     </div>
                                 </div>
                             
@@ -193,13 +166,9 @@
 
                             <div class="col-md-12 col-sm-6">
                                 <div class="form-group">
-                                    <label for="reg-email">Postal code</label>
+                                    <label for="reg-email">{{ trans('auth_trans.Postal_Code') }}</label>
                                     <input class="form-control" type="text" name="postal_code">
-                                    @error('postal_code')
-                                        <div class="alert alert-danger">
-                                            <span class="text-danger">{{ $message }}</span>
-                                        </div>
-                                    @enderror
+                                    
 
                                 </div>
                             </div>
@@ -207,23 +176,20 @@
 
                             <div class="col-md-12 col-sm-6">
                                 <div class="form-group">
-                                    <label for="reg-email">Street Address</label>
+                                    <label for="reg-email">{{ trans('auth_trans.Street_Address') }}</label>
                                     <input class="form-control" type="text" name="street_address">
-                                    @error('street_address')
-                                        <div class="alert alert-danger">
-                                            <span class="text-danger">{{ $message }}</span>
-                                        </div>
-                                    @enderror
+                                    
                                 </div>
                             </div>
 
 
 
                             <div class="button">
-                                <button class="btn" type="submit">Register</button>
+                                <button class="btn" type="submit">{{ trans('auth_trans.Register') }}</button>
                             </div>
 
-                            <p class="outer-link">Already have an account? <a href="login.html">Login Now</a>
+                            <p class="outer-link">{{ trans('auth_trans.Already have an account?') }} 
+                                <a href="login.html">{{ trans('auth_trans.Login Now') }}</a>
 
                             </p>
                         </form>

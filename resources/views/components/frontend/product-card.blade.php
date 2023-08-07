@@ -3,16 +3,22 @@
     <div class="product-image">
         <img src="{{ $product->image_url }}" height="200" width="200" alt="#">
         @if ($product->sale_percent)
-            <span class="sale-tag">- {{ $product->sale_percent }} %</span>
+            <span class="sale-tag"> - {{ Currency::convertNumberToArabic($product->sale_percent) }} %</span>
         @endif
         <div class="button">
             <a href="{{ Route('products.show_product', $product->slug) }}" class="btn">
-                <i class="lni lni-cart"></i> Add to Cart</a>
+                {{-- <i class="lni lni-cart"></i> --}}
+                {{ trans('home_trans.Show') }} 
+                </a>
         </div>
     </div>
     <div class="product-info">
-        <span class="category"> {{ $product->category->name }} </span>
-        <span class="category">{{ $product->store->name }} </span>
+        <span class="category">{{ trans('home_trans.Category') }} :
+            <a href="{{ Route('shop_grid.index', $product->category->id) }}">
+                {{ $product->category->name }}
+            </a>
+        </span>
+        <span class="category">{{ trans('home_trans.Store') }} :{{ $product->store->name }} </span>
 
         <h4 class="title">
             <a href="{{ Route('products.show_product', $product->slug) }}">
@@ -24,10 +30,9 @@
         </h4>
 
         @php
-            $product_reviews = App\Models\Review::where('product_id', $product->id)->
-            get('rating');
+            $product_reviews = App\Models\Review::where('product_id', $product->id)->get('rating');
             $total_reviews = count($product_reviews);
-            $sum_ratings = 0;            
+            $sum_ratings = 0;
             foreach ($product_reviews as $review) {
                 $sum_ratings += $review->rating;
             }
@@ -43,7 +48,7 @@
             <li><i class="lni lni-star"></i></li>
             <?php endfor; ?>
 
-            <li><span>{{ $average_rating }}.0 Review(s)</span></li>
+            <li><span>{{ $average_rating }}.0 {{ trans('home_trans.Review(s)') }}</span></li>
         </ul>
 
         <div class="price">

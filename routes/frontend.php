@@ -14,10 +14,10 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 Route::group([
           // url prefix
-          'prefix' => LaravelLocalization::setLocale(),
-          'middleware' => [
+        'prefix' => LaravelLocalization::setLocale(),
+        'middleware' => [
                     'localeCookieRedirect', 'localizationRedirect', 'localeViewPath'
-          ],
+        ],
 
 ], function () {
 
@@ -27,13 +27,14 @@ Route::group([
         function () {
             Route::resource('cart', CartController::class);
             Route::post('/apply-coupon', [CartController::class, 'applyCoupon'])->name('cart.applyCoupon');
+
             Route::resource('reviews', ReviewsController::class);
             Route::get('/checkout', [CheckoutController::class, 'create'])->name('checkout.create');
             Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
         }
     );
 
-    
+
     Route::get('/', [HomeController::class, 'index'])->name('home');
 
     Route::get('/profile_edit', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -48,6 +49,8 @@ Route::group([
 
 
     Route::get('get_sub_total', [CartController::class, 'get_sub_total'])->name('get_sub_total');
+
+    Route::get('/get-formatted-currency/{amount?}', [CartController::class,'getFormattedCurrency'])->name('get_formatted_currency');
 
     Route::get('get_all_total', [CartController::class, 'get_all_total'])->name('get_all_total');
 

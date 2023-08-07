@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/tiny-slider.css') }}" />
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/glightbox.min.css') }}" />
 
+
     @if (App::getLocale() == 'en')
         <link rel="stylesheet" href="{{ asset('frontend/assets/css/main.css') }}" />
     @else
@@ -28,13 +29,7 @@
 </head>
 
 <body>
-    <!--[if lte IE 9]>
-      <p class="browserupgrade">
-        You are using an <strong>outdated</strong> browser. Please
-        <a href="https://browsehappy.com/">upgrade your browser</a> to improve
-        your experience and security.
-      </p>
-    <![endif]-->
+    
 
     <!-- Preloader -->
     <div class="preloader">
@@ -57,10 +52,8 @@
                     <div class="col-lg-4 col-md-4 col-12">
                         <div class="top-left">
                             <ul class="menu-top-link">
-
-                                <li>
-
-                                    <ul>
+                                {{-- <li> --}}
+                                {{-- <ul>
                                         @foreach (LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
                                             <li>
                                                 <a rel="alternate" hreflang="{{ $localeCode }}"
@@ -69,8 +62,32 @@
                                                 </a>
                                             </li>
                                         @endforeach
-                                    </ul>
-                                </li>
+                                    </ul> --}}
+                                    
+                                <div class="btn-group mb-1">
+                                    <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" style="background-color: #081828"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        @if (App::getLocale() == 'ar')
+                                            {{ LaravelLocalization::getCurrentLocaleName() }}
+                                            <img src="{{ URL::asset('backend/assets/images/flags/EG.png') }}"
+                                                alt="">
+                                        @else
+                                            {{ LaravelLocalization::getCurrentLocaleName() }}
+                                            <img src="{{ URL::asset('backend/assets/images/flags/US.png') }}"
+                                                alt="">
+                                        @endif
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        @foreach (LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                                            <a class="dropdown-item" rel="alternate" hreflang="{{ $localeCode }}"
+                                                href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                                                {{ $properties['native'] }}
+                                            </a>
+                                        @endforeach
+                                    </div>
+                                </div>
+
+                                {{-- </li> --}}
                             </ul>
                         </div>
                     </div>
@@ -100,7 +117,7 @@
                                     {{-- {{ Auth::guard('web')->user()->first_name }} --}}
                                     <a href="{{ Route('profile.edit') }}">
                                         {{ Auth::user('user')->first_name }}
-                                    </a> 
+                                    </a>
                                 </div>
                                 <div class="user">
                                     <ul class="user-login">
@@ -251,17 +268,20 @@
                                         <a href="{{ Route('shop_grid.index') }}" class="nav-link"
                                             aria-label="Toggle navigation">{{ trans('front_home_trans.Shop') }}</a>
                                     </li>
-                                
-                                    <li class="nav-item"><a href="{{ Route('cart.index') }}">{{ trans('front_home_trans.Cart') }}</a></li>
+
+                                    <li class="nav-item"><a
+                                            href="{{ Route('cart.index') }}">{{ trans('front_home_trans.Cart') }}</a>
+                                    </li>
 
                                     <li class="nav-item"><a href="{{ Route('checkout.create') }}">Checkout</a></li>
 
 
                                     <li class="nav-item">
-                                        <a href="" aria-label="Toggle navigation">{{ trans('front_home_trans.Contact_Us') }}</a>
+                                        <a href=""
+                                            aria-label="Toggle navigation">{{ trans('front_home_trans.Contact_Us') }}</a>
                                     </li>
 
-                                
+
                                 </ul>
                             </div> <!-- navbar collapse -->
                         </nav>
@@ -329,7 +349,7 @@
                                 </a>
                             </div>
                         </div>
-                        <div class="col-lg-9 col-md-8 col-12">
+                        {{-- <div class="col-lg-9 col-md-8 col-12">
                             <div class="footer-newsletter">
                                 <h4 class="title">
                                     Subscribe to our Newsletter
@@ -344,7 +364,7 @@
                                     </form>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>
@@ -360,14 +380,14 @@
                         <div class="col-lg-3 col-md-6 col-12">
                             <!-- Single Widget -->
                             <div class="single-footer f-contact">
-                                <h3>Get In Touch With Us</h3>
-                                <p class="phone">Phone: +1 (900) 33 169 7720</p>
-                                <ul>
+                                <h3>{{ trans('home_trans.Get In Touch With Us') }}</h3>
+                                <p class="phone">{{ trans('home_trans.Phone') }}: 0111111111</p>
+                                {{-- <ul>
                                     <li><span>Monday-Friday: </span> 9.00 am - 8.00 pm</li>
                                     <li><span>Saturday: </span> 10.00 am - 6.00 pm</li>
-                                </ul>
+                                </ul> --}}
                                 <p class="mail">
-                                    <a href="mailto:support@shopgrids.com">support@shopgrids.com</a>
+                                    <a href="mailto:support@shopgrids.com"> {{ trans('home_trans.Technical Support') }} support@shopgrids.com</a>
                                 </p>
                             </div>
                             <!-- End Single Widget -->
@@ -378,6 +398,9 @@
                                 <h3>Our Mobile App</h3>
                                 <ul class="app-btn">
                                     <li>
+                                        Coming Soon
+                                    </li>
+                                    {{-- <li>
                                         <a href="javascript:void(0)">
                                             <i class="lni lni-apple"></i>
                                             <span class="small-title">Download on the</span>
@@ -390,12 +413,13 @@
                                             <span class="small-title">Download on the</span>
                                             <span class="big-title">Google Play</span>
                                         </a>
-                                    </li>
+                                    </li> --}}
                                 </ul>
                             </div>
                             <!-- End Single Widget -->
                         </div>
-                        <div class="col-lg-3 col-md-6 col-12">
+
+                        {{-- <div class="col-lg-3 col-md-6 col-12">
                             <!-- Single Widget -->
                             <div class="single-footer f-link">
                                 <h3>Information</h3>
@@ -408,8 +432,9 @@
                                 </ul>
                             </div>
                             <!-- End Single Widget -->
-                        </div>
-                        <div class="col-lg-3 col-md-6 col-12">
+                        </div> --}}
+
+                        {{-- <div class="col-lg-3 col-md-6 col-12">
                             <!-- Single Widget -->
                             <div class="single-footer f-link">
                                 <h3>Shop Departments</h3>
@@ -422,7 +447,7 @@
                                 </ul>
                             </div>
                             <!-- End Single Widget -->
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>
@@ -441,15 +466,15 @@
                             </div>
                         </div>
                         <div class="col-lg-4 col-12">
-                            <div class="copyright">
+                            {{-- <div class="copyright">
                                 <p>Designed and Developed by<a href="https://graygrids.com/" rel="nofollow"
                                         target="_blank">GrayGrids</a></p>
-                            </div>
+                            </div> --}}
                         </div>
                         <div class="col-lg-4 col-12">
                             <ul class="socila">
                                 <li>
-                                    <span>Follow Us On:</span>
+                                    <span>{{ trans('home_trans.Follow Us On:') }}</span>
                                 </li>
                                 <li><a href="javascript:void(0)"><i class="lni lni-facebook-filled"></i></a></li>
                                 <li><a href="javascript:void(0)"><i class="lni lni-twitter-original"></i></a></li>
@@ -471,13 +496,19 @@
     </a>
 
     <!-- ========================= JS here ========================= -->
+    
+    {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
+
+    <script src="{{ asset('backend/assets/js/jquery-3.6.0.min.js') }}"></script>
+
     <script src="{{ asset('frontend/assets/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('frontend/assets/js/tiny-slider.js') }}"></script>
     <script src="{{ asset('frontend/assets/js/glightbox.min.js') }}"></script>
     <script src="{{ asset('frontend/assets/js/main.js') }}"></script>
 
-
-    {{-- <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script> --}}
+    
+    <script src="{{ URL::asset('backend/assets/js/plugins-jquery.js') }}"></script>
+    
     {{-- <script>
         $('#summernote').summernote({
             placeholder: 'Hello ..!',
@@ -494,7 +525,8 @@
             ]
         });
     </script> --}}
-    <script src="{{ asset('backend/assets/js/jquery-3.6.0.min.js') }}"></script>
+
+    {{-- <script src="{{ asset('backend/assets/js/jquery-3.6.0.min.js') }}"></script> --}}
 
     <script>
         const navLinks = document.querySelectorAll('.nav-item a');

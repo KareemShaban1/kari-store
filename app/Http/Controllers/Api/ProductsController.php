@@ -132,6 +132,7 @@ class ProductsController extends Controller
     public function destroy($id)
     {
         //
+        
         // sanctum guard responsible for api
         $user = Auth::guard('sanctum')->user();
         if (!$user->tokenCan('products.delete')) {

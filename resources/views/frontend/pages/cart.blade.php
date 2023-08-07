@@ -97,7 +97,8 @@
                             </div>
 
                             <div class="col-lg-2 col-md-2 col-12" id="sub_total_{{ $cart_item->product->id }}">
-                                <p>{{ Currency::format($cart_item->quantity * $cart_item->product->price) }}</p>
+                                <p id="sub_total_amount_{{ $cart_item->product->id }}">
+                                    {{ Currency::format($cart_item->quantity * $cart_item->product->price) }}</p>
                             </div>
 
                             <div class="col-lg-2 col-md-2 col-12">
@@ -119,31 +120,31 @@
                     <!-- Total Amount -->
                     <div class="total-amount">
                         <div class="row">
-                           
+
                             <div class="col-lg-8 col-md-6 col-12">
-                                
+
                                 <div class="left">
-                                    
+
                                     <div class="coupon">
-                                        <div style="margin-bottom: 20px"> 
-                                            @if ($temp_session) 
-                                           <span class="text-danger">{{$temp_session->coupon->code}} </span> 
-                                            coupon is applied with discount {{Currency::format($temp_session->coupon->discount_amount)}}
+                                        <div style="margin-bottom: 20px">
+                                            @if ($temp_session)
+                                                <span class="text-danger">{{ $temp_session->coupon->code }} </span>
+                                                coupon is applied with discount
+                                                {{ Currency::format($temp_session->coupon->discount_amount) }}
                                             @endif
-                                         </div>
+                                        </div>
                                         <form action="{{ route('cart.applyCoupon') }}" method="POST">
                                             @csrf
                                             <div class="single-form form-default" style="display: inline-flex;">
                                                 <div class="form-input form">
                                                     <input type="text" name="coupon_code"
-                                                        @if ($temp_session) 
-                                                        style="background-color: rgb(234, 230, 230)"
-                                                        disabled 
-                                                        @endif
+                                                        @if ($temp_session) style="background-color: rgb(234, 230, 230)"
+                                                        disabled @endif
                                                         placeholder="Enter coupon code">
                                                 </div>
                                                 <div class="button">
-                                                    <button class="btn" @if ($temp_session) disabled @endif>apply</button>
+                                                    <button class="btn"
+                                                        @if ($temp_session) disabled @endif>apply</button>
                                                 </div>
                                             </div>
                                         </form>
@@ -159,7 +160,7 @@
                                             <?php
                                             // get coupon stored in session , if it exist
                                             $coupon = Session::get('coupon');
-                                           
+                                            
                                             $coupon_discount = $coupon ? $coupon->discount_amount : 0;
                                             ?>
                                             <li>Cart Subtotal
@@ -173,15 +174,16 @@
                                         @if ($temp_session)
                                             <li>Coupon<span>{{ $temp_session->coupon->code }}</span>
                                             </li>
-                                            <li>You Save<span>{{ Currency::format($temp_session->coupon->discount_amount) }}</span>
+                                            <li>You
+                                                Save<span>{{ Currency::format($temp_session->coupon->discount_amount) }}</span>
                                             </li>
                                         @endif
-                                        <li class="last">You
-                                            Pay<span>
+                                        <li class="last">You Pay
+                                            <span class="pay_total">
                                                 @if ($temp_session)
-                                                {{ Currency::format($cart->total() - $temp_session->coupon->discount_amount) }}
+                                                    {{ Currency::format($cart->total() - $temp_session->coupon->discount_amount) }}
                                                 @else
-                                                {{ Currency::format($cart->total())}}
+                                                    {{ Currency::format($cart->total()) }}
                                                 @endif
                                             </span>
                                         </li>
@@ -214,8 +216,21 @@
                     var subtotalValue = parseFloat(subtotalText.replace(/[^0-9.-]+/g, ''));
                     subtotalSum += subtotalValue;
                 });
-                $('#totalSubtotal').html('');
-                $('#totalSubtotal').text(subtotalSum);
+
+                // Cart Subtotal part
+                $.ajax({
+                    url: "{{ route('get_formatted_currency') }}/" + subtotalSum,
+                    type: "GET",
+                    success: function(response) {
+                        $('#totalSubtotal').html(response.formatted_currency);
+                    },
+                    error: function(xhr) {
+                        console.log(xhr.responseText);
+                    }
+                });
+
+                // $('#totalSubtotal').html('');
+                // $('#totalSubtotal').text(subtotalSum);
             }
 
             $(document).ready(function() {
@@ -230,7 +245,7 @@
                     console.log(productId); // Access the product ID here
                     if (currentQuantity > 1) {
                         quantityElement.text(currentQuantity - 1);
-                        updateCartQuantity(cartItemId,productId, currentQuantity - 1);
+                        updateCartQuantity(cartItemId, productId, currentQuantity - 1);
                     }
                     calculateSubtotalSum();
                 });
@@ -242,15 +257,11 @@
                     var cartItemId = $(this).data('id');
                     var productId = $(this).data('product-id');
                     console.log(productId); // Access the product ID here
-                    updateCartQuantity(cartItemId,productId, currentQuantity + 1);
+                    updateCartQuantity(cartItemId, productId, currentQuantity + 1);
                     calculateSubtotalSum();
                 });
 
-                function updateCartQuantity(cartItemId,productId, quantity) {
-                    // Perform an AJAX request to update the cart item quantity in the backend
-                    // You can use the cartItemId and quantity values to update the quantity for the specific cart item
-                    // Example AJAX code:
-                    /**/
+                function updateCartQuantity(cartItemId, productId, quantity) {
 
                     $.ajax({
                         url: "{{ route('get_sub_total') }}",
@@ -258,12 +269,15 @@
                         data: {
                             quantity: quantity,
                             product_id: productId,
-                            cart_id:cartItemId,
+                            cart_id: cartItemId,
                         },
-                        success: function(res) {
-                            $('#sub_total_' + productId).html(res);
+                        success: function(response) {
+                            $('#sub_total_amount_' + productId).html(response.formatted_sub_total);
                             calculateSubtotalSum();
                         },
+                        error: function(xhr) {
+                            console.log(xhr.responseText);
+                        }
                     });
                 }
             });
@@ -300,8 +314,6 @@
             //     //     calculateSubtotalSum();
             //     // }, );
             // });
-
-           
         </script>
 
         <script src="{{ asset('frontend/assets/js/cart.js') }}"></script>

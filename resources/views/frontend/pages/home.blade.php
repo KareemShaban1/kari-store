@@ -68,7 +68,7 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="section-title">
-                            <h2>Featured Categories</h2>
+                            <h2>{{ trans('home_trans.Featured Categories') }}</h2>
                             {{-- <p>There are many variations of passages of Lorem Ipsum available, but the majority have
                                 suffered alteration in some form.</p> --}}
                         </div>
@@ -85,7 +85,7 @@
                                         dd($featured_category->children);
                                     @endphp --}}
                                     @foreach ($featured_category->children as $subcategory)
-                                        <li><a href="product-grids.html">{{ $subcategory->name }}</a></li>
+                                        <li><a href="">{{ $subcategory->name }}</a></li>
                                     @endforeach
                                     {{-- <li><a href="product-grids.html">Smart Television</a></li>
                                 <li><a href="product-grids.html">QLED TV</a></li>
@@ -94,7 +94,7 @@
                                 <li><a href="product-grids.html">View All</a></li> --}}
                                 </ul>
                                 <div class="images">
-                                    <img src="{{ $featured_category->image_url }}" height="180" width="180"
+                                    <img src="{{ $featured_category->image_url }}" height="120" width="180"
                                         alt="#">
                                 </div>
                             </div>
@@ -120,7 +120,7 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="section-title">
-                            <h2>Trending Product</h2>
+                            <h2>{{ trans('home_trans.New Products') }}</h2>
                             {{-- <p>There are many variations of passages of Lorem Ipsum available, but the majority have
                                 suffered alteration in some form.</p> --}}
                         </div>

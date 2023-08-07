@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Helpers\Currency;
 use App\Http\Controllers\Controller;
 use App\Models\Cart;
 use App\Models\Coupon;
@@ -17,7 +18,6 @@ use Illuminate\Support\Facades\Session;
 
 class CartController extends Controller
 {
-
     protected $cart;
 
 
@@ -133,7 +133,9 @@ class CartController extends Controller
 
     public function total()
     {
+        // return Currency::format($this->cart->total());
         $this->cart->total();
+
     }
 
 
@@ -151,7 +153,7 @@ class CartController extends Controller
         if ($coupon) {
 
             if ($coupon->expiration_date > now()) {
-                $temp_session = new TempSession;
+                $temp_session = new TempSession();
                 $temp_session->coupon_id = $coupon ? $coupon->id : null;
                 $temp_session->user_id = Auth::user('user')->id;
                 $temp_session->save();
@@ -192,11 +194,29 @@ class CartController extends Controller
 
         $this->cart->update($cart_id, $quantity, $product_id);
 
+        // $sub_total = $quantity * $product_price;
+
+        // return view('frontend.pages.price_part', [
+        //     'sub_total' => $sub_total,
+        // ]);
         $sub_total = $quantity * $product_price;
+        $formatted_sub_total = Currency::format($sub_total);
+
+        return response()->json([
+            'formatted_sub_total' => $formatted_sub_total,
+        ]);
+        // return response()->json([
+        //     'sub_total' => $sub_total,
+        // ]);
+    }
 
 
-        return view('frontend.pages.price_part', [
-            'sub_total' => $sub_total,
+    public function getFormattedCurrency($amount)
+    {
+        // dd($amount);
+        $formattedCurrency = Currency::format($amount);
+        return response()->json([
+            'formatted_currency' => $formattedCurrency,
         ]);
     }
 

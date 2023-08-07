@@ -33,11 +33,11 @@
                     @php
                         $phone = Session::get('phone');
                         
-                        
                     @endphp
-                    <form class="card login-form" action="{{ Route('custom_verification') }}" method="post">
-                        
-                              @csrf
+                    <form class="card login-form" autocomplete="off" action="{{ Route('custom_verification') }}"
+                        method="post">
+
+                        @csrf
 
                         <div class="card-body">
 
@@ -56,7 +56,8 @@
                             <div class="form-group row">
                                 <label for="verification_code"
                                     class="col-md-4 col-form-label text-md-right">Verification code</label>
-                                <div class="col-md-6">
+
+                                <div class="col-md-12 col-12">
                                     <input type="hidden" name="phone_number" value="{{ $phone }}">
                                     <input id="verification_code" type="tel"
                                         class="form-control @error('verification_code') is-invalid @enderror"
@@ -69,10 +70,17 @@
                                 </div>
                             </div>
 
+
+
                         </div>
 
                         <div class="button">
                             <button class="btn" type="submit">Verify</button>
+                        </div>
+
+
+                        <div class="button ">
+                            <button class="btn" style="background-color: red">Resend Verification Code</button>
                         </div>
 
                 </div>

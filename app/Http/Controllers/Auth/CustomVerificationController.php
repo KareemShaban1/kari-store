@@ -55,7 +55,7 @@ class CustomVerificationController extends Controller
         ]);
 
          // Remove the +2 prefix from the phone number if present
-         $phone_number = str_replace('+2', '', $data['phone_number']);
+        $phone_number = str_replace('+2', '', $data['phone_number']);
         // Get the stored OTP from the session
         $storedOtp = Session::get('phone_otp');
 

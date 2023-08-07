@@ -13,14 +13,14 @@ trait SendVerifications
         // Step 1: Generate the OTP (you can use any method to generate the OTP)
         $otp = mt_rand(100000, 999999);
 
-         // Step 2: Store the OTP in the session (for temporary storage)
-         Session::put('phone_otp', $otp);
+        // Step 2: Store the OTP in the session (for temporary storage)
+        Session::put('phone_otp', $otp);
 
-          // dd($phone_number ,$otp);
+        // dd($phone_number ,$otp);
 
-        $url = 'https://api.ultramsg.com/instance56146/messages/chat';
+        $url = 'https://api.ultramsg.com/instance56733/messages/chat';
         $params = [
-            'token' => '24ytu6qpg9s7hepi',
+            'token' => '23mco3j0m42ai601',
             'to' => $phone_number,
             'body' => 'Your OTP is: ' . $otp . ' for account verification on YourApp.', // Modify the message as needed
         ];
@@ -29,11 +29,13 @@ trait SendVerifications
 
         // Check if the request was successful
         if ($response->successful()) {
-          // OTP sent successfully
-          return true;
-      } else {
-          // Failed to send OTP
-          return false;
-      }
+            // OTP sent successfully
+
+            return true;
+        } else {
+            // Failed to send OTP
+
+            return false;
+        }
     }
 }

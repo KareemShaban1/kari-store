@@ -2,11 +2,9 @@
 
 use App\Http\Controllers\Auth\CustomVerificationController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\Backend\DashboardController;
-use App\Http\Controllers\Frontend\HomeController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Auth\RegisteredUserController;
-
+use Laravel\Fortify\Fortify;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,6 +40,8 @@ Route::get('/verify', function () {
         return view('frontend.auth.verify');
     })->name('custom_verification');
 
-require __DIR__.'/backend.php';
+    
 
+require __DIR__.'/backend.php';
+// require __DIR__.'/fortify.php';
 require __DIR__.'/frontend.php';
