@@ -18,9 +18,9 @@ trait SendVerifications
 
         // dd($phone_number ,$otp);
 
-        $url = 'https://api.ultramsg.com/instance56733/messages/chat';
+        $url = 'https://api.ultramsg.com/instance57432/messages/chat';
         $params = [
-            'token' => '23mco3j0m42ai601',
+            'token' => 'attxuntrmg0kw75g',
             'to' => $phone_number,
             'body' => 'Your OTP is: ' . $otp . ' for account verification on YourApp.', // Modify the message as needed
         ];

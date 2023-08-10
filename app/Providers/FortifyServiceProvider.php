@@ -55,6 +55,7 @@ class FortifyServiceProvider extends ServiceProvider
             new class () implements LoginResponse {
                 public function toResponse($request)
                 {
+                    
                     // $request->user('admin') // admin -> guard_name
                     if ($request->user('admin')) {
                         return redirect('/admin/dashboard');
@@ -100,10 +101,13 @@ class FortifyServiceProvider extends ServiceProvider
         Fortify::updateUserProfileInformationUsing(UpdateUserProfileInformation::class);
         Fortify::updateUserPasswordsUsing(UpdateUserPassword::class);
         Fortify::resetUserPasswordsUsing(ResetUserPassword::class);
-        Fortify::verifyEmailView(function () {
+        // Fortify::verifyEmailView(function () {
+        //     return view('frontend.auth.verify');
+        // });
+
+        Fortify::verifyEmailView(function () { // <--- this
             return view('frontend.auth.verify');
         });
-
 
 
         // rate limiter for login
@@ -130,11 +134,13 @@ class FortifyServiceProvider extends ServiceProvider
             Fortify::authenticateUsing([new CustomAuthentication(),'authenticateVendor']);
             /// put prefix for auth backend pages => /login/admin
             Fortify::viewPrefix('backend.auth.vendor.');
+
         } elseif (Config::get('fortify.guard') == 'delivery') {
             /// this method will be used in "admin" guard only
             Fortify::authenticateUsing([new CustomAuthentication(),'authenticateDelivery']);
             /// put prefix for auth backend pages => /login/admin
             Fortify::viewPrefix('backend.auth.delivery.');
+
         } else {
 
             /// this method will be used in "web" guard only
@@ -145,6 +151,8 @@ class FortifyServiceProvider extends ServiceProvider
 
             /// put prefix for auth frontend pages =>  /login
             Fortify::viewPrefix('frontend.auth.');
+
+
 
         }
     }

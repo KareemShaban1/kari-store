@@ -14,14 +14,14 @@ class CheckUserType
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
-    public function handle(Request $request, Closure $next , ...$types)
+    public function handle(Request $request, Closure $next, ...$types)
     {
 
         $user = $request->user();
-        if(!$user){
+        if(!$user) {
             return redirect()->route('login');
         }
-        if(!in_array($user->type,$types)){
+        if(!in_array($user->type, $types)) {
 
             abort(404);
         }

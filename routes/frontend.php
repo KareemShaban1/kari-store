@@ -23,19 +23,23 @@ Route::group([
 
 
     Route::group(
-        ['middleware' => ['auth:web']],
+        ['middleware' => ['email_verified']],
         function () {
+            Route::get('/', [HomeController::class, 'index'])->name('home');
             Route::resource('cart', CartController::class);
             Route::post('/apply-coupon', [CartController::class, 'applyCoupon'])->name('cart.applyCoupon');
 
             Route::resource('reviews', ReviewsController::class);
             Route::get('/checkout', [CheckoutController::class, 'create'])->name('checkout.create');
             Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
+
+
         }
     );
 
+    
 
-    Route::get('/', [HomeController::class, 'index'])->name('home');
+
 
     Route::get('/profile_edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/profile_update', [ProfileController::class, 'update'])->name('profile.update');

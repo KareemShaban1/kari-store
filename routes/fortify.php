@@ -25,7 +25,7 @@ Route::group(
     [
           'prefix' => LaravelLocalization::setLocale(),
           'middleware' => [
-          'localeCookieRedirect', 'localizationRedirect', 'localeViewPath'
+          'localeCookieRedirect', 'localizationRedirect', 'localeViewPath','verified'
           ]
           ],
     function () {

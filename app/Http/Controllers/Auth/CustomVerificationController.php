@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Traits\SendVerifications;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -11,6 +12,8 @@ use Twilio\Rest\Client;
 
 class CustomVerificationController extends Controller
 {
+    use SendVerifications;
+
     //
     // public function verify(Request $request)
     // {
@@ -19,7 +22,7 @@ class CustomVerificationController extends Controller
     //         'phone_number' => ['required', 'string'],
     //     ]);
     //     $phone_number = str_replace('+2', '', $data['phone_number']);
-        
+
     //     /* Get credentials from .env */
     //     $token = getenv("TWILIO_TOKEN");
     //     $twilio_sid = getenv("TWILIO_SID");
@@ -27,7 +30,7 @@ class CustomVerificationController extends Controller
     //     $twilio = new Client($twilio_sid, $token);
     //     $verification = $twilio->verify->v2->services($twilio_verify_sid)
     //         ->verificationChecks
-    //         ->create(['code' => $data['verification_code'], 
+    //         ->create(['code' => $data['verification_code'],
     //         'to' => $data['phone_number']]);
 
     //     if ($verification->valid) {
@@ -41,11 +44,27 @@ class CustomVerificationController extends Controller
     //         /* Authenticate user */
 
     //         Auth::login($user->first());
-            
+
     //         return redirect()->route('home')->with(['message' => 'Phone number verified']);
     //     }
     //     return back()->with(['phone_number' => $data['phone_number'], 'error' => 'Invalid verification code entered!']);
     // }
+
+    public function resendOTP()
+    {
+
+        $user= Auth::user();
+
+        $phone_number = '+2' . $user->phone_number;
+
+        // Send OTP to the user's phone number
+        $otpSent = $this->sendOTP($phone_number);
+
+        return redirect()->back();
+
+        // return view('frontend.auth.verify');
+
+    }
 
     public function verify(Request $request)
     {
@@ -54,24 +73,33 @@ class CustomVerificationController extends Controller
             'phone_number' => ['required', 'string'],
         ]);
 
-         // Remove the +2 prefix from the phone number if present
+        // Remove the +2 prefix from the phone number if present
         $phone_number = str_replace('+2', '', $data['phone_number']);
+
+        if(Auth::user()) {
+            $phone_number = Auth::user()->phone_number;
+        }
+
+
         // Get the stored OTP from the session
         $storedOtp = Session::get('phone_otp');
+
+        // dd($phone_number, $storedOtp);
 
         // Compare the entered verification code with the stored OTP
         // Compare the entered verification code with the stored OTP
         if ($data['verification_code'] == $storedOtp) {
             // Verification successful, mark the user's email as verified (if using email verification)
             // ... your verification logic ...
-            
+
             // Find the user by the phone number and update the `isVerified` flag
             $user = User::where('phone_number', $phone_number)->first();
 
             if ($user) {
-                $user->update(['isVerified' => true,
+                $user->update(
+                    ['isVerified' => true,
                 'email_verified_at'=>now()],
-            );
+                );
 
                 // Log in the user
                 Auth::login($user);

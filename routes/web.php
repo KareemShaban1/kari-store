@@ -36,11 +36,15 @@ Route::middleware('auth')->group(function () {
 Route::post('verify', [CustomVerificationController::class, 'verify'])
     ->name('custom_verification');
 
-Route::get('/verify', function () {
-        return view('frontend.auth.verify');
-    })->name('custom_verification');
 
-    
+Route::get('/verify', function () {
+    return view('frontend.auth.verify');
+})->name('custom_verification');
+
+
+Route::get('/resendOTP', [CustomVerificationController::class, 'resendOTP'])
+    ->name('resendOTP');
+
 
 require __DIR__.'/backend.php';
 // require __DIR__.'/fortify.php';

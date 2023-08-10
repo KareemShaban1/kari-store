@@ -6,6 +6,7 @@ use App\Models\Admin;
 use App\Models\Delivery;
 use App\Models\User;
 use App\Models\Vendor;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -29,7 +30,7 @@ class CustomAuthentication
             // authenticate with admin guard
             // Auth::guard('admin')->login($user);
             return $user;
-            dd($user);
+
         }
         return false;
     }
@@ -46,18 +47,22 @@ class CustomAuthentication
             return false; // User not found
         }
 
-        if ($user->email_verified_at == null) {
-            
-            return redirect()->route('custom_verification');
-            // return false;
-        }
-
         if ($user && Hash::check($password, $user->password)) {
+            // Check if email is verified
+            // if ($user->email_verified_at === null) {
+            //     // abort(403, 'Your email address is not verified.');
+            //     // return redirect()->to('custom_verification');
+            //     // return 'email_not_verified';
+            //     return false;
+            // }
+
             return $user;
         }
 
         return false; // Incorrect password
     }
+
+
 
     public function authenticateVendor($request)
     {

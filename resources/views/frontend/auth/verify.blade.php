@@ -42,8 +42,23 @@
                         <div class="card-body">
 
                             <div class="title">
+                                @auth
+                                    <div class="row" style="margin-bottom:20px">
+                                        <div class="col-md-8">
+                                            <p class="text-danger">Your Account is Not Verified Please Verify Now</p>
+                                        </div>
+                                        <div class="col-md-4" style="text-align: right">
+                                            <a href="{{ Route('resendOTP') }}"> Resend OTP </a>
+                                        </div>
+                                    </div>
+                                @endauth
                                 <h3>Verify Now</h3>
-                                <p> Please enter the OTP sent to your number: {{ $phone }}</p>
+                                <p> Please enter the OTP sent to your number:
+                                    @auth
+                                        +2 {{ Auth()->user()->phone_number }}
+                                    @endauth
+                                    {{ $phone }}
+                                </p>
                             </div>
 
 
@@ -58,7 +73,12 @@
                                     class="col-md-4 col-form-label text-md-right">Verification code</label>
 
                                 <div class="col-md-12 col-12">
-                                    <input type="hidden" name="phone_number" value="{{ $phone }}">
+                                    @if (Auth::user())
+                                        <input type="hidden" name="phone_number"
+                                            value="{{ Auth()->user()->phone_number }}">
+                                    @else
+                                        <input type="hidden" name="phone_number" value="{{ $phone }}">
+                                    @endif
                                     <input id="verification_code" type="tel"
                                         class="form-control @error('verification_code') is-invalid @enderror"
                                         name="verification_code" value="{{ old('verification_code') }}" required>
@@ -75,21 +95,27 @@
                         </div>
 
                         <div class="button">
-                            <button class="btn" type="submit">Verify</button>
+                            <button id="verifyButton" class="btn" type="submit">Verify</button>
                         </div>
 
 
-                        <div class="button ">
-                            <button class="btn" style="background-color: red">Resend Verification Code</button>
-                        </div>
+
 
                 </div>
                 </form>
+
+                {{-- <div class="button ">
+                    <a id="ResendOTPButton" class="btn" href="{{ Route('resendOTP') }}"
+                        style="background-color: red">Resend
+                        Verification Code</a>
+                    <button class="btn" style="background-color: red">Resend Verification Code</button>
+                </div> --}}
             </div>
         </div>
     </div>
     </div>
     <!-- End Account Login Area -->
+
 
 
 </x-front-layout>
