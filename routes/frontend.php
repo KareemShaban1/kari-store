@@ -37,7 +37,7 @@ Route::group([
         }
     );
 
-    
+
 
 
 
@@ -58,7 +58,9 @@ Route::group([
 
     Route::get('get_all_total', [CartController::class, 'get_all_total'])->name('get_all_total');
 
-    Route::get('/shop_grid/{category_id?}', [ShopGridController::class, 'index'])->name('shop_grid.index');
+    Route::get('/shop_grid/{categoryId?}', [ShopGridController::class, 'index'])->name('shop_grid.index');
+
+    Route::get('/shop_grid_store/{storeId?}', [ShopGridController::class, 'indexStore'])->name('shop_grid.indexStore');
 
     Route::get('/all_filters', [ShopGridController::class, 'all_filters'])->name('all_filters');
 

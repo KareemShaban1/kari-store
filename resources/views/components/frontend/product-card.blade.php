@@ -8,25 +8,42 @@
         <div class="button">
             <a href="{{ Route('products.show_product', $product->slug) }}" class="btn">
                 {{-- <i class="lni lni-cart"></i> --}}
-                {{ trans('home_trans.Show') }} 
-                </a>
+                {{ trans('home_trans.Show') }}
+            </a>
         </div>
     </div>
     <div class="product-info">
-        <span class="category">{{ trans('home_trans.Category') }} :
-            <a href="{{ Route('shop_grid.index', $product->category->id) }}">
+
+        {{-- <span class="category">{{ trans('home_trans.Category') }} :
+            <a href="{{ Route('shop_grid.index', ['category_id' => $product->category->id]) }}">
                 {{ $product->category->name }}
             </a>
         </span>
-        <span class="category">{{ trans('home_trans.Store') }} :{{ $product->store->name }} </span>
+
+        <span class="category">{{ trans('home_trans.Vendor') }} :
+            <a href="{{ url()->route('shop_grid.index', ['vendor_id' => $product->vendor->id]) }}">
+                {{ $product->vendor->name }}
+        </span> --}}
+
+        <span class="category">{{ trans('home_trans.Category') }} :
+            <a href="{{ route('shop_grid.index', ['categoryId' => $product->category->id]) }}">
+                {{ $product->category->name }}
+            </a>
+        </span>
+
+        <span class="category">{{ trans('home_trans.Store') }} :
+            <a href="{{ route('shop_grid.indexStore', ['storeId' => $product->store->id]) }}">
+                {{ $product->store->name }}
+            </a>
+        </span>
+
+        {{-- <span class="category">{{ trans('home_trans.Store') }} :{{ $product->store->name }} </span> --}}
 
         <h4 class="title">
             <a href="{{ Route('products.show_product', $product->slug) }}">
                 {{ $product->name }}
             </a>
-            {{-- <span class="category">
-                {{ \App\Models\Vendor::where('store_id', $product->store->id)->value('name') }}
-            </span> --}}
+
         </h4>
 
         @php

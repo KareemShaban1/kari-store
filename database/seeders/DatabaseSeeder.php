@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\Store;
 use App\Models\Vendor;
+use App\Models\VendorStores;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -23,6 +24,9 @@ class DatabaseSeeder extends Seeder
         Store::factory(5)->create();
         Vendor::factory(5)->create();
         Product::factory(50)->create();
+
+        VendorStores::factory(5)->create();
+
 
         // $this->call(UserSeeder::class);
         $this->call(AdminSeeder::class);

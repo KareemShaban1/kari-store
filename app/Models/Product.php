@@ -11,10 +11,11 @@ use Illuminate\Support\Str;
 
 class Product extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
+    use SoftDeletes;
 
     protected $fillable = [
-        'name', 'slug', 'description', 'image', 'category_id', 'brand_id', 'store_id', 'price', 'compare_price', 'status', 
+        'name', 'slug', 'description', 'image', 'category_id', 'brand_id', 'store_id', 'price', 'compare_price', 'status',
         'featured', 'quantity',
         // 'product_type'
     ];
@@ -24,7 +25,7 @@ class Product extends Model
         'created_at', 'updated_at', 'deleted_at', 'image'
     ];
 
-    // append take Accessory name that we want to append in json response 
+    // append take Accessory name that we want to append in json response
     protected $appends = [
         'image_url',
     ];
@@ -57,12 +58,17 @@ class Product extends Model
     {
         return $this->belongsTo(Category::class, 'category_id', 'id');
     }
+
+
     //// one-to-one relationship
     public function store()
     {
         return $this->belongsTo(Store::class, 'store_id', 'id');
-        
+
     }
+
+
+
 
     //// many-to-many relationship
     public function tags()
@@ -115,7 +121,7 @@ class Product extends Model
         return $this->hasMany(Review::class);
     }
 
-    
+
     // -------------------------------------Acessories---------------------------------------------- //
 
 
@@ -147,21 +153,21 @@ class Product extends Model
             return 0;
         }
         return number_format(100 - (100 * $this->price / $this->compare_price), 0);
-    
-        
+
+
         // return number_format(100 - (100 * $this->price / $this->compare_price), 0);
     } // $product->sale_percent
 
 
     // ----------------------------------------------------------------------------------- //
 
-    // local scope 
+    // local scope
     public function scopeActive(Builder $builder)
     {
         $builder->where('status', '=', 'active');
     }
     // local scope
-    // filter 
+    // filter
     public function scopeFilter(Builder $builder, $filters)
     {
         // array_merge() used to merge two arrays
@@ -178,9 +184,9 @@ class Product extends Model
             return  $query->where('status', $value);
         });
 
-        //// بتاعوا بيساوى كذا store_id اللى ال Product هات موديل ال  store_id لما يبقى فيه 
+        //// بتاعوا بيساوى كذا store_id اللى ال Product هات موديل ال  store_id لما يبقى فيه
         $builder->when($options['store_id'], function ($builder, $value) {
-            //// $builder equivalent to Product model 
+            //// $builder equivalent to Product model
             $builder->where('store_id', $value);
         });
 
@@ -190,18 +196,18 @@ class Product extends Model
 
         $builder->when($options['tag_id'], function ($builder, $value) {
 
-            //// دى tags اللى ليهم ال products هاتلى كل ال 
+            //// دى tags اللى ليهم ال products هاتلى كل ال
             // $builder->whereRaw(
             //     'id In (SELECT product_id FROM product_tag WHERE tag_id = ?)' , [$value]
             // );
 
-            //// بتاعها أحسن performance اللى فوق بس دى ال function نفس ال 
+            //// بتاعها أحسن performance اللى فوق بس دى ال function نفس ال
             // $builder->whereRaw(
             //     'EXISTS (SELECT * FROM product_tag WHERE tag_id = ? AND product_id = products.id)' , [$value]
             // );
 
 
-            //// query اللى فوقيها على طول بس بطريقة ال function  نفس ال 
+            //// query اللى فوقيها على طول بس بطريقة ال function  نفس ال
             $builder->whereExists(function ($query) use ($value) {
                 $query->select(1)
                     ->from('product_tag')

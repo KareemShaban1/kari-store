@@ -51,9 +51,10 @@
 
                         <!-- Start Product search -->
                         <div class="single-widget search">
-                            <h3>Search Product</h3>
+                            <h3> {{ trans('shop_grid_trans.Search_Product') }} </h3>
                             <form action="#">
-                                <input type="text" name="search"id="search" placeholder="Search Here...">
+                                <input type="text" name="search"id="search"
+                                    placeholder=" {{ trans('shop_grid_trans.Search_Here') }} ">
                                 {{-- <button type="submit"><i class="lni lni-search-alt"></i></button> --}}
                             </form>
                         </div>
@@ -63,7 +64,7 @@
 
                         <!-- Start Categories Filter -->
                         <div class="single-widget">
-                            <h3>All Categories </h3>
+                            <h3> {{ trans('shop_grid_trans.All_Categories') }} </h3>
                             <ul class="list">
                                 @foreach ($categories as $category)
                                     <li>
@@ -77,6 +78,25 @@
                             </ul>
                         </div>
                         <!-- End Categories Filter -->
+
+
+
+                        <!-- Start stores Filter -->
+                        <div class="single-widget">
+                            <h3>All Stores </h3>
+                            <ul class="list">
+                                @foreach ($stores as $store)
+                                    <li>
+                                        <input type="checkbox" value="{{ $store->id }}" name="store[]" class="store"
+                                            @checked($store_id == $store->id)>
+                                        <label for="">{{ $store->name }}
+                                            {{-- ({{ $vendor->products()->count() }} ) --}}
+                                        </label>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                        <!-- End stores Filter -->
 
 
                         <!-- Start Brand Filter -->
@@ -144,7 +164,7 @@
                                     </div>
                                 </div>
 
-                                
+
 
                             </div>
                         </div>
@@ -169,13 +189,18 @@
                                                         @endif
                                                         <div class="button">
                                                             <a href="{{ Route('products.show_product', $product->slug) }}"
-                                                                class="btn"><i class="lni lni-cart"></i>Add to
-                                                                Cart</a>
+                                                                class="btn"><i
+                                                                    class="lni lni-cart"></i>{{ trans('shop_grid_trans.Add_To_Cart') }}
+                                                            </a>
                                                         </div>
                                                     </div>
                                                     <div class="product-info">
                                                         <span class="category">{{ $product->category->name }} </span>
-                                                        <span class="category">{{ $product->store->name }} </span>
+                                                        <span class="category">
+                                                            <span class="text-danger">
+                                                                {{ trans('shop_grid_trans.Store') }} </span>
+                                                            {{ $product->store->name }} </span>
+
                                                         <h4 class="title">
                                                             <a
                                                                 href="{{ Route('products.show_product', $product->slug) }}">{{ $product->name }}</a>
@@ -289,6 +314,10 @@
                     var brand = $('.brand:checked').map(function() {
                         return $(this).val();
                     }).get();
+
+                    var store = $('.store:checked').map(function() {
+                        return $(this).val();
+                    }).get();
                     var minPrice = $('#left_value').text();
                     var maxPrice = $('#right_value').text();
                     var search = $('#search').val();
@@ -300,6 +329,7 @@
                         data: {
                             category: category,
                             brand: brand,
+                            store: store,
                             min_price: minPrice,
                             max_price: maxPrice,
                             search: search,
@@ -349,7 +379,8 @@
                                     '<span>' + product.formatted_price + '</span>';
 
                                 if (product.formatted_compare_price) {
-                                    productHtml += '<span class="discount-price">' + product.formatted_compare_price +
+                                    productHtml += '<span class="discount-price">' + product
+                                        .formatted_compare_price +
                                         '</span>';
                                 }
 
@@ -402,7 +433,7 @@
 
                                 for (var i = 0; i < product_length; i++) {
                                     var product = products[i];
-                                    
+
 
                                     // Create HTML elements to display product information
                                     var productHtml =
@@ -481,7 +512,7 @@
                 // Reset filters
                 $('.button').on('click', function(e) {
                     e.preventDefault();
-                    $('input.category, input.brand').prop('checked', false);
+                    $('input.category, input.brand , input.store').prop('checked', false);
                     $('#search').val('');
                     applyFilters();
                 });
@@ -493,6 +524,12 @@
 
                 // Apply category filter
                 $('input.category').on('change', function() {
+                    applyFilters();
+                    paginate();
+                });
+
+                // Apply store filter
+                $('input.store').on('change', function() {
                     applyFilters();
                     paginate();
                 });
@@ -521,8 +558,6 @@
 
 
             });
-
-
         </script>
     @endpush
 </x-front-layout>

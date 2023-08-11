@@ -11,7 +11,7 @@ return [
           'Get In Touch With Us'=>'ابق على تواصل معنا',
           'Phone'=>'رقم الهاتف',
           'Technical Support'=>'الدعم الفنى',
-          ''=>'',
+          'Vendor'=>'البائع',
           ''=>'',
           ''=>'',
           ''=>'',
