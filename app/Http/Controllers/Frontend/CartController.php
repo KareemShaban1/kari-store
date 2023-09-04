@@ -33,13 +33,17 @@ class CartController extends Controller
      */
     public function index()
     {
-        $coupon = Session::get('coupon');
-        $temp_session = TempSession::where('user_id', Auth::user('user')->id)
-            ->first();
+        $coupon = session('coupon', null);
+        $temp_session = null;
+
+        if (Auth::check()) {
+            $temp_session = TempSession::where('user_id', Auth::user()->id)->first();
+        }
+
         return view('frontend.pages.cart', [
             'cart' => $this->cart,
             'coupon' => $coupon,
-            'temp_session' => $temp_session
+            'temp_session' => $temp_session,
         ]);
     }
 

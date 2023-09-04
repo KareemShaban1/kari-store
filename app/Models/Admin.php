@@ -10,14 +10,18 @@ use Laravel\Sanctum\HasApiTokens;
 
 class Admin extends User
 {
-    use HasFactory , Notifiable , HasApiTokens , HasRoles;
+    use HasFactory ;
+    use Notifiable ;
+    use HasApiTokens ;
+    use HasRoles;
 
-    protected $fillable =[
+    protected $fillable = [
         'name','user_name','email','password','phone_number','super_admin','status'
     ];
 
-    public function profile(){
+    public function profile()
+    {
 
-        return $this->hasOne(Profile::class,'user_id','id')->withDefault();
+        return $this->hasOne(Profile::class, 'user_id', 'id')->withDefault();
     }
 }

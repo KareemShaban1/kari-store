@@ -50,22 +50,21 @@
                                         <i class="fa fa-eye"></i>
                                     </a>
                                     @can('update', $role)
-                                    <a href="{{ Route('admin.roles.edit', $role->id) }}"
-                                        class="btn btn-warning btn-sm">
-                                        <i class="fa fa-edit"></i>
-                                    </a>
+                                        <a href="{{ Route('admin.roles.edit', $role->id) }}" class="btn btn-warning btn-sm">
+                                            <i class="fa fa-edit"></i>
+                                        </a>
                                     @endcan
 
                                     @can('delete', $role)
-                                    <form action="{{ Route('admin.roles.destroy', $role->id) }}" method="post"
-                                        style="display:inline">
-                                        @csrf
-                                        @method('delete')
+                                        <form action="{{ Route('admin.roles.destroy', $role->id) }}" method="post"
+                                            style="display:inline">
+                                            @csrf
+                                            @method('delete')
 
-                                        <button type="submit" class="btn btn-danger btn-sm">
-                                            <i class="fa fa-trash"></i>
-                                        </button>
-                                    </form>
+                                            <button type="submit" class="btn btn-danger btn-sm">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+                                        </form>
                                     @endcan
                                     {{-- <a href="" class="btn btn-danger btn-sm">
                                     <i class="fa fa-trash"></i> 

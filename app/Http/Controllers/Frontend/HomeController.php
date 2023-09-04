@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Banner;
+use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Store;
 use App\Models\WebsiteParts;
 use Illuminate\Http\Request;
 
@@ -29,20 +31,39 @@ class HomeController extends Controller
         });
 
         $featured_categories =
-        Category::where('status', '=', 'active')->
-        where('featured', '=', 1)->get();
+        Category::active()
+        ->where('featured', '=', 1)->get();
+
 
 
         // get latest 8 products which status is active
-        $products = Product::with('category', 'store', 'reviews')->active()->latest()->take(8)->get();
-        // $best_seller_products = Product::where('product_type','=','best_seller')->active()->latest()->take(4)->get();
+        // $products = Product::with('category', 'store', 'reviews')->active()->latest()->take(8)->get();
+
+        // Get one product from each store
+        $stores = Store::all();
+        $products = [];
+
+        foreach ($stores as $store) {
+            $product = Product::with('category', 'store', 'reviews')
+                ->active()
+                ->where('store_id', $store->id)
+                ->latest()
+                ->first(); // Get the latest product for each store
+            if ($product) {
+                $products[] = $product;
+            }
+        }
+
+        $brands = Brand::all();
+
         return view(
             'frontend.pages.home',
             compact(
                 'products',
                 'banners',
                 'websiteParts',
-                'featured_categories'
+                'featured_categories',
+                'brands'
                 // ,'best_seller_products'
             )
         );

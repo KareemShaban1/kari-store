@@ -166,6 +166,7 @@ class Product extends Model
     {
         $builder->where('status', '=', 'active');
     }
+
     // local scope
     // filter
     public function scopeFilter(Builder $builder, $filters)

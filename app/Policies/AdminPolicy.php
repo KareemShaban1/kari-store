@@ -16,7 +16,7 @@ class AdminPolicy
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAny( $user)
+    public function viewAny($user)
     {
         //
         return $user->hasAbility('admins.view');
@@ -29,7 +29,7 @@ class AdminPolicy
      * @param  \App\Models\Admin  $admin
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view( $user, Admin $admin)
+    public function view($user, Admin $admin)
     {
         //
         return $user->hasAbility('admins.view');
@@ -41,7 +41,7 @@ class AdminPolicy
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function create( $user)
+    public function create($user)
     {
         //
         return $user->hasAbility('admins.create');
@@ -54,7 +54,7 @@ class AdminPolicy
      * @param  \App\Models\Admin  $admin
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update( $user, Admin $admin)
+    public function update($user, Admin $admin)
     {
         //
         return $user->hasAbility('admins.update');
@@ -67,7 +67,7 @@ class AdminPolicy
      * @param  \App\Models\Admin  $admin
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete( $user, Admin $admin)
+    public function delete($user, Admin $admin)
     {
         //
         return $user->hasAbility('admins.delete');
@@ -96,4 +96,19 @@ class AdminPolicy
     {
         //
     }
+
+
+    /**
+     * Determine whether the user can view the model.
+     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\Admin  $admin
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function assignDelivery(Admin $admin)
+    {
+        //
+        return $admin->hasAbility('delivery.assign');
+    }
+
 }

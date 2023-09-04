@@ -29,7 +29,7 @@
 </head>
 
 <body>
-    
+
 
     <!-- Preloader -->
     <div class="preloader">
@@ -63,10 +63,11 @@
                                             </li>
                                         @endforeach
                                     </ul> --}}
-                                    
+
                                 <div class="btn-group mb-1">
-                                    <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" style="background-color: #081828"
-                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <button type="button" class="btn btn-secondary btn-sm dropdown-toggle"
+                                        style="background-color: #081828" data-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="false">
                                         @if (App::getLocale() == 'ar')
                                             {{ LaravelLocalization::getCurrentLocaleName() }}
                                             <img src="{{ URL::asset('backend/assets/images/flags/EG.png') }}"
@@ -220,33 +221,34 @@
 
                         <!-- Start Mega Category Menu -->
                         <div class="mega-category-menu">
-
                             <span class="cat-button">
-                                <i class="lni lni-menu"></i> {{ trans('front_home_trans.All_Categories') }}</span>
-
+                                <i class="lni lni-menu"></i> {{ trans('front_home_trans.All_Categories') }}
+                            </span>
                             <ul class="sub-category">
-
                                 @foreach ($categories as $category)
-                                    {{-- category is parent_category  --}}
-                                    @if ($category->parent->name != '-')
+                                    {{-- Check if the category has parent --}}
+                                    @if ($category->parent_id === null)
+                                        {{-- Parent Category --}}
                                         <li>
                                             <a
-                                                href="{{ Route('shop_grid.index', $category->id) }}">{{ $category->parent->name }}</a>
+                                                href="{{ route('shop_grid.index', $category->id) }}">{{ $category->name }}</a>
                                             <ul class="inner-sub-category">
-                                                <li><a href="">{{ $category->name }}</a></li>
+                                                {{-- Find child categories --}}
+                                                @foreach ($categories as $childCategory)
+                                                    @if ($childCategory->parent_id === $category->id)
+                                                        <li><a
+                                                                href="{{ route('shop_grid.index', $childCategory->id) }}">{{ $childCategory->name }}</a>
+                                                        </li>
+                                                    @endif
+                                                @endforeach
                                             </ul>
-                                        </li>
-                                        {{-- @elseif() --}}
-                                    @else
-                                        <li><a
-                                                href="{{ Route('shop_grid.index', $category->id) }}">{{ $category->name }}</a>
                                         </li>
                                     @endif
                                 @endforeach
-
                             </ul>
                         </div>
                         <!-- End Mega Category Menu -->
+
 
 
                         <!-- Start Navbar -->
@@ -273,7 +275,9 @@
                                             href="{{ Route('cart.index') }}">{{ trans('front_home_trans.Cart') }}</a>
                                     </li>
 
-                                    <li class="nav-item"><a href="{{ Route('checkout.create') }}">Checkout</a></li>
+                                    <li class="nav-item"><a href="{{ Route('checkout.create') }}">
+                                            {{ trans('front_home_trans.Checkout') }}
+                                        </a></li>
 
 
                                     <li class="nav-item">
@@ -291,7 +295,7 @@
                 <div class="col-lg-4 col-md-6 col-12">
                     <!-- Start Nav Social -->
                     <div class="nav-social">
-                        <h5 class="title">Follow Us:</h5>
+                        <h5 class="title">{{ trans('home_trans.Follow Us On') }} :</h5>
                         <ul>
                             <li>
                                 <a href="javascript:void(0)"><i class="lni lni-facebook-filled"></i></a>
@@ -387,7 +391,8 @@
                                     <li><span>Saturday: </span> 10.00 am - 6.00 pm</li>
                                 </ul> --}}
                                 <p class="mail">
-                                    <a href="mailto:support@shopgrids.com"> {{ trans('home_trans.Technical Support') }} support@shopgrids.com</a>
+                                    <a href="mailto:support@shopgrids.com">
+                                        {{ trans('home_trans.Technical Support') }} support@shopgrids.com</a>
                                 </p>
                             </div>
                             <!-- End Single Widget -->
@@ -496,7 +501,7 @@
     </a>
 
     <!-- ========================= JS here ========================= -->
-    
+
     {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
 
     <script src="{{ asset('backend/assets/js/jquery-3.6.0.min.js') }}"></script>
@@ -506,9 +511,9 @@
     <script src="{{ asset('frontend/assets/js/glightbox.min.js') }}"></script>
     <script src="{{ asset('frontend/assets/js/main.js') }}"></script>
 
-    
+
     <script src="{{ URL::asset('backend/assets/js/plugins-jquery.js') }}"></script>
-    
+
     {{-- <script>
         $('#summernote').summernote({
             placeholder: 'Hello ..!',

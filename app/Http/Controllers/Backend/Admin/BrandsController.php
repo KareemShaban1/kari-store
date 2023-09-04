@@ -15,7 +15,7 @@ class BrandsController extends Controller
     use UploadImageTrait;
     //
 
-    
+
     public function __construct()
     {
         $this->authorizeResource(Brand::class);
@@ -39,8 +39,8 @@ class BrandsController extends Controller
         $request->validated();
 
         $data = $request->except('image');
-        
-        if($request->file('image')){
+
+        if($request->file('image')) {
             $data['image'] = $this->uploadImage($request, 'image', 'brands');
         }
 

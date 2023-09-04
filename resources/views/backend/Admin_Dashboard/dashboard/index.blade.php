@@ -11,7 +11,7 @@
 <div class="page-title">
     <div class="row">
         <div class="col-sm-6">
-            <h4 class="mb-0">  {{ trans('dashboard_trans.Dashboard') }}</h4>
+            <h4 class="mb-0"> {{ trans('dashboard_trans.Dashboard') }}</h4>
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb pt-0 pr-0 float-left float-sm-right ">
@@ -32,10 +32,15 @@
         <div class="card card-statistics h-100">
             <div class="card-body">
 
+                <div>
+                    <p>{{ Auth::user('admin')->name }}</p>
+                </div>
+
                 <div class="row">
                     {{-- @php
                         echo Auth::user('admin')
                     @endphp --}}
+
 
                     {{-- Stores --}}
                     <div class="col-xl-3 col-lg-6 col-md-6 mb-30">
@@ -44,16 +49,16 @@
                                 <div class="clearfix">
                                     <div class="float-right">
                                         <span class="text-success">
-                                            <i class="fa-solid fa-store highlight-icon"></i>                                        </span>
+                                            <i class="fa-solid fa-store highlight-icon"></i> </span>
                                     </div>
                                     <div class="float-left text-left">
                                         <p class="card-text text-dark">عدد المتاجر</p>
-                                        <h4>{{\App\Models\Store::count()}}</h4>
+                                        <h4>{{ \App\Models\Store::count() }}</h4>
                                     </div>
                                 </div>
                                 <p class="text-muted pt-3 mb-0 mt-2 border-top">
-                                    <i class="fas fa-binoculars mr-1" aria-hidden="true"></i><a
-                                        href="" target="_blank"><span class="text-danger">عرض
+                                    <i class="fas fa-binoculars mr-1" aria-hidden="true"></i><a href=""
+                                        target="_blank"><span class="text-danger">عرض
                                             البيانات</span></a>
                                 </p>
                             </div>
@@ -67,16 +72,16 @@
                                 <div class="clearfix">
                                     <div class="float-right">
                                         <span class="text-danger">
-                                            <i class="fa-solid fa-tag highlight-icon"></i>                                        </span>
+                                            <i class="fa-solid fa-tag highlight-icon"></i> </span>
                                     </div>
                                     <div class="float-left text-left">
                                         <p class="card-text text-dark">عدد التصنيفات</p>
-                                        <h4>{{\App\Models\Category::count()}}</h4>
+                                        <h4>{{ \App\Models\Category::count() }}</h4>
                                     </div>
                                 </div>
                                 <p class="text-muted pt-3 mb-0 mt-2 border-top">
-                                    <i class="fas fa-binoculars mr-1" aria-hidden="true"></i><a
-                                        href="" target="_blank"><span class="text-danger">عرض
+                                    <i class="fas fa-binoculars mr-1" aria-hidden="true"></i><a href=""
+                                        target="_blank"><span class="text-danger">عرض
                                             البيانات</span></a>
                                 </p>
                             </div>
@@ -90,16 +95,16 @@
                                 <div class="clearfix">
                                     <div class="float-right">
                                         <span class="text-warning">
-                                            <i class="fa-brands fa-product-hunt highlight-icon"></i>                                        </span>
+                                            <i class="fa-brands fa-product-hunt highlight-icon"></i> </span>
                                     </div>
                                     <div class="float-left text-left">
                                         <p class="card-text text-dark">عدد المنتجات</p>
-                                        <h4>{{\App\Models\Product::count()}}</h4>
+                                        <h4>{{ \App\Models\Product::count() }}</h4>
                                     </div>
                                 </div>
                                 <p class="text-muted pt-3 mb-0 mt-2 border-top">
-                                    <i class="fas fa-binoculars mr-1" aria-hidden="true"></i><a
-                                        href="" target="_blank"><span class="text-danger">عرض
+                                    <i class="fas fa-binoculars mr-1" aria-hidden="true"></i><a href=""
+                                        target="_blank"><span class="text-danger">عرض
                                             البيانات</span></a>
                                 </p>
                             </div>
@@ -117,21 +122,21 @@
                                         </span>
                                     </div>
                                     <div class="float-left text-left">
-                                        <p class="card-text text-dark">عدد  الطلبات</p>
-                                        <h4>{{\App\Models\Order::count()}}</h4>
+                                        <p class="card-text text-dark">عدد الطلبات</p>
+                                        <h4>{{ \App\Models\Order::count() }}</h4>
                                     </div>
                                 </div>
                                 <p class="text-muted pt-3 mb-0 mt-2 border-top">
-                                    <i class="fas fa-binoculars mr-1" aria-hidden="true"></i><a
-                                        href="" target="_blank"><span class="text-danger">عرض
+                                    <i class="fas fa-binoculars mr-1" aria-hidden="true"></i><a href=""
+                                        target="_blank"><span class="text-danger">عرض
                                             البيانات</span></a>
                                 </p>
                             </div>
                         </div>
                     </div>
 
-                     {{-- Vendors --}}
-                     <div class="col-xl-3 col-lg-6 col-md-6 mb-30">
+                    {{-- Vendors --}}
+                    <div class="col-xl-3 col-lg-6 col-md-6 mb-30">
                         <div class="card card-statistics h-100">
                             <div class="card-body">
                                 <div class="clearfix">
@@ -142,12 +147,12 @@
                                     </div>
                                     <div class="float-left text-left">
                                         <p class="card-text text-dark">Vendors </p>
-                                        <h4>{{\App\Models\Vendor::count()}}</h4>
+                                        <h4>{{ \App\Models\Vendor::count() }}</h4>
                                     </div>
                                 </div>
                                 <p class="text-muted pt-3 mb-0 mt-2 border-top">
-                                    <i class="fas fa-binoculars mr-1" aria-hidden="true"></i><a
-                                        href="" target="_blank"><span class="text-danger">عرض
+                                    <i class="fas fa-binoculars mr-1" aria-hidden="true"></i><a href=""
+                                        target="_blank"><span class="text-danger">عرض
                                             البيانات</span></a>
                                 </p>
                             </div>
@@ -166,19 +171,19 @@
                                     </div>
                                     <div class="float-left text-left">
                                         <p class="card-text text-dark">عدد المستخدمين</p>
-                                        <h4>{{\App\Models\User::count()}}</h4>
+                                        <h4>{{ \App\Models\User::count() }}</h4>
                                     </div>
                                 </div>
                                 <p class="text-muted pt-3 mb-0 mt-2 border-top">
-                                    <i class="fas fa-binoculars mr-1" aria-hidden="true"></i><a
-                                        href="" target="_blank"><span class="text-danger">عرض
+                                    <i class="fas fa-binoculars mr-1" aria-hidden="true"></i><a href=""
+                                        target="_blank"><span class="text-danger">عرض
                                             البيانات</span></a>
                                 </p>
                             </div>
                         </div>
                     </div>
-            
-            
+
+
                 </div>
 
             </div>

@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Admin;
+use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Store;
@@ -20,6 +21,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // Admin::factory(3)->create();
+        Brand::factory(20)->create();
         Category::factory(10)->create();
         Store::factory(5)->create();
         Vendor::factory(5)->create();

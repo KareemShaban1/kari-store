@@ -42,7 +42,7 @@ class ProductsController extends Controller
         // SELECT * FROM stores WHERE id IN (....)
          */
 
-        $this->authorize('viewAny',Product::class);
+        $this->authorize('viewAny', Product::class);
 
         $products = Product::with(['category', 'store', 'brand'])
         ->withCount([
@@ -64,7 +64,7 @@ class ProductsController extends Controller
      */
     public function create()
     {
-        $this->authorize('create',Product::class);
+        $this->authorize('create', Product::class);
 
         $categories = Category::all();
         $stores = Store::all();
@@ -84,10 +84,10 @@ class ProductsController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
-        
 
-        $this->authorize('create',Product::class);
-        
+
+        $this->authorize('create', Product::class);
+
         $request->validated();
 
         // Merge 'slug' input into the current request's input array
@@ -140,7 +140,7 @@ class ProductsController extends Controller
     public function show($id)
     {
         //
-        $this->authorize('view',Product::class);
+        $this->authorize('view', Product::class);
 
         $product = Product::findOrFail($id);
 
@@ -156,7 +156,7 @@ class ProductsController extends Controller
     public function edit($id)
     {
         //
-        $this->authorize('update',Product::class);
+        $this->authorize('update', Product::class);
 
         $product = Product::findOrFail($id);
         $categories = Category::all();
@@ -186,22 +186,24 @@ class ProductsController extends Controller
      */
     public function update(UpdateProductRequest $request, Product $product)
     {
-        $this->authorize('update',Product::class);
+        $this->authorize('update', Product::class);
 
         $request->validated();
 
         $request->merge([
             'slug' => Str::slug($request->post('name'))
         ]);
+
         // get product old image
         $old_image = $product->image;
         $data = $request->except('image', 'tags');
         $new_image = $this->uploadImage($request, 'image', 'products');
-        // dd($new_image);
+
         if ($new_image) {
             $data['image'] = $new_image;
         }
         $product->update($data);
+
         // isset => Determine if a variable is declared and is different than NULL
         if ($old_image && $new_image) {
             // Storage::disk('disk_name')->delete('image_path');
@@ -244,7 +246,7 @@ class ProductsController extends Controller
     public function destroy($id)
     {
         //
-        $this->authorize('delete',Product::class);
+        $this->authorize('delete', Product::class);
         Product::findOrFail($id);
         return redirect()->route('admin.products.index');
     }
@@ -252,7 +254,7 @@ class ProductsController extends Controller
 
     public function add_variant($id)
     {
-        $this->authorize('create',Product::class);
+        $this->authorize('create', Product::class);
 
         $attributes = Attribute::all();
         $product = Product::findOrFail($id);

@@ -35,7 +35,6 @@
                     autocomplete="off">
 
                     @csrf
-                    @method('PUT')
 
                     <div class="row">
                         <div class="col-md-6">
@@ -49,7 +48,7 @@
 
                         <div class="col-md-6">
                             <div class="form-group">
-                                <x-backend.form.input label="{{ trans('admins_trans.User_Name') }}" name="name"
+                                <x-backend.form.input label="{{ trans('admins_trans.User_Name') }}" name="user_name"
                                     class="form-control" />
 
                             </div>
@@ -60,7 +59,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <x-backend.form.input label="{{ trans('admins_trans.Email') }}" name="name"
+                                <x-backend.form.input label="{{ trans('admins_trans.Email') }}" name="email"
                                     class="form-control" type="email" />
 
                             </div>
@@ -69,7 +68,7 @@
 
                         <div class="col-md-6">
                             <div class="form-group">
-                                <x-backend.form.input label="{{ trans('admins_trans.Password') }}" name="name"
+                                <x-backend.form.input label="{{ trans('admins_trans.Password') }}" name="password"
                                     class="form-control" type="password" />
 
                             </div>
@@ -79,7 +78,7 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
-                                <x-backend.form.input label="{{ trans('admins_trans.Phone') }}" name="name"
+                                <x-backend.form.input label="{{ trans('admins_trans.Phone') }}" name="phone_number"
                                     class="form-control" type="number" />
 
                             </div>
@@ -116,12 +115,10 @@
                             <div class="form-group">
 
                                 @foreach ($roles as $role)
-                                <input type="checkbox" name="roles[]" id="" value="{{ $role->id }}">
-
                                     <label class="form-check-label" for="flexCheckChecked">
                                         {{ $role->name }}
                                     </label>
-                                    {{-- @endforeach --}}
+                                    <input type="checkbox" name="roles[]" id="" value="{{ $role->id }}">
                                 @endforeach
 
 

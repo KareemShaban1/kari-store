@@ -53,7 +53,6 @@
                             <h2 class="title text-center">{{ $product->name }}</h2>
                             <p class="category">
                                 <i class="lni lni-tag"></i> {{ $product->category->name }}
-                                {{-- <a href="javascript:void(0)">Action cameras</a> --}}
                             </p>
                             <h3 class="price">{{ Currency::format($product->price) }}
                                 @if ($product->compare_price)
@@ -157,14 +156,17 @@
                         </div>
                         <div class="col-lg-6 col-12">
                             <div class="info-body">
+
                                 <h4>Specifications</h4>
                                 <ul class="normal-list">
-                                    <li><span>Weight:</span> 35.5oz (1006g)</li>
-                                    <li><span>Maximum Speed:</span> 35 mph (15 m/s)</li>
-                                    <li><span>Maximum Distance:</span> Up to 9,840ft (3,000m)</li>
-                                    <li><span>Operating Frequency:</span> 2.4GHz</li>
-                                    <li><span>Manufacturer:</span> GoPro, USA</li>
+                                    @php
+                                        $product_properties = App\Models\ProductProperty::where('product_id', $product->id)->first();
+                                    @endphp
+                                    <li><span>{{ $product_properties->name }}: </span>
+                                        {{ $product_properties->value }} </li>
                                 </ul>
+
+
                                 <h4>Shipping Options:</h4>
                                 <ul class="normal-list">
                                     <li><span>Courier:</span> 2 - 4 days, $22.50</li>
@@ -180,7 +182,7 @@
                 <x-frontend.reviews :reviews="$reviews" />
 
             </div>
-        
+
         </div>
     </section>
     <!-- End Item Details -->

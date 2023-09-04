@@ -7,6 +7,7 @@ use App\Models\Admin;
 use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
@@ -14,7 +15,7 @@ class AdminController extends Controller
     {
         // $this->authorizeResource(Admin::class);
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -22,10 +23,10 @@ class AdminController extends Controller
      */
     public function index()
     {
-        
+
         //
         $admins = Admin::all();
-        return view('backend.Admin_Dashboard.admins.index',compact('admins'));
+        return view('backend.Admin_Dashboard.admins.index', compact('admins'));
 
     }
 
@@ -39,9 +40,9 @@ class AdminController extends Controller
         //
         $roles = Role::all();
         // $admin_roles = $admin->roles()->pluck('id')->toArray();
-        return view('backend.Admin_Dashboard.admins.create',[
-            'roles'=>$roles,
-            'admin'=> new Admin()
+        return view('backend.Admin_Dashboard.admins.create', [
+            'roles' => $roles,
+            'admin' => new Admin()
         ]);
     }
 
@@ -55,16 +56,20 @@ class AdminController extends Controller
     {
         //
         $request->validate([
-            'name'=>'required',
-            'role'=>'nullable|array'
+            'name' => 'required',
+            'roles' => 'nullable|array'
         ]);
+
+        $data = $request->all();
+
+        $data['password'] = Hash::make($request->password);
 
         $admin = Admin::create($request->all());
 
-        if($request->roles){
+        if($request->roles) {
             $admin->roles()->attach($request->roles);
         }
-        
+
 
         return redirect()->route('admin.admins.index');
     }
@@ -96,7 +101,7 @@ class AdminController extends Controller
         // }
         // dd($admin_roles);
 
-        return view('backend.Admin_Dashboard.admins.edit',compact('admin','roles','admin_roles'));
+        return view('backend.Admin_Dashboard.admins.edit', compact('admin', 'roles', 'admin_roles'));
 
     }
 
@@ -109,25 +114,27 @@ class AdminController extends Controller
      */
     public function update(Request $request, Admin $admin)
     {
-        //
         $request->validate([
-            'name'=>'required',
-            'roles'=>'nullable|array'
+            'name' => 'required',
+            'roles' => 'nullable|array',
         ]);
-        // dd($request->all());
 
         $data = $request->all();
 
-        $data['password'] = $request->password ? $request->password : $admin->password; 
-
-        $admin->update($data);
-        if($request->roles){
-            $admin->roles()->sync($request->roles);
+        // Check if the 'roles' key exists in the request
+        if (isset($data['roles'])) {
+            // If 'roles' is not empty, sync the roles
+            $admin->roles()->sync($data['roles']);
+        } else {
+            // If 'roles' is not provided in the request, remove all roles
+            $admin->roles()->detach();
         }
-        
+
+        // Update other admin details as needed
+        $data['password'] = $request->password ? Hash::make($request->password) : $admin->password;
+        $admin->update($data);
 
         return redirect()->route('admin.admins.index');
-
     }
 
     /**

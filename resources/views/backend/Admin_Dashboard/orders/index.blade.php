@@ -42,7 +42,9 @@
                             <th>{{ trans('orders_trans.Category_Name') }}</th>
                             <th>{{ trans('orders_trans.Status') }}</th>
                             <th>{{ trans('orders_trans.Order_Number') }}</th>
-                            <th>{{ trans('orders_trans.Assign_Delivery') }}</th>
+                            @can('assignDelivery', App\Models\Admin::class)
+                                <th>{{ trans('orders_trans.Assign_Delivery') }}</th>
+                            @endcan
                             <th>{{ trans('orders_trans.Control') }}</th>
                         </tr>
                     </thead>
@@ -101,16 +103,18 @@
                                     $delivery = $order_delivery ? App\Models\Delivery::where('id', $order_delivery->delivery_id)->first() : null;
                                 @endphp
 
-                                <td>
-                                    @if ($order_delivery)
-                                        <div>{{ $delivery->name }} تم أرسال الطلب لمندوب الشحن</div>
-                                    @else
-                                        <button type="button" class="button x-small" data-toggle="modal"
-                                            data-target="#assign_delivery" data-order-id="{{ $order->id }}">
-                                            {{ trans('orders_trans.Assign_Delivery') }}
-                                        </button>
-                                    @endif
-                                </td>
+                                @can('assignDelivery', App\Models\Admin::class)
+                                    <td>
+                                        @if ($order_delivery)
+                                            <div>{{ $delivery->name }} تم أرسال الطلب لمندوب الشحن</div>
+                                        @else
+                                            <button type="button" class="button x-small" data-toggle="modal"
+                                                data-target="#assign_delivery" data-order-id="{{ $order->id }}">
+                                                {{ trans('orders_trans.Assign_Delivery') }}
+                                            </button>
+                                        @endif
+                                    </td>
+                                @endcan
                                 <td>
                                     <a href="" class="btn btn-primary btn-sm">
                                         <i class="fa fa-eye"></i>
@@ -155,57 +159,56 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                           
-                           
+
+
 
                             <div class="modal-body">
                                 <!-- add_form -->
                                 <form action="{{ Route('admin.orders.assignDelivery') }}" method="POST">
                                     @csrf
 
-                                   
-                                        <div class="row">
 
-                                            <div class="col-md-12">
-                                                <input name="order_id" id="order_id" hidden />
-                                            </div>
+                                    <div class="row">
 
+                                        <div class="col-md-12">
+                                            <input name="order_id" id="order_id" hidden />
                                         </div>
 
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label> {{ trans('orders_trans.Delivers_Name') }} <span
-                                                            class="text-danger">*</span></label>
-                                                    <select name="delivery_id" id=""
-                                                        class="custom-select mr-sm-2">
-                                                        <option value="">{{ trans('products_trans.Choose') }}
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label> {{ trans('orders_trans.Delivers_Name') }} <span
+                                                        class="text-danger">*</span></label>
+                                                <select name="delivery_id" id="" class="custom-select mr-sm-2">
+                                                    <option value="">{{ trans('products_trans.Choose') }}
+                                                    </option>
+                                                    @foreach ($deliveries as $delivery)
+                                                        <option value="{{ $delivery->id }}">{{ $delivery->name }}
                                                         </option>
-                                                        @foreach ($deliveries as $delivery)
-                                                            <option value="{{ $delivery->id }}">{{ $delivery->name }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
-                                                    @error('delivery_id')
-                                                        <div class="alert alert-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
+                                                    @endforeach
+                                                </select>
+                                                @error('delivery_id')
+                                                    <div class="alert alert-danger">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                         </div>
+                                    </div>
 
 
 
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-dismiss="modal">{{ trans('orders_trans.Close') }}</button>
-                                            <button type="submit"
-                                                class="btn btn-success">{{ trans('orders_trans.Submit') }}</button>
-                                        </div>
-                                    
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">{{ trans('orders_trans.Close') }}</button>
+                                        <button type="submit"
+                                            class="btn btn-success">{{ trans('orders_trans.Submit') }}</button>
+                                    </div>
+
                                 </form>
 
                             </div>
-                            
+
 
                         </div>
                     </div>
@@ -225,10 +228,10 @@
 
         $('#assign_delivery').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget); // Button that triggered the modal
-            var orderId = button.data('order-id'); // Extract the order ID from the button data attribute
+            var orderId = button.data(
+                'order-id'); // Extract the order ID from the button data attribute
             $('#order_id').val(orderId); // Set the value of the hidden input field with the order ID
         });
     });
-
 </script>
 @endsection

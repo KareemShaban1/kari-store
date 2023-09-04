@@ -32,7 +32,7 @@
 
 
                 <form method="post" enctype="multipart/form-data"
-                    action="{{ Route('admin.admins.update',$admin->id) }}" autocomplete="off">
+                    action="{{ Route('admin.admins.update', $admin->id) }}" autocomplete="off">
 
                     @csrf
                     @method('PUT')
@@ -70,7 +70,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <x-backend.form.input label="{{ trans('admins_trans.Password') }}" name="password"
-                                     class="form-control" type="password" />
+                                    class="form-control" type="password" />
 
                             </div>
                         </div>
@@ -90,51 +90,49 @@
                             <div class="form-group">
                                 <label> {{ trans('admins_trans.Super_Admin') }} <span
                                         class="text-danger">*</span></label>
-                                
-                                <x-backend.form.select name="super_admin" class="custom-select mr-sm-2" :options="[false=>'Not Super Admin',true=>'Super Admin']"
-                                    :selected="$admin->super_admin" />
-                                
+
+                                <x-backend.form.select name="super_admin" class="custom-select mr-sm-2"
+                                    :options="[false => 'Not Super Admin', true => 'Super Admin']" :selected="$admin->super_admin" />
+
                             </div>
                         </div>
 
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label> {{ trans('admins_trans.Status') }} <span
-                                        class="text-danger">*</span></label>
-                                
-                                <x-backend.form.select name="status" class="custom-select mr-sm-2" :options="['active'=>'Active','inactive'=>'In Active']"
+                                <label> {{ trans('admins_trans.Status') }} <span class="text-danger">*</span></label>
+
+                                <x-backend.form.select name="status" class="custom-select mr-sm-2" :options="['active' => 'Active', 'inactive' => 'In Active']"
                                     :selected="$admin->status" />
-                                
+
                             </div>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-md-6">
-                            <label> {{ trans('admins_trans.Roles') }} <span
-                                        class="text-danger">*</span></label>
+                            <label> {{ trans('admins_trans.Roles') }} <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                
+
                                 @foreach ($roles as $role)
-                                <label class="form-check-label" for="flexCheckChecked">
-                                    {{$role->name}}
-                                  </label>
-                                  {{-- @foreach ($admin_roles as $admin_role) --}}
-                                  <input type="checkbox" name="roles[]" id="" 
-                                    value="{{$role->id}}" @checked(in_array($role->id, $admin_roles) ? true : false )>
+                                    <label class="form-check-label" for="flexCheckChecked">
+                                        {{ $role->name }}
+                                    </label>
+                                    {{-- @foreach ($admin_roles as $admin_role) --}}
+                                    <input type="checkbox" name="roles[]" id="" value="{{ $role->id }}"
+                                        @checked(in_array($role->id, $admin_roles) ? true : false)>
                                     {{-- @endforeach --}}
                                 @endforeach
-                                
-                                
+
+
                             </div>
                         </div>
                     </div>
 
 
 
- 
+
 
 
 

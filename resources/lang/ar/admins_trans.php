@@ -15,7 +15,7 @@ return [
           'Super_Admin'=>'Super Admin',
           'Yes'=>'نعم',
           'No'=>'لا',
-          'Phone'=>'رثم الهاتف',
+          'Phone'=>'رقم الهاتف',
           'Password'=>'كلمة المرور',
           'Status'=>'الحالة',
           'Roles'=>'Roles',

@@ -8,22 +8,13 @@
         <div class="button">
             <a href="{{ Route('products.show_product', $product->slug) }}" class="btn">
                 {{-- <i class="lni lni-cart"></i> --}}
-                {{ trans('home_trans.Show') }}
+                {{ trans('home_trans.Show_Product') }}
             </a>
         </div>
     </div>
     <div class="product-info">
 
-        {{-- <span class="category">{{ trans('home_trans.Category') }} :
-            <a href="{{ Route('shop_grid.index', ['category_id' => $product->category->id]) }}">
-                {{ $product->category->name }}
-            </a>
-        </span>
 
-        <span class="category">{{ trans('home_trans.Vendor') }} :
-            <a href="{{ url()->route('shop_grid.index', ['vendor_id' => $product->vendor->id]) }}">
-                {{ $product->vendor->name }}
-        </span> --}}
 
         <span class="category">{{ trans('home_trans.Category') }} :
             <a href="{{ route('shop_grid.index', ['categoryId' => $product->category->id]) }}">

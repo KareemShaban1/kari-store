@@ -100,7 +100,8 @@
                             <li>
                                 <a href="javascript:void(0);" data-toggle="collapse" data-target="#destinations-menu">
                                     <div class="pull-left"><i class="fa-solid fa-store fa-fade"></i><span
-                                            class="right-nav-text">{{ trans('sidebar_trans.Destinations') }}</span></div>
+                                            class="right-nav-text">{{ trans('sidebar_trans.Destinations') }}</span>
+                                    </div>
                                     <div class="pull-right"><i class="ti-plus"></i></div>
                                     <div class="clearfix"></div>
                                 </a>
@@ -131,7 +132,8 @@
                             <li>
                                 <a href="javascript:void(0);" data-toggle="collapse" data-target="#deliveries-menu">
                                     <div class="pull-left"><i class="fa-solid fa-store fa-fade"></i><span
-                                            class="right-nav-text">{{ trans('sidebar_trans.Deliveries') }}</span></div>
+                                            class="right-nav-text">{{ trans('sidebar_trans.Deliveries') }}</span>
+                                    </div>
                                     <div class="pull-right"><i class="ti-plus"></i></div>
                                     <div class="clearfix"></div>
                                 </a>
@@ -227,6 +229,27 @@
                             </li>
 
 
+                            <!-- menu item Products Properties-->
+                            <li>
+                                <a href="javascript:void(0);" data-toggle="collapse"
+                                    data-target="#product_properties-menu">
+                                    <div class="pull-left"><i class="fa-brands fa-product-hunt fa-fade"></i><span
+                                            class="right-nav-text">{{ trans('sidebar_trans.Product_Properties') }}
+                                        </span></div>
+                                    <div class="pull-right"><i class="ti-plus"></i></div>
+                                    <div class="clearfix"></div>
+                                </a>
+                                <ul id="product_properties-menu" class="collapse">
+                                    <li> <a href="{{ Route('admin.product_properties.create') }}">{{ trans('sidebar_trans.Add_Product_Properties') }}
+                                        </a> </li>
+                                    <li> <a
+                                            href="{{ Route('admin.product_properties.index') }}">{{ trans('sidebar_trans.All_Product_Properties') }}</a>
+                                    </li>
+
+                                </ul>
+                            </li>
+
+
                             <!-- menu  Attributes-->
                             <li>
                                 <a href="javascript:void(0);" data-toggle="collapse" data-target="#attributes-menu">
@@ -266,143 +289,145 @@
                                 </ul>
                             </li>
 
-                              <!-- menu item product_variants-->
-                              <li>
-                                <a href="javascript:void(0);" data-toggle="collapse" data-target="#product_variants-menu">
+                            <!-- menu item product_variants-->
+                            <li>
+                                <a href="javascript:void(0);" data-toggle="collapse"
+                                    data-target="#product_variants-menu">
                                     <div class="pull-left"><i class="fa-brands fa-product-hunt fa-fade"></i><span
-                                            class="right-nav-text">{{ trans('sidebar_trans.Product_Variants') }} </span></div>
+                                            class="right-nav-text">{{ trans('sidebar_trans.Product_Variants') }}
+                                        </span></div>
                                     <div class="pull-right"><i class="ti-plus"></i></div>
                                     <div class="clearfix"></div>
                                 </a>
                                 <ul id="product_variants-menu" class="collapse">
                                     {{-- <li> <a href="{{ Route('admin.product_variants.create') }}">{{ trans('sidebar_trans.Add_Product_Variant') }} --}}
-                                        </a> </li>
-                                    <li> <a
-                                            href="{{ Route('admin.product_variants.index') }}">{{ trans('sidebar_trans.All_Product_Variants') }}</a>
-                                    </li>
-
-                                </ul>
+                                    </a>
                             </li>
-
-
-                            <!-- menu  Coupons-->
-                            <li>
-                                <a href="javascript:void(0);" data-toggle="collapse" data-target="#coupons-menu">
-                                    <div class="pull-left"><i class="fa-brands fa-product-hunt fa-fade"></i><span
-                                            class="right-nav-text">{{ trans('sidebar_trans.Coupons') }} </span></div>
-                                    <div class="pull-right"><i class="ti-plus"></i></div>
-                                    <div class="clearfix"></div>
-                                </a>
-                                <ul id="coupons-menu" class="collapse">
-                                    <li> <a href="{{ Route('admin.coupons.create') }}">{{ trans('sidebar_trans.Add_Coupon') }}
-                                        </a> </li>
-                                    <li> <a
-                                            href="{{ Route('admin.coupons.index') }}">{{ trans('sidebar_trans.All_Coupons') }}</a>
-                                    </li>
-
-                                </ul>
-                            </li>
-
-                            <!-- menu item Orders-->
-                            <li>
-                                <a href="javascript:void(0);" data-toggle="collapse" data-target="#orders-menu">
-                                    <div class="pull-left"><i class="fa-solid fa-cart-shopping fa-fade"></i><span
-                                            class="right-nav-text">{{ trans('sidebar_trans.Orders') }} </span></div>
-                                    <div class="pull-right"><i class="ti-plus"></i></div>
-                                    <div class="clearfix"></div>
-                                </a>
-                                <ul id="orders-menu" class="collapse">
-                                    <li> <a
-                                            href="{{ Route('admin.orders.index') }}">{{ trans('sidebar_trans.All_Orders') }}</a>
-                                    </li>
-                                </ul>
+                            <li> <a
+                                    href="{{ Route('admin.product_variants.index') }}">{{ trans('sidebar_trans.All_Product_Variants') }}</a>
                             </li>
 
                         </ul>
                     </li>
 
 
-
-
-                    <!-- menu Users -->
-                    {{-- <li class="mt-10 mb-10 text-muted pl-4 font-medium menu-title">
-                        {{ trans('sidebar_trans.Users') }} </li> --}}
-
-                    <!-- menu User Management-->
+                    <!-- menu  Coupons-->
                     <li>
-
-                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#user_management">
-                            <div class="pull-left"><i class="fa-solid fa-users fa-fade"></i><span
-                                    class="right-nav-text">
-                                    {{ trans('sidebar_trans.Users_Management') }}</span></div>
+                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#coupons-menu">
+                            <div class="pull-left"><i class="fa-brands fa-product-hunt fa-fade"></i><span
+                                    class="right-nav-text">{{ trans('sidebar_trans.Coupons') }} </span></div>
                             <div class="pull-right"><i class="ti-plus"></i></div>
                             <div class="clearfix"></div>
                         </a>
-
-                        <ul id="user_management" class="collapse" data-parent="#sidebarnav">
-
-                            <!-- menu item roles-->
-                            <li>
-                                <a href="javascript:void(0);" data-toggle="collapse" data-target="#roles-menu">
-                                    <div class="pull-left"><i class="fa-solid fa-check fa-fade"></i><span
-                                            class="right-nav-text">{{ trans('sidebar_trans.Roles') }} </span></div>
-                                    <div class="pull-right"><i class="ti-plus"></i></div>
-                                    <div class="clearfix"></div>
-                                </a>
-                                <ul id="roles-menu" class="collapse">
-                                    <li> <a href="{{ Route('admin.roles.create') }}">{{ trans('sidebar_trans.Add_Role') }}
-                                        </a> </li>
-                                    <li> <a
-                                            href="{{ Route('admin.roles.index') }}">{{ trans('sidebar_trans.All_Roles') }}</a>
-                                    </li>
-                                </ul>
+                        <ul id="coupons-menu" class="collapse">
+                            <li> <a href="{{ Route('admin.coupons.create') }}">{{ trans('sidebar_trans.Add_Coupon') }}
+                                </a> </li>
+                            <li> <a
+                                    href="{{ Route('admin.coupons.index') }}">{{ trans('sidebar_trans.All_Coupons') }}</a>
                             </li>
-
-
-
-
-                            <!-- menu item Admins-->
-                            <li>
-                                <a href="javascript:void(0);" data-toggle="collapse" data-target="#admins-menu">
-                                    <div class="pull-left"><i class="fa-solid fa-user-tie fa-fade"></i><span
-                                            class="right-nav-text">{{ trans('sidebar_trans.Admins') }} </span></div>
-                                    <div class="pull-right"><i class="ti-plus"></i></div>
-                                    <div class="clearfix"></div>
-                                </a>
-                                <ul id="admins-menu" class="collapse">
-                                    <li> <a href="{{ Route('admin.admins.create') }}">{{ trans('sidebar_trans.Add_Admin') }}
-                                        </a> </li>
-                                    <li> <a
-                                            href="{{ Route('admin.admins.index') }}">{{ trans('sidebar_trans.All_Admins') }}</a>
-                                    </li>
-                                </ul>
-                            </li>
-
-
-                            <!-- menu item Users-->
-                            <li>
-                                <a href="javascript:void(0);" data-toggle="collapse" data-target="#users-menu">
-                                    <div class="pull-left"><i class="fa-solid fa-users fa-fade"></i><span
-                                            class="right-nav-text">{{ trans('sidebar_trans.Users') }} </span></div>
-                                    <div class="pull-right"><i class="ti-plus"></i></div>
-                                    <div class="clearfix"></div>
-                                </a>
-                                <ul id="users-menu" class="collapse">
-                                    <li> <a href="">{{ trans('sidebar_trans.All_Users') }}</a> </li>
-                                </ul>
-                            </li>
-
-
-
 
                         </ul>
                     </li>
 
+                    <!-- menu item Orders-->
+                    <li>
+                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#orders-menu">
+                            <div class="pull-left"><i class="fa-solid fa-cart-shopping fa-fade"></i><span
+                                    class="right-nav-text">{{ trans('sidebar_trans.Orders') }} </span></div>
+                            <div class="pull-right"><i class="ti-plus"></i></div>
+                            <div class="clearfix"></div>
+                        </a>
+                        <ul id="orders-menu" class="collapse">
+                            <li> <a
+                                    href="{{ Route('admin.orders.index') }}">{{ trans('sidebar_trans.All_Orders') }}</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                </ul>
+                </li>
 
 
 
-                    <!-- menu item WebsiteParts-->
-                    {{-- <li>
+
+                <!-- menu Users -->
+                {{-- <li class="mt-10 mb-10 text-muted pl-4 font-medium menu-title">
+                        {{ trans('sidebar_trans.Users') }} </li> --}}
+
+                <!-- menu User Management-->
+                <li>
+
+                    <a href="javascript:void(0);" data-toggle="collapse" data-target="#user_management">
+                        <div class="pull-left"><i class="fa-solid fa-users fa-fade"></i><span class="right-nav-text">
+                                {{ trans('sidebar_trans.Users_Management') }}</span></div>
+                        <div class="pull-right"><i class="ti-plus"></i></div>
+                        <div class="clearfix"></div>
+                    </a>
+
+                    <ul id="user_management" class="collapse" data-parent="#sidebarnav">
+
+                        <!-- menu item roles-->
+                        <li>
+                            <a href="javascript:void(0);" data-toggle="collapse" data-target="#roles-menu">
+                                <div class="pull-left"><i class="fa-solid fa-check fa-fade"></i><span
+                                        class="right-nav-text">{{ trans('sidebar_trans.Roles') }} </span></div>
+                                <div class="pull-right"><i class="ti-plus"></i></div>
+                                <div class="clearfix"></div>
+                            </a>
+                            <ul id="roles-menu" class="collapse">
+                                <li> <a href="{{ Route('admin.roles.create') }}">{{ trans('sidebar_trans.Add_Role') }}
+                                    </a> </li>
+                                <li> <a
+                                        href="{{ Route('admin.roles.index') }}">{{ trans('sidebar_trans.All_Roles') }}</a>
+                                </li>
+                            </ul>
+                        </li>
+
+
+
+
+                        <!-- menu item Admins-->
+                        <li>
+                            <a href="javascript:void(0);" data-toggle="collapse" data-target="#admins-menu">
+                                <div class="pull-left"><i class="fa-solid fa-user-tie fa-fade"></i><span
+                                        class="right-nav-text">{{ trans('sidebar_trans.Admins') }} </span></div>
+                                <div class="pull-right"><i class="ti-plus"></i></div>
+                                <div class="clearfix"></div>
+                            </a>
+                            <ul id="admins-menu" class="collapse">
+                                <li> <a href="{{ Route('admin.admins.create') }}">{{ trans('sidebar_trans.Add_Admin') }}
+                                    </a> </li>
+                                <li> <a
+                                        href="{{ Route('admin.admins.index') }}">{{ trans('sidebar_trans.All_Admins') }}</a>
+                                </li>
+                            </ul>
+                        </li>
+
+
+                        <!-- menu item Users-->
+                        <li>
+                            <a href="javascript:void(0);" data-toggle="collapse" data-target="#users-menu">
+                                <div class="pull-left"><i class="fa-solid fa-users fa-fade"></i><span
+                                        class="right-nav-text">{{ trans('sidebar_trans.Users') }} </span></div>
+                                <div class="pull-right"><i class="ti-plus"></i></div>
+                                <div class="clearfix"></div>
+                            </a>
+                            <ul id="users-menu" class="collapse">
+                                <li> <a href="">{{ trans('sidebar_trans.All_Users') }}</a> </li>
+                            </ul>
+                        </li>
+
+
+
+
+                    </ul>
+                </li>
+
+
+
+
+                <!-- menu item WebsiteParts-->
+                {{-- <li>
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#websiteParts-menu">
                             <div class="pull-left"><i class="fa-solid fa-image fa-fade"></i><span
                                     class="right-nav-text">{{ trans('sidebar_trans.WebsiteParts') }}</span></div>
@@ -416,8 +441,8 @@
                         </ul>
                     </li> --}}
 
-                    <!-- menu item Banners-->
-                    {{-- <li>
+                <!-- menu item Banners-->
+                {{-- <li>
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#banners-menu">
                             <div class="pull-left"><i class="fa-solid fa-image fa-fade"></i><span
                                     class="right-nav-text">{{ trans('sidebar_trans.Banners') }}</span></div>
@@ -430,8 +455,8 @@
                         </ul>
                     </li> --}}
 
-                    <!-- menu item Brands-->
-                    {{-- <li>
+                <!-- menu item Brands-->
+                {{-- <li>
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#brands-menu">
                             <div class="pull-left"><i class="fa-sharp fa-solid fa-list fa-fade"></i><span
                                     class="right-nav-text">{{ trans('sidebar_trans.Brands') }}</span></div>
@@ -448,8 +473,8 @@
                         </ul>
                     </li> --}}
 
-                    <!-- menu  Stores-->
-                    {{-- <li>
+                <!-- menu  Stores-->
+                {{-- <li>
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#stores-menu">
                             <div class="pull-left"><i class="fa-solid fa-store fa-fade"></i><span
                                     class="right-nav-text">{{ trans('sidebar_trans.Stores') }}</span></div>
@@ -463,8 +488,8 @@
                     </li> --}}
 
 
-                    <!-- menu  Vendors-->
-                    {{-- <li>
+                <!-- menu  Vendors-->
+                {{-- <li>
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#vendors-menu">
                             <div class="pull-left"><i class="fa-solid fa-store fa-fade"></i><span
                                     class="right-nav-text">{{ trans('sidebar_trans.Vendors') }}</span></div>
@@ -479,8 +504,8 @@
                      --}}
 
 
-                    <!-- menu item Categories-->
-                    {{-- <li>
+                <!-- menu item Categories-->
+                {{-- <li>
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#categories-menu">
                             <div class="pull-left"><i class="fa-solid fa-tags fa-fade"></i><span
                                     class="right-nav-text">{{ trans('sidebar_trans.Categories') }}</span></div>
@@ -496,8 +521,8 @@
                     </li> --}}
 
 
-                    <!-- menu item Products-->
-                    {{-- <li>
+                <!-- menu item Products-->
+                {{-- <li>
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#products-menu">
                             <div class="pull-left"><i class="fa-brands fa-product-hunt fa-fade"></i><span
                                     class="right-nav-text">{{ trans('sidebar_trans.Products') }} </span></div>
@@ -512,8 +537,8 @@
                     </li> --}}
 
 
-                    <!-- menu  Attributes-->
-                    {{-- <li>
+                <!-- menu  Attributes-->
+                {{-- <li>
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#attributes-menu">
                             <div class="pull-left"><i class="fa-brands fa-product-hunt fa-fade"></i><span
                                     class="right-nav-text">{{ trans('sidebar_trans.Attributes') }} </span></div>
@@ -528,8 +553,8 @@
                     </li> --}}
 
 
-                    <!-- menu  Attribute Values-->
-                    {{-- <li>
+                <!-- menu  Attribute Values-->
+                {{-- <li>
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#attribute_values-menu">
                             <div class="pull-left"><i class="fa-brands fa-product-hunt fa-fade"></i><span
                                     class="right-nav-text">{{ trans('sidebar_trans.Attribute_Values') }} </span></div>
@@ -543,8 +568,8 @@
                         </ul>
                     </li> --}}
 
-                    <!-- menu  Coupons-->
-                    {{-- <li>
+                <!-- menu  Coupons-->
+                {{-- <li>
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#coupons-menu">
                             <div class="pull-left"><i class="fa-brands fa-product-hunt fa-fade"></i><span
                                     class="right-nav-text">{{ trans('sidebar_trans.Coupons') }} </span></div>
@@ -559,8 +584,8 @@
                     </li> --}}
 
 
-                    <!-- menu item Orders-->
-                    {{-- <li>
+                <!-- menu item Orders-->
+                {{-- <li>
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#orders-menu">
                             <div class="pull-left"><i class="fa-solid fa-cart-shopping fa-fade"></i><span
                                     class="right-nav-text">{{ trans('sidebar_trans.Orders') }} </span></div>
@@ -575,8 +600,8 @@
                     </li> --}}
 
 
-                    <!-- menu item roles-->
-                    {{-- <li>
+                <!-- menu item roles-->
+                {{-- <li>
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#roles-menu">
                             <div class="pull-left"><i class="fa-solid fa-check fa-fade"></i><span
                                     class="right-nav-text">{{ trans('sidebar_trans.Roles') }} </span></div>
@@ -595,8 +620,8 @@
 
 
 
-                    <!-- menu item Admins-->
-                    {{-- <li>
+                <!-- menu item Admins-->
+                {{-- <li>
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#admins-menu">
                             <div class="pull-left"><i class="fa-solid fa-user-tie fa-fade"></i><span
                                     class="right-nav-text">{{ trans('sidebar_trans.Admins') }} </span></div>
@@ -613,8 +638,8 @@
                     </li> --}}
 
 
-                    <!-- menu item Users-->
-                    {{-- <li>
+                <!-- menu item Users-->
+                {{-- <li>
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#users-menu">
                             <div class="pull-left"><i class="fa-solid fa-users fa-fade"></i><span
                                     class="right-nav-text">{{ trans('sidebar_trans.Users') }} </span></div>

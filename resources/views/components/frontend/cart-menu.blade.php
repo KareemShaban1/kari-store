@@ -6,8 +6,8 @@
     <!-- Shopping Item -->
     <div class="shopping-item">
         <div class="dropdown-cart-header">
-            <span>{{ $items->count() }} Items</span>
-            <a href="{{ Route('cart.index') }}">View Cart</a>
+            <span>{{ $items->count() }} {{ trans('home_trans.Items') }}</span>
+            <a href="{{ Route('cart.index') }}">{{ trans('home_trans.View_Cart') }}</a>
         </div>
         <ul class="shopping-list">
             @foreach ($items as $item)
