@@ -60,24 +60,43 @@
                         </div>
                         <!-- End Product search -->
 
-
-
                         <!-- Start Categories Filter -->
                         <div class="single-widget">
-                            <h3> {{ trans('shop_grid_trans.All_Categories') }} </h3>
+                            <h3>{{ trans('shop_grid_trans.All_Categories') }}</h3>
+
                             <ul class="list">
                                 @foreach ($categories as $category)
-                                    <li>
+                                    @if ($category->parent_id === null)
+                                        <li>
+                                            {{-- <input type="checkbox" value="{{ $category->id }}" name="category[]"
+                                                class="category" @checked($category_id == $category->id)> --}}
+                                            <label for="">{{ $category->name }}
+                                                ({{ $category->products()->count() }})</label>
 
-                                        <input type="checkbox" value="{{ $category->id }}" name="category[]"
-                                            class="category" @checked($category_id == $category->id)>
-                                        <label for="">{{ $category->name }} (
-                                            {{ $category->products()->count() }} )</label>
-                                    </li>
+                                            @if ($category->children->count() > 0)
+                                                <ul class="list" style="margin-left: 10px;">
+                                                    @foreach ($category->children as $child)
+                                                        <li class="m-0">
+                                                            <input type="checkbox" value="{{ $child->id }}"
+                                                                name="category[]" class="category"
+                                                                @checked($category_id == $child->id)>
+                                                            <label for="">{{ $child->name }}
+                                                                ({{ $child->products()->count() }})
+                                                            </label>
+                                                        </li>
+                                                    @endforeach
+                                                </ul>
+                                            @endif
+                                        </li>
+                                    @endif
                                 @endforeach
                             </ul>
                         </div>
+
                         <!-- End Categories Filter -->
+
+
+
 
 
 
@@ -87,8 +106,8 @@
                             <ul class="list">
                                 @foreach ($stores as $store)
                                     <li>
-                                        <input type="checkbox" value="{{ $store->id }}" name="store[]" class="store"
-                                            @checked($store_id == $store->id)>
+                                        <input type="checkbox" value="{{ $store->id }}" name="store[]"
+                                            class="store" @checked($store_id == $store->id)>
                                         <label for="">{{ $store->name }}
                                             {{-- ({{ $vendor->products()->count() }} ) --}}
                                         </label>
