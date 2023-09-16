@@ -3,7 +3,7 @@
         <!-- Left Sidebar start-->
         <div class="side-menu-fixed">
             <div class="scrollbar side-menu-bg">
-            
+
                 <ul class="nav navbar-nav side-menu" id="sidebarnav">
 
                     <!-- menu item Dashboard-->
@@ -352,8 +352,6 @@
 
 
                 <!-- menu Users -->
-                {{-- <li class="mt-10 mb-10 text-muted pl-4 font-medium menu-title">
-                        {{ trans('sidebar_trans.Users') }} </li> --}}
 
                 <!-- menu User Management-->
                 <li>
@@ -420,6 +418,57 @@
 
 
 
+
+                    </ul>
+                </li>
+
+
+
+                <!-- menu Reports Management-->
+                <li>
+
+                    <a href="javascript:void(0);" data-toggle="collapse" data-target="#reports_management">
+                        <div class="pull-left"><i class="fa-regular fa-file-lines"></i><span class="right-nav-text">
+                                {{ trans('sidebar_trans.Reports') }}</span></div>
+                        <div class="pull-right"><i class="ti-plus"></i></div>
+                        <div class="clearfix"></div>
+                    </a>
+
+                    <ul id="reports_management" class="collapse" data-parent="#sidebarnav">
+
+                        <!-- menu item reports-->
+                        <li>
+                            <a href="javascript:void(0);" data-toggle="collapse" data-target="#order-reports">
+                                <div class="pull-left"><i class="fa-solid fa-cart-shopping"></i><span
+                                        class="right-nav-text">{{ trans('sidebar_trans.Orders_Reports') }} </span>
+                                </div>
+                                <div class="pull-right"><i class="ti-plus"></i></div>
+                                <div class="clearfix"></div>
+                            </a>
+                            <ul id="order-reports" class="collapse">
+                                <li> <a href="{{ route('admin.reports.orders') }}">{{ trans('sidebar_trans.All_Orders') }}
+                                    </a>
+                                </li>
+                                <li> <a
+                                        href="{{ route('admin.reports.orders', ['pending']) }}">{{ trans('sidebar_trans.Pending_Orders') }}</a>
+                                </li>
+                                <li> <a
+                                        href="{{ route('admin.reports.orders', ['processing']) }}">{{ trans('sidebar_trans.Processing_Orders') }}</a>
+                                </li>
+                                <li> <a
+                                        href="{{ route('admin.reports.orders', ['delivering']) }}">{{ trans('sidebar_trans.Delivering_Orders') }}</a>
+                                </li>
+                                <li> <a
+                                        href="{{ route('admin.reports.orders', ['completed']) }}">{{ trans('sidebar_trans.Completed_Orders') }}</a>
+                                </li>
+                                <li> <a
+                                        href="{{ route('admin.reports.orders', ['cancelled']) }}">{{ trans('sidebar_trans.Cancelled_Orders') }}</a>
+                                </li>
+                                <li> <a
+                                        href="{{ route('admin.reports.orders', ['refunded']) }}">{{ trans('sidebar_trans.Refunded_Orders') }}</a>
+                                </li>
+                            </ul>
+                        </li>
 
                     </ul>
                 </li>

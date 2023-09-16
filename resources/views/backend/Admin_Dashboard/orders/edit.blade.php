@@ -33,8 +33,8 @@
 
                 <form method="post" enctype="multipart/form-data"
                     action="{{ Route('admin.orders.update', $order->id) }}" autocomplete="off">
-
                     @csrf
+                    @method('PUT')
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
@@ -49,12 +49,10 @@
                             <div class="form-group">
                                 <label> {{ trans('orders_trans.User_Name') }} <span class="text-danger">*</span></label>
                                 <select name="user_id" id="" class="custom-select mr-sm-2">
-                                    <option value="">{{ trans('orders_trans.Choose') }}</option>
-
-                                    @foreach ($users as $user)
-                                        <option value="{{ $user->id }}" @selected($order->user_id == $user->id)>
-                                            {{ $user->name }}</option>
-                                    @endforeach
+                                    {{-- @foreach ($users as $user) --}}
+                                    <option value="{{ $order->user_id }}">
+                                        {{ $order->user->first_name }}</option>
+                                    {{-- @endforeach --}}
                                 </select>
                                 @error('user_id')
                                     <div class="alert alert-danger">{{ $message }}</div>
@@ -182,7 +180,20 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <x-backend.form.input label="{{ trans('orders_trans.Payment_Method') }}"
-                                    value="{{ $order->payment_method }}" name="text" class="form-control" />
+                                    value="{{ $order->payment_method }}" name="payment_method"
+                                    class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <x-backend.form.input label="{{ trans('orders_trans.Coupon') }}" name="coupon_id"
+                                    value="{{ $order->coupon ? $order->coupon->id : '' }}" class="form-control"  />
                             </div>
                         </div>
                     </div>
@@ -193,25 +204,19 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <x-backend.form.input label="{{ trans('orders_trans.Shipping') }}"
-                                    value="{{ $order->shipping }}" name="number" class="form-control" />
+                                    value="{{ $order->shipping }}" name="shipping" class="form-control" />
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <x-backend.form.input label="{{ trans('orders_trans.Tax') }}"
-                                    value="{{ $order->tax }}" name="number" class="form-control" />
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <x-backend.form.input label="{{ trans('orders_trans.Discount') }}"
-                                    value="{{ $order->discount }}" name="number" class="form-control" />
+                                    value="{{ $order->tax }}" name="tax" class="form-control" />
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <x-backend.form.input label="{{ trans('orders_trans.Total') }}"
-                                    value="{{ $order->total }}" name="number" class="form-control" />
+                                    value="{{ $order->total }}" name="total" class="form-control" />
                             </div>
                         </div>
                     </div>
@@ -222,7 +227,7 @@
 
 
                     <button type="submit"
-                        class="btn btn-success btn-md nextBtn btn-lg ">{{ trans('orders_trans.Add') }}</button>
+                        class="btn btn-success btn-md nextBtn btn-lg ">{{ trans('orders_trans.Edit') }}</button>
 
 
                 </form>

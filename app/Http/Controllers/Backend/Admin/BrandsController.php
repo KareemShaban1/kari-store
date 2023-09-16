@@ -7,7 +7,6 @@ use App\Http\Requests\Backend\StoreBrandRequest;
 use App\Http\Requests\Backend\UpdateBrandRequest;
 use App\Http\Traits\UploadImageTrait;
 use App\Models\Brand;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class BrandsController extends Controller
@@ -41,7 +40,7 @@ class BrandsController extends Controller
         $data = $request->except('image');
 
         if($request->file('image')) {
-            $data['image'] = $this->uploadImage($request, 'image', 'brands');
+            $data['image'] = $this->ProcessImage($request, 'image', 'brands');
         }
 
         Brand::create($data);
@@ -62,11 +61,11 @@ class BrandsController extends Controller
 
         $brand = Brand::findOrFail($id);
 
-        $old_image = $brand->image;
+        $current_image = $brand->image;
 
         $data = $request->except('image');
 
-        $new_image = $this->uploadImage($request, 'image', 'brands');
+        $new_image = $this->ProcessImage($request, 'image', 'brands', $current_image);
 
         if ($new_image) {
             $data['image'] = $new_image;
@@ -74,11 +73,6 @@ class BrandsController extends Controller
 
         $brand->update($data);
 
-        // isset => Determine if a variable is declared and is different than NULL
-        if ($old_image && $new_image) {
-            // Storage::disk('disk_name')->delete('image_path');
-            Storage::disk('uploads')->delete($old_image);
-        }
 
         return redirect()->route('admin.brands.index');
     }

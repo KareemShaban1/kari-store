@@ -99,9 +99,9 @@ class ProductsController extends Controller
         $data = $request->except('image', 'tags');
 
         // add 'image' to the input array $data
-        $data['image'] = $this->uploadImage($request, 'image', 'products');
+        // $data['image'] = $this->uploadImage($request, 'image', 'products');
+        $data['image'] = $this->ProcessImage($request, 'image', 'products');
 
-        // dd($data);
         // create product model with the $data array
         $product = Product::create($data);
 
@@ -195,9 +195,12 @@ class ProductsController extends Controller
         ]);
 
         // get product old image
-        $old_image = $product->image;
+        $current_image = $product->image;
         $data = $request->except('image', 'tags');
-        $new_image = $this->uploadImage($request, 'image', 'products');
+        // $new_image = $this->uploadImage($request, 'image', 'products');
+
+        $new_image = $this->ProcessImage($request, 'image', 'products', $current_image);
+
 
         if ($new_image) {
             $data['image'] = $new_image;
@@ -205,10 +208,10 @@ class ProductsController extends Controller
         $product->update($data);
 
         // isset => Determine if a variable is declared and is different than NULL
-        if ($old_image && $new_image) {
-            // Storage::disk('disk_name')->delete('image_path');
-            Storage::disk('uploads')->delete($old_image);
-        }
+        // if ($old_image && $new_image) {
+        //     // Storage::disk('disk_name')->delete('image_path');
+        //     Storage::disk('uploads')->delete($old_image);
+        // }
 
         $tags = json_decode($request->post('tags'));
         $tag_ids = [];

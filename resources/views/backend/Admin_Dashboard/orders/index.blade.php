@@ -153,7 +153,7 @@
                             <div class="modal-header">
                                 <h5 style="font-family: 'Cairo', sans-serif;" class="modal-title"
                                     id="exampleModalLabel">
-                                    {{ trans('orders_trans.assign_delivery') }}
+                                    {{ trans('orders_trans.Assign_Delivery') }}
                                 </h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
@@ -174,15 +174,15 @@
                                             <input name="order_id" id="order_id" hidden />
                                         </div>
 
-                                    </div>
+                                    </div> 
 
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label> {{ trans('orders_trans.Delivers_Name') }} <span
+                                                <label> {{ trans('orders_trans.Delivery_Name') }} <span
                                                         class="text-danger">*</span></label>
                                                 <select name="delivery_id" id="" class="custom-select mr-sm-2">
-                                                    <option value="">{{ trans('products_trans.Choose') }}
+                                                    <option value="">{{ trans('orders_trans.Choose_Delivery') }}
                                                     </option>
                                                     @foreach ($deliveries as $delivery)
                                                         <option value="{{ $delivery->id }}">{{ $delivery->name }}

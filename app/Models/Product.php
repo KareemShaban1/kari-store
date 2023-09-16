@@ -136,7 +136,7 @@ class Product extends Model
         if (Str::startsWith($this->image, ['http://', 'https://'])) {
             return $this->image;
         }
-        return asset('storage/' . $this->image);
+        return asset('thumbnail/products/' . $this->image);
     } // $product->image_url
 
 

@@ -16,7 +16,7 @@ class Order extends Model
 
     protected static function booted()
     {
-         
+
         // while creating order make order number take next available number
         static::creating(function (Order $order) {
             //20230001 - 20230002
@@ -27,9 +27,9 @@ class Order extends Model
 
     public static function getNextOrderNumber()
     {
-        // SELECT MAX(number) FROM orders 
+        // SELECT MAX(number) FROM orders
         $year = Carbon::now()->year;
-        $number = Order::whereYear('created_at' , $year)->max('number');
+        $number = Order::whereYear('created_at', $year)->max('number');
 
         // if there is number in this year add 1 to this number
         if ($number) {
@@ -40,7 +40,8 @@ class Order extends Model
     }
 
 
-    public function products(){
+    public function products()
+    {
 
         return $this->belongsToMany(
             Product::class,
@@ -51,25 +52,28 @@ class Order extends Model
             'id'
         )
         // pivot model
-        ->using(OrderItem::class) 
-        // called pivot table 
+        ->using(OrderItem::class)
+        // called pivot table
         ->as('order_item')
-        // retrieve this pivot table columns not only foriegn keys 
-        ->withPivot(['product_name','quantity','price','options']); 
+        // retrieve this pivot table columns not only foreign keys
+        ->withPivot(['product_name','quantity','price','options']);
     }
 
     // one-to-many relationship
-    public function addresses(){
+    public function addresses()
+    {
         return $this->hasMany(OrderAddress::class);
     }
 
     // one-to-one relationship => one Order has one OrderAddress (billing)
-    public function billingAddreess(){
-        return $this->hasOne(OrderAddress::class , 'order_id','id')->where('type','=','billing');
+    public function billingAddreess()
+    {
+        return $this->hasOne(OrderAddress::class, 'order_id', 'id')->where('type', '=', 'billing');
     }
     // one-to-one relationship => one Order has one OrderAddress (shipping)
-    public function shippingAddreess(){
-        return $this->hasOne(OrderAddress::class , 'order_id','id')->where('type','=','shipping');
+    public function shippingAddreess()
+    {
+        return $this->hasOne(OrderAddress::class, 'order_id', 'id')->where('type', '=', 'shipping');
     }
 
 

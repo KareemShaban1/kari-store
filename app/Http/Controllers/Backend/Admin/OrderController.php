@@ -30,12 +30,12 @@ class OrderController extends Controller
 
 
     public function assignDelivery(Request $request)
-    {   
+    {
         $data = $request->all();
         // dd($data);
         $order_delivery =  OrderDelivery::create($data);
 
-        $order = Order::where('id',$order_delivery->order_id)->first();
+        $order = Order::where('id', $order_delivery->order_id)->first();
         // dd($order);
         event(new OrderToDelivery($order));
 
@@ -103,6 +103,22 @@ class OrderController extends Controller
     public function update(Request $request, $id)
     {
         //
+        // dd($request->all());
+        $order = Order::findOrFail($id);
+        $order->store_id = $request->store_id;
+        $order->user_id = $request->user_id;
+        $order->number = $request->number;
+        $order->payment_method = $request->payment_method;
+        $order->status = $request->status;
+        $order->payment_status = $request->payment_status;
+        $order->shipping = $request->shipping;
+        $order->tax = $request->tax;
+        $order->coupon_id = $request->coupon_id;
+        $order->total = $request->total;
+        $order->save();
+
+        return redirect()->route('admin.orders.index');
+
     }
 
     /**

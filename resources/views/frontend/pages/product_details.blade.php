@@ -162,8 +162,12 @@
                                     @php
                                         $product_properties = App\Models\ProductProperty::where('product_id', $product->id)->first();
                                     @endphp
-                                    <li><span>{{ $product_properties->name }}: </span>
-                                        {{ $product_properties->value }} </li>
+                                    @if ($product_properties)
+                                        <li>
+                                            <span>{{ $product_properties->name }}: </span>
+                                            {{ $product_properties->value }}
+                                        </li>
+                                    @endif
                                 </ul>
 
 

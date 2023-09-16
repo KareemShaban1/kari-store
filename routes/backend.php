@@ -19,7 +19,8 @@ use  App\Http\Controllers\Backend\Admin\{
     VendorController,
     WebsitePartsController,
     DeliveryController,
-    ProductPropertiesController
+    ProductPropertiesController,
+    ReportsController
 };
 
 use  App\Http\Controllers\Backend\Vendor\{
@@ -108,7 +109,7 @@ Route::group(
         Route::resource('/admins', AdminController::class);
 
 
-
+        Route::get('/orders_report/{status?}', [ReportsController::class,'index'])->name('reports.orders');
 
     }
 );
