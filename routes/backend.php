@@ -30,7 +30,9 @@ use  App\Http\Controllers\Backend\Vendor\{
     ProductVariantsController as VendorProductVariantsController,
     AttributesController as VendorAttributesController,
     AttributeValuesController as VendorAttributeValuesController,
-    NotificationsController as VendorNotificationsController
+    NotificationsController as VendorNotificationsController ,
+    VendorOrderController as VendorOrderController
+    
 };
 
 use  App\Http\Controllers\Backend\Delivery\{
@@ -140,6 +142,7 @@ Route::group([
       Route::get('/add_variant/{product_id}', [VendorProductsController::class, 'add_variant'])->name('products.add_variant');
 
       Route::resource('/product_variants', VendorProductVariantsController::class);
+      
       Route::get('/create/{product_id}', [VendorProductVariantsController::class, 'create'])->name('product_variants.create');
 
       Route::get('/get_attribute_value/{attribute_id}', [VendorProductVariantsController::class, 'get_attribute_value'])->name('get_attribute_value');
@@ -148,10 +151,9 @@ Route::group([
 
       Route::resource('/attribute_values', VendorAttributeValuesController::class);
 
-
       Route::resource('/coupons', CouponController::class);
 
-      Route::resource('/orders', OrderController::class);
+      Route::resource('/orders', App\Http\Controllers\Backend\Vendor\VendorOrderController::class);
 
       Route::get('/notifications', [VendorNotificationsController::class, 'index'])->name('notifications.index');
 

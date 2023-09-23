@@ -14,7 +14,7 @@ use App\Models\{
     Store,
     Tag
 };
-
+use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 
@@ -267,4 +267,6 @@ class ProductsController extends Controller
             compact('attributes', 'product')
         );
     }
+
+    
 }

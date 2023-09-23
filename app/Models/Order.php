@@ -66,12 +66,12 @@ class Order extends Model
     }
 
     // one-to-one relationship => one Order has one OrderAddress (billing)
-    public function billingAddreess()
+    public function billingAddress()
     {
         return $this->hasOne(OrderAddress::class, 'order_id', 'id')->where('type', '=', 'billing');
     }
     // one-to-one relationship => one Order has one OrderAddress (shipping)
-    public function shippingAddreess()
+    public function shippingAddress()
     {
         return $this->hasOne(OrderAddress::class, 'order_id', 'id')->where('type', '=', 'shipping');
     }

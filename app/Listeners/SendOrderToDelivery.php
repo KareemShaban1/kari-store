@@ -3,12 +3,14 @@
 namespace App\Listeners;
 
 use App\Events\OrderToDelivery;
+use App\Http\Traits\sendWhatsAppMessage;
 use App\Models\Delivery;
 use App\Models\OrderDelivery;
 use App\Notifications\OrderCreatedNotification;
 
 class SendOrderToDelivery
 {
+    use sendWhatsAppMessage;
     /**
      * Create the event listener.
      *
@@ -34,6 +36,14 @@ class SendOrderToDelivery
         $delivery = Delivery::where('id', $order_delivery->delivery_id)->first();
         if ($delivery) {
             $delivery->notify(new OrderCreatedNotification($order));
+
+            $message = 'تم طلب أوردر رقم : ' . $order->number . "\n";
+            $message .=  'أسم المحل: ' . $order->store->name . "\n";
+            $message .=  'عنوان العميل : ' . $order->shippingAddress->street_address . "\n";
+            
+            $this->sendMessage($delivery->phone_number, $message);
+
+            
         }
 
 

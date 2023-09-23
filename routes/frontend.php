@@ -47,6 +47,8 @@ Route::group([
 
 
     Route::get('/all_products', [ProductsController::class, 'index'])->name('products.show_all');
+    Route::get('/product_autocomplete', [ProductsController::class, 'productAutocomplete'])->name('products.autocomplete');
+    
     Route::get('/products/{product:slug}', [ProductsController::class, 'show'])->name('products.show_product');
 
 

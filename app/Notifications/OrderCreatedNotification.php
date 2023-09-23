@@ -88,7 +88,7 @@ class OrderCreatedNotification extends Notification
         }
 
         return [
-            'body' => "A new Order (#{$this->order->number} Created by {$address->name}   )",
+            'body' => "A new Order #{$this->order->number}",
             'icon' => 'fas fa-file',
             'url' => $url,
             'order_id' => $this->order->id
@@ -99,7 +99,7 @@ class OrderCreatedNotification extends Notification
     {
         $address = $this->order->billingAddreess;
         return new BroadcastMessage([
-            'body' => "A new Order (#{$this->order->number} Created by {$address->name}   )",
+            'body' => "A new Order #{$this->order->number} ",
             'icon'=>'fas fa-file',
             'url'=>url('/backend/dashboard'),
             'order_id'=>$this->order->id

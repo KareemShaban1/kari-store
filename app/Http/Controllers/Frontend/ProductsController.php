@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\Review;
+use Illuminate\Http\Request;
 
 class ProductsController extends Controller
 {
@@ -24,5 +25,15 @@ class ProductsController extends Controller
             abort(404);
         }
         return view('frontend.pages.product_details',compact('product','reviews'));
+    }
+
+    public function productAutocomplete(Request $request){
+        $term = $request->input('term');
+
+        $products = Product::where('name', 'LIKE', '%' . $term . '%')
+            ->select('name', 'id' ,'slug','image') // Select both name and id
+            ->get(); // Retrieve the matching customers
+
+        return response()->json($products);
     }
 }

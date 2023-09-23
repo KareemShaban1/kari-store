@@ -56,7 +56,7 @@ class OrderToDeliveryNotification extends Notification
             $address = $this->order->billingAddreess;
             
             return [
-                'body' => "A new Order (#{$this->order->number} Created by {$address->name}   )",
+                'body' => "New Order #{$this->order->number}",
                 'icon' => 'fas fa-file',
                 'url' => url('/delivery/dashboard'),
                 'order_id' => $this->order->id

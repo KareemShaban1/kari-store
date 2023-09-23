@@ -174,7 +174,7 @@
                             <div class="navbar-search search-style-5">
 
                                 <div class="search-input">
-                                    <input type="text" placeholder="Search">
+                                    <input type="text" id="search" placeholder="Search">
                                 </div>
                                 <div class="search-btn">
                                     <button><i class="lni lni-search-alt"></i></button>
@@ -503,6 +503,7 @@
     <!-- ========================= JS here ========================= -->
 
     {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
+
 
     <script src="{{ asset('backend/assets/js/jquery-3.6.0.min.js') }}"></script>
 

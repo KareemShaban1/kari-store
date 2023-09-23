@@ -10,7 +10,7 @@ return [
           'About_Us'=>'About Us',
           'Contact_Us'=>'Contact Us',
           'All_Categories'=>'All Categories',
-          ''=>'',
+          'Checkout'=>'Checkout',
           ''=>'',
           ''=>'',
           ''=>'',
