@@ -63,11 +63,11 @@
                             @endif --}}
                             <div class="form-group input-group">
                                 <label for="reg-fn">Email</label>
-                                <input class="form-control" type="email" name="email" id="reg-email" >
+                                <input class="form-control" name="email">
                             </div>
                             <div class="form-group input-group">
                                 <label for="reg-fn">Password</label>
-                                <input class="form-control" type="password" name="password" id="reg-pass" >
+                                <input class="form-control" type="password" name="password" id="reg-pass">
                             </div>
                             <div class="d-flex flex-wrap justify-content-between bottom-content">
                                 <div class="form-check">

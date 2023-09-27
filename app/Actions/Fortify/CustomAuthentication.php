@@ -39,9 +39,20 @@ class CustomAuthentication
 
     public function authenticateUser($request)
     {
-        $email = $request->email;
-        $password = $request->password;
-        $user = User::where('email_address', '=', $email)->first();
+        // $email = $request->email;
+        // $password = $request->password;
+        // $user = User::where('email_address', '=', $email)->first();
+
+         // determine which field used to authenticate as username , email , phone
+         $user_name = $request->post(config('fortify.username')); // username
+         $password = $request->post('password');
+ 
+ 
+         // get admin based on user_name , email , phone_number
+         $user = User::where('phone_number', '=', $user_name)
+                 ->orWhere('email_address', '=', $user_name)
+                 ->first();
+        
 
         if (!$user) {
             return false; // User not found
@@ -66,9 +77,21 @@ class CustomAuthentication
 
     public function authenticateVendor($request)
     {
-        $email = $request->email;
-        $password = $request->password;
-        $user = Vendor::where('email', '=', $email)->first();
+        // $email = $request->email;
+        // $password = $request->password;
+        // $user = Vendor::where('email', '=', $email)->first();
+
+        
+        
+         // determine which field used to authenticate as username , email , phone
+         $user_name = $request->post(config('fortify.username')); // username
+         $password = $request->post('password');
+ 
+ 
+         // get admin based on user_name , email , phone_number
+         $user = Vendor::where('phone', '=', $user_name)
+                 ->orWhere('email', '=', $user_name)
+                 ->first();
 
         if ($user && Hash::check($password, $user->password)) {
             return $user;
