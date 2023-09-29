@@ -115,6 +115,8 @@
                 @endforeach
 
             </div>
+
+
             <div class="row">
                 <div class="col-12">
                     <!-- Total Amount -->
@@ -169,7 +171,17 @@
                                                 </span>
                                             </li>
                                         </div>
-                                        <li>Shipping<span>Free</span></li>
+                                        <li>Shipping
+                                            @php
+                                                $user = Auth::user();
+                                                $shipping_fees = $user->neighborhood->price;
+                                            @endphp
+                                            <span class="shipping">
+                                                {{-- Free --}}
+                                                {{-- {{ $shipping_fees }} --}}
+                                                {{ Currency::format($shipping_fees) }}
+                                            </span>
+                                        </li>
 
                                         @if ($temp_session)
                                             <li>Coupon<span>{{ $temp_session->coupon->code }}</span>
@@ -178,15 +190,18 @@
                                                 Save<span>{{ Currency::format($temp_session->coupon->discount_amount) }}</span>
                                             </li>
                                         @endif
+
                                         <li class="last">You Pay
-                                            <span class="pay_total">
-                                                @if ($temp_session)
-                                                    {{ Currency::format($cart->total() - $temp_session->coupon->discount_amount) }}
+                                            {{-- <span class="pay_total "> --}}
+                                            <span id="totalAlltotal">
+                                                {{-- @if ($temp_session)
+                                                    {{ Currency::format($cart->total() - $shipping_fees - $temp_session->coupon->discount_amount) }}
                                                 @else
-                                                    {{ Currency::format($cart->total()) }}
-                                                @endif
+                                                    {{ Currency::format($cart->total() - $shipping_fees) }}
+                                                @endif --}}
                                             </span>
                                         </li>
+
                                     </ul>
                                     <div class="button">
                                         <a href="{{ Route('checkout.create') }}" class="btn">Checkout</a>
@@ -231,10 +246,43 @@
 
                 // $('#totalSubtotal').html('');
                 // $('#totalSubtotal').text(subtotalSum);
+
+            }
+
+            function calculateAlltotalSum() {
+                var AlltotalSum = 0;
+                // Get the shipping value from the <span> element
+                var shippingText = $('.shipping').text();
+                var shipping = parseFloat(shippingText.replace(/[^0-9.-]+/g, ''));
+
+                $('.cart-single-list').each(function() {
+                    var alltotalText = $(this).find('.col-lg-2.col-md-2.col-12 p').text();
+                    var alltotalValue = parseFloat(alltotalText.replace(/[^0-9.-]+/g, ''));
+                    AlltotalSum += alltotalValue;
+                    AfterShipping = AlltotalSum - shipping;
+                });
+
+                // Cart Subtotal part
+                $.ajax({
+                    url: "{{ route('get_formatted_currency') }}/" + AfterShipping,
+                    type: "GET",
+                    success: function(response) {
+                        $('#totalAlltotal').html(response.formatted_currency);
+                    },
+                    error: function(xhr) {
+                        console.log(xhr.responseText);
+                    }
+                });
+
+                // $('#totalSubtotal').html('');
+                // $('#totalSubtotal').text(subtotalSum);
+
             }
 
             $(document).ready(function() {
                 calculateSubtotalSum();
+
+                calculateAlltotalSum();
 
                 $('.minus').on('click', function() {
                     var quantityElement = $(this).siblings('.quantity');
@@ -248,6 +296,7 @@
                         updateCartQuantity(cartItemId, productId, currentQuantity - 1);
                     }
                     calculateSubtotalSum();
+                    calculateAlltotalSum();
                 });
 
                 $('.plus').on('click', function() {
@@ -259,6 +308,7 @@
                     console.log(productId); // Access the product ID here
                     updateCartQuantity(cartItemId, productId, currentQuantity + 1);
                     calculateSubtotalSum();
+                    calculateAlltotalSum();
                 });
 
                 function updateCartQuantity(cartItemId, productId, quantity) {
@@ -274,6 +324,7 @@
                         success: function(response) {
                             $('#sub_total_amount_' + productId).html(response.formatted_sub_total);
                             calculateSubtotalSum();
+                            calculateAlltotalSum();
                         },
                         error: function(xhr) {
                             console.log(xhr.responseText);

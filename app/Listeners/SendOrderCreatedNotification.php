@@ -72,7 +72,9 @@ class SendOrderCreatedNotification
             $message .=  'عنوان العميل : ' . $order->shippingAddress->street_address . "\n";
             $this->sendMessage($vendor->phone , $message);
 
-            $this->sendMessage($delivery_admin->phone_number , $message);
+            if($delivery_admin){
+                $this->sendMessage($delivery_admin->phone_number , $message);
+            }
             
         }
 

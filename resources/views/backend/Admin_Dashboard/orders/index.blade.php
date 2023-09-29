@@ -33,10 +33,11 @@
         <div class="card card-statistics h-100">
             <div class="card-body">
 
-                <table id="table_id" class="display">
+                {{-- <table id="table_id" class="display">
                     <thead>
                         <tr>
                             <th>{{ trans('orders_trans.Id') }}</th>
+                            <th>{{ trans('orders_trans.Cart') }}</th>
                             <th>{{ trans('orders_trans.User_Name') }}</th>
                             <th>{{ trans('orders_trans.Store_Name') }}</th>
                             <th>{{ trans('orders_trans.Category_Name') }}</th>
@@ -53,6 +54,8 @@
                             <tr>
 
                                 <td>{{ $order->id }}</td>
+
+                                <td>{{ $order->cart_id }}</td>
 
                                 <td>
                                     {{ $order->user->first_name }}
@@ -140,9 +143,196 @@
 
                             </tr>
                         @endforeach
+
+
+                     
+                    </tbody>
+                </table> --}}
+
+
+                <table id="table_id" class="display">
+                    <thead>
+                        <tr>
+                            <th>{{ trans('orders_trans.Cart_Number') }}</th>
+                            <th>{{ trans('orders_trans.Id') }}</th>
+                            <th>{{ trans('orders_trans.User_Name') }}</th>
+                            <th>{{ trans('orders_trans.Store_Name') }}</th>
+                            <th>{{ trans('orders_trans.Category_Name') }}</th>
+                            <th>{{ trans('orders_trans.Status') }}</th>
+                            <th>{{ trans('orders_trans.Order_Number') }}</th>
+                            @can('assignDelivery', App\Models\Admin::class)
+                                <th>{{ trans('orders_trans.Assign_Delivery') }}</th>
+                            @endcan
+                            <th>{{ trans('orders_trans.Control') }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @php
+                            $groupedOrders = $orders->groupBy('cart_id');
+                        @endphp
+
+                        @foreach ($groupedOrders as $cartId => $ordersGroup)
+                            <tr>
+                                <!-- Cart ID with rowspan -->
+                                <td rowspan="{{ $ordersGroup->count() }}">{{ $cartId }}</td>
+
+                                <!-- First order's details -->
+                                <td>{{ $ordersGroup[0]->id }}</td>
+                                <td>{{ $ordersGroup[0]->user->first_name }}</td>
+                                <td>{{ $ordersGroup[0]->store->name }}</td>
+                                <td>
+                                    @foreach ($ordersGroup[0]->products as $product)
+                                        {{ $product->category->name }}
+                                    @endforeach
+                                </td>
+                                <td>
+                                    @if ($ordersGroup[0]->status == 'pending')
+                                        <span class="badge badge-rounded badge-success p-2 mb-2">
+                                            {{ trans('orders_trans.Pending') }}
+                                        </span>
+                                    @elseif($ordersGroup[0]->status == 'processing')
+                                        <span class="badge badge-rounded badge-danger p-2 mb-2">
+                                            {{ trans('orders_trans.Processing') }}
+                                        </span>
+                                    @elseif($ordersGroup[0]->status == 'delivering')
+                                        <span class="badge badge-rounded badge-danger p-2 mb-2">
+                                            {{ trans('orders_trans.Delivering') }}
+                                        </span>
+                                    @elseif($ordersGroup[0]->status == 'completed')
+                                        <span class="badge badge-rounded badge-danger p-2 mb-2">
+                                            {{ trans('orders_trans.Completed') }}
+                                        </span>
+                                    @elseif($ordersGroup[0]->status == 'cancelled')
+                                        <span class="badge badge-rounded badge-danger p-2 mb-2">
+                                            {{ trans('orders_trans.Cancelled') }}
+                                        </span>
+                                    @elseif($ordersGroup[0]->status == 'refunded')
+                                        <span class="badge badge-rounded badge-danger p-2 mb-2">
+                                            {{ trans('orders_trans.Refunded') }}
+                                        </span>
+                                    @endif
+                                </td>
+                                <td>{{ $ordersGroup[0]->number }}</td>
+
+                                @php
+                                    $order_delivery = App\Models\OrderDelivery::where('order_id', $ordersGroup[0]->id)->first();
+                                    $delivery = $order_delivery ? App\Models\Delivery::where('id', $order_delivery->delivery_id)->first() : null;
+                                @endphp
+
+                                @can('assignDelivery', App\Models\Admin::class)
+                                    <td>
+                                        @if ($order_delivery)
+                                            <div>{{ $delivery->name }} تم أرسال الطلب لمندوب الشحن</div>
+                                        @else
+                                            <button type="button" class="button x-small" data-toggle="modal"
+                                                data-target="#assign_delivery" data-order-id="{{ $ordersGroup[0]->id }}">
+                                                {{ trans('orders_trans.Assign_Delivery') }}
+                                            </button>
+                                        @endif
+                                    </td>
+                                @endcan
+                                <td>
+                                    <a href="" class="btn btn-primary btn-sm">
+                                        <i class="fa fa-eye"></i>
+                                    </a>
+                                    <a href="{{ Route('admin.orders.edit', $ordersGroup[0]->id) }}"
+                                        class="btn btn-warning btn-sm">
+                                        <i class="fa fa-edit"></i>
+                                    </a>
+
+                                    <form action="{{ Route('admin.orders.destroy', $ordersGroup[0]->id) }}"
+                                        method="post" style="display:inline">
+                                        @csrf
+                                        @method('delete')
+
+                                        <button type="submit" class="btn btn-danger btn-sm">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+
+                            @foreach ($ordersGroup->skip(1) as $additionalOrder)
+                                <tr>
+                                    <!-- Only display order details (except cart ID) for additional rows -->
+                                    <td>{{ $additionalOrder->id }}</td>
+                                    <td>{{ $additionalOrder->user->first_name }}</td>
+                                    <td>{{ $additionalOrder->store->name }}</td>
+                                    <td>
+                                        @foreach ($additionalOrder->products as $product)
+                                            {{ $product->category->name }}
+                                        @endforeach
+                                    </td>
+                                    <td>
+                                        @if ($additionalOrder->status == 'pending')
+                                            <span class="badge badge-rounded badge-success p-2 mb-2">
+                                                {{ trans('orders_trans.Pending') }}
+                                            </span>
+                                        @elseif($additionalOrder->status == 'processing')
+                                            <span class="badge badge-rounded badge-danger p-2 mb-2">
+                                                {{ trans('orders_trans.Processing') }}
+                                            </span>
+                                        @elseif($additionalOrder->status == 'delivering')
+                                            <span class="badge badge-rounded badge-danger p-2 mb-2">
+                                                {{ trans('orders_trans.Delivering') }}
+                                            </span>
+                                        @elseif($additionalOrder->status == 'completed')
+                                            <span class="badge badge-rounded badge-danger p-2 mb-2">
+                                                {{ trans('orders_trans.Completed') }}
+                                            </span>
+                                        @elseif($additionalOrder->status == 'cancelled')
+                                            <span class="badge badge-rounded badge-danger p-2 mb-2">
+                                                {{ trans('orders_trans.Cancelled') }}
+                                            </span>
+                                        @elseif($additionalOrder->status == 'refunded')
+                                            <span class="badge badge-rounded badge-danger p-2 mb-2">
+                                                {{ trans('orders_trans.Refunded') }}
+                                            </span>
+                                        @endif
+                                    </td>
+                                    <td>{{ $additionalOrder->number }}</td>
+                                    @php
+                                        $order_delivery = App\Models\OrderDelivery::where('order_id', $additionalOrder->id)->first();
+                                        $delivery = $order_delivery ? App\Models\Delivery::where('id', $order_delivery->delivery_id)->first() : null;
+                                    @endphp
+
+                                    @can('assignDelivery', App\Models\Admin::class)
+                                        <td>
+                                            @if ($order_delivery)
+                                                <div>{{ $delivery->name }} تم أرسال الطلب لمندوب الشحن</div>
+                                            @else
+                                                <button type="button" class="button x-small" data-toggle="modal"
+                                                    data-target="#assign_delivery"
+                                                    data-order-id="{{ $additionalOrder->id }}">
+                                                    {{ trans('orders_trans.Assign_Delivery') }}
+                                                </button>
+                                            @endif
+                                        </td>
+                                    @endcan
+                                    <td>
+                                        <a href="" class="btn btn-primary btn-sm">
+                                            <i class="fa fa-eye"></i>
+                                        </a>
+                                        <a href="{{ Route('admin.orders.edit', $additionalOrder->id) }}"
+                                            class="btn btn-warning btn-sm">
+                                            <i class="fa fa-edit"></i>
+                                        </a>
+
+                                        <form action="{{ Route('admin.orders.destroy', $additionalOrder->id) }}"
+                                            method="post" style="display:inline">
+                                            @csrf
+                                            @method('delete')
+
+                                            <button type="submit" class="btn btn-danger btn-sm">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @endforeach
                     </tbody>
                 </table>
-
 
 
                 <!-- assign_delivery_modal -->
@@ -174,7 +364,7 @@
                                             <input name="order_id" id="order_id" hidden />
                                         </div>
 
-                                    </div> 
+                                    </div>
 
                                     <div class="row">
                                         <div class="col-md-12">

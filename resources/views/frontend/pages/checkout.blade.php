@@ -16,9 +16,10 @@
                     </div>
                     <div class="col-lg-6 col-md-6 col-12">
                         <ul class="breadcrumb-nav">
-                            <li><a href="{{ Route('home') }}"><i class="lni lni-home"></i> Home</a></li>
-                            <li><a href="">Shop</a></li>
-                            <li>Cart</li>
+                            <li><a href="{{ Route('home') }}"><i class="lni lni-home"></i>
+                                    {{ trans('checkout_trans.Home') }}</a></li>
+                            <li><a href=""> {{ trans('checkout_trans.Shop') }}</a></li>
+                            <li> {{ trans('checkout_trans.Cart') }}</li>
                         </ul>
                     </div>
                 </div>
@@ -45,7 +46,8 @@
                             <ul id="accordionExample">
                                 <li>
                                     <h6 class="title" data-bs-toggle="collapse" data-bs-target="#collapseThree"
-                                        aria-expanded="true" aria-controls="collapseThree">Your Personal Details </h6>
+                                        aria-expanded="true" aria-controls="collapseThree">
+                                        {{ trans('checkout_trans.Your_Personal_Details') }} </h6>
 
 
                                     <section class="checkout-steps-form-content collapse show" id="collapseThree"
@@ -57,14 +59,15 @@
                                                     {{-- <label>User Name</label> --}}
                                                     <div class="row">
                                                         <div class="col-md-6 form-input form">
-                                                            {{-- <input type="text" placeholder="First Name"> --}}
+                                                            <label
+                                                                for="">{{ trans('checkout_trans.First_Name') }}</label>
                                                             <x-frontend.form.input name="address[billing][first_name]"
-                                                                placeholder="First Name"
                                                                 value="{{ Auth::check() ? Auth::user()->first_name : old('address.billing.first_name') }}" />
                                                         </div>
                                                         <div class="col-md-6 form-input form">
+                                                            <label
+                                                                for="">{{ trans('checkout_trans.Last_Name') }}</label>
                                                             <x-frontend.form.input name="address[billing][last_name]"
-                                                                placeholder="Last Name"
                                                                 value="{{ Auth::check() ? Auth::user()->last_name : old('address.billing.last_name') }}" />
                                                         </div>
                                                     </div>
@@ -73,20 +76,21 @@
 
                                             <div class="col-md-6">
                                                 <div class="single-form form-default">
-                                                    {{-- <label>Email Address</label> --}}
                                                     <div class="form-input form">
+                                                        <label
+                                                            for="">{{ trans('checkout_trans.Email') }}</label>
                                                         <x-frontend.form.input name="address[billing][email]"
-                                                            placeholder="Email Address"
                                                             value="{{ Auth::check() ? Auth::user()->email_address : old('address.billing.email') }}" />
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="single-form form-default">
-                                                    {{-- <label>Phone Number</label> --}}
                                                     <div class="form-input form">
+                                                        <label
+                                                            for="">{{ trans('checkout_trans.Phone_Number') }}</label>
+
                                                         <x-frontend.form.input name="address[billing][phone_number]"
-                                                            placeholder="Phone Number"
                                                             value="{{ Auth::check() ? Auth::user()->phone_number : old('address.billing.phone_number') }}" />
                                                     </div>
                                                 </div>
@@ -94,56 +98,59 @@
 
                                             <div class="col-md-6">
                                                 <div class="single-form form-default">
-                                                    {{-- <label>Governorate</label> --}}
                                                     <div class="form-input form">
+                                                        <label
+                                                            for="">{{ trans('checkout_trans.Governorate') }}</label>
                                                         <x-frontend.form.input name="address[billing][governorate]"
-                                                            placeholder="Governorate"
-                                                            value="{{ Auth::check() ? Auth::user()->governorate : old('address.billing.governorate') }}" />
+                                                            value="{{ Auth::check() ? Auth::user()->governorate->name : old('address.billing.governorate') }}" />
                                                     </div>
                                                 </div>
                                             </div>
 
                                             <div class="col-md-6">
                                                 <div class="single-form form-default">
-                                                    {{-- <label>City</label> --}}
                                                     <div class="form-input form">
+                                                        <label
+                                                            for="">{{ trans('checkout_trans.City') }}</label>
                                                         <x-frontend.form.input name="address[billing][city]"
-                                                            placeholder="City"
-                                                            value="{{ Auth::check() ? Auth::user()->city : old('address.billing.city') }}" />
+                                                            value="{{ Auth::check() ? Auth::user()->city->name : old('address.billing.city') }}" />
                                                     </div>
                                                 </div>
                                             </div>
 
                                             <div class="col-md-6">
                                                 <div class="single-form form-default">
-                                                    {{-- <label>Post Code</label> --}}
                                                     <div class="form-input form">
+                                                        <label
+                                                            for="">{{ trans('checkout_trans.Neighborhood') }}</label>
+                                                        <x-frontend.form.input name="address[billing][neighborhood]"
+                                                            value="{{ Auth::check() ? Auth::user()->neighborhood->name : old('address.billing.neighborhood') }}" />
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="single-form form-default">
+                                                    <div class="form-input form">
+                                                        <label
+                                                            for="">{{ trans('checkout_trans.Postal_Code') }}</label>
                                                         <x-frontend.form.input name="address[billing][postal_code]"
-                                                            placeholder=" Postal Code"
                                                             value="{{ Auth::check() ? Auth::user()->postal_code : old('address.billing.postal_code') }}" />
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="single-form form-default">
-                                                    {{-- <label>Street Address</label> --}}
+                                                    <label
+                                                        for="">{{ trans('checkout_trans.Street_Address') }}</label>
                                                     <div class="form-input form">
                                                         <x-frontend.form.input name="address[billing][street_address]"
-                                                            placeholder="Street Address"
                                                             value="{{ Auth::check() ? Auth::user()->street_address : old('address.billing.street_address') }}" />
                                                     </div>
                                                 </div>
                                             </div>
 
-                                            {{-- <div class="col-md-6">
-                                                <div class="single-form form-default">
-                                                    <label>Country</label>
-                                                    <div class="form-input form">
-                                                        <x-frontend.form.select name="address[billing][country]"
-                                                            class="custom-select mr-sm-2" :options="$countries" />
-                                                    </div>
-                                                </div>
-                                            </div> --}}
+
 
                                             <div class="col-md-12">
                                                 <div class="single-checkbox checkbox-style-3">
@@ -152,102 +159,119 @@
                                                     <p>My delivery and mailing addresses are the same.</p>
                                                 </div>
                                             </div>
-                                            <div class="col-md-12">
+                                            {{-- <div class="col-md-12">
                                                 <div class="single-form button">
                                                     <button class="btn" data-bs-toggle="collapse"
                                                         data-bs-target="#collapseFour" aria-expanded="false"
                                                         aria-controls="collapseFour">next
                                                         step</button>
                                                 </div>
-                                            </div>
+                                            </div> --}}
                                         </div>
                                     </section>
 
                                 </li>
                                 <li>
                                     <h6 class="title collapsed" data-bs-toggle="collapse" data-bs-target="#collapseFour"
-                                        aria-expanded="false" aria-controls="collapseFour">Shipping Address</h6>
+                                        aria-expanded="false" aria-controls="collapseFour">
+                                        {{ trans('checkout_trans.Shipping_Information') }}
+                                    </h6>
                                     <section class="checkout-steps-form-content collapse" id="collapseFour"
                                         aria-labelledby="headingFour" data-bs-parent="#accordionExample">
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="single-form form-default">
-                                                    {{-- <label>User Name</label> --}}
                                                     <div class="row">
                                                         <div class="col-md-6 form-input form">
-                                                            {{-- <input type="text" placeholder="First Name"> --}}
-                                                            <x-frontend.form.input name="address[shipping][first_name]"
-                                                                placeholder="First Name" />
+                                                            <label
+                                                                for="">{{ trans('checkout_trans.First_Name') }}</label>
+                                                            <x-frontend.form.input
+                                                                name="address[shipping][first_name]" />
                                                         </div>
                                                         <div class="col-md-6 form-input form">
-                                                            <x-frontend.form.input name="address[shipping][last_name]"
-                                                                placeholder="Last Name" />
+                                                            <label
+                                                                for="">{{ trans('checkout_trans.Last_Name') }}</label>
+                                                            <x-frontend.form.input
+                                                                name="address[shipping][last_name]" />
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="single-form form-default">
-                                                    {{-- <label>Email Address</label> --}}
                                                     <div class="form-input form">
-                                                        <x-frontend.form.input name="address[shipping][email]"
-                                                            placeholder="Email Address" />
+                                                        <label
+                                                            for="">{{ trans('checkout_trans.Email') }}</label>
+                                                        <x-frontend.form.input name="address[shipping][email]" />
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="single-form form-default">
-                                                    {{-- <label>Phone Number</label> --}}
                                                     <div class="form-input form">
-                                                        <x-frontend.form.input name="address[shipping][phone_number]"
-                                                            placeholder="Phone Number" />
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-6">
-                                                <div class="single-form form-default">
-                                                    {{-- <label>Governorate</label> --}}
-                                                    <div class="form-input form">
-                                                        <x-frontend.form.input name="address[shipping][governorate]"
-                                                            placeholder="Governorate" />
+                                                        <label
+                                                            for="">{{ trans('checkout_trans.Phone_Number') }}</label>
+                                                        <x-frontend.form.input
+                                                            name="address[shipping][phone_number]" />
                                                     </div>
                                                 </div>
                                             </div>
 
                                             <div class="col-md-6">
                                                 <div class="single-form form-default">
-                                                    {{-- <label>City</label> --}}
                                                     <div class="form-input form">
-                                                        <x-frontend.form.input name="address[shipping][city]"
-                                                            placeholder="City" />
+                                                        <label
+                                                            for="">{{ trans('checkout_trans.Governorate') }}</label>
+                                                        <x-frontend.form.input name="address[shipping][governorate]" />
                                                     </div>
                                                 </div>
                                             </div>
 
                                             <div class="col-md-6">
                                                 <div class="single-form form-default">
-                                                    {{-- <label>Post Code</label> --}}
                                                     <div class="form-input form">
-                                                        <x-frontend.form.input name="address[shipping][postal_code]"
-                                                            placeholder=" Postal Code" />
+                                                        <label
+                                                            for="">{{ trans('checkout_trans.City') }}</label>
+                                                        <x-frontend.form.input name="address[shipping][city]" />
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="single-form form-default">
+                                                    <div class="form-input form">
+                                                        <label
+                                                            for="">{{ trans('checkout_trans.Neighborhood') }}</label>
+                                                        <x-frontend.form.input
+                                                            name="address[shipping][neighborhood]" />
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="single-form form-default">
+                                                    <div class="form-input form">
+                                                        <label
+                                                            for="">{{ trans('checkout_trans.Postal_Code') }}</label>
+                                                        <x-frontend.form.input name="address[shipping][postal_code]" />
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="single-form form-default">
-                                                    {{-- <label>Street Address</label> --}}
                                                     <div class="form-input form">
-                                                        <x-frontend.form.input name="address[shipping][street_address]"
-                                                            placeholder="Street Address" />
+                                                        <label
+                                                            for="">{{ trans('checkout_trans.Street_Address') }}</label>
+                                                        <x-frontend.form.input
+                                                            name="address[shipping][street_address]" />
                                                     </div>
                                                 </div>
                                             </div>
 
-                                          
 
 
-                                            <div class="col-md-12">
+
+                                            {{-- <div class="col-md-12">
                                                 <div class="steps-form-btn button">
                                                     <button class="btn" data-bs-toggle="collapse"
                                                         data-bs-target="#collapseThree" aria-expanded="false"
@@ -255,7 +279,8 @@
                                                     <a href="javascript:void(0)" class="btn btn-alt">Save &
                                                         Continue</a>
                                                 </div>
-                                            </div>
+                                            </div> --}}
+
                                         </div>
                                     </section>
                                 </li>
@@ -312,7 +337,8 @@
                                 </li> --}}
 
                                 <div class="single-form form-default button">
-                                    <button type="submit" class="btn">Submit</button>
+                                    <button type="submit"
+                                        class="btn">{{ trans('checkout_trans.Submit') }}</button>
                                 </div>
                             </ul>
                         </div>
@@ -363,10 +389,10 @@
                                 <div class="total-price discount">
                                     <p class="value">Coupon:</p>
                                     <p class="price">
-                                        <?php 
+                                        <?php
                                         // get coupon stored in session , if it exist
                                         $coupon = Session::get('coupon');
-                                        if($coupon){
+                                        if ($coupon) {
                                             echo $coupon->discount_amount;
                                         }
                                         ?>
@@ -380,9 +406,9 @@
                                     <p class="price">{{ Currency::format($cart->total()) }}</p>
                                 </div>
                             </div>
-                            <div class="price-table-btn button">
+                            {{-- <div class="price-table-btn button">
                                 <a href="javascript:void(0)" class="btn btn-alt">Checkout</a>
-                            </div>
+                            </div> --}}
                         </div>
                         <div class="checkout-sidebar-banner mt-30">
                             <a href="product-grids.html">

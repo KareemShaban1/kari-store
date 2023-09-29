@@ -23,7 +23,9 @@ class OrderController extends Controller
         //
         $deliveries = Delivery::all();
         $orders = Order::with('user', 'store', 'products.category')->get();
-        return view('backend.Admin_Dashboard.orders.index', compact('orders', 'deliveries'));
+        $groupedOrders = $orders->groupBy('cart_id');
+
+        return view('backend.Admin_Dashboard.orders.index', compact('orders', 'deliveries','groupedOrders'));
     }
 
 

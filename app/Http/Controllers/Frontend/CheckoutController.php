@@ -46,11 +46,15 @@ class CheckoutController extends Controller
 
     public function store(Request $request, CartRepository $cart)
     {
-        $request->validate([]);
+        
+        // $request->validate([
+        //     'phone_number'=>'required',
+        // ]);
 
         // get items / products of the cart , treat each item as a cart , and group them by store
         $items = $cart->get()->groupBy('product.store_id');
 
+        
         // get coupon stored in session , if it exist
         $coupon = Session::get('coupon');
 
@@ -59,27 +63,44 @@ class CheckoutController extends Controller
 
         // if there is coupon stored in session 
         if ($coupon) {
-            // substract coupon discount from total 
+            // subtract coupon discount from total 
             $total -= $coupon->discount_amount;
         }
 
-        DB::beginTransaction();
-        try {
+        // DB::beginTransaction();
+        // try {
 
             // for loop on items as key , value  [store_id , cart_item]
             // each store and its products
             foreach ($items as $store_id => $cart_items) {
 
-                $order = Order::create([
-                    'store_id' => $store_id,
-                    'user_id' => Auth::user('user')->id,
-                    'payment_method' => 'cash_on_delivery',
-                    'total' => $total,
-                    'coupon_id' => $coupon ? $coupon->id : null
-                ]);
-
+                // $order = Order::create([
+                //     'store_id' => $store_id,
+                //     'user_id' => Auth::user('user')->id,
+                //     'payment_method' => 'cash_on_delivery',
+                //     'total' => $total,
+                //     'coupon_id' => $coupon ? $coupon->id : null
+                // ]);
+                
+                $order = new Order();
+                $order->store_id = $store_id;
+                $order->user_id = Auth::user('user')->id;
+                $order->payment_method = 'cash_on_delivery';
+                $order->total = $total;
+                $order->coupon_id = $coupon ? $coupon->id : null;
+                
 
                 foreach ($cart_items as $item) {
+                    
+                    // dd($item->product->store->id , $store_id); 
+                    if($item->product->store->id == $store_id){
+                        
+                        $order->cart_id = $item->cookie_id;
+                        $order->save();
+                    }
+                    
+                    
+                    
                     OrderItem::create([
                         'order_id' => $order->id,
                         'product_id' => $item->product_id,
@@ -87,7 +108,11 @@ class CheckoutController extends Controller
                         'price' => $item->product->price,
                         'quantity' => $item->quantity,
                     ]);
+                    
+                
                 }
+
+                
                 if ($coupon) {
                     OrderCoupon::create([
                         'order_id' => $order->id,
@@ -108,22 +133,24 @@ class CheckoutController extends Controller
 
                 // Remove the coupon details from the session
                 Session::forget('coupon');
+                
             }
 
 
-            DB::commit();
+            // DB::commit();
 
             event(new OrderCreated($order));
 
             ////// another way
             // event('order.created',$order ,Auth::user());
 
-        } catch (\Throwable $e) {
+        // } catch (\Throwable $e) {
 
-            DB::rollBack();
-            throw $e;
-        }
+        //     DB::rollBack();
+        //     throw $e;
+        // }
 
         return redirect()->route('home');
     }
+    
 }

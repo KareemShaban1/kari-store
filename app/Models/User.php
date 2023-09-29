@@ -102,4 +102,16 @@ class User extends Authenticatable implements MustVerifyEmail
             info("Error: ". $e->getMessage());
         }
     }
+
+    public function governorate(){
+        return $this->belongsTo(Destination::class,'governorate_id','id');
+    }
+
+    public function city(){
+        return $this->belongsTo(Destination::class,'city_id','id');
+    }
+
+    public function neighborhood(){
+        return $this->belongsTo(Destination::class,'neighborhood_id','id');
+    }
 }

@@ -20,7 +20,7 @@ class Cart extends Model
 
     // Events (Observers)
     // Creating , created , updating , updated , saving , saved
-    // deleting , deleted , retoring , restored  , retrieved
+    // deleting , deleted , restoring , restored  , retrieved
 
     // used to add observers to model
     protected static function booted()

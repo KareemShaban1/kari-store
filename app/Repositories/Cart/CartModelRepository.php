@@ -47,10 +47,10 @@ class CartModelRepository implements CartRepository
         // if not there is cart with products create one and add products
         if (!$item) {
             $cart = Cart::create([
-                      'user_id' => Auth::id(),
-                      'product_id' => $product->id,
-                      'quantity' => $quantity,
-                      'coupon_code' => $this->couponCode, // Store the applied coupon code
+                    'user_id' => Auth::id(),
+                    'product_id' => $product->id,
+                    'quantity' => $quantity,
+                    'coupon_code' => $this->couponCode, // Store the applied coupon code
 
             ]);
             $this->get()->push($cart);
@@ -67,7 +67,7 @@ class CartModelRepository implements CartRepository
         update(
             [
                             'quantity' => $quantity,
-                  ]
+            ]
         );
     }
 

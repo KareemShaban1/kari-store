@@ -25,6 +25,7 @@ return new class extends Migration
             $table->float('tax')->default(0);
             $table->foreignId('coupon_id')->nullable()->constrained('coupons')->nullOnDelete();
             $table->float('total')->default(0);
+            $table->string('cart_id');
             
             $table->timestamps();
         });
