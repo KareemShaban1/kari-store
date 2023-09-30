@@ -160,6 +160,7 @@
                             <th>{{ trans('orders_trans.Category_Name') }}</th>
                             <th>{{ trans('orders_trans.Status') }}</th>
                             <th>{{ trans('orders_trans.Order_Number') }}</th>
+                            <th>{{ trans('orders_trans.Total') }}</th>
                             @can('assignDelivery', App\Models\Admin::class)
                                 <th>{{ trans('orders_trans.Assign_Delivery') }}</th>
                             @endcan
@@ -213,6 +214,22 @@
                                     @endif
                                 </td>
                                 <td>{{ $ordersGroup[0]->number }}</td>
+
+
+                                <td>
+                                    @php
+                                        $totalPrice = 0;
+                                    @endphp
+
+                                    @foreach ($ordersGroup[0]->products as $product)
+                                        @php
+                                            $totalPrice += $product->price;
+                                        @endphp
+                                    @endforeach
+
+                                    {{ Currency::format($totalPrice) }}
+                                </td>
+
 
                                 @php
                                     $order_delivery = App\Models\OrderDelivery::where('order_id', $ordersGroup[0]->id)->first();
@@ -291,6 +308,19 @@
                                         @endif
                                     </td>
                                     <td>{{ $additionalOrder->number }}</td>
+                                    <td>
+                                        @php
+                                            $totalPrice = 0;
+                                        @endphp
+
+                                        @foreach ($additionalOrder->products as $product)
+                                            @php
+                                                $totalPrice += $product->price;
+                                            @endphp
+                                        @endforeach
+
+                                        {{ Currency::format($totalPrice) }}
+                                    </td>
                                     @php
                                         $order_delivery = App\Models\OrderDelivery::where('order_id', $additionalOrder->id)->first();
                                         $delivery = $order_delivery ? App\Models\Delivery::where('id', $order_delivery->delivery_id)->first() : null;

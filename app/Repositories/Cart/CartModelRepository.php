@@ -80,6 +80,8 @@ class CartModelRepository implements CartRepository
     {
         $this->couponCode = null; // Clear the applied coupon code
         Cart::query()->delete();
+        
+        
     }
 
     public function total(): float

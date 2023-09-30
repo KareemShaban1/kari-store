@@ -25,7 +25,7 @@ class Cart extends Model
     // used to add observers to model
     protected static function booted()
     {
-        static::observe(CartObserver::class);
+        static::observe(CartObserver::class); 
         // static::creating(function(Cart $cart){
         //     $cart->id = Str::uuid();
         // });
@@ -43,8 +43,40 @@ class Cart extends Model
             $cookie_id = Str::uuid();
             Cookie::queue('cart_id', $cookie_id, 30 * 24 * 60);
         }
-
         return $cookie_id;
+    }
+
+    public static function regenerateCookieId()
+{
+    // Step 1: Forget the existing 'cart_id' cookie
+    Cookie::queue(Cookie::forget('cart_id'));
+
+    // Step 2: Generate a new 'cart_id'
+    $newCartId = Str::uuid();
+
+    // Step 3: Queue the new 'cart_id' cookie with the updated value
+    Cookie::queue('cart_id', $newCartId, 30 * 24 * 60);
+
+    // Return the new 'cart_id'
+    return $newCartId;
+
+    dd($newCartId);
+}
+
+        public static function removeCookieId()
+    {
+        
+       // Step 1: Create an expired cookie instance with the same name
+    $expiredCookie = Cookie::forget('cart_id');
+
+    // Step 2: Add the expired cookie to the response to remove the existing cookie
+    Cookie::queue($expiredCookie);
+
+    // You can also unset the cookie variable in the current request
+    // cookie()->forget('cart_id');
+
+    // Now, if you check the cookie, it should be removed
+    // dd(Cookie::get('cart_id'));
     }
 
     public function user()

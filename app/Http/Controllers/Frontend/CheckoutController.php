@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Events\OrderCreated;
 use App\Exceptions\InvalidOrderException;
 use App\Http\Controllers\Controller;
+use App\Models\Cart;
 use App\Models\Order;
 use App\Models\OrderCoupon;
 use App\Models\OrderItem;
@@ -67,8 +68,8 @@ class CheckoutController extends Controller
             $total -= $coupon->discount_amount;
         }
 
-        // DB::beginTransaction();
-        // try {
+        DB::beginTransaction();
+        try {
 
             // for loop on items as key , value  [store_id , cart_item]
             // each store and its products
@@ -137,18 +138,21 @@ class CheckoutController extends Controller
             }
 
 
-            // DB::commit();
+            DB::commit();
+
+            Cart::regenerateCookieId();
+
 
             event(new OrderCreated($order));
 
             ////// another way
             // event('order.created',$order ,Auth::user());
 
-        // } catch (\Throwable $e) {
+        } catch (\Throwable $e) {
 
-        //     DB::rollBack();
-        //     throw $e;
-        // }
+            DB::rollBack();
+            throw $e;
+        }
 
         return redirect()->route('home');
     }

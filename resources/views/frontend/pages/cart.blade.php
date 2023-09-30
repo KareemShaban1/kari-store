@@ -172,10 +172,41 @@
                                             </li>
                                         </div>
                                         <li>Shipping
-                                            @php
-                                                $user = Auth::user();
-                                                $shipping_fees = $user->neighborhood->price;
-                                            @endphp
+
+                                        @php
+                                            $user = Auth::user();
+                                            $neighborhood = $user->neighborhood->price;
+                                            $shipping_fees = 0; // Initialize the shipping fees to zero
+                                            $firstStoreId = null; // Initialize the first store's ID to null
+                                            $firstStoreShippingFee = 0; // Initialize the shipping fee for the first store
+                                            $additionalStoreShippingFee = 0; // Initialize the shipping fee for additional stores
+                                            $unique = [];
+                                            foreach ($cart->get() as $cart_item) {
+                                                $store_id = $cart_item->product->store_id;
+                                                
+                                                // dd($cart_item);
+                                                
+                                                if ($firstStoreId === null) {
+                                                    // Set the first store's ID when it's not set
+                                                    $firstStoreId = $store_id;
+                                                }
+                                                
+                                                if ($store_id === $firstStoreId) {
+                                                    // Calculate shipping fees for the first product from the first store
+                                                    $firstStoreShippingFee = $neighborhood;
+                                                } else {
+                                                    // Calculate shipping fees for the first product from other stores
+                                                    $additionalStoreShippingFee = $neighborhood / 2;
+                                                }
+                                                
+                                                // Calculate shipping fees for additional products from the same store
+                                                if ($store_id === $firstStoreId) {
+                                                    $shipping_fees += $firstStoreShippingFee;
+                                                } else {
+                                                    $shipping_fees += $additionalStoreShippingFee;
+                                                }
+                                            }
+                                        @endphp
                                             <span class="shipping">
                                                 {{-- Free --}}
                                                 {{-- {{ $shipping_fees }} --}}
@@ -259,7 +290,7 @@
                     var alltotalText = $(this).find('.col-lg-2.col-md-2.col-12 p').text();
                     var alltotalValue = parseFloat(alltotalText.replace(/[^0-9.-]+/g, ''));
                     AlltotalSum += alltotalValue;
-                    AfterShipping = AlltotalSum - shipping;
+                    AfterShipping = AlltotalSum + shipping;
                 });
 
                 // Cart Subtotal part

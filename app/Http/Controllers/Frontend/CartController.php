@@ -241,4 +241,9 @@ class CartController extends Controller
 
         // return $total;
     }
+
+
+    public function calculateShippingFees(){
+        
+    }
 }

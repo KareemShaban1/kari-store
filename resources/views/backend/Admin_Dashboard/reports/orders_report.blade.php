@@ -104,7 +104,19 @@
 
                                 <td>{{ $order->number }}</td>
 
-                                <td>{{ $order->total }}</td>
+                                <td>
+                                    @php
+                                        $totalPrice = 0;
+                                    @endphp
+
+                                    @foreach ($order->products as $product)
+                                        @php
+                                            $totalPrice += $product->price;
+                                        @endphp
+                                    @endforeach
+
+                                    {{ Currency::format($totalPrice) }}
+                                </td>
 
 
 
