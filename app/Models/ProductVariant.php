@@ -11,7 +11,7 @@ class ProductVariant extends Model
     protected $table = 'product_variant';
     protected $fillable = [
         'product_id', 'attribute_id', 'attribute_value_id', 'sku', 'quantity',
-        'price', 'compare_price', 'image','vendor_id'
+        'price', 'compare_price', 'image','store_id'
     ];
 
 
@@ -26,7 +26,7 @@ class ProductVariant extends Model
         if (Str::startsWith($this->image, ['http://', 'https://'])) {
             return $this->image;
         }
-        return asset('storage/' . $this->image);
+        return asset('thumbnail/products_variants/' . $this->image);
     } // $variant->image_url
 
 
@@ -45,8 +45,8 @@ class ProductVariant extends Model
     {
         return $this->belongsTo(AttributeValue::class, 'attribute_value_id', 'id');
     }
-    public function vendor()
+    public function store()
     {
-        return $this->belongsTo(Vendor::class, 'vendor_id', 'id');
+        return $this->belongsTo(Store::class, 'store_id', 'id');
     }
 }

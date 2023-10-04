@@ -134,6 +134,16 @@
                     </div>
                 </div>
             </div>
+
+            <div class="row">
+                @foreach ($product_variants as $variant)
+                    <div class="col-lg-3 col-md-6 col-12">
+                        <x-frontend.product-variant-card :variant="$variant" />
+                    </div>
+                @endforeach
+
+            </div>
+
             <div class="product-details-info">
                 <div class="single-block">
                     <div class="row">
@@ -186,6 +196,7 @@
                 <x-frontend.reviews :reviews="$reviews" />
 
             </div>
+
 
         </div>
     </section>

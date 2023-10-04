@@ -32,14 +32,12 @@
         <div class="card card-statistics h-100">
             <div class="card-body">
 
-                <div>
+                {{-- <div>
                     <p>{{ Auth::user('admin')->name }}</p>
-                </div>
+                </div> --}}
 
                 <div class="row">
-                    {{-- @php
-                        echo Auth::user('admin')
-                    @endphp --}}
+
 
 
                     {{-- Stores --}}
@@ -184,6 +182,23 @@
                     </div>
 
 
+
+
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 mb-30">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title">Top 5 Products Sold </h5>
+                                <div class="chart-wrapper">
+                                    <div id="canvas-holder" style="width: 100%; margin: 0 auto; height: 300px;">
+                                        <canvas id="products_chart" width="550"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
             </div>
@@ -193,5 +208,55 @@
 <!-- row closed -->
 @endsection
 @section('js')
+<script src="{{ asset('backend/assets/js/chart-init.js') }}"></script>
 
+<script>
+    (function($) {
+        // Extract product names and order counts from the passed PHP variables
+        var productNames = @json($products->pluck('name'));
+        var orderCounts = @json($topProducts->pluck('total_orders'));
+
+        var productData = {
+            datasets: [{
+                data: orderCounts,
+                backgroundColor: [
+                    window.chartColors.red,
+                    window.chartColors.orange,
+                    window.chartColors.yellow,
+                    window.chartColors.green,
+                    window.chartColors.blue,
+                ],
+                label: 'Top Products'
+            }],
+            labels: productNames // Use the product names as labels
+        };
+
+        var config3 = {
+            type: 'doughnut',
+            data: productData,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                legend: {
+                    position: 'bottom',
+                },
+                title: {
+                    display: false,
+                    text: 'Top Products Chart'
+                },
+                animation: {
+                    animateScale: true,
+                    animateRotate: true
+                }
+            }
+        };
+
+        window.onload = function() {
+            if ($('#products_chart').exists()) {
+                var ctx3 = document.getElementById("products_chart").getContext("2d");
+                window.myLine3 = new Chart(ctx3, config3);
+            }
+        }
+    })(jQuery);
+</script>
 @endsection

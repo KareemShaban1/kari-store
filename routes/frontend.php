@@ -24,7 +24,6 @@ Route::group([
     Route::group(
         ['middleware' => ['auth:web','email_verified']],
         function () {
-            Route::get('/', [HomeController::class, 'index'])->name('home');
             Route::resource('cart', CartController::class);
             Route::post('/apply-coupon', [CartController::class, 'applyCoupon'])->name('cart.applyCoupon');
             Route::resource('reviews', ReviewsController::class);
@@ -33,6 +32,8 @@ Route::group([
 
         }
     );
+
+    Route::get('/', [HomeController::class, 'index'])->name('home');
 
 
 

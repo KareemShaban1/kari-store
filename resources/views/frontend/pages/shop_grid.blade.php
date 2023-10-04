@@ -16,13 +16,13 @@
                             <h1 class="page-title">Shop Grid</h1>
                         </div>
                     </div>
-                    <div class="col-lg-6 col-md-6 col-12">
+                    {{-- <div class="col-lg-6 col-md-6 col-12">
                         <ul class="breadcrumb-nav">
                             <li><a href="{{ Route('home') }}"><i class="lni lni-home"></i> Home</a></li>
                             <li><a href="">Shop</a></li>
                             <li>Shop Grid</li>
                         </ul>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>
@@ -106,8 +106,8 @@
                             <ul class="list">
                                 @foreach ($stores as $store)
                                     <li>
-                                        <input type="checkbox" value="{{ $store->id }}" name="store[]"
-                                            class="store" @checked($store_id == $store->id)>
+                                        <input type="checkbox" value="{{ $store->id }}" name="store[]" class="store"
+                                            @checked($store_id == $store->id)>
                                         <label for="">{{ $store->name }}
                                             {{-- ({{ $vendor->products()->count() }} ) --}}
                                         </label>
@@ -121,13 +121,18 @@
                         <!-- Start Brand Filter -->
                         <div class="single-widget condition">
                             <h3>Filter by Brand</h3>
-                            @foreach ($brands as $brand)
-                                {{-- <input type="radio" class="brands" name="brand" value="{{ $brand->id }}"> --}}
-                                <input type="checkbox" value="{{ $brand->id }}" name="brand[]" class="brand">
-                                <label>
-                                    {{ $brand->name }}
-                                </label>
-                            @endforeach
+                            <ul class="list">
+                                @foreach ($brands as $brand)
+                                    <li>
+                                        {{-- <input type="radio" class="brands" name="brand" value="{{ $brand->id }}"> --}}
+                                        <input type="checkbox" value="{{ $brand->id }}" name="brand[]"
+                                            class="brand">
+                                        <label>
+                                            {{ $brand->name }}
+                                        </label>
+                                    </li>
+                                @endforeach
+                            </ul>
                         </div>
                         <!-- End Brand Filter -->
 

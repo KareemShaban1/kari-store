@@ -518,6 +518,8 @@
         <!-- End Brands Area -->
     @endif
 
+
+    
     @if ($websiteParts['parts']['Blog Section'] ?? null && $websiteParts['parts']['Blog Section'] == 1)
         <!-- Start Blog Section Area -->
         <section class="blog-section section">

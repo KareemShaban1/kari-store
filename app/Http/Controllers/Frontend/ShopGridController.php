@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 
 class ShopGridController extends Controller
 {
-    private $productPerPage = 6;
+    private $productPerPage = 12;
 
     public function index(Request $request, $category_id = null)
     {

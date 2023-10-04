@@ -15,6 +15,7 @@ class Vendor extends User
     use HasApiTokens ;
     use HasRoles;
     protected $fillable = ['name', 'email', 'phone', 'password', 'store_id'];
+    
 
     public function store()
     {

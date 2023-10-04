@@ -9,9 +9,9 @@
           padding: 0;
           border-radius: 100%;
           line-height: 5px;
- }
+}
 
- table.dataTable thead>tr>th.sorting_asc,
+table.dataTable thead>tr>th.sorting_asc,
 table.dataTable thead>tr>th.sorting_desc,
 table.dataTable thead>tr>th.sorting,
 table.dataTable thead>tr>td.sorting_asc,
@@ -29,9 +29,11 @@ table.dataTable.display tbody tr:first-child td {
 }
 
 .side-menu-fixed .side-menu {
-          background-color: #000000;
+          /* background-color: #000000; */
+          background-color: #141423;
 }
 
 .side-menu-fixed .side-menu-bg {
-          background-color: #000000; 
+          /* background-color: #000000;  */
+          background-color: #141423;
 }

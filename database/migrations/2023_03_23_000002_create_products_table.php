@@ -21,7 +21,7 @@ return new class () extends Migration {
             $table->string('name');
             $table->foreignId('brand_id')->nullable()->constrained('brands', 'id')->nullOnDelete();
             $table->string('slug')->unique();
-            $table->text('description')->nullable();
+            $table->longText('description')->nullable();
             $table->string('image')->nullable();
             $table->float('price')->default(0);
             $table->float('compare_price')->nullable();

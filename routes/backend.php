@@ -61,6 +61,9 @@ Route::group(
 
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
+        Route::get('/charts',function(){
+          return view('backend.Admin_Dashboard.dashboard.charts');
+        });
 
         Route::resource('/categories', CategoriesController::class);
         Route::get('/trash', [CategoriesController::class, 'trash'])->name('categories.trash');
@@ -80,11 +83,13 @@ Route::group(
         Route::resource('/vendors', VendorController::class);
 
         Route::resource('/products', ProductsController::class);
+        
         Route::get('/add_variant/{product_id}', [ProductsController::class, 'add_variant'])->name('products.add_variant');
 
         Route::resource('/product_variants', ProductVariantsController::class);
-        Route::get('/create/{product_id}', [ProductVariantsController::class, 'create'])->name('product_variants.create');
-
+        
+        Route::get('/create_variant/{product_id}', [ProductVariantsController::class, 'create'])->name('product_variants.create');
+ 
         Route::get('/get_attribute_value/{attribute_id}', [ProductVariantsController::class, 'get_attribute_value'])->name('get_attribute_value');
 
         Route::resource('/attributes', AttributesController::class);
@@ -143,7 +148,7 @@ Route::group([
 
       Route::resource('/product_variants', VendorProductVariantsController::class);
       
-      Route::get('/create/{product_id}', [VendorProductVariantsController::class, 'create'])->name('product_variants.create');
+      Route::get('/create_product_variant/{product_id}', [VendorProductVariantsController::class, 'create'])->name('product_variants.create');
 
       Route::get('/get_attribute_value/{attribute_id}', [VendorProductVariantsController::class, 'get_attribute_value'])->name('get_attribute_value');
 

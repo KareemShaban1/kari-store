@@ -233,6 +233,8 @@
 
 @endsection
 @section('js')
+
+
 <script>
     // function to preview image
     function preview() {
@@ -287,7 +289,7 @@
                     success: function(response) {
                         var $form = $(
                             '#product_variant_form'
-                            ); // Convert the HTML code into a jQuery object
+                        ); // Convert the HTML code into a jQuery object
 
                         // Create and append the two input elements to the form
                         var input1 = '<input type="hidden" name="attribute_id" value="' +
@@ -350,23 +352,35 @@
                     // Assuming the response is the HTML code for a new table row
                     // You can modify this based on your actual response format
                     $('#product-variants-table').append(
-                    newRow); // Append the new row to the table body
+                        newRow); // Append the new row to the table body
                     form[0].reset(); // Reset the form inputs
                     $('#frame').attr('src',
                         "{{ asset('backend/assets/images/profile-avatar.jpg') }}");
 
                 },
                 error: function(xhr, status, error) {
-                    var errors = xhr.responseJSON.errors;
+                    var errors = xhr.responseJSON;
 
                     // Clear previous error messages
                     $('.alert.alert-danger').remove();
+
                     // Display error messages
-                    $.each(errors, function(field, messages) {
-                        var fieldError = '<div class="alert alert-danger">' +
-                            messages[0] + '</div>';
-                        $('[name="' + field + '"]').after(fieldError);
-                    });
+                    if (errors && typeof errors === 'object') {
+                        $.each(errors, function(field, messages) {
+                            var fieldError = '<div class="alert alert-danger">' +
+                                messages.join('<br>') +
+                                '</div>'; // Join multiple error messages with line breaks
+                            $('[name="' + field + '"]').after(fieldError);
+                        });
+                    } else if (typeof errors === 'string') {
+                        // If the error is a simple string message, display it
+                        var globalError = '<div class="alert alert-danger">' + errors +
+                            '</div>';
+                        $('#global-error-container').html(globalError);
+                    } else {
+                        // Handle other error cases as needed
+                        console.log(error, errors);
+                    }
                 }
             });
         });

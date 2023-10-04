@@ -137,7 +137,7 @@
                                         <div class="form-group">
                                             <label for="reg-fn">First Name</label>
                                             <input class="form-control" type="text" value="{{ $user->first_name }}"
-                                                name="first_name" id="reg-fn" >
+                                                name="first_name" id="reg-fn">
                                             @error('first_name')
                                                 <div class="alert alert-danger">
                                                     <span class="text-danger">{{ $message }}</span>
@@ -150,7 +150,7 @@
                                         <div class="form-group">
                                             <label for="reg-fn">Last Name</label>
                                             <input class="form-control" type="text" value="{{ $user->last_name }}"
-                                                name="last_name" id="reg-fn" >
+                                                name="last_name" id="reg-fn">
                                         </div>
                                         @error('last_name')
                                             <div class="alert alert-danger">
@@ -177,8 +177,7 @@
                                         <div class="form-group">
                                             <label for="reg-email">E-mail Address</label>
                                             <input class="form-control" type="email"
-                                                value="{{ $user->email_address }}" name="email_address" id="reg-email"
-                                                >
+                                                value="{{ $user->email_address }}" name="email_address" id="reg-email">
                                             @error('email')
                                                 <div class="alert alert-danger">
                                                     <span class="text-danger">{{ $message }}</span>
@@ -212,73 +211,72 @@
                                         </div>
                                     </div>
 
-                                
 
 
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label> governorate<span class="text-danger">*</span></label>
-                                                <select name="governorate" id="" class="custom-select mr-sm-2"
-                                                    >
 
-                                                    <option disabled selected>أختار من القائمة </option>
-                                                    @foreach ($destinations as $destination)
-                                                        @if ($destination->rank == '1')
-                                                            <option value="{{ $destination->id }}"
-                                                                @selected($destination->id == $user->governorate)>
-                                                                {{ $destination->name }}</option>
-                                                        @endif
-                                                    @endforeach
-                                                </select>
-                                                @error('parent_id')
-                                                    <div class="alert alert-danger">{{ $message }}</div>
-                                                @enderror
-                                            </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label> governorate<span class="text-danger">*</span></label>
+                                            <select name="governorate" id="" class="custom-select mr-sm-2">
+
+                                                <option disabled selected>أختار من القائمة </option>
+                                                @foreach ($destinations as $destination)
+                                                    @if ($destination->rank == '1')
+                                                        <option value="{{ $destination->id }}"
+                                                            @selected($destination->id == $user->governorate->id)>
+                                                            {{ $destination->name }}</option>
+                                                    @endif
+                                                @endforeach
+                                            </select>
+                                            @error('parent_id')
+                                                <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
+                                    </div>
 
 
-                                
 
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label> city<span class="text-danger">*</span></label>
-                                                <select name="city" id="" class="custom-select mr-sm-2"
-                                                    >
 
-                                                    <option disabled selected>أختار من القائمة </option>
-                                                    {{-- @foreach ($destinations as $destination)
-                                                        @if ($destination->rank == '2')
-                                                            <option value="{{ $destination->id }}">
-                                                                {{ $destination->name }}</option>
-                                                        @endif
-                                                    @endforeach --}}
-                                                </select>
-                                                @error('parent_id')
-                                                    <div class="alert alert-danger">{{ $message }}</div>
-                                                @enderror
-                                            </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label> city<span class="text-danger">*</span></label>
+                                            <select name="city" id="" class="custom-select mr-sm-2">
+
+                                                <option disabled selected>أختار من القائمة </option>
+                                                @foreach ($destinations as $destination)
+                                                    @if ($destination->rank == '2')
+                                                        <option value="{{ $destination->id }}"
+                                                            @selected($destination->id == $user->city->id)>
+                                                            {{ $destination->name }}</option>
+                                                    @endif
+                                                @endforeach
+                                            </select>
+                                            @error('parent_id')
+                                                <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
+                                    </div>
 
 
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label> neighburhood<span class="text-danger">*</span></label>
-                                                <select name="neighborhood" id=""
-                                                    class="custom-select mr-sm-2" >
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label> neighburhood<span class="text-danger">*</span></label>
+                                            <select name="neighborhood" id="" class="custom-select mr-sm-2">
 
-                                                    <option disabled selected>أختار من القائمة </option>
-                                                    {{-- @foreach ($destinations as $destination)
-                                                        @if ($destination->rank == '3')
-                                                            <option value="{{ $destination->id }}">
-                                                                {{ $destination->name }}</option>
-                                                        @endif
-                                                    @endforeach --}}
-                                                </select>
-                                                @error('parent_id')
-                                                    <div class="alert alert-danger">{{ $message }}</div>
-                                                @enderror
-                                            </div>
+                                                <option disabled selected>أختار من القائمة </option>
+                                                @foreach ($destinations as $destination)
+                                                    @if ($destination->rank == '3')
+                                                        <option value="{{ $destination->id }}"
+                                                            @selected($destination->id == $user->neighborhood->id)>
+                                                            {{ $destination->name }}</option>
+                                                    @endif
+                                                @endforeach
+                                            </select>
+                                            @error('parent_id')
+                                                <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
+                                    </div>
 
 
 

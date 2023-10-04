@@ -1,9 +1,11 @@
-
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+{{-- <script src="{{ URL::asset('backend/assets/js/jquery-3.3.1.min.js') }}"></script> --}}
+
 
 <script src="{{ URL::asset('backend/assets/js/plugins-jquery.js') }}"></script>
 <script>
-        var plugin_path = '{{ asset('backend/assets/js/') }}';
+    var plugin_path = '{{ asset('backend/assets/js/') }}';
 </script>
 
 @yield('js')
@@ -28,7 +30,6 @@
 <script src="{{ URL::asset('backend/assets/js/summernote-lite.min.js') }}"></script>
 
 <script>
-
     $('#summernote').summernote({
         placeholder: 'Hello ..!',
         tabsize: 2,
@@ -43,9 +44,4 @@
             ['view', ['codeview', 'help']]
         ]
     });
-
-    
 </script>
-
-
-

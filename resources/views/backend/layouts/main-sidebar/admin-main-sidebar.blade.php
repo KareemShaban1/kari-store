@@ -474,6 +474,56 @@
                 </li>
 
 
+                <!-- Settings Management-->
+                <li>
+
+                    <a href="javascript:void(0);" data-toggle="collapse" data-target="#settings_management">
+                        <div class="pull-left"><i class="fa-regular fa-file-lines"></i><span class="right-nav-text">
+                                {{ trans('sidebar_trans.Settings') }}</span></div>
+                        <div class="pull-right"><i class="ti-plus"></i></div>
+                        <div class="clearfix"></div>
+                    </a>
+
+                    <ul id="settings_management" class="collapse" data-parent="#sidebarnav">
+
+                        <!-- menu item reports-->
+                        <li>
+                            <a href="javascript:void(0);" data-toggle="collapse" data-target="#website-settings">
+                                <div class="pull-left"><i class="fa-solid fa-cart-shopping"></i><span
+                                        class="right-nav-text">{{ trans('sidebar_trans.Payment') }} </span>
+                                </div>
+                                <div class="pull-right"><i class="ti-plus"></i></div>
+                                <div class="clearfix"></div>
+                            </a>
+                            <ul id="website-settings" class="collapse">
+
+                                <li> <a href="">{{ trans('sidebar_trans.Payment_Settings') }}</a>
+                                </li>
+
+                            </ul>
+                        </li>
+
+                        <!-- menu item reports-->
+                        <li>
+                            <a href="javascript:void(0);" data-toggle="collapse" data-target="#payment-settings">
+                                <div class="pull-left"><i class="fa-solid fa-cart-shopping"></i><span
+                                        class="right-nav-text">{{ trans('sidebar_trans.Website') }} </span>
+                                </div>
+                                <div class="pull-right"><i class="ti-plus"></i></div>
+                                <div class="clearfix"></div>
+                            </a>
+                            <ul id="payment-settings" class="collapse">
+                                <li> <a href="">{{ trans('sidebar_trans.Website_Settings') }}
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </li>
+
+                    </ul>
+                </li>
+
+
 
 
                 <!-- menu item WebsiteParts-->

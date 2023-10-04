@@ -52,7 +52,6 @@ class ProductVariantsController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request->all());
         $this->validate($request, [
             'product_id' => 'required',
             'attribute_id' => 'required',
@@ -64,11 +63,13 @@ class ProductVariantsController extends Controller
         ]);
         // $data = $request->all();
 
-        // get requst input array without [image]
+        // get request input array without [image]
         $data = $request->except('image');
 
         // add 'image' to the input array $data
-        $data['image'] = $this->uploadImage($request, 'image', 'products_variants');
+        $data['image'] = $this->ProcessImage($request, 'image', 'products_variants');
+        $product = Product::findOrFail($request->product_id)->first();
+        $data['store_id'] = $product->store_id;
         $product_variant =  ProductVariant::create($data);
 
         // Prepare the response data

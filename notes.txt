@@ -99,3 +99,11 @@ in App\Http\Controllers\Auth\RegisteredUserController;
         // Custom redirect logic
         return redirect()->route('login');
         }        
+
+
+
+// destination
+0 => country
+1 => governorate
+2 => city
+3 => neighborhood
