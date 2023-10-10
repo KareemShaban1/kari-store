@@ -33,6 +33,7 @@
 
     <x-frontend.alert type="success" />
 
+    
     <!--====== Checkout Form Steps Part Start ======-->
 
     <section class="checkout-wrapper section">

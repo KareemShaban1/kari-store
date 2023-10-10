@@ -38,25 +38,48 @@ class CartModelRepository implements CartRepository
     }
 
 
-    public function add(Product $product, $quantity = 1)
+    public function add(Product $product, $quantity = 1 , $variant_id = null)
     {
+       if($variant_id != null){
 
-        // if there is cart with products get it
-        $item =  Cart::where('product_id', '=', $product->id)->first();
+         // if there is cart with products get it
+         $item =  Cart::where('variant_id', '=', $variant_id)->first();
 
-        // if not there is cart with products create one and add products
-        if (!$item) {
-            $cart = Cart::create([
-                    'user_id' => Auth::id(),
-                    'product_id' => $product->id,
-                    'quantity' => $quantity,
-                    'coupon_code' => $this->couponCode, // Store the applied coupon code
+         
+         // if not there is cart with products create one and add products
+         if (!$item) {
+             $cart = Cart::create([
+                     'user_id' => Auth::id(),
+                     'product_id' => $product->id,
+                     'variant_id'=>$variant_id,
+                     'quantity' => $quantity,
+                     'coupon_code' => $this->couponCode, // Store the applied coupon code
+             ]);
+             
+             $this->get()->push($cart);
+             return $cart;
+         }
+         return $item->increment('quantity', $quantity);
+        
+       
+       }else {
+         // if there is cart with products get it
+         $item =  Cart::where('product_id', '=', $product->id)->first();
 
-            ]);
-            $this->get()->push($cart);
-            return $cart;
-        }
-        return $item->increment('quantity', $quantity);
+         // if not there is cart with products create one and add products
+         if (!$item) {
+             $cart = Cart::create([
+                     'user_id' => Auth::id(),
+                     'product_id' => $product->id,
+                     'quantity' => $quantity,
+                     'coupon_code' => $this->couponCode, // Store the applied coupon code
+ 
+             ]);
+             $this->get()->push($cart);
+             return $cart;
+         }
+         return $item->increment('quantity', $quantity);
+       }
     }
 
     public function update($cart_id, $quantity, $product_id)

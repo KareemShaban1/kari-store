@@ -173,43 +173,36 @@
                                         </div>
                                         <li>Shipping
 
-                                        @php
-                                            $user = Auth::user();
-                                            $neighborhood = $user->neighborhood->price;
-                                            $shipping_fees = 0; // Initialize the shipping fees to zero
-                                            $firstStoreId = null; // Initialize the first store's ID to null
-                                            $firstStoreShippingFee = 0; // Initialize the shipping fee for the first store
-                                            $additionalStoreShippingFee = 0; // Initialize the shipping fee for additional stores
-                                            $unique = [];
-                                            foreach ($cart->get() as $cart_item) {
-                                                $store_id = $cart_item->product->store_id;
-                                                
-                                                // dd($cart_item);
-                                                
-                                                if ($firstStoreId === null) {
-                                                    // Set the first store's ID when it's not set
-                                                    $firstStoreId = $store_id;
+                                            @php
+                                                $user = Auth::user();
+                                                $neighborhood_shipping = $user->neighborhood->price;
+                                                $shipping_fees = 0;
+                                                $storeIds = [];
+
+                                                foreach ($cart->get() as $cart_item) {
+                                                    $store_id = $cart_item->product->store_id;
+
+                                                    if (!in_array($store_id, $storeIds)) {
+                                                        // If the store ID is not in the array, it's a unique store
+                                                        $storeIds[] = $store_id;
+
+                                                        if (count($storeIds) === 1) {
+                                                            $shipping_fees += $neighborhood_shipping;
+                                                        } else {
+                                                            $shipping_fees += 0.5 * $neighborhood_shipping;
+                                                        }
+                                                    }
                                                 }
-                                                
-                                                if ($store_id === $firstStoreId) {
-                                                    // Calculate shipping fees for the first product from the first store
-                                                    $firstStoreShippingFee = $neighborhood;
-                                                } else {
-                                                    // Calculate shipping fees for the first product from other stores
-                                                    $additionalStoreShippingFee = $neighborhood / 2;
-                                                }
-                                                
-                                                // Calculate shipping fees for additional products from the same store
-                                                if ($store_id === $firstStoreId) {
-                                                    $shipping_fees += $firstStoreShippingFee;
-                                                } else {
-                                                    $shipping_fees += $additionalStoreShippingFee;
-                                                }
-                                            }
-                                        @endphp
+
+                                                // Now, $shipping_fees contains the total shipping fees based on the unique stores in the cart.
+
+                                                $numberOfUniqueStores = count($storeIds);
+
+                                            @endphp
+
+
                                             <span class="shipping">
                                                 {{-- Free --}}
-                                                {{-- {{ $shipping_fees }} --}}
                                                 {{ Currency::format($shipping_fees) }}
                                             </span>
                                         </li>

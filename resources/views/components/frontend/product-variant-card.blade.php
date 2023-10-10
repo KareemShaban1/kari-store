@@ -6,7 +6,7 @@
             <span class="sale-tag"> - {{ Currency::convertNumberToArabic($variant->sale_percent) }} %</span>
         @endif
         <div class="button">
-            <a href="{{ Route('products.show_product', $variant->product->slug) }}" class="btn">
+            <a href="{{ Route('products.show_product_variant', $variant->product->slug) }}" class="btn">
                 {{-- <i class="lni lni-cart"></i> --}}
                 {{ trans('home_trans.Show_Product') }}
             </a>

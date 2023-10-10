@@ -30,9 +30,9 @@ class RegisterUser implements CreatesNewUsers
         $data = Validator::make($input, [
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
-            'email_address' => ['required','string','email','max:255',Rule::unique(User::class),],
+            'email_address' => ['required','string','email','max:255',Rule::unique(User::class,'email_address'),],
             'password' => $this->passwordRules(),
-            'phone_number'=>'required:min:11',
+            'phone_number'=>['required','min:11',Rule::unique(User::class,'phone_number'),],
             'governorate'=>'nullable',
             'city'=>'nullable',
             'postal_code'=>'nullable',
@@ -54,6 +54,7 @@ class RegisterUser implements CreatesNewUsers
 
 
 
+    // Twillio Configuration 
     // /* Get credentials from .env */
     // $token = getenv("TWILIO_TOKEN");
     // $twilio_sid = getenv("TWILIO_SID");

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->uuid('cookie_id');
             $table->foreignId('user_id')->nullable()->constrained('users')->cascadeOnDelete();
             $table->foreignId('product_id')->constrained('products')->cascadeOnDelete();
+            $table->foreignId('variant_id')->nullable()->constrained('product_variant')->cascadeOnDelete();
             $table->unsignedSmallInteger('quantity')->default(1);
             $table->json('options')->nullable();
             $table->timestamps();

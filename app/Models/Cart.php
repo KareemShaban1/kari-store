@@ -15,7 +15,7 @@ class Cart extends Model
     public $incrementing = false;
 
     protected $fillable = [
-        'cookie_id', 'user_id', 'product_id', 'quantity'
+        'cookie_id', 'user_id', 'product_id', 'quantity','variant_id'
     ];
 
     // Events (Observers)

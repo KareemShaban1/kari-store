@@ -158,6 +158,7 @@
                             <th>{{ trans('orders_trans.User_Name') }}</th>
                             <th>{{ trans('orders_trans.Store_Name') }}</th>
                             <th>{{ trans('orders_trans.Category_Name') }}</th>
+                            <th>{{ trans('orders_trans.Variant') }}</th>
                             <th>{{ trans('orders_trans.Status') }}</th>
                             <th>{{ trans('orders_trans.Order_Number') }}</th>
                             <th>{{ trans('orders_trans.Total') }}</th>
@@ -184,6 +185,13 @@
                                 <td>
                                     @foreach ($ordersGroup[0]->products as $product)
                                         {{ $product->category->name }}
+                                    @endforeach
+                                </td>
+
+                                <td>
+                                    @foreach ($ordersGroup[0]->variants as $variant)
+                                        {{ $variant ? $variant->attribute->name : null }} :
+                                        {{ $variant ? $variant->attribute_value->name : null }}
                                     @endforeach
                                 </td>
                                 <td>
@@ -278,6 +286,12 @@
                                     <td>
                                         @foreach ($additionalOrder->products as $product)
                                             {{ $product->category->name }}
+                                        @endforeach
+                                    </td>
+                                    <td>
+                                        @foreach ($ordersGroup[0]->variants as $variant)
+                                            {{ $variant ? $variant->attribute->name : null }} :
+                                            {{ $variant ? $variant->attribute_value->name : null }}
                                         @endforeach
                                     </td>
                                     <td>

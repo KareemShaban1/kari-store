@@ -76,11 +76,11 @@ class CheckoutController extends Controller
             foreach ($items as $store_id => $cart_items) {
 
                 // $order = Order::create([
-                //     'store_id' => $store_id,
-                //     'user_id' => Auth::user('user')->id,
-                //     'payment_method' => 'cash_on_delivery',
-                //     'total' => $total,
-                //     'coupon_id' => $coupon ? $coupon->id : null
+                    //     'store_id' => $store_id,
+                    //     'user_id' => Auth::user('user')->id,
+                    //     'payment_method' => 'cash_on_delivery',
+                    //     'total' => $total,
+                    //     'coupon_id' => $coupon ? $coupon->id : null
                 // ]);
                 
                 $order = new Order();
@@ -100,11 +100,10 @@ class CheckoutController extends Controller
                         $order->save();
                     }
                     
-                    
-                    
                     OrderItem::create([
                         'order_id' => $order->id,
                         'product_id' => $item->product_id,
+                        'variant_id'=>$item->variant_id ? $item->variant_id : null,
                         'product_name' => $item->product->name,
                         'price' => $item->product->price,
                         'quantity' => $item->quantity,

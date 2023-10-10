@@ -51,6 +51,8 @@ Route::group([
     Route::get('/product_autocomplete', [ProductsController::class, 'productAutocomplete'])->name('products.autocomplete');
     
     Route::get('/products/{product:slug}', [ProductsController::class, 'show'])->name('products.show_product');
+    
+    Route::get('/product_variant/{product:slug}', [ProductsController::class, 'show_variant'])->name('products.show_product_variant');
 
 
     Route::get('get_sub_total', [CartController::class, 'get_sub_total'])->name('get_sub_total');

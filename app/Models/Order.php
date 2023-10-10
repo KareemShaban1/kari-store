@@ -59,6 +59,25 @@ class Order extends Model
         ->withPivot(['product_name','quantity','price','options']);
     }
 
+    public function variants()
+    {
+
+        return $this->belongsToMany(
+            ProductVariant::class,
+            'order_items',
+            'order_id',
+            'variant_id',
+            'id',
+            'id'
+        )
+        // pivot model
+        ->using(OrderItem::class)
+        // called pivot table
+        ->as('order_item')
+        // retrieve this pivot table columns not only foreign keys
+        ->withPivot(['product_name','quantity','price','options']);
+    }
+
     // one-to-many relationship
     public function addresses()
     {

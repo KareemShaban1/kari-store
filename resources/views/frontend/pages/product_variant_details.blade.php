@@ -1,4 +1,4 @@
-<x-front-layout title="{{ $product->name }}">
+<x-front-layout title="{{ $variant->product->name }}">
 
     <x-slot name="breadcrumbs">
         <div class="breadcrumbs">
@@ -6,14 +6,14 @@
                 <div class="row align-items-center">
                     <div class="col-lg-6 col-md-6 col-12">
                         <div class="breadcrumbs-content">
-                            <h1 class="page-title">{{ $product->name }}</h1>
+                            <h1 class="page-title">{{ $variant->product->name }}</h1>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6 col-12">
                         <ul class="breadcrumb-nav">
                             <li><a href=""><i class="lni lni-home"></i> Home</a></li>
                             <li><a href="">Shop</a></li>
-                            <li>{{ $product->name }}</li>
+                            <li>{{ $variant->product->name }}</li>
                         </ul>
                     </div>
                 </div>
@@ -35,10 +35,10 @@
                         <div class="product-images">
                             <main id="gallery">
                                 <div class="main-img">
-                                    <img src="{{ asset($product->image_url) }}" id="current" alt="#">
+                                    <img src="{{ asset($variant->image_url) }}" id="current" alt="#">
                                 </div>
                                 <div class="images">
-                                    <img src="{{ asset($product->image_url) }}" class="img" alt="#">
+                                    <img src="{{ asset($variant->image_url) }}" class="img" alt="#">
                                     <img src="https://via.placeholder.com/1000x670" class="img" alt="#">
                                     <img src="https://via.placeholder.com/1000x670" class="img" alt="#">
                                     <img src="https://via.placeholder.com/1000x670" class="img" alt="#">
@@ -50,21 +50,32 @@
                     </div>
                     <div class="col-lg-6 col-md-12 col-12">
                         <div class="product-info">
-                            <h2 class="title text-center">{{ $product->name }}</h2>
+                            <h2 class="title text-center">{{ $variant->product->name }}</h2>
                             <p class="category">
-                                <i class="lni lni-tag"></i> {{ $product->category->name }}
+                                <i class="lni lni-tag"></i> {{ $variant->product->category->name }}
                             </p>
-                            <h3 class="price">{{ Currency::format($product->price) }}
-                                @if ($product->compare_price)
-                                    <span class="text-danger">{{ Currency::format($product->compare_price) }}</span>
+                            <h3 class="price">{{ Currency::format($variant->price) }}
+                                @if ($variant->compare_price)
+                                    <span class="text-danger">{{ Currency::format($variant->compare_price) }}</span>
                                 @endif
                             </h3>
-                            <p class="info-text">{!! $product->description !!}</p>
+                            <p class="info-text">{!! $variant->description !!}</p>
+
+                            <div class="row">
+                                <div class="col-md 6">
+                                    {{ $variant->attribute->name }}
+                                </div>
+
+                                <div class="col-md 6">
+                                    {{ $variant->attribute_value->name }}
+                                </div>
+                            </div>
 
                             <form action="{{ Route('cart.store') }}" method="post">
                                 @csrf
 
-                                <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                <input type="hidden" name="product_id" value="{{ $variant->product->id }}">
+                                <input type="hidden" name="variant_id" value="{{ $variant->id }}">
 
                                 <div class="row">
                                     {{-- <div class="col-lg-4 col-md-4 col-12">
@@ -136,14 +147,14 @@
                 </div>
             </div>
 
-            <div class="row">
-                @foreach ($product_variants as $variant)
+            {{-- <div class="row">
+                @foreach ($variant->product_variants as $variant)
                     <div class="col-lg-3 col-md-6 col-12">
                         <x-frontend.product-variant-card :variant="$variant" />
                     </div>
                 @endforeach
 
-            </div>
+            </div> --}}
 
             <div class="product-details-info">
                 <div class="single-block">
@@ -151,10 +162,7 @@
                         <div class="col-lg-6 col-12">
                             <div class="info-body custom-responsive-margin">
                                 <h4>Details</h4>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                                    exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                                    irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat.</p>
+                                <p>{!! $variant->description !!}</p>
                                 <h4>Features</h4>
                                 <ul class="features">
                                     <li>Capture 4K30 Video and 12MP Photos</li>
@@ -171,30 +179,30 @@
                                 <h4>Specifications</h4>
                                 <ul class="normal-list">
                                     @php
-                                        $product_properties = App\Models\ProductProperty::where('product_id', $product->id)->first();
+                                        $variant->product_properties = App\Models\ProductProperty::where('product_id', $variant->product->id)->first();
                                     @endphp
-                                    @if ($product_properties)
+                                    @if ($variant->product_properties)
                                         <li>
-                                            <span>{{ $product_properties->name }}: </span>
-                                            {{ $product_properties->value }}
+                                            <span>{{ $variant->product_properties->name }}: </span>
+                                            {{ $variant->product_properties->value }}
                                         </li>
                                     @endif
                                 </ul>
 
 
-                                <h4>Shipping Options:</h4>
+                                {{-- <h4>Shipping Options:</h4>
                                 <ul class="normal-list">
                                     <li><span>Courier:</span> 2 - 4 days, $22.50</li>
                                     <li><span>Local Shipping:</span> up to one week, $10.00</li>
                                     <li><span>UPS Ground Shipping:</span> 4 - 6 days, $18.00</li>
                                     <li><span>Unishop Global Export:</span> 3 - 4 days, $25.00</li>
-                                </ul>
+                                </ul> --}}
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <x-frontend.reviews :reviews="$reviews" />
+                {{-- <x-frontend.reviews :reviews="$reviews" /> --}}
 
             </div>
 
@@ -253,7 +261,7 @@
                             <textarea class="form-control" name="review" id="review-message" rows="8" required></textarea>
                         </div>
                     </div>
-                    <input type="hidden" name="product_id" value="{{ $product->id }}">
+                    <input type="hidden" name="product_id" value="{{ $variant->product->id }}">
                     <div class="modal-footer button">
                         <button type="submit" class="btn">Submit Review</button>
                     </div>
@@ -318,7 +326,7 @@
                             </textarea>
                         </div>
                     </div>
-                    <input type="hidden" name="product_id" value="{{ $product->id }}">
+                    <input type="hidden" name="product_id" value="{{ $variant->product->id }}">
                     <div class="modal-footer button">
                         <button type="submit" class="btn">Submit Review</button>
                     </div>

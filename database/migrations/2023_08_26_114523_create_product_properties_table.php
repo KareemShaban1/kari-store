@@ -17,6 +17,7 @@ return new class () extends Migration {
             $table->foreignId('product_id')->constrained('products')->cascadeOnDelete();
             $table->string('name');
             $table->string('value');
+            $table->string('notes')->nullable();
             $table->timestamps();
         });
     }

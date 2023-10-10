@@ -30,7 +30,7 @@ class ProductVariant extends Model
     } // $variant->image_url
 
 
-    // Relationsips
+    // Relationships
 
     public function product()
     {
@@ -39,11 +39,11 @@ class ProductVariant extends Model
 
     public function attribute()
     {
-        return $this->belongsTo(Attribute::class, 'attribute_id', 'id');
+        return $this->hasOne(Attribute::class, 'id','attribute_id');
     }
     public function attribute_value()
     {
-        return $this->belongsTo(AttributeValue::class, 'attribute_value_id', 'id');
+        return $this->hasOne(AttributeValue::class,'id', 'attribute_value_id' );
     }
     public function store()
     {

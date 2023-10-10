@@ -12,7 +12,7 @@ Interface CartRepository {
           public function get() : Collection;
 
           // function to add to cart 
-          public function add(Product $product , $quantity = 1);
+          public function add(Product $product , $quantity = 1,$variant_id = null);
 
           public function update($cart_id,$quantity,$product_id);
 

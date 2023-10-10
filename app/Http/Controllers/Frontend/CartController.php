@@ -8,12 +8,9 @@ use App\Models\Cart;
 use App\Models\Coupon;
 use App\Models\Product;
 use App\Models\TempSession;
-use App\Repositories\Cart\CartModelRepository;
 use App\Repositories\Cart\CartRepository;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
 class CartController extends Controller
@@ -67,7 +64,9 @@ class CartController extends Controller
     {
 
         $product = Product::findOrFail($request->post('product_id'));
-
+        if($request->variant_id != null){
+            $cart->add($product, $request->post('quantity'),$request->variant_id);
+        }
         $cart->add($product, $request->post('quantity'));
 
         return redirect()->route('cart.index');
@@ -217,12 +216,13 @@ class CartController extends Controller
 
     public function getFormattedCurrency($amount)
     {
-        // dd($amount);
         $formattedCurrency = Currency::format($amount);
         return response()->json([
             'formatted_currency' => $formattedCurrency,
         ]);
     }
+
+    
 
     public function get_all_total(Request $request)
     {
