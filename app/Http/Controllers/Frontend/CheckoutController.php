@@ -6,6 +6,7 @@ use App\Events\OrderCreated;
 use App\Exceptions\InvalidOrderException;
 use App\Http\Controllers\Controller;
 use App\Models\Cart;
+use App\Models\Destination;
 use App\Models\Order;
 use App\Models\OrderCoupon;
 use App\Models\OrderItem;
@@ -27,8 +28,10 @@ class CheckoutController extends Controller
             throw new InvalidOrderException('Cart is Empty');
         }
 
+        $destinations = Destination::all();
 
         return view('frontend.pages.checkout', [
+            'destinations'=>$destinations,
             'cart' => $cart,
             'countries' => Countries::getNames('ar')
         ]);

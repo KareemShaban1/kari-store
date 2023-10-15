@@ -202,7 +202,6 @@
 
 
                                             <span class="shipping">
-                                                {{-- Free --}}
                                                 {{ Currency::format($shipping_fees) }}
                                             </span>
                                         </li>
@@ -233,6 +232,7 @@
                                     </div>
                                 </div>
                             </div>
+                            
                         </div>
                     </div>
                     <!--/ End Total Amount -->

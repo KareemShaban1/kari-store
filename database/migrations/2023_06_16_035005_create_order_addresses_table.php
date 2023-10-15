@@ -21,10 +21,14 @@ return new class extends Migration
             $table->string('last_name');
             $table->string('email')->nullable();
             $table->string('phone_number');
-            $table->string('street_address');
-            $table->string('city');
+            $table->foreignId('governorate_id')->nullable()->constrained('destinations')->nullOnDelete();
+            $table->foreignId('city_id')->nullable()->constrained('destinations')->nullOnDelete();
+            $table->foreignId('neighborhood_id')->nullable()->constrained('destinations')->nullOnDelete();
             $table->string('postal_code')->nullable();
-            $table->string('governorate');
+            $table->string('street_address');
+            
+            // $table->string('city');
+            // $table->string('governorate');
             // $table->char('country',2)->nullable();
 
 

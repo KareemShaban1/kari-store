@@ -44,7 +44,7 @@ class HomeController extends Controller
         $products = [];
 
         foreach ($stores as $store) {
-            $product = Product::with('category', 'store', 'reviews')
+            $product = Product::with(['category', 'store', 'reviews'])
                 ->active()
                 ->where('store_id', $store->id)
                 ->latest()

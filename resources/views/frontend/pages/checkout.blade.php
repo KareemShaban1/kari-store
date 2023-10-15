@@ -4,7 +4,7 @@
 
     <x-slot name="breadcrumbs">
 
-
+ 
         <!-- Start Breadcrumbs -->
         <div class="breadcrumbs">
             <div class="container">
@@ -33,7 +33,7 @@
 
     <x-frontend.alert type="success" />
 
-    
+
     <!--====== Checkout Form Steps Part Start ======-->
 
     <section class="checkout-wrapper section">
@@ -42,16 +42,17 @@
                 <div class="col-lg-8">
 
                     <form action="{{ Route('checkout.store') }}" method="post">
+                        
                         @csrf
                         <div class="checkout-steps-form-style-1">
                             <ul id="accordionExample">
                                 <li>
-                                    <h6 class="title" data-bs-toggle="collapse" data-bs-target="#collapseThree"
-                                        aria-expanded="true" aria-controls="collapseThree">
+                                    <h6 class="title" data-bs-toggle="collapse" data-bs-target="#billingAddress"
+                                        aria-expanded="true" aria-controls="billingAddress">
                                         {{ trans('checkout_trans.Your_Personal_Details') }} </h6>
 
 
-                                    <section class="checkout-steps-form-content collapse show" id="collapseThree"
+                                    <section class="checkout-steps-form-content collapse show" id="billingAddress"
                                         aria-labelledby="headingThree" data-bs-parent="#accordionExample">
                                         <div class="row">
 
@@ -99,11 +100,30 @@
 
                                             <div class="col-md-6">
                                                 <div class="single-form form-default">
+                                                    <div class="form-group">
+
+                                                    </div>
                                                     <div class="form-input form">
                                                         <label
                                                             for="">{{ trans('checkout_trans.Governorate') }}</label>
-                                                        <x-frontend.form.input name="address[billing][governorate]"
-                                                            value="{{ Auth::check() ? Auth::user()->governorate->name : old('address.billing.governorate') }}" />
+                                                        {{-- <x-frontend.form.input name="address[billing][governorate]"
+                                                            value="{{ Auth::check() ? Auth::user()->governorate->name : old('address.billing.governorate') }}" /> --}}
+                                                        <select name="address[billing][governorate_id]" id=""
+                                                            class="custom-select mr-sm-2">
+                                                            <option disabled selected>
+                                                                {{ trans('auth_trans.Choose_Governorate') }}
+                                                            </option>
+                                                            @foreach ($destinations as $destination)
+                                                                @if ($destination->rank == '1')
+                                                                    <option value="{{ $destination->id }}"
+                                                                        @if (Auth::check()) {{ Auth::user()->governorate->id == $destination->id ? 'selected' : '' }}
+                                                                        @else
+                                                                            {{ old('address.billing.governorate_id') == $destination->id ? 'selected' : '' }} @endif>
+                                                                        {{ $destination->name }}
+                                                                    </option>
+                                                                @endif
+                                                            @endforeach
+                                                        </select>
                                                     </div>
                                                 </div>
                                             </div>
@@ -113,8 +133,25 @@
                                                     <div class="form-input form">
                                                         <label
                                                             for="">{{ trans('checkout_trans.City') }}</label>
-                                                        <x-frontend.form.input name="address[billing][city]"
-                                                            value="{{ Auth::check() ? Auth::user()->city->name : old('address.billing.city') }}" />
+                                                        {{-- <x-frontend.form.input name="address[billing][city]"
+                                                            value="{{ Auth::check() ? Auth::user()->city->name : old('address.billing.city') }}" /> --}}
+
+                                                        <select name="address[billing][city_id]" id=""
+                                                            class="custom-select mr-sm-2">
+                                                            <option disabled selected>
+                                                                {{ trans('auth_trans.Choose_City') }}
+                                                            </option>
+                                                            @foreach ($destinations as $destination)
+                                                                @if ($destination->rank == '2')
+                                                                    <option value="{{ $destination->id }}"
+                                                                        @if (Auth::check()) {{ Auth::user()->city->id == $destination->id ? 'selected' : '' }}
+                                                                        @else
+                                                                            {{ old('address.billing.city_id') == $destination->id ? 'selected' : '' }} @endif>
+                                                                        {{ $destination->name }}
+                                                                    </option>
+                                                                @endif
+                                                            @endforeach
+                                                        </select>
                                                     </div>
                                                 </div>
                                             </div>
@@ -124,8 +161,24 @@
                                                     <div class="form-input form">
                                                         <label
                                                             for="">{{ trans('checkout_trans.Neighborhood') }}</label>
-                                                        <x-frontend.form.input name="address[billing][neighborhood]"
-                                                            value="{{ Auth::check() ? Auth::user()->neighborhood->name : old('address.billing.neighborhood') }}" />
+                                                        {{-- <x-frontend.form.input name="address[billing][neighborhood]"
+                                                            value="{{ Auth::check() ? Auth::user()->neighborhood->name : old('address.billing.neighborhood') }}" /> --}}
+                                                        <select name="address[billing][neighborhood_id]" id=""
+                                                            class="custom-select mr-sm-2">
+                                                            <option disabled selected>
+                                                                {{ trans('auth_trans.Choose_Neighborhood') }}
+                                                            </option>
+                                                            @foreach ($destinations as $destination)
+                                                                @if ($destination->rank == '3')
+                                                                    <option value="{{ $destination->id }}"
+                                                                        @if (Auth::check()) {{ Auth::user()->neighborhood->id == $destination->id ? 'selected' : '' }}
+                                                                        @else
+                                                                            {{ old('address.billing.neighborhood_id') == $destination->id ? 'selected' : '' }} @endif>
+                                                                        {{ $destination->name }}
+                                                                    </option>
+                                                                @endif
+                                                            @endforeach
+                                                        </select>
                                                     </div>
                                                 </div>
                                             </div>
@@ -160,24 +213,30 @@
                                                     <p>My delivery and mailing addresses are the same.</p>
                                                 </div>
                                             </div>
+
+
                                             {{-- <div class="col-md-12">
                                                 <div class="single-form button">
                                                     <button class="btn" data-bs-toggle="collapse"
-                                                        data-bs-target="#collapseFour" aria-expanded="false"
-                                                        aria-controls="collapseFour">next
+                                                        data-bs-target="#shippingAddress" aria-expanded="false"
+                                                        aria-controls="shippingAddress">next
                                                         step</button>
                                                 </div>
                                             </div> --}}
+
+
+
                                         </div>
                                     </section>
 
                                 </li>
                                 <li>
-                                    <h6 class="title collapsed" data-bs-toggle="collapse" data-bs-target="#collapseFour"
-                                        aria-expanded="false" aria-controls="collapseFour">
+                                    <h6 class="title collapsed" data-bs-toggle="collapse"
+                                        data-bs-target="#shippingAddress" aria-expanded="false"
+                                        aria-controls="shippingAddress">
                                         {{ trans('checkout_trans.Shipping_Information') }}
                                     </h6>
-                                    <section class="checkout-steps-form-content collapse" id="collapseFour"
+                                    <section class="checkout-steps-form-content collapse" id="shippingAddress"
                                         aria-labelledby="headingFour" data-bs-parent="#accordionExample">
                                         <div class="row">
                                             <div class="col-md-12">
@@ -223,7 +282,23 @@
                                                     <div class="form-input form">
                                                         <label
                                                             for="">{{ trans('checkout_trans.Governorate') }}</label>
-                                                        <x-frontend.form.input name="address[shipping][governorate]" />
+                                                        {{-- <x-frontend.form.input name="address[shipping][governorate]" /> --}}
+                                                        <select name="address[shipping][governorate_id]"
+                                                            id="" class="custom-select mr-sm-2">
+                                                            <option disabled selected>
+                                                                {{ trans('auth_trans.Choose_Governorate') }}
+                                                            </option>
+                                                            @foreach ($destinations as $destination)
+                                                                @if ($destination->rank == '1')
+                                                                    <option value="{{ $destination->id }}"
+                                                                        @if (Auth::check()) {{ Auth::user()->governorate->id == $destination->id ? 'selected' : '' }}
+                                                                    @else
+                                                                        {{ old('address.shipping.governorate_id') == $destination->id ? 'selected' : '' }} @endif>
+                                                                        {{ $destination->name }}
+                                                                    </option>
+                                                                @endif
+                                                            @endforeach
+                                                        </select>
                                                     </div>
                                                 </div>
                                             </div>
@@ -233,7 +308,23 @@
                                                     <div class="form-input form">
                                                         <label
                                                             for="">{{ trans('checkout_trans.City') }}</label>
-                                                        <x-frontend.form.input name="address[shipping][city]" />
+                                                        {{-- <x-frontend.form.input name="address[shipping][city]" /> --}}
+                                                        <select name="address[shipping][city_id]" id=""
+                                                            class="custom-select mr-sm-2">
+                                                            <option disabled selected>
+                                                                {{ trans('auth_trans.Choose_City') }}
+                                                            </option>
+                                                            @foreach ($destinations as $destination)
+                                                                @if ($destination->rank == '2')
+                                                                    <option value="{{ $destination->id }}"
+                                                                        @if (Auth::check()) {{ Auth::user()->city->id == $destination->id ? 'selected' : '' }}
+                                                                    @else
+                                                                        {{ old('address.shipping.city_id') == $destination->id ? 'selected' : '' }} @endif>
+                                                                        {{ $destination->name }}
+                                                                    </option>
+                                                                @endif
+                                                            @endforeach
+                                                        </select>
                                                     </div>
                                                 </div>
                                             </div>
@@ -243,8 +334,24 @@
                                                     <div class="form-input form">
                                                         <label
                                                             for="">{{ trans('checkout_trans.Neighborhood') }}</label>
-                                                        <x-frontend.form.input
-                                                            name="address[shipping][neighborhood]" />
+                                                        {{-- <x-frontend.form.input
+                                                            name="address[shipping][neighborhood]" /> --}}
+                                                        <select name="address[shipping][neighborhood_id]"
+                                                            id="" class="custom-select mr-sm-2">
+                                                            <option disabled selected>
+                                                                {{ trans('auth_trans.Choose_Neighborhood') }}
+                                                            </option>
+                                                            @foreach ($destinations as $destination)
+                                                                @if ($destination->rank == '3')
+                                                                    <option value="{{ $destination->id }}"
+                                                                        @if (Auth::check()) {{ Auth::user()->neighborhood->id == $destination->id ? 'selected' : '' }}
+                                                                        @else
+                                                                            {{ old('address.shipping.neighborhood_id') == $destination->id ? 'selected' : '' }} @endif>
+                                                                        {{ $destination->name }}
+                                                                    </option>
+                                                                @endif
+                                                            @endforeach
+                                                        </select>
                                                     </div>
                                                 </div>
                                             </div>
@@ -275,8 +382,8 @@
                                             {{-- <div class="col-md-12">
                                                 <div class="steps-form-btn button">
                                                     <button class="btn" data-bs-toggle="collapse"
-                                                        data-bs-target="#collapseThree" aria-expanded="false"
-                                                        aria-controls="collapseThree">previous</button>
+                                                        data-bs-target="#billingAddress" aria-expanded="false"
+                                                        aria-controls="billingAddress">previous</button>
                                                     <a href="javascript:void(0)" class="btn btn-alt">Save &
                                                         Continue</a>
                                                 </div>
@@ -375,6 +482,9 @@
                             </form>
                          
                         </div> --}}
+
+
+
                         <div class="checkout-sidebar-price-table mt-30">
                             <h5 class="title">Pricing Table</h5>
 
@@ -383,9 +493,37 @@
                                     <p class="value">Subotal Price:</p>
                                     <p class="price">{{ Currency::format($cart->total()) }}</p>
                                 </div>
+
+                                @php
+                                    $user = Auth::user();
+                                    $neighborhood_shipping = $user->neighborhood->price;
+                                    $shipping_fees = 0;
+                                    $storeIds = [];
+
+                                    foreach ($cart->get() as $cart_item) {
+                                        $store_id = $cart_item->product->store_id;
+
+                                        if (!in_array($store_id, $storeIds)) {
+                                            // If the store ID is not in the array, it's a unique store
+                                            $storeIds[] = $store_id;
+
+                                            if (count($storeIds) === 1) {
+                                                $shipping_fees += $neighborhood_shipping;
+                                            } else {
+                                                $shipping_fees += 0.5 * $neighborhood_shipping;
+                                            }
+                                        }
+                                    }
+
+                                    // Now, $shipping_fees contains the total shipping fees based on the unique stores in the cart.
+
+                                    $numberOfUniqueStores = count($storeIds);
+
+                                @endphp
+
                                 <div class="total-price shipping">
                                     <p class="value">Shipping:</p>
-                                    <p class="price">$10.50</p>
+                                    <p class="price"> {{ Currency::format($shipping_fees) }}</p>
                                 </div>
                                 <div class="total-price discount">
                                     <p class="value">Coupon:</p>
@@ -404,13 +542,15 @@
                             <div class="total-payable">
                                 <div class="payable-price">
                                     <p class="value">Total Price:</p>
-                                    <p class="price">{{ Currency::format($cart->total()) }}</p>
+                                    <p class="price">{{ Currency::format($shipping_fees + $cart->total()) }}</p>
                                 </div>
                             </div>
                             {{-- <div class="price-table-btn button">
                                 <a href="javascript:void(0)" class="btn btn-alt">Checkout</a>
                             </div> --}}
                         </div>
+
+
                         <div class="checkout-sidebar-banner mt-30">
                             <a href="product-grids.html">
                                 <img src="https://via.placeholder.com/400x330" alt="#">
@@ -432,8 +572,8 @@
             $(document).ready(function() {
                 // Get the checkbox and form fields
                 var checkbox = $('#checkbox-3');
-                var billingFields = $('section#collapseThree input');
-                var shippingFields = $('section#collapseFour input');
+                var billingFields = $('section#billingAddress input');
+                var shippingFields = $('section#shippingAddress input');
 
                 // Add event listener to the checkbox
                 checkbox.on('change', function() {

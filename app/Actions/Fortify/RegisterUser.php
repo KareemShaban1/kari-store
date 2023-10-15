@@ -45,27 +45,33 @@ class RegisterUser implements CreatesNewUsers
         // Send OTP to the user's phone number
         $otpSent = $this->sendOTP($phone_number);
 
+        dd($otpSent);
+        
+
         if (!$otpSent) {
 
             // Handle the case when OTP sending fails
             return response()->json(['message' => 'Failed to send OTP'], 500);
         }
+        
         else {
 
 
 
-    // Twillio Configuration 
-    // /* Get credentials from .env */
-    // $token = getenv("TWILIO_TOKEN");
-    // $twilio_sid = getenv("TWILIO_SID");
-    // $twilio_verify_sid = getenv("TWILIO_VERIFY_SID");
-    // // dd($token,$twilio_sid,$twilio_verify_sid);
-    // $twilio = new Client($twilio_sid, $token);
-    // $twilio->verify->v2->services($twilio_verify_sid)
-    //     ->verifications
-    //     ->create($phone_number, "sms");
+        // Twillio Configuration 
+        // /* Get credentials from .env */
+        // $token = getenv("TWILIO_TOKEN");
+        // $twilio_sid = getenv("TWILIO_SID");
+        // $twilio_verify_sid = getenv("TWILIO_VERIFY_SID");
+        // // dd($token,$twilio_sid,$twilio_verify_sid);
+        // $twilio = new Client($twilio_sid, $token);
+        // $twilio->verify->v2->services($twilio_verify_sid)
+        //     ->verifications
+        //     ->create($phone_number, "sms");
 
     Session::put('phone', $phone_number);
+
+    dd($phone_number);
 
 
     return User::create([

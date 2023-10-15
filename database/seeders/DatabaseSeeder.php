@@ -34,6 +34,7 @@ class DatabaseSeeder extends Seeder
         $this->call(AdminSeeder::class);
         $this->call(WebsitePartsSeeder::class);
         $this->call(DestinationSeeder::class);
+        $this->call(UserSeeder::class);
         \App\Models\User::factory(4)->create();
     }
 }

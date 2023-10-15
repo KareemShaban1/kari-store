@@ -18,23 +18,24 @@ trait SendVerifications
 
         // dd($phone_number ,$otp);
 
-        $url = 'https://api.ultramsg.com/instance57432/messages/chat';
+        $url = 'https://api.ultramsg.com/instance62549/messages/chat';
         $params = [
-            'token' => 'attxuntrmg0kw75g',
+            'token' => '9nnuiblewc8b955q',
             'to' => $phone_number,
             'body' => 'Your OTP is: ' . $otp . ' for account verification on YourApp.', // Modify the message as needed
         ];
 
         $response = Http::post($url, $params);
+        dd($phone_number ,$otp , $response);
 
         // Check if the request was successful
         if ($response->successful()) {
             // OTP sent successfully
-
+            
             return true;
         } else {
             // Failed to send OTP
-
+            
             return false;
         }
     }

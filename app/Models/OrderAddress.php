@@ -15,7 +15,7 @@ class OrderAddress extends Model
 
    protected $fillable = [
     'order_id','type','first_name','last_name','email','phone_number',
-    'street_address','city','postal_code','state','governorate'
+    'governorate_id','city_id' ,'neighborhood_id', 'street_address','postal_code'
    ];
 
    public function getNameAttribute(){

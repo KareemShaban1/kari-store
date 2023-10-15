@@ -1,33 +1,1017 @@
- @php
-                                            $user = Auth::user();
-                                            $neighborhood = $user->neighborhood->price;
-                                            $shipping_fees = 0; // Initialize the shipping fees to zero
-                                            $firstStoreId = null; // Initialize the first store's ID to null
-                                            $firstStoreShippingFee = 0; // Initialize the shipping fee for the first store
-                                            $additionalStoreShippingFee = 0; // Initialize the shipping fee for additional stores
-                                            $unique = [];
-                                            foreach ($cart->get() as $cart_item) {
-                                                $store_id = $cart_item->product->store_id;
-                                                
-                                                
-                                                if ($firstStoreId === null) {
-                                                    // Set the first store's ID when it's not set
-                                                    $firstStoreId = $store_id;
-                                                }
-                                                
-                                                if ($store_id === $firstStoreId) {
-                                                    // Calculate shipping fees for the first product from the first store
-                                                    $firstStoreShippingFee = $neighborhood;
-                                                } else {
-                                                    // Calculate shipping fees for the first product from other stores
-                                                    $additionalStoreShippingFee = $neighborhood / 2;
-                                                }
-                                                
-                                                // Calculate shipping fees for additional products from the same store
-                                                if ($store_id === $firstStoreId) {
-                                                    $shipping_fees += $firstStoreShippingFee;
-                                                } else {
-                                                    $shipping_fees += $additionalStoreShippingFee;
-                                                }
-                                            }
-                                        @endphp
+ <article class="docs-article" id="introduction">
+
+
+                    <header class="docs-header">
+                        <h1 class="docs-heading">Introduction <span class="docs-time">Last updated:
+                                2019-06-01</span></h1>
+                        <section class="docs-intro">
+                            <p>Section intro goes here. Lorem ipsum dolor sit
+                                amet, consectetur adipiscing elit.
+                                Quisque finibus condimentum nisl id
+                                vulputate. Praesent aliquet varius eros
+                                interdum suscipit. Donec eu purus sed
+                                nibh convallis bibendum quis vitae
+                                turpis. Duis vestibulum diam lorem,
+                                vitae dapibus nibh facilisis a. Fusce in
+                                malesuada odio.</p>
+                        </section><!--//docs-intro-->
+
+                    </header>
+                    <section class="docs-section" id="why_ama">
+                        <h2 class="section-heading">Why AMA ?</h2>
+                        <p>Vivamus efficitur fringilla ullamcorper. Cras condimentum
+                            condimentum mauris, vitae facilisis leo. Aliquam
+                            sagittis purus nisi, at commodo augue convallis
+                            id. </p>
+
+                    </section><!--//section-->
+
+
+                </article>
+
+
+                <article class="docs-article" id="dashboard">
+
+
+                    <header class="docs-header">
+                        <h1 class="docs-heading">Dashboard</h1>
+                        <section class="docs-intro">
+                            <p></p>
+                        </section><!--//docs-intro-->
+                    </header>
+
+                    <!-- Dashboards -->
+                    <section class="docs-section" id="dashboards">
+                        <h2 class="section-heading">Dashboards</h2>
+                    </section>
+
+                    <section class="docs-section" id="admin_dashboard">
+                        <h2 class="section-heading">Admin Dashboard</h2>
+                        <p>
+                            Welcome to the Admin Dashboard, your central hub
+                            for real-time insights and management. Here, you
+                            can effortlessly monitor key metrics, including
+                            the number of customers, vendors, products, active
+                            chat rooms, and more. Gain a comprehensive view of
+                            your platform's performance and take informed
+                            actions to drive success. </p>
+
+                        <div class="simplelightbox-gallery row mb-3">
+
+                            <div class="col-12 col-md-4 mb-3">
+                                <a href="{{ asset('documentation/assets/images/dashboard/dashboard.png') }}"><img
+                                        class="figure-img img-fluid shadow rounded"
+                                        src="{{ asset('documentation/assets/images/dashboard/dashboard.png') }}"
+                                        alt="" title="Dashboard" /></a>
+                            </div><!--//col-->
+
+                        </div>
+
+                    </section><!--//section-->
+
+
+                    <!-- Users Management -->
+                    <section class="docs-section" id="users_management">
+                        <h2 class="section-heading">Users Management</h2>
+                        <p>This Section Show User Management Part</p>
+                    </section>
+
+                    <!-- Users -->
+                    <section class="docs-section" id="users">
+                        <h2 class="section-heading">Users</h2>
+                        <p>
+                            Explore the Users Management section, where
+                            administrators have the ability to add, edit,
+                            delete, and search for users with ease. This
+                            robust tool empowers admins to efficiently manage
+                            user profiles, ensuring a seamless and organized
+                            user experience on the platform.
+                        </p>
+
+                        <div class="simplelightbox-gallery row mb-3">
+                            <div class="col-12 col-md-4 mb-3">
+                                <a href="{{ asset('documentation/assets/images/dashboard/users.png') }}"><img
+                                        class="figure-img img-fluid shadow rounded"
+                                        src="{{ asset('documentation/assets/images/dashboard/users.png') }}"
+                                        alt="" title="Users" /></a>
+                            </div>
+                            <div class="col-12 col-md-4 mb-3">
+                                <a href="{{ asset('documentation/assets/images/dashboard/add_user.png') }}"><img
+                                        class="figure-img img-fluid shadow rounded"
+                                        src="{{ asset('documentation/assets/images/dashboard/add_user.png') }}"
+                                        alt="" title="Add User" /></a>
+                            </div><!--//col-->
+                            <div class="col-12 col-md-4 mb-3">
+                                <a href="{{ asset('documentation/assets/images/dashboard/edit_user.png') }}"><img
+                                        class="figure-img img-fluid shadow rounded"
+                                        src="{{ asset('documentation/assets/images/dashboard/edit_user.png') }}"
+                                        alt="" title="Edit User" /></a>
+                            </div><!--//col-->
+
+                        </div>
+                    </section><!--//section-->
+
+
+                    <!-- Vendors Management -->
+                    <section class="docs-section" id="vendors_management">
+                        <h2 class="section-heading">Vendors Management</h2>
+                    </section>
+
+                    <!-- Vendors -->
+                    <section class="docs-section" id="vendors">
+                        <h2 class="section-heading">Vendors</h2>
+                        <p>
+                            Welcome to the Vendors Management section, where
+                            administrators have the capability to add, edit,
+                            search, and view comprehensive vendor information.
+                            This powerful tool empowers you to efficiently
+                            manage and maintain vendor relationships, ensuring
+                            seamless collaboration and optimal vendor-related
+                            operations.
+                        </p>
+
+                        <div class="simplelightbox-gallery row mb-3">
+                            <div class="col-12 col-md-4 mb-3">
+                                <a href="{{ asset('documentation/assets/images/dashboard/vendors.png') }}"><img
+                                        class="figure-img img-fluid shadow rounded"
+                                        src="{{ asset('documentation/assets/images/dashboard/vendors.png') }}"
+                                        alt="" title="Vendors" /></a>
+                            </div>
+                            <div class="col-12 col-md-4 mb-3">
+                                <a href="{{ asset('documentation/assets/images/dashboard/add_vendor.png') }}"><img
+                                        class="figure-img img-fluid shadow rounded"
+                                        src="{{ asset('documentation/assets/images/dashboard/add_vendor.png') }}"
+                                        alt="" title="Add Vendors" /></a>
+                            </div><!--//col-->
+                            <div class="col-12 col-md-4 mb-3">
+                                <a href="{{ asset('documentation/assets/images/dashboard/vendor_details.png') }}"><img
+                                        class="figure-img img-fluid shadow rounded"
+                                        src="{{ asset('documentation/assets/images/dashboard/vendor_details.png') }}"
+                                        alt="" title="Vendor Details" /></a>
+                            </div><!--//col-->
+
+                        </div>
+                    </section><!--//section-->
+
+
+                    <!-- Categories Management -->
+                    <section class="docs-section" id="categories_management">
+                        <h2 class="section-heading">Categories Management</h2>
+                    </section>
+
+                    <!-- Categories -->
+                    <section class="docs-section" id="categories">
+                        <h2 class="section-heading">Categories</h2>
+                        <p>Discover the Categories Management section, where
+                            administrators can effortlessly add, edit, delete,
+                            and search for main categories, categories, and
+                            sub-categories. This powerful tool allows you to
+                            maintain a structured and organized hierarchy of
+                            categories, ensuring a seamless and user-friendly
+                            navigation experience across the platform.</p>
+
+                        <div class="simplelightbox-gallery row mb-3">
+                            <div class="col-12 col-md-4 mb-3">
+                                <a href="{{ asset('documentation/assets/images/dashboard/categories.png') }}"><img
+                                        class="figure-img img-fluid shadow rounded"
+                                        src="{{ asset('documentation/assets/images/dashboard/categories.png') }}"
+                                        alt="" title="Categories" /></a>
+                            </div>
+                            <div class="col-12 col-md-4 mb-3">
+                                <a href="{{ asset('documentation/assets/images/dashboard/add_category.png') }}"><img
+                                        class="figure-img img-fluid shadow rounded"
+                                        src="{{ asset('documentation/assets/images/dashboard/add_category.png') }}"
+                                        alt="" title="Add Categories" /></a>
+                            </div><!--//col-->
+                            <div class="col-12 col-md-4 mb-3">
+                                <a href="{{ asset('documentation/assets/images/dashboard/edit_category.png') }}"><img
+                                        class="figure-img img-fluid shadow rounded"
+                                        src="{{ asset('documentation/assets/images/dashboard/edit_category.png') }}"
+                                        alt="" title="Edit Category" /></a>
+                            </div><!--//col-->
+
+                        </div>
+                    </section><!--//section-->
+
+
+                    <!-- Notification Management -->
+                    <section class="docs-section" id="notification_management">
+                        <h2 class="section-heading">Notification Management</h2>
+                    </section>
+
+                    <!-- Notification -->
+                    <section class="docs-section" id="notification">
+                        <h2 class="section-heading">Notification</h2>
+                        <p>Welcome to the Notifications Management section, where
+                            administrators can efficiently create and manage
+                            notifications. Empower your platform with timely
+                            and relevant updates, keeping users informed and
+                            engaged through a user-friendly notification
+                            system.</p>
+
+                        <div class="simplelightbox-gallery row mb-3">
+                            <div class="col-12 col-md-4 mb-3">
+                                <a href="{{ asset('documentation/assets/images/dashboard/notifications.png') }}"><img
+                                        class="figure-img img-fluid shadow rounded"
+                                        src="{{ asset('documentation/assets/images/dashboard/notifications.png') }}"
+                                        alt="" title="Notifications" /></a>
+                            </div>
+                            <!--//col-->
+
+                        </div>
+                    </section><!--//section-->
+
+
+                    <!-- Stories Management -->
+                    <section class="docs-section" id="stories_management">
+                        <h2 class="section-heading">Stories Management</h2>
+                    </section>
+
+                    <!-- Stores -->
+                    <section class="docs-section" id="stories">
+                        <h2 class="section-heading">Stores</h2>
+                        <p>Explore the Stories Management section, where
+                            administrators have the ability to curate and
+                            maintain stories. In this section, administrators
+                            can easily manage and remove stories, ensuring
+                            content relevancy and quality control.</p>
+
+                        <div class="simplelightbox-gallery row mb-3">
+                            <div class="col-12 col-md-4 mb-3">
+                                <a href="{{ asset('documentation/assets/images/dashboard/stories.png') }}"><img
+                                        class="figure-img img-fluid shadow rounded"
+                                        src="{{ asset('documentation/assets/images/dashboard/stories.png') }}"
+                                        alt="" title="Stories" /></a>
+                            </div>
+                            <!--//col-->
+
+                        </div>
+                    </section><!--//section-->
+
+
+
+                    <!-- Questions Management -->
+                    <section class="docs-section" id="questions_management">
+                        <h2 class="section-heading">Questions Management</h2>
+                    </section>
+
+                    <!-- Questions -->
+                    <section class="docs-section" id="questions">
+                        <h2 class="section-heading">Questions and Answers</h2>
+                        <p>Welcome to the Questions and Answers Management section,
+                            where administrators can efficiently oversee the
+                            content. In this section, administrators have the
+                            authority to manage questions by deleting them and
+                            view corresponding answers. This ensures the
+                            quality and relevance of the content available on
+                            the platform.</p>
+
+                        <div class="simplelightbox-gallery row mb-3">
+                            <div class="col-12 col-md-4 mb-3">
+                                <a href="{{ asset('documentation/assets/images/dashboard/questions.png') }}"><img
+                                        class="figure-img img-fluid shadow rounded"
+                                        src="{{ asset('documentation/assets/images/dashboard/questions.png') }}"
+                                        alt="" title="Questions" /></a>
+                            </div>
+
+                            <div class="col-12 col-md-4 mb-3">
+                                <a href="{{ asset('documentation/assets/images/dashboard/answers.png') }}"><img
+                                        class="figure-img img-fluid shadow rounded"
+                                        src="{{ asset('documentation/assets/images/dashboard/answers.png') }}"
+                                        alt="" title="Answers" /></a>
+                            </div>
+                            <!--//col-->
+
+                        </div>
+                    </section>
+
+
+
+                    <!-- Chat Management -->
+                    <section class="docs-section" id="chat_management">
+                        <h2 class="section-heading">Chat Management</h2>
+                    </section>
+
+                    <!-- Chat -->
+                    <section class="docs-section" id="chat">
+                        <h2 class="section-heading">Chat</h2>
+                        <p>Explore the Chat Management section, where administrators
+                            have the ability to manage chat interactions and
+                            rooms. In this section, administrators can
+                            effectively delete individual chats and entire
+                            chat rooms, ensuring a clutter-free and organized
+                            communication environment.</p>
+
+                        <div class="simplelightbox-gallery row mb-3">
+                            <div class="col-12 col-md-4 mb-3">
+                                <a href="{{ asset('documentation/assets/images/dashboard/chat.png') }}"><img
+                                        class="figure-img img-fluid shadow rounded"
+                                        src="{{ asset('documentation/assets/images/dashboard/chat.png') }}"
+                                        alt="" title="Chat" /></a>
+                            </div>
+                            <!--//col-->
+
+                        </div>
+                    </section>
+
+
+                    <!-- Library Management -->
+                    <section class="docs-section" id="library_management">
+                        <h2 class="section-heading">Library Management</h2>
+                    </section>
+
+                    <!-- Library -->
+                    <section class="docs-section" id="library">
+                        <h2 class="section-heading">Library</h2>
+                        <p>Welcome to the Library Management section, where
+                            administrators have the authority to curate and
+                            maintain your digital library. In this section,
+                            administrators can seamlessly add new items to the
+                            library and remove outdated or unnecessary
+                            content, ensuring a well-organized and valuable
+                            resource for users.</p>
+
+                        <div class="simplelightbox-gallery row mb-3">
+                            <div class="col-12 col-md-4 mb-3">
+                                <a href="{{ asset('documentation/assets/images/dashboard/library.png') }}"><img
+                                        class="figure-img img-fluid shadow rounded"
+                                        src="{{ asset('documentation/assets/images/dashboard/library.png') }}"
+                                        alt="" title="Library" /></a>
+                            </div>
+
+
+                        </div>
+                    </section>
+
+
+
+                    <!-- Product Management -->
+                    <section class="docs-section" id="products_management">
+                        <h2 class="section-heading">Product Management</h2>
+                    </section>
+
+                    <!-- Product -->
+                    <section class="docs-section" id="products">
+                        <h2 class="section-heading">Product</h2>
+                        <p>Explore the Products Management section, where
+                            administrators have the power to efficiently
+                            oversee and control your product catalog. In this
+                            section, administrators can effortlessly add new
+                            products, make edits to existing listings, and
+                            remove outdated items, ensuring a dynamic and
+                            well-maintained product offering.</p>
+
+                        <div class="simplelightbox-gallery row mb-3">
+                            <div class="col-12 col-md-4 mb-3">
+                                <a href="{{ asset('documentation/assets/images/dashboard/products.png') }}"><img
+                                        class="figure-img img-fluid shadow rounded"
+                                        src="{{ asset('documentation/assets/images/dashboard/products.png') }}"
+                                        alt="" title="Products" /></a>
+                            </div>
+                            <div class="col-12 col-md-4 mb-3">
+                                <a href="{{ asset('documentation/assets/images/dashboard/add_product.png') }}"><img
+                                        class="figure-img img-fluid shadow rounded"
+                                        src="{{ asset('documentation/assets/images/dashboard/add_product.png') }}"
+                                        alt="" title="Add Product" /></a>
+                            </div><!--//col-->
+                            <!--//col-->
+
+                        </div>
+                    </section>
+
+
+                    <!-- Organizations Management -->
+                    <section class="docs-section" id="organizations_management">
+                        <h2 class="section-heading">Organizations Management</h2>
+                    </section>
+
+                    <!-- Organizations -->
+                    <section class="docs-section" id="organizations">
+                        <h2 class="section-heading">Organizations</h2>
+                        <p>Welcome to the Organizations Management section, where
+                            administrators can effectively oversee and control
+                            organizational profiles. In this section,
+                            administrators can seamlessly add new
+                            organizations, make necessary edits to existing
+                            profiles, and remove outdated entries, ensuring an
+                            up-to-date and organized directory of
+                            organizations.</p>
+
+                        <div class="simplelightbox-gallery row mb-3">
+                            <div class="col-12 col-md-4 mb-3">
+                                <a href="{{ asset('documentation/assets/images/dashboard/organizations.png') }}"><img
+                                        class="figure-img img-fluid shadow rounded"
+                                        src="{{ asset('documentation/assets/images/dashboard/organizations.png') }}"
+                                        alt="" title="Organizations" /></a>
+                            </div>
+                            <div class="col-12 col-md-4 mb-3">
+                                <a href="{{ asset('documentation/assets/images/dashboard/add_organization.png') }}"><img
+                                        class="figure-img img-fluid shadow rounded"
+                                        src="{{ asset('documentation/assets/images/dashboard/add_organization.png') }}"
+                                        alt="" title="Add Organization" /></a>
+                            </div><!--//col-->
+                            <div class="col-12 col-md-4 mb-3">
+                                <a href="{{ asset('documentation/assets/images/dashboard/edit_organization.png') }}"><img
+                                        class="figure-img img-fluid shadow rounded"
+                                        src="{{ asset('documentation/assets/images/dashboard/edit_organization.png') }}"
+                                        alt="" title="Edit Organization" /></a>
+                            </div><!--//col-->
+
+                        </div>
+                    </section>
+
+
+
+                    <!-- Posts Management -->
+                    <section class="docs-section" id="posts_management">
+                        <h2 class="section-heading">Posts Management</h2>
+                    </section>
+
+                    <!-- Posts -->
+                    <section class="docs-section" id="posts">
+                        <h2 class="section-heading">Posts</h2>
+                        <p> Explore the Posts Management section, where
+                            administrators can effortlessly create and manage
+                            posts. In this section, administrators have the
+                            capability to add new posts, ensuring timely and
+                            relevant content delivery to the platform's
+                            audience.</p>
+
+                        <div class="simplelightbox-gallery row mb-3">
+
+                            <div class="col-12 col-md-4 mb-3">
+                                <a href="{{ asset('documentation/assets/images/dashboard/posts.png') }}"><img
+                                        class="figure-img img-fluid shadow rounded"
+                                        src="{{ asset('documentation/assets/images/dashboard/posts.png') }}"
+                                        alt="" title="Posts" /></a>
+                            </div><!--//col-->
+
+                        </div>
+                    </section>
+
+
+
+
+                    <!-- Offers Management -->
+                    <section class="docs-section" id="offers_management">
+                        <h2 class="section-heading">Offers Management</h2>
+                    </section>
+
+                    <!-- Offers -->
+                    <section class="docs-section" id="offers">
+                        <h2 class="section-heading">Offers</h2>
+                        <p>Welcome to the Offers Management section, where
+                            administrators have the authority to efficiently
+                            oversee and control offers. In this section,
+                            administrators can seamlessly add new offers, make
+                            necessary edits to existing promotions, and remove
+                            outdated offers, ensuring a dynamic and attractive
+                            array of deals and incentives for users.</p>
+
+                        <div class="simplelightbox-gallery row mb-3">
+                            <div class="col-12 col-md-4 mb-3">
+                                <a href="{{ asset('documentation/assets/images/dashboard/offers.png') }}"><img
+                                        class="figure-img img-fluid shadow rounded"
+                                        src="{{ asset('documentation/assets/images/dashboard/offers.png') }}"
+                                        alt="" title="Offers" /></a>
+                            </div>
+                            <div class="col-12 col-md-4 mb-3">
+                                <a href="{{ asset('documentation/assets/images/dashboard/add_offers.png') }}"><img
+                                        class="figure-img img-fluid shadow rounded"
+                                        src="{{ asset('documentation/assets/images/dashboard/add_offers.png') }}"
+                                        alt="" title="Add Offers" /></a>
+                            </div><!--//col-->
+
+
+                        </div>
+                    </section>
+
+
+                    <!-- Top Ranked Management -->
+                    <section class="docs-section" id="top_ranked_management">
+                        <h2 class="section-heading">Top Ranked Management</h2>
+                    </section>
+
+                    <!-- Top Ranked -->
+                    <section class="docs-section" id="top_ranked">
+                        <h2 class="section-heading">Top Ranked</h2>
+                        <p>Explore the Top Ranked Vendors Management section, where
+                            administrators have the power to effectively
+                            curate and maintain a list of top-ranked vendors.
+                            In this section, administrators can seamlessly add
+                            new top-ranked vendors, make necessary edits to
+                            existing listings, and remove vendors from the
+                            top-ranked list, ensuring that users can easily
+                            discover and engage with highly-rated service
+                            providers.</p>
+
+                        <div class="simplelightbox-gallery row mb-3">
+                            <div class="col-12 col-md-4 mb-3">
+                                <a href="{{ asset('documentation/assets/images/dashboard/top_ranked.png') }}"><img
+                                        class="figure-img img-fluid shadow rounded"
+                                        src="{{ asset('documentation/assets/images/dashboard/top_ranked.png') }}"
+                                        alt="" title="Top Ranked" /></a>
+                            </div>
+
+                        </div>
+                    </section>
+
+
+
+                    <!-- Orders Management -->
+                    <section class="docs-section" id="orders_management">
+                        <h2 class="section-heading">Orders Management</h2>
+                    </section>
+
+                    <!-- Orders -->
+                    <section class="docs-section" id="orders">
+                        <h2 class="section-heading">Orders</h2>
+                        <p>Welcome to the Orders Management section, where
+                            administrators have the ability to oversee and
+                            manage orders efficiently. In this section,
+                            administrators can view detailed order information
+                            and have the option to delete orders when
+                            necessary, ensuring an organized and streamlined
+                            order processing system.</p>
+
+                        <div class="simplelightbox-gallery row mb-3">
+                            <div class="col-12 col-md-4 mb-3">
+                                <a href="{{ asset('documentation/assets/images/dashboard/orders.png') }}"><img
+                                        class="figure-img img-fluid shadow rounded"
+                                        src="{{ asset('documentation/assets/images/dashboard/orders.png') }}"
+                                        alt="" title="Orders" /></a>
+                            </div>
+
+                        </div>
+                    </section>
+
+
+                    <!-- ADS Management -->
+                    <section class="docs-section" id="ads_management">
+                        <h2 class="section-heading">ADS Management</h2>
+                    </section>
+
+                    <!-- ADS -->
+                    <section class="docs-section" id="ads">
+                        <h2 class="section-heading">ADS</h2>
+                        <p>Explore the Ads Management section, where administrators
+                            have the capability to effectively oversee and
+                            control advertisements. In this section,
+                            administrators can seamlessly add new ads, make
+                            necessary edits to existing campaigns, and remove
+                            ads when they are no longer needed, ensuring a
+                            well-managed and targeted advertising strategy.
+                        </p>
+
+                        <div class="simplelightbox-gallery row mb-3">
+                            <div class="col-12 col-md-4 mb-3">
+                                <a href="{{ asset('documentation/assets/images/dashboard/ads.png') }}"><img
+                                        class="figure-img img-fluid shadow rounded"
+                                        src="{{ asset('documentation/assets/images/dashboard/ads.png') }}"
+                                        alt="" title="ADS " /></a>
+                            </div>
+
+                        </div>
+                    </section>
+
+
+                    <!-- Subscription Management -->
+                    <section class="docs-section" id="subscription_management">
+                        <h2 class="section-heading">Subscription Management</h2>
+                    </section>
+
+                    <!-- Subscription -->
+                    <section class="docs-section" id="subscription">
+                        <h2 class="section-heading">Subscription</h2>
+                        <p>Welcome to the Subscription Packages Management section,
+                            where administrators have the authority to
+                            efficiently oversee and tailor subscription
+                            offerings. In this section, administrators can
+                            seamlessly add new subscription packages, make
+                            necessary edits to existing plans, and remove
+                            subscription packages as needed, ensuring a
+                            flexible and appealing range of subscription
+                            options for users.</p>
+
+                        <div class="simplelightbox-gallery row mb-3">
+                            <div class="col-12 col-md-4 mb-3">
+                                <a href="{{ asset('documentation/assets/images/dashboard/subscriptions.png') }}"><img
+                                        class="figure-img img-fluid shadow rounded"
+                                        src="{{ asset('documentation/assets/images/dashboard/subscriptions.png') }}"
+                                        alt="" title="Subscription" /></a>
+                            </div>
+
+                        </div>
+                    </section>
+
+                </article><!--//docs-article-->
+
+
+                <article class="docs-article" id="customer_app">
+                    <header class="docs-header">
+                        <h1 class="docs-heading">Customer App</h1>
+                        <section class="docs-intro">
+                            <p>This section show Customer App</p>
+                        </section><!--//docs-intro-->
+                    </header>
+
+
+                    {{-- Customer App Sign In --}}
+                    <section class="docs-section" id="customer_app_singin">
+                        <h2 class="section-heading">Customer App Login</h2>
+                        <p>This section features the customer login screen, providing a secure gateway for customers to
+                            access their accounts and enjoy a personalized experience.</p>
+
+                        <div class="simplelightbox-gallery row mb-3">
+
+                            <div class="col-12 col-md-4 mb-3">
+                                <a href="{{ asset('documentation/assets/images/customer_app/1login.jpg') }}"><img
+                                        class="figure-img img-fluid shadow rounded"
+                                        src="{{ asset('documentation/assets/images/customer_app/1login.jpg') }}"
+                                        alt="" title="Customer App" /></a>
+                            </div><!--//col-->
+
+                        </div>
+                    </section><!--//section-->
+
+
+                    {{-- Customer App Sign Up --}}
+                    <section class="docs-section" id="customer_app_singup">
+                        <h2 class="section-heading">Customer App Sign Up</h2>
+                        <p>This section presents the customer signup screen, where new users can easily create their
+                            accounts and join our platform.</p>
+
+                        <div class="simplelightbox-gallery row mb-3">
+
+                            <div class="col-12 col-md-4 mb-3">
+                                <a href="{{ asset('documentation/assets/images/customer_app/2signUp.jpg') }}"><img
+                                        class="figure-img img-fluid shadow rounded"
+                                        src="{{ asset('documentation/assets/images/customer_app/2signUp.jpg') }}"
+                                        alt="" title="Customer App Sign Up" /></a>
+                            </div><!--//col-->
+
+                        </div>
+                    </section><!--//section-->
+
+                    {{-- Customer App Home --}}
+                    <section class="docs-section" id="customer_app_home">
+                        <h2 class="section-heading">Customer App Home Page</h2>
+                        <p>This section serves as the customer home screen, offering users a welcoming and intuitive hub
+                            to explore a multitude of features and access a world of personalized content. Whether it's
+                            browsing products, staying updated with the latest news, or connecting with the community,
+                            our customer home screen is your gateway to a vibrant and engaging experience.</p>
+
+                        <div class="simplelightbox-gallery row mb-3">
+
+                            <div class="col-12 col-md-4 mb-3">
+                                <a href="{{ asset('documentation/assets/images/customer_app/3home.jpg') }}"><img
+                                        class="figure-img img-fluid shadow rounded"
+                                        src="{{ asset('documentation/assets/images/customer_app/3home.jpg') }}"
+                                        alt="" title="Customer App Home" /></a>
+                            </div><!--//col-->
+
+                        </div>
+                    </section><!--//section-->
+
+
+                    {{-- Customer App Categories --}}
+                    <section class="docs-section" id="customer_app_categories">
+                        <h2 class="section-heading">Customer App Categories</h2>
+                        <p>This section unveils a series of customer category screens, each dedicated to a distinct
+                            realm of interest such as fashion and health. These screens are your portals to curated
+                            content, expert insights, and a wide array of products and services tailored to your
+                            preferences. Dive into the world of fashion, explore the latest health trends, and discover
+                            a universe of possibilities as you navigate through our customer category screens.</p>
+
+                        <div class="simplelightbox-gallery row mb-3">
+
+                            <div class="col-12 col-md-3 mb-3">
+                                <a href="{{ asset('documentation/assets/images/customer_app/4fashoin') }}"><img
+                                        class="figure-img img-fluid shadow rounded"
+                                        src="{{ asset('documentation/assets/images/customer_app/4fashoin.jpg') }}"
+                                        alt="" title="Customer App" /></a>
+                            </div><!--//col-->
+
+                            <div class="col-12 col-md-3 mb-3">
+                                <a href="{{ asset('documentation/assets/images/customer_app/5event.jpg') }}"><img
+                                        class="figure-img img-fluid shadow rounded"
+                                        src="{{ asset('documentation/assets/images/customer_app/5event.jpg') }}"
+                                        alt="" title="Customer App" /></a>
+                            </div><!--//col-->
+
+                            <div class="col-12 col-md-3 mb-3">
+                                <a href="{{ asset('documentation/assets/images/customer_app/6health.jpg') }}"><img
+                                        class="figure-img img-fluid shadow rounded"
+                                        src="{{ asset('documentation/assets/images/customer_app/6health.jpg') }}"
+                                        alt="" title="Customer App" /></a>
+                            </div><!--//col-->
+
+                            <div class="col-12 col-md-3 mb-3">
+                                <a href="{{ asset('documentation/assets/images/customer_app/7Cosmetics.jpg') }}"><img
+                                        class="figure-img img-fluid shadow rounded"
+                                        src="{{ asset('documentation/assets/images/customer_app/7Cosmetics.jpg') }}"
+                                        alt="" title="Customer App" /></a>
+                            </div><!--//col-->
+
+                        </div>
+                    </section><!--//section-->
+
+
+                    {{-- Customer App Chat --}}
+                    <section class="docs-section" id="customer_app_chat">
+                        <h2 class="section-heading">Customer App Chat</h2>
+                        <p>This section offers a window into the realm of customer chat screens, where meaningful
+                            conversations and connections come to life. Engage with our vibrant community, seek advice,
+                            and share experiences through our user-friendly chat interface. Whether it's connecting with
+                            like-minded individuals or getting quick assistance, our customer chat screens are your
+                            avenue to open dialogue and valuable interactions that make your experience truly
+                            exceptional.</p>
+
+                        <div class="simplelightbox-gallery row mb-3">
+
+                            <div class="col-12 col-md-4 mb-3">
+                                <a href="{{ asset('documentation/assets/images/customer_app/8chat.jpg') }}"><img
+                                        class="figure-img img-fluid shadow rounded"
+                                        src="{{ asset('documentation/assets/images/customer_app/8chat.jpg') }}"
+                                        alt="" title="Customer App chat" /></a>
+                            </div><!--//col-->
+
+                            <div class="col-12 col-md-4 mb-3">
+                                <a href="{{ asset('documentation/assets/images/customer_app/8chatbox.jpg') }}"><img
+                                        class="figure-img img-fluid shadow rounded"
+                                        src="{{ asset('documentation/assets/images/customer_app/8chatbox.jpg') }}"
+                                        alt="" title="Customer App chatbox" /></a>
+                            </div><!--//col-->
+
+                        </div>
+                    </section><!--//section-->
+
+                    {{-- Customer App Questions --}}
+                    <section class="docs-section" id="customer_app_questions">
+                        <h2 class="section-heading">Customer App Questions</h2>
+                        <p>This section introduces our customer questions and answers screens, a hub of knowledge
+                            exchange and problem-solving. Here, you can seek answers to your inquiries, share your
+                            expertise, and engage in collaborative discussions. Our community-driven platform empowers
+                            you to both ask questions and provide insights, fostering a dynamic environment for learning
+                            and sharing. Dive into our customer questions and answers screens to unlock a world of
+                            knowledge and enrich your experience.</p>
+
+                        <div class="simplelightbox-gallery row mb-3">
+
+                            <div class="col-12 col-md-4 mb-3">
+                                <a href="{{ asset('documentation/assets/images/customer_app/9addquestion') }}"><img
+                                        class="figure-img img-fluid shadow rounded"
+                                        src="{{ asset('documentation/assets/images/customer_app/9addquestion') }}"
+                                        alt="" title="Customer Add Question" /></a>
+                            </div><!--//col-->
+
+                            <div class="col-12 col-md-4 mb-3">
+                                <a href="{{ asset('documentation/assets/images/customer_app/9Answer.jpg') }}"><img
+                                        class="figure-img img-fluid shadow rounded"
+                                        src="{{ asset('documentation/assets/images/customer_app/9Answer.jpg') }}"
+                                        alt="" title="Customer App Answers" /></a>
+                            </div><!--//col-->
+
+                            <div class="col-12 col-md-4 mb-3">
+                                <a href="{{ asset('documentation/assets/images/customer_app/9community.jpg') }}"><img
+                                        class="figure-img img-fluid shadow rounded"
+                                        src="{{ asset('documentation/assets/images/customer_app/9community.jpg') }}"
+                                        alt="" title="Customer App Community" /></a>
+                            </div><!--//col-->
+
+                            <div class="col-12 col-md-4 mb-3">
+                                <a href="{{ asset('documentation/assets/images/customer_app/9postandAnswer.jpg') }}"><img
+                                        class="figure-img img-fluid shadow rounded"
+                                        src="{{ asset('documentation/assets/images/customer_app/9postandAnswer.jpg') }}"
+                                        alt="" title="Customer App Post and Answer" /></a>
+                            </div><!--//col-->
+
+                        </div>
+                    </section><!--//section-->
+
+
+                    {{-- Customer App Account --}}
+                    <section class="docs-section" id="customer_app_account">
+                        <h2 class="section-heading">Customer App Account</h2>
+                        <p>This section grants you access to the heart of your customer account, where you're in
+                            control. Explore our versatile customer account/settings screens to customize your
+                            experience, manage preferences, and fine-tune your profile. From updating personal details
+                            to configuring notification settings, these screens are your command center, ensuring that
+                            your experience is tailored to your needs and preferences. Dive into the world of
+                            customization and make your experience uniquely yours.</p>
+
+                        <div class="simplelightbox-gallery row mb-3">
+
+                            <div class="col-12 col-md-4 mb-3">
+                                <a href="{{ asset('documentation/assets/images/customer_app/10account.jpg') }}"><img
+                                        class="figure-img img-fluid shadow rounded"
+                                        src="{{ asset('documentation/assets/images/customer_app/10account.jpg') }}"
+                                        alt="" title="Customer App account" /></a>
+                            </div><!--//col-->
+
+                            <div class="col-12 col-md-4 mb-3">
+                                <a href="{{ asset('documentation/assets/images/customer_app/11darkmode.jpg') }}"><img
+                                        class="figure-img img-fluid shadow rounded"
+                                        src="{{ asset('documentation/assets/images/customer_app/11darkmode.jpg') }}"
+                                        alt="" title="Customer App Dark Mode" /></a>
+                            </div><!--//col-->
+
+                            <div class="col-12 col-md-4 mb-3">
+                                <a
+                                    href="{{ asset('documentation/assets/images/customer_app/12changeLanguage.jpg') }}"><img
+                                        class="figure-img img-fluid shadow rounded"
+                                        src="{{ asset('documentation/assets/images/customer_app/12changeLanguage.jpg') }}"
+                                        alt="" title="Customer App Change Language" /></a>
+                            </div><!--//col-->
+
+                        </div>
+                    </section><!--//section-->
+
+
+                    {{-- Customer App Library --}}
+                    <section class="docs-section" id="customer_app_library">
+                        <h2 class="section-heading">Customer App Library</h2>
+                        <p>This section showcases the customer library screens, a treasure trove of curated content and
+                            resources at your fingertips. Explore a vast collection of articles, guides, and multimedia
+                            materials, all organized for your convenience. Whether you're seeking inspiration,
+                            educational content, or entertainment, our customer library screens provide a wealth of
+                            knowledge and entertainment tailored to your interests. Immerse yourself in the world of our
+                            digital library and discover a universe of information.</p>
+
+                        <div class="simplelightbox-gallery row mb-3">
+
+                            <div class="col-12 col-md-4 mb-3">
+                                <a href="{{ asset('documentation/assets/images/customer_app/13library.jpg') }}"><img
+                                        class="figure-img img-fluid shadow rounded"
+                                        src="{{ asset('documentation/assets/images/customer_app/13library.jpg') }}"
+                                        alt="" title="Customer App Libary" /></a>
+                            </div><!--//col-->
+
+                            <div class="col-12 col-md-4 mb-3">
+                                <a href="{{ asset('documentation/assets/images/customer_app/15bookDetails.jpg') }}"><img
+                                        class="figure-img img-fluid shadow rounded"
+                                        src="{{ asset('documentation/assets/images/customer_app/15bookDetails.jpg') }}"
+                                        alt="" title="Customer App Book Details" /></a>
+                            </div><!--//col-->
+
+                        </div>
+                    </section><!--//section-->
+
+
+                    {{-- Customer App Donates --}}
+                    <section class="docs-section" id="customer_app_donates">
+                        <h2 class="section-heading">Customer App Donates</h2>
+                        <p>This section unveils the customer donates screens, a platform for making a positive impact
+                            and giving back to causes that matter. Here, you have the opportunity to contribute to
+                            various charitable initiatives, support important causes, and make a difference in the
+                            world. Explore our customer donates screens to find causes that resonate with you, and join
+                            a community of caring individuals dedicated to creating a better world. Your actions have
+                            the power to bring about meaningful change, and it all begins here.</p>
+
+                        <div class="simplelightbox-gallery row mb-3">
+
+                            <div class="col-12 col-md-4 mb-3">
+                                <a href="{{ asset('documentation/assets/images/customer_app/14DONATES.jpg') }}"><img
+                                        class="figure-img img-fluid shadow rounded"
+                                        src="{{ asset('documentation/assets/images/customer_app/14DONATES.jpg') }}"
+                                        alt="" title="Customer App Donates" /></a>
+                            </div><!--//col-->
+
+                        </div>
+                    </section><!--//section-->
+
+
+                    {{-- Customer App Notifications --}}
+                    <section class="docs-section" id="customer_app_notification">
+                        <h2 class="section-heading">Customer App Notifications</h2>
+                        <p>This section offers a window into the customer notifications screens, your gateway to staying
+                            informed and connected. With our customer notifications, you'll never miss an important
+                            update, event, or message. Whether it's alerts about your favorite categories, exciting
+                            promotions, or community news, these screens keep you in the loop. Stay up-to-date and
+                            engage with our vibrant community as you explore the world of customer notifications,
+                            ensuring that you're always in touch with what matters most to you.</p>
+
+                        <div class="simplelightbox-gallery row mb-3">
+
+                            <div class="col-12 col-md-4 mb-3">
+                                <a href="{{ asset('documentation/assets/images/customer_app/16Notification.jpg') }}"><img
+                                        class="figure-img img-fluid shadow rounded"
+                                        src="{{ asset('documentation/assets/images/customer_app/16Notification.jpg') }}"
+                                        alt="" title="Customer App Notifications" /></a>
+                            </div><!--//col-->
+
+                        </div>
+                    </section><!--//section-->
+
+
+                    {{-- Customer App Cart --}}
+                    <section class="docs-section" id="customer_app_cart">
+                        <h2 class="section-heading">Customer App Cart</h2>
+                        <p>This section presents the dynamic duo of the customer experience—cart and orders screens.
+                            Your journey through our platform is made even more seamless and efficient as you manage
+                            your shopping cart and review your order history. From adding desired items to your cart to
+                            tracking the status of your orders, these screens provide a convenient and organized way to
+                            handle your transactions. Explore the world of customer cart and orders screens, where
+                            shopping, tracking, and managing your purchases become a breeze, all in one place.</p>
+
+                        <div class="simplelightbox-gallery row mb-3">
+
+                            <div class="col-12 col-md-3 mb-3">
+                                <a href="{{ asset('documentation/assets/images/customer_app/17Cart.jpg') }}"><img
+                                        class="figure-img img-fluid shadow rounded"
+                                        src="{{ asset('documentation/assets/images/customer_app/17Cart.jpg') }}"
+                                        alt="" title="Customer App Cart" /></a>
+                            </div><!--//col-->
+
+                            <div class="col-12 col-md-3 mb-3">
+                                <a href="{{ asset('documentation/assets/images/customer_app/17cartAddress.jpg') }}"><img
+                                        class="figure-img img-fluid shadow rounded"
+                                        src="{{ asset('documentation/assets/images/customer_app/17cartAddress.jpg') }}"
+                                        alt="" title="Customer App Cart Address" /></a>
+                            </div><!--//col-->
+
+                            <div class="col-12 col-md-3 mb-3">
+                                <a href="{{ asset('documentation/assets/images/customer_app/17emptyCart.jpg') }}"><img
+                                        class="figure-img img-fluid shadow rounded"
+                                        src="{{ asset('documentation/assets/images/customer_app/17emptyCart.jpg') }}"
+                                        alt="" title="Customer App Empty Cart" /></a>
+                            </div><!--//col-->
+
+
+                            <div class="col-12 col-md-3 mb-3">
+                                <a href="{{ asset('documentation/assets/images/customer_app/22myOrder.jpg') }}"><img
+                                        class="figure-img img-fluid shadow rounded"
+                                        src="{{ asset('documentation/assets/images/customer_app/22myOrder.jpg') }}"
+                                        alt="" title="Customer App Orders" /></a>
+                            </div><!--//col-->
+
+                        </div>
+                    </section><!--//section-->
+
+
+                    {{-- Customer App Vendor --}}
+                    <section class="docs-section" id="customer_app_vendor">
+                        <h2 class="section-heading">Customer App Vendor</h2>
+                        <p>This section is your gateway to the vibrant world of customer vendors screens, where you can
+                            explore a diverse marketplace of products and services. Whether you're seeking unique
+                            handcrafted items, fashion trends, health products, or a variety of other offerings, our
+                            customer vendors screens provide a convenient and user-friendly platform to discover,
+                            connect, and engage with the vendors who bring these items to you. Dive into the customer
+                            vendors screens to connect with a global community of sellers and find the perfect items
+                            that match your lifestyle and preferences.</p>
+
+                        <div class="simplelightbox-gallery row mb-3">
+
+                            <div class="col-12 col-md-3 mb-3">
+                                <a href="{{ asset('documentation/assets/images/customer_app/18productInfo.jpg') }}"><img
+                                        class="figure-img img-fluid shadow rounded"
+                                        src="{{ asset('documentation/assets/images/customer_app/18productInfo.jpg') }}"
+                                        alt="" title="Customer App Vendor Info" /></a>
+                            </div><!--//col-->
+
+                            <div class="col-12 col-md-3 mb-3">
+                                <a href="{{ asset('documentation/assets/images/customer_app/18productPosts.jpg') }}"><img
+                                        class="figure-img img-fluid shadow rounded"
+                                        src="{{ asset('documentation/assets/images/customer_app/18productPosts.jpg') }}"
+                                        alt="" title="Customer App Vendor Posts" /></a>
+                            </div><!--//col-->
+
+                            <div class="col-12 col-md-3 mb-3">
+                                <a href="{{ asset('documentation/assets/images/customer_app/18Products.jpg') }}"><img
+                                        class="figure-img img-fluid shadow rounded"
+                                        src="{{ asset('documentation/assets/images/customer_app/18Products.jpg') }}"
+                                        alt="" title="Customer App Vendor Products" /></a>
+                            </div><!--//col-->
+
+                            <div class="col-12 col-md-3 mb-3">
+                                <a href="{{ asset('documentation/assets/images/customer_app/18Reviews.jpg') }}"><img
+                                        class="figure-img img-fluid shadow rounded"
+                                        src="{{ asset('documentation/assets/images/customer_app/18Reviews.jpg') }}"
+                                        alt="" title="Customer App Vendor Reviews" /></a>
+                            </div><!--//col-->
+
+                        </div>
+                    </section><!--//section-->
+
+
+                    {{-- Customer App Story --}}
+                    <section class="docs-section" id="customer_app_story">
+                        <h2 class="section-heading">Customer App Story</h2>
+                        <p>This section is where stories come to life in the customer story screen. Immerse yourself in a world of captivating narratives, where you can explore, share, and engage with a community of storytellers. From personal anecdotes to tales of inspiration and discovery, our customer story screen is a gateway to a diverse and enriching collection of narratives. Join the storytelling community, create your own stories, or simply enjoy the unique journeys shared by others. It's a place where words and experiences intertwine to provide inspiration and connection.</p>
+
+                        <div class="simplelightbox-gallery row mb-3">
+
+                            <div class="col-12 col-md-4 mb-3">
+                                <a href="{{ asset('documentation/assets/images/customer_app/Story.jpg') }}"><img
+                                        class="figure-img img-fluid shadow rounded"
+                                        src="{{ asset('documentation/assets/images/customer_app/Story.jpg') }}"
+                                        alt="" title="Customer App Story" /></a>
+                            </div><!--//col-->
+
+                        </div>
+                    </section><!--//section-->
+
+
+
+
+                </article><!--//docs-article-->
