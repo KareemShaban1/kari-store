@@ -38,7 +38,7 @@ return [
           'Delivery_Name' => 'أسم مندوب الشحن',
           'Choose_Delivery' => 'أختار مندوب شحن',
           'Cart_Number' => 'رقم العربة',
-          '' => '',
+          'Variant' => 'Variant',
           '' => '',
           '' => '',
           '' => '',

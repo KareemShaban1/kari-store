@@ -26,6 +26,7 @@
                 /* height: 50px; */
                 /* Adjust the height as needed */
                 margin-right: 10px;
+                margin-left: 10px;
                 /* Add margin for spacing between image and name */
             }
 
@@ -37,488 +38,29 @@
         </style>
     @endpush
 
-    <!-- Start Slider Area -->
-    <section class="hero-area">
-        <div class="container">
+    @include('frontend.pages.home_parts.hero_section')
 
-            <x-frontend.alert type="info" />
-
-            <div class="row">
-
-                @if ($websiteParts['parts']['Slider'] ?? null && $websiteParts['parts']['Slider'] == 1)
-                    <div class="col-lg-12 col-12 custom-padding-right">
-                        <div class="slider-head" style="direction: ltr">
-                            <!-- Start Hero Slider -->
-                            <div class="hero-slider">
-                                <!-- Start Single Slider -->
-                                <div class="single-slider" {{-- style="background-image:url({{ $banners["banners"]["banner_1"] }})" --}} style="background-color: aliceblue"
-                                    {{-- style="background-image: url(https://via.placeholder.com/800x500);" --}}>
-                                    <div class="content">
-                                        <h2><span>No restocking fee ($35 savings)</span>
-                                            M75 Sport Watch
-                                        </h2>
-                                        <p>Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod tempor
-                                            incididunt ut
-                                            labore dolore magna aliqua.</p>
-                                        <h3><span>Now Only</span> $320.99</h3>
-                                        <div class="button">
-                                            <a href="product-grids.html" class="btn">Shop Now</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Slider -->
-                                <!-- Start Single Slider -->
-                                <div class="single-slider"
-                                    style="background-image: url(https://via.placeholder.com/800x500);">
-                                    <div class="content">
-                                        <h2><span>Big Sale Offer</span>
-                                            Get the Best Deal on CCTV Camera
-                                        </h2>
-                                        <p>Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod tempor
-                                            incididunt ut
-                                            labore dolore magna aliqua.</p>
-                                        <h3><span>Combo Only:</span> $590.00</h3>
-                                        <div class="button">
-                                            <a href="product-grids.html" class="btn">Shop Now</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Slider -->
-                            </div>
-                            <!-- End Hero Slider -->
-                        </div>
-                    </div>
-                @endif
-
-            </div>
-        </div>
-    </section>
-    <!-- End Slider Area -->
-
-    {{-- featured Categories --}}
-    @if (
-        $websiteParts['parts']['Featured Categories Section'] ??
-            null && $websiteParts['parts']['Featured Categories Section'] == 1)
-        <!-- Start Featured Categories Area -->
-        <section class="featured-categories section">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="section-title">
-                            <h2>{{ trans('home_trans.Featured Categories') }}</h2>
-                            {{-- <p>There are many variations of passages of Lorem Ipsum available, but the majority have
-                                suffered alteration in some form.</p> --}}
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    @foreach ($featured_categories as $featured_category)
-                        <div class="col-lg-6 col-md-6 col-12">
-                            <!-- Start Single Category -->
-                            <div class="single-category">
-                                <h3 class="heading">{{ $featured_category->name }}</h3>
-                                <ul>
-                                    {{-- @php
-                                        dd($featured_category->children);
-                                    @endphp --}}
-                                    @foreach ($featured_category->children as $subcategory)
-                                        <li><a href="">{{ $subcategory->name }}</a></li>
-                                    @endforeach
-                                    {{-- <li><a href="product-grids.html">Smart Television</a></li>
-                                <li><a href="product-grids.html">QLED TV</a></li>
-                                <li><a href="product-grids.html">Audios</a></li>
-                                <li><a href="product-grids.html">Headphones</a></li>
-                                <li><a href="product-grids.html">View All</a></li> --}}
-                                </ul>
-                                <div class="images">
-                                    <img src="{{ $featured_category->image_url }}" height="120" width="180"
-                                        alt="#">
-                                </div>
-                            </div>
-                            <!-- End Single Category -->
-                        </div>
-                    @endforeach
+    @include('frontend.pages.home_parts.categories_section')
 
 
-                </div>
-            </div>
-        </section>
-        <!-- End Features Area -->
-    @endif
+
+    {{-- @include('frontend.pages.home_parts.featured_categories') --}}
+
+    @include('frontend.pages.home_parts.products_section')
 
 
-    {{-- Trending products --}}
-    @if (
-        $websiteParts['parts']['Trending Product Section'] ??
-            null && $websiteParts['parts']['Trending Product Section'] == 1)
-
-        <!-- Start Trending Product Area -->
-        <section class="trending-product section">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="section-title">
-                            <h2>{{ trans('home_trans.New Products') }}</h2>
-                            {{-- <p>There are many variations of passages of Lorem Ipsum available, but the majority have
-                                suffered alteration in some form.</p> --}}
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    @foreach ($products as $product)
-                        <div class="col-lg-3 col-md-6 col-12">
-                            <x-frontend.product-card :product="$product" />
-                        </div>
-                    @endforeach
-
-                </div>
-            </div>
-        </section>
-        <!-- End Trending Product Area -->
-
-    @endif
-
-    {{-- banner section --}}
-    @if ($websiteParts['parts']['Banner Section'] ?? null && $websiteParts['parts']['Banner Section'] == 1)
-        <!-- Start Banner Area -->
-        <section class="banner section">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6 col-md-6 col-12">
-                        <div class="single-banner" style="background-image:url('https://via.placeholder.com/620x340')">
-                            <div class="content">
-                                <h2>Smart Watch 2.0</h2>
-                                <p>Space Gray Aluminum Case with <br>Black/Volt Real Sport Band </p>
-                                <div class="button">
-                                    <a href="product-grids.html" class="btn">View Details</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-12">
-                        <div class="single-banner custom-responsive-margin"
-                            style="background-image:url('https://via.placeholder.com/620x340')">
-                            <div class="content">
-                                <h2>Smart Headphone</h2>
-                                <p>Lorem ipsum dolor sit amet, <br>eiusmod tempor
-                                    incididunt ut labore.</p>
-                                <div class="button">
-                                    <a href="product-grids.html" class="btn">Shop Now</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- End Banner Area -->
-    @endif
+    @include('frontend.pages.home_parts.banner_section')
 
 
-    {{-- special offers --}}
-    @if ($websiteParts['parts']['Special Offers Section'] ?? null && $websiteParts['parts']['Special Offers Section'] == 1)
-        <!-- Start Special Offer -->
-        <section class="special-offer section">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="section-title">
-                            <h2>Special Offer</h2>
-                            <p>There are many variations of passages of Lorem Ipsum available, but the majority have
-                                suffered alteration in some form.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-8 col-md-12 col-12">
-                        <div class="row">
-                            <div class="col-lg-4 col-md-4 col-12">
-                                <!-- Start Single Product -->
-                                <div class="single-product">
-                                    <div class="product-image">
-                                        <img src="https://via.placeholder.com/335x335" alt="#">
-                                        <div class="button">
-                                            <a href="product-details.html" class="btn"><i class="lni lni-cart"></i>
-                                                Add to
-                                                Cart</a>
-                                        </div>
-                                    </div>
-                                    <div class="product-info">
-                                        <span class="category">Camera</span>
-                                        <h4 class="title">
-                                            <a href="product-grids.html">WiFi Security Camera</a>
-                                        </h4>
-                                        <ul class="review">
-                                            <li><i class="lni lni-star-filled"></i></li>
-                                            <li><i class="lni lni-star-filled"></i></li>
-                                            <li><i class="lni lni-star-filled"></i></li>
-                                            <li><i class="lni lni-star-filled"></i></li>
-                                            <li><i class="lni lni-star-filled"></i></li>
-                                            <li><span>5.0 Review(s)</span></li>
-                                        </ul>
-                                        <div class="price">
-                                            <span>$399.00</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Product -->
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-12">
-                                <!-- Start Single Product -->
-                                <div class="single-product">
-                                    <div class="product-image">
-                                        <img src="https://via.placeholder.com/335x335" alt="#">
-                                        <div class="button">
-                                            <a href="product-details.html" class="btn"><i class="lni lni-cart"></i>
-                                                Add to
-                                                Cart</a>
-                                        </div>
-                                    </div>
-                                    <div class="product-info">
-                                        <span class="category">Laptop</span>
-                                        <h4 class="title">
-                                            <a href="product-grids.html">Apple MacBook Air</a>
-                                        </h4>
-                                        <ul class="review">
-                                            <li><i class="lni lni-star-filled"></i></li>
-                                            <li><i class="lni lni-star-filled"></i></li>
-                                            <li><i class="lni lni-star-filled"></i></li>
-                                            <li><i class="lni lni-star-filled"></i></li>
-                                            <li><i class="lni lni-star-filled"></i></li>
-                                            <li><span>5.0 Review(s)</span></li>
-                                        </ul>
-                                        <div class="price">
-                                            <span>$899.00</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Product -->
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-12">
-                                <!-- Start Single Product -->
-                                <div class="single-product">
-                                    <div class="product-image">
-                                        <img src="https://via.placeholder.com/335x335" alt="#">
-                                        <div class="button">
-                                            <a href="product-details.html" class="btn"><i
-                                                    class="lni lni-cart"></i>
-                                                Add to
-                                                Cart</a>
-                                        </div>
-                                    </div>
-                                    <div class="product-info">
-                                        <span class="category">Speaker</span>
-                                        <h4 class="title">
-                                            <a href="product-grids.html">Bluetooth Speaker</a>
-                                        </h4>
-                                        <ul class="review">
-                                            <li><i class="lni lni-star-filled"></i></li>
-                                            <li><i class="lni lni-star-filled"></i></li>
-                                            <li><i class="lni lni-star-filled"></i></li>
-                                            <li><i class="lni lni-star-filled"></i></li>
-                                            <li><i class="lni lni-star"></i></li>
-                                            <li><span>4.0 Review(s)</span></li>
-                                        </ul>
-                                        <div class="price">
-                                            <span>$70.00</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Product -->
-                            </div>
-                        </div>
-                        <!-- Start Banner -->
-                        <div class="single-banner right"
-                            style="background-image:url('https://via.placeholder.com/730x310');margin-top: 30px;">
-                            <div class="content">
-                                <h2>Samsung Notebook 9 </h2>
-                                <p>Lorem ipsum dolor sit amet, <br>eiusmod tempor
-                                    incididunt ut labore.</p>
-                                <div class="price">
-                                    <span>$590.00</span>
-                                </div>
-                                <div class="button">
-                                    <a href="product-grids.html" class="btn">Shop Now</a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End Banner -->
-                    </div>
-                    <div class="col-lg-4 col-md-12 col-12">
-                        <div class="offer-content">
-                            <div class="image">
-                                <img src="https://via.placeholder.com/510x600" alt="#">
-                                <span class="sale-tag">-50%</span>
-                            </div>
-                            <div class="text">
-                                <h2><a href="product-grids.html">Bluetooth Headphone</a></h2>
-                                <ul class="review">
-                                    <li><i class="lni lni-star-filled"></i></li>
-                                    <li><i class="lni lni-star-filled"></i></li>
-                                    <li><i class="lni lni-star-filled"></i></li>
-                                    <li><i class="lni lni-star-filled"></i></li>
-                                    <li><i class="lni lni-star-filled"></i></li>
-                                    <li><span>5.0 Review(s)</span></li>
-                                </ul>
-                                <div class="price">
-                                    <span>$200.00</span>
-                                    <span class="discount-price">$400.00</span>
-                                </div>
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry incididunt
-                                    ut
-                                    eiusmod tempor labores.</p>
-                            </div>
-                            <div class="box-head">
-                                <div class="box">
-                                    <h1 id="days">000</h1>
-                                    <h2 id="daystxt">Days</h2>
-                                </div>
-                                <div class="box">
-                                    <h1 id="hours">00</h1>
-                                    <h2 id="hourstxt">Hours</h2>
-                                </div>
-                                <div class="box">
-                                    <h1 id="minutes">00</h1>
-                                    <h2 id="minutestxt">Minutes</h2>
-                                </div>
-                                <div class="box">
-                                    <h1 id="seconds">00</h1>
-                                    <h2 id="secondstxt">Secondes</h2>
-                                </div>
-                            </div>
-                            <div style="background: rgb(204, 24, 24);" class="alert">
-                                <h1 style="padding: 50px 80px;color: white;">We are sorry, Event ended ! </h1>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- End Special Offer -->
-    @endif
+    @include('frontend.pages.home_parts.special_offers')
 
 
-    {{-- home product list --}}
-    @if (
-        $websiteParts['parts']['Home Product List Section'] ??
-            null && $websiteParts['parts']['Home Product List Section'] == 1)
 
-        <!-- Start Home Product List -->
-        <section class="home-product-list section">
-            <div class="container">
-                <div class="row">
-
-                    @if ($websiteParts['parts']['Best Sellers'] ?? null && $websiteParts['parts']['Best Sellers'] == 1)
-                        {{-- @php
-                            $best_seller_products= App\Models\Product::where('product_type','=','best_seller')->active()->latest()->take(4)->get();
-                            $new_arrival_products= App\Models\Product::where('product_type','=','new_arrival')->active()->latest()->take(4)->get();
-                            $top_rated_products= App\Models\Product::where('product_type','=','top_rated')->active()->latest()->take(4)->get();
-                        @endphp --}}
-                        <div class="col-lg-4 col-md-4 col-12 custom-responsive-margin">
-                            <h4 class="list-title">Best Sellers</h4>
-                            {{-- @foreach ($best_seller_products as $best_seller_product)
-                                <!-- Start Single List -->
-                                <div class="single-list">
-                                    <div class="list-image">
-                                        <a href="product-grids.html">
-                                            <img src="{{ $best_seller_product->image_url }}"
-                                                alt="#"></a>
-                                    </div>
-                                    <div class="list-info">
-                                        <h3>
-                                            <a href="product-grids.html">{{ $best_seller_product->name }}</a>
-                                        </h3>
-                                        <span>{{ $best_seller_product->price }}</span>
-                                    </div>
-                                </div>
-                            <!-- End Single List --> 
-                            @endforeach --}}
+    @include('frontend.pages.home_parts.filtered_products')
 
 
-                        </div>
-                    @endif
+    @include('frontend.pages.home_parts.brands_section')
 
-                    @if ($websiteParts['parts']['New Arrivals'] ?? null && $websiteParts['parts']['New Arrivals'] == 1)
-                        <div class="col-lg-4 col-md-4 col-12 custom-responsive-margin">
-                            <h4 class="list-title">New Arrivals</h4>
-
-                            {{-- @foreach ($new_arrival_products as $new_arrival_product)
-                            
-                                <div class="single-list">
-                                    <div class="list-image">
-                                        <a href="product-grids.html">
-                                            <img src="{{ $new_arrival_product->image_url }}"
-                                                alt="#"></a>
-                                    </div>
-                                    <div class="list-info">
-                                        <h3>
-                                            <a href="product-grids.html">{{ $new_arrival_product->name }}</a>
-                                        </h3>
-                                        <span>{{ $new_arrival_product->price }}</span>
-                                    </div>
-                                </div>
-                            @endforeach --}}
-
-                        </div>
-                    @endif
-
-                    @if ($websiteParts['parts']['Top Rated'] ?? null && $websiteParts['parts']['Top Rated'] == 1)
-                        <div class="col-lg-4 col-md-4 col-12">
-                            <h4 class="list-title">Top Rated</h4>
-                            {{-- @foreach ($top_rated_products as $top_rated_product)
-                            
-                                <div class="single-list">
-                                    <div class="list-image">
-                                        <a href="product-grids.html">
-                                            <img src="{{ $top_rated_product->image_url }}"
-                                                alt="#"></a>
-                                    </div>
-                                    <div class="list-info">
-                                        <h3>
-                                            <a href="product-grids.html">{{ $top_rated_product->name }}</a>
-                                        </h3>
-                                        <span>{{ $top_rated_product->price }}</span>
-                                    </div>
-                                </div>
-                            
-                            @endforeach --}}
-
-                        </div>
-                    @endif
-                </div>
-            </div>
-        </section>
-        <!-- End Home Product List -->
-
-    @endif
-
-
-    {{-- brands section --}}
-    @if ($websiteParts['parts']['Brands Section'] ?? null && $websiteParts['parts']['Brands Section'] == 1)
-        <!-- Start Brands Area -->
-        <div class="brands" style="direction: ltr">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6 offset-lg-3 col-md-12 col-12">
-                        <h2 class="title">Popular Brands</h2>
-                    </div>
-                </div>
-                <div class="brands-logo-wrapper">
-                    <div class="brands-logo-carousel d-flex align-items-center justify-content-between">
-
-                        @foreach ($brands as $brand)
-                            <div class="brand-logo">
-                                <img src="{{ $brand->image_url }}" alt="#">
-                                <p>{{ $brand->name }}</p>
-                            </div>
-                        @endforeach
-
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- End Brands Area -->
-    @endif
 
 
     {{-- blog section --}}
@@ -749,6 +291,31 @@
             //======== Brand Slider
             tns({
                 container: '.brands-logo-carousel',
+                autoplay: true,
+                autoplayButtonOutput: false,
+                mouseDrag: true,
+                gutter: 15,
+                nav: false,
+                controls: false,
+                responsive: {
+                    0: {
+                        items: 1,
+                    },
+                    540: {
+                        items: 3,
+                    },
+                    768: {
+                        items: 5,
+                    },
+                    992: {
+                        items: 6,
+                    }
+                }
+            });
+
+            //======== Brand Slider
+            tns({
+                container: '.categories-logo-carousel',
                 autoplay: true,
                 autoplayButtonOutput: false,
                 mouseDrag: true,

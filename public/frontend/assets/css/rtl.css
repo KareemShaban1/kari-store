@@ -3391,6 +3391,18 @@ ol {
   right: 0;
   z-index: 22;
 }
+.single-product .product-image .out-of-stock {
+  background: #225ccf;
+  border-radius: 2px;
+  font-size: 12px;
+  color: #fff;
+  font-weight: bold;
+  position: absolute;
+  top: 0;
+  padding: 5px 10px;
+  left: 0;
+  z-index: 23;
+}
 
 .single-product .product-image .new-tag {
   background: #0167F3;
@@ -5072,6 +5084,49 @@ blockquote span {
   border-color: transparent;
 }
 
+
+/* 
+Categories Css
+*/
+
+.categories {
+  padding: 80px 0;
+  background-color: #f9f9f9;
+}
+
+
+.categories #tns2>.tns-item {
+  padding-left: 28px;
+}
+.categories .title {
+  text-align: center;
+  font-size: 20px;
+  font-weight: 500;
+  margin-bottom: 30px;
+}
+.categories .categories-logo-wrapper {
+  background-color: #f0e9e1;
+}
+.categories .categories-logo-wrapper .categories-logo-carousel .categories-logo {
+  padding: 20px 20px;
+  text-align: center;
+  margin: 0;
+  border-left: 1px solid #eee;
+}
+
+.categories .categories-logo-wrapper .categories-logo-carousel .categories-logo img {
+  width: 100px;
+  opacity: .8;
+  -webkit-transition: all .3s ease-out 0s;
+  transition: all .3s ease-out 0s;
+}
+
+.categories .categories-logo-wrapper .categories-logo-carousel .categories-logo img:hover {
+  opacity: 1;
+}
+
+
+
 /*======================================
    Brands CSS
 ========================================*/
@@ -5097,6 +5152,7 @@ blockquote span {
     padding: 40px 0;
   }
 }
+
 
 .brands .brands-logo-wrapper {
   border: 1px solid #eee;

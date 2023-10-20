@@ -31,7 +31,7 @@ use  App\Http\Controllers\Backend\Vendor\{
     AttributesController as VendorAttributesController,
     AttributeValuesController as VendorAttributeValuesController,
     NotificationsController as VendorNotificationsController ,
-    VendorOrderController as VendorOrderController
+    OrderController as VendorOrderController
     
 };
 
@@ -158,7 +158,7 @@ Route::group([
 
       Route::resource('/coupons', CouponController::class);
 
-      Route::resource('/orders', App\Http\Controllers\Backend\Vendor\VendorOrderController::class);
+      Route::resource('/orders', VendorOrderController::class);
 
       Route::get('/notifications', [VendorNotificationsController::class, 'index'])->name('notifications.index');
 

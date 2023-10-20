@@ -55,6 +55,7 @@ class HomeController extends Controller
         }
 
         $brands = Brand::all();
+        $categories = Category::get();
 
         return view(
             'frontend.pages.home',
@@ -63,7 +64,8 @@ class HomeController extends Controller
                 'banners',
                 'websiteParts',
                 'featured_categories',
-                'brands'
+                'brands',
+                'categories'
                 // ,'best_seller_products'
             )
         );

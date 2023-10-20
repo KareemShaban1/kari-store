@@ -5,11 +5,11 @@ namespace App\Http\Controllers\Backend\Vendor;
 use App\Events\OrderToDelivery;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
-
+use App\Models\Vendor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class VendorOrderController extends Controller
+class OrderController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,8 +20,12 @@ class VendorOrderController extends Controller
     {
         //
         
-        $vendor_id = Auth::user('vendor')->id;
-        $orders = Order::where('vendor_id',$vendor_id)->with('user', 'store', 'products.category')->get();
+        
+        $vendor_id = Auth::user()->id;
+        $vendor = Vendor::findOrFail($vendor_id);
+        
+        $orders = Order::where('store_id',$vendor->store_id)->with('user', 'store', 'products.category')->get();
+        // dd($orders);
         return view('backend.Vendor_Dashboard.orders.index', compact('orders'));
     }
 

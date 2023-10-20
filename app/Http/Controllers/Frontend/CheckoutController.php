@@ -86,6 +86,7 @@ class CheckoutController extends Controller
                     //     'coupon_id' => $coupon ? $coupon->id : null
                 // ]);
                 
+                
                 $order = new Order();
                 $order->store_id = $store_id;
                 $order->user_id = Auth::user('user')->id;
@@ -96,6 +97,7 @@ class CheckoutController extends Controller
 
                 foreach ($cart_items as $item) {
                     
+                    dd($cart_items);
                     // dd($item->product->store->id , $store_id); 
                     if($item->product->store->id == $store_id){
                         

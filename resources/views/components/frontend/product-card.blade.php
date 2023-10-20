@@ -11,6 +11,9 @@
                 {{ trans('home_trans.Show_Product') }}
             </a>
         </div>
+        @if ($product->quantity == 0)
+            <span class="out-of-stock"> Out Of Stock</span>
+        @endif
     </div>
     <div class="product-info">
 
