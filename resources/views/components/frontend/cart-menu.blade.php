@@ -6,8 +6,8 @@
     <!-- Shopping Item -->
     <div class="shopping-item">
         <div class="dropdown-cart-header">
-            <span>{{ $items->count() }} {{ trans('home_trans.Items') }}</span>
-            <a href="{{ Route('cart.index') }}">{{ trans('home_trans.View_Cart') }}</a>
+            <span>{{ $items->count() }} {{ trans('front_home_trans.Items') }}</span>
+            <a href="{{ Route('cart.index') }}">{{ trans('front_home_trans.View_Cart') }}</a>
         </div>
         <ul class="shopping-list">
             @foreach ($items as $item)
@@ -31,11 +31,12 @@
         </ul>
         <div class="bottom">
             <div class="total">
-                <span>Total</span>
+                <span>{{ trans('front_home_trans.Total') }}</span>
                 <span class="total-amount">{{ Currency::format($total) }}</span>
             </div>
             <div class="button">
-                <a href="{{ Route('checkout.create') }}" class="btn animate">Checkout</a>
+                <a href="{{ Route('checkout.create') }}"
+                    class="btn animate">{{ trans('front_home_trans.Checkout') }}</a>
             </div>
         </div>
     </div>

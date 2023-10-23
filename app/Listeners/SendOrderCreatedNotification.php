@@ -34,15 +34,13 @@ class SendOrderCreatedNotification
     {
          // a php issue how send email and this is it's solution
         ini_set('max_execution_time', 300);
-        
-        /// send notification to vendor of product and all admins
-        
+                
         
         // get order
         $order = $event->order;
 
         // get store vendor of the order item
-        $vendor = Vendor::where('store_id', '=', $order->store_id)->first();
+        $vendors = Vendor::where('store_id', '=', $order->store_id)->get();
         // get all admins
         $admins = Admin::all();
         
@@ -62,18 +60,20 @@ class SendOrderCreatedNotification
         
         
         
-        if ($vendor) {
+        if ($vendors) {
              // send notification to store vendor 
-            $vendor->notify(new OrderCreatedNotification($order));
+            foreach ($vendors as $vendor) {
+                $vendor->notify(new OrderCreatedNotification($order));
 
-            // send whatsapp message to vendor 
-            $message = 'تم طلب أوردر رقم : ' . $order->number . "\n";
-            $message .=  'أسم المحل: ' . $order->store->name . "\n";
-            $message .=  'عنوان العميل : ' . $order->shippingAddress->street_address . "\n";
-            $this->sendMessage($vendor->phone , $message);
+                // send whatsapp message to vendor 
+                $message = 'تم طلب أوردر رقم : ' . $order->number . "\n";
+                $message .=  'أسم المحل: ' . $order->store->name . "\n";
+                $message .=  'عنوان العميل : ' . $order->shippingAddress->street_address . "\n";
+                $this->sendMessage($vendor->phone , $message);
 
-            if($delivery_admin){
-                $this->sendMessage($delivery_admin->phone_number , $message);
+                if($delivery_admin){
+                    $this->sendMessage($delivery_admin->phone_number , $message);
+                }
             }
             
         }

@@ -3,13 +3,13 @@
 
 
 return [
-          'Vendor'=>'البائع',
-          'Store'=>'المتجر',
-          'Search_Product'=>'بحث المنتجات',
-          'Search_Here'=>'بحث هنا',
-          'All_Categories'=>'كل التصنيفات',
-          'Add_To_Cart'=>'أضافة إلى السلة',
-          'Category'=>'التصنيف',
+          'Vendor'=>'Vendor',
+          'Store'=>'Store',
+          'Search_Product'=>'Search Product',
+          'Search_Here'=>'Search Here',
+          'All_Categories'=>'All Categories',
+          'Add_To_Cart'=>'Add_To_Cart',
+          'Category'=>'Category',
           ''=>'',
           ''=>'',
           ''=>'',

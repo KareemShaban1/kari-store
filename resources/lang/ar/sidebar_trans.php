@@ -63,7 +63,7 @@ return [
 
           'Attributes' => 'خواص المنتجات',
           'Add_Attribute' => 'أضافة خاصية للمنتج',
-          'All_Attributes' => 'كل الخواص',
+          'All_Attributes' => 'كل خواص المنتجات',
 
           'Attribute_Values' => 'قيم خواص المنتجات',
           'Add_Attribute_Value' => 'أضافة  قيم خواص المنتجات',
@@ -107,8 +107,10 @@ return [
           'Website_Settings' => 'أعدادات الموقع',
           'Payment' => ' الدفع',
           'Payment_Settings' => 'أعدادات الدفع',
-          '' => '',
-          '' => '',
+
+          
+          'Add_Product_Properties' => 'أضافة خصائص المنتج',
+          'All_Product_Properties' => 'كل خصائص المنتج',
           '' => '',
           '' => '',
           '' => '',

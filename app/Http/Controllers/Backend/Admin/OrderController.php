@@ -29,6 +29,36 @@ class OrderController extends Controller
     }
 
 
+    public function changeStatus($order_id , $status){
+        // 'pending','processing','delivering','completed','cancelled','refunded'
+        $order = Order::find($order_id);
+
+        if($status == "pending"){            
+                $order->status = "processing";
+        }
+        elseif($status == "processing"){
+            $order->status = "delivering";
+        }
+        elseif($status == "delivering"){
+            $order->status = "completed";
+        }
+        $order->save();
+
+        return redirect()->route('admin.reports.orders');
+
+        // elseif($status == "completed"){
+        //     $order->status = "";
+        // }
+        // elseif($status == "pending"){
+        //     $order->status = "";
+        // }
+        // elseif($status == "pending"){
+        //     $order->status = "";
+        // }
+        
+        
+    }
+
 
 
     public function assignDelivery(Request $request)

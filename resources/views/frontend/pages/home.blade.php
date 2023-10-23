@@ -63,149 +63,6 @@
 
 
 
-    {{-- blog section --}}
-    @if ($websiteParts['parts']['Blog Section'] ?? null && $websiteParts['parts']['Blog Section'] == 1)
-        <!-- Start Blog Section Area -->
-        <section class="blog-section section">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="section-title">
-                            <h2>Our Latest News</h2>
-                            <p>There are many variations of passages of Lorem
-                                Ipsum available, but the majority have suffered alteration in some form.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-4 col-md-6 col-12">
-                        <!-- Start Single Blog -->
-                        <div class="single-blog">
-                            <div class="blog-img">
-                                <a href="blog-single-sidebar.html">
-                                    <img src="https://via.placeholder.com/370x215" alt="#">
-                                </a>
-                            </div>
-                            <div class="blog-content">
-                                <a class="category" href="javascript:void(0)">eCommerce</a>
-                                <h4>
-                                    <a href="blog-single-sidebar.html">What information is needed for shipping?</a>
-                                </h4>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                    incididunt.</p>
-                                <div class="button">
-                                    <a href="javascript:void(0)" class="btn">Read More</a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End Single Blog -->
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-12">
-                        <!-- Start Single Blog -->
-                        <div class="single-blog">
-                            <div class="blog-img">
-                                <a href="blog-single-sidebar.html">
-                                    <img src="https://via.placeholder.com/370x215" alt="#">
-                                </a>
-                            </div>
-                            <div class="blog-content">
-                                <a class="category" href="javascript:void(0)">Gaming</a>
-                                <h4>
-                                    <a href="blog-single-sidebar.html">Interesting fact about gaming consoles</a>
-                                </h4>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                    incididunt.</p>
-                                <div class="button">
-                                    <a href="javascript:void(0)" class="btn">Read More</a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End Single Blog -->
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-12">
-                        <!-- Start Single Blog -->
-                        <div class="single-blog">
-                            <div class="blog-img">
-                                <a href="blog-single-sidebar.html">
-                                    <img src="https://via.placeholder.com/370x215" alt="#">
-                                </a>
-                            </div>
-                            <div class="blog-content">
-                                <a class="category" href="javascript:void(0)">Electronic</a>
-                                <h4>
-                                    <a href="blog-single-sidebar.html">Electronics, instrumentation & control
-                                        engineering
-                                    </a>
-                                </h4>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                    incididunt.</p>
-                                <div class="button">
-                                    <a href="javascript:void(0)" class="btn">Read More</a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End Single Blog -->
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- End Blog Section Area -->
-    @endif
-
-
-
-    @if ($websiteParts['parts']['Shipping Info Section'] ?? null && $websiteParts['parts']['Shipping Info Section   '] == 1)
-        <!-- Start Shipping Info -->
-        <section class="shipping-info">
-            <div class="container">
-                <ul>
-                    <!-- Free Shipping -->
-                    <li>
-                        <div class="media-icon">
-                            <i class="lni lni-delivery"></i>
-                        </div>
-                        <div class="media-body">
-                            <h5>Free Shipping</h5>
-                            <span>On order over $99</span>
-                        </div>
-                    </li>
-                    <!-- Money Return -->
-                    <li>
-                        <div class="media-icon">
-                            <i class="lni lni-support"></i>
-                        </div>
-                        <div class="media-body">
-                            <h5>24/7 Support.</h5>
-                            <span>Live Chat Or Call.</span>
-                        </div>
-                    </li>
-                    <!-- Support 24/7 -->
-                    <li>
-                        <div class="media-icon">
-                            <i class="lni lni-credit-cards"></i>
-                        </div>
-                        <div class="media-body">
-                            <h5>Online Payment.</h5>
-                            <span>Secure Payment Services.</span>
-                        </div>
-                    </li>
-                    <!-- Safe Payment -->
-                    <li>
-                        <div class="media-icon">
-                            <i class="lni lni-reload"></i>
-                        </div>
-                        <div class="media-body">
-                            <h5>Easy Return.</h5>
-                            <span>Hassle Free Shopping.</span>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </section>
-        <!-- End Shipping Info -->
-    @endif
-
-
     @push('scripts')
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
@@ -287,6 +144,32 @@
                 controls: true,
                 controlsText: ['<i class="lni lni-chevron-left"></i>', '<i class="lni lni-chevron-right"></i>'],
             });
+
+            tns({
+                container: '.products-slider-logo-carousel',
+                autoplay: true,
+                autoplayButtonOutput: false,
+                mouseDrag: true,
+                gutter: 15,
+                nav: false,
+                controls: true,
+                controlsText: ['<i class="lni lni-chevron-left"></i>', '<i class="lni lni-chevron-right"></i>'],
+                responsive: {
+                    0: {
+                        items: 1,
+                    },
+                    540: {
+                        items: 3,
+                    },
+                    768: {
+                        items: 5,
+                    },
+                    992: {
+                        items: 6,
+                    }
+                }
+            });
+
 
             //======== Brand Slider
             tns({
@@ -377,5 +260,6 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
         <script src="{{ asset('frontend/assets/js/cart.js') }}"></script>
     @endpush
+
 
 </x-front-layout>

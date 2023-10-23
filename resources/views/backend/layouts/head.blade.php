@@ -1,5 +1,5 @@
 <!-- Title -->
-<title>@yield("title")</title>
+<title>@yield('title')</title>
 
 <!-- Favicon -->
 <link rel="shortcut icon" href="{{ URL::asset('backend/assets/images/favicon.ico') }}" type="image/x-icon" />
@@ -19,7 +19,7 @@
 {{-- tagify --}}
 
 {{-- <link href="{{ URL::asset('backend/assets/css/summernote.min.css')}}" rel="stylesheet"> --}}
-<link href="{{ URL::asset('backend/assets/css/summernote-lite.min.css')}}" rel="stylesheet">
+<link href="{{ URL::asset('backend/assets/css/summernote-lite.min.css') }}" rel="stylesheet">
 
 
 {{-- <link href="{{asset('backend/assets/css/fontawesone_all.min.css')}}" rel="stylesheet"> --}}

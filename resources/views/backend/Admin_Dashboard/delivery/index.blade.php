@@ -30,7 +30,7 @@
         <div class="card card-statistics h-100">
             <div class="card-body">
 
-                <table id="table_id" class="display">
+                <table id="custom_table" class="display">
                     <thead>
                         <tr>
                             <th>{{ trans('delivery_trans.Id') }}</th>
@@ -69,8 +69,8 @@
                                     </a>
 
 
-                                    <form action="{{ Route('admin.deliveries.destroy', $delivery->id) }}" method="post"
-                                        style="display:inline">
+                                    <form action="{{ Route('admin.deliveries.destroy', $delivery->id) }}"
+                                        method="post" style="display:inline">
                                         @csrf
                                         @method('delete')
 
@@ -96,9 +96,5 @@
 <!-- row closed -->
 @endsection
 @section('js')
-<script>
-    $(document).ready(function() {
-        $('#table_id').DataTable();
-    });
-</script>
+
 @endsection

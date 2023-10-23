@@ -159,6 +159,14 @@ ul ul {
 dt {
   font-weight: 700; }
 
+.dt-buttons.btn-group {
+  float: left;
+}
+
+#custom_table tbody{
+text-align: center;
+}
+
 dd {
   margin-bottom: .5rem;
   margin-right: 0; }

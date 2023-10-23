@@ -73,9 +73,7 @@ Route::group(
         Route::resource('/banners', BannerController::class);
 
         Route::resource('/stores', StoresController::class);
-
         Route::get('/get-cities', [StoresController::class, 'getCities']);
-
         Route::get('/get-neighborhoods', [StoresController::class, 'getNeighborhoods']);
 
         Route::resource('/destinations', DestinationController::class);
@@ -83,13 +81,10 @@ Route::group(
         Route::resource('/vendors', VendorController::class);
 
         Route::resource('/products', ProductsController::class);
-        
         Route::get('/add_variant/{product_id}', [ProductsController::class, 'add_variant'])->name('products.add_variant');
 
         Route::resource('/product_variants', ProductVariantsController::class);
-        
         Route::get('/create_variant/{product_id}', [ProductVariantsController::class, 'create'])->name('product_variants.create');
- 
         Route::get('/get_attribute_value/{attribute_id}', [ProductVariantsController::class, 'get_attribute_value'])->name('get_attribute_value');
 
         Route::resource('/attributes', AttributesController::class);
@@ -102,6 +97,8 @@ Route::group(
         Route::resource('/coupons', CouponController::class);
 
         Route::resource('/orders', OrderController::class);
+
+        Route::get('/changeStatus/{order}/{status}', [OrderController::class,'changeStatus'])->name('orders.changeStatus');
 
         Route::post('/order/assign_delivery', [OrderController::class,'assignDelivery'])->name('orders.assignDelivery');
 

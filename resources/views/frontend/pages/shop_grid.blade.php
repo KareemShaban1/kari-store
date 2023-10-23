@@ -39,6 +39,7 @@
 
 
             <div class="row">
+
                 <div class="col-lg-3 col-12">
 
                     <div class="product-sidebar">
@@ -202,6 +203,10 @@
 
                                     <div class="row show_products">
                                         @forelse ($products as $product)
+                                            {{-- <div class="col-lg-3 col-md-6 col-12">
+                                                <x-frontend.product-card :product="$product" />
+                                            </div> --}}
+
                                             <div class="col-lg-4 col-md-6 col-12">
                                                 <!-- Start Single Product -->
                                                 <div class="single-product">
@@ -219,7 +224,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="product-info">
-                                                        <span class="category">{{ $product->category->name }} </span>
+                                                        <span class="category"> {{ $product->category->name }} </span>
                                                         <span class="category">
                                                             <span class="text-danger">
                                                                 {{ trans('shop_grid_trans.Store') }} </span>
@@ -248,6 +253,7 @@
                                                 </div>
                                                 <!-- End Single Product -->
                                             </div>
+
                                         @empty
                                             <div class="row">
                                                 <div class="col-md-12">
@@ -385,8 +391,11 @@
                                     '</div>' +
                                     '</div>' +
                                     '<div class="product-info">' +
-                                    '<span class="category">' + product.category.name + '</span>' +
-                                    '<span class="category">' + product.store.name + '</span>' +
+                                    '<span class="category">' +
+                                    '{{ trans('shop_grid_trans.Category') }} : ' +
+                                    product.category.name + '</span>' +
+                                    '<span class="category">' + '{{ trans('shop_grid_trans.Store') }} : ' +
+                                    product.store.name + '</span>' +
                                     '<h4 class="title">' +
                                     '<a href="' + getProductRoute(product.slug) + '">' + product.name +
                                     '</a>' +
@@ -429,6 +438,7 @@
                         },
                     });
                 }
+
 
 
 
@@ -484,8 +494,12 @@
                                         '</div>' +
                                         '</div>' +
                                         '<div class="product-info">' +
-                                        '<span class="category">' + product.category.name + '</span>' +
-                                        '<span class="category">' + product.store.name + '</span>' +
+                                        '<span class="category">' +
+                                        '{{ trans('shop_grid_trans.Category') }} : ' +
+                                        product.category.name + '</span>' +
+                                        '<span class="category">' +
+                                        '{{ trans('shop_grid_trans.Store') }} : ' +
+                                        product.store.name + '</span>' +
                                         '<h4 class="title">' +
                                         '<a href="' + getProductRoute(product.slug) + '">' + product.name +
                                         '</a>' +

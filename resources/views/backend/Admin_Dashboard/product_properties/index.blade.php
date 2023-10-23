@@ -30,7 +30,7 @@
         <div class="card card-statistics h-100">
             <div class="card-body">
 
-                <table id="table_id" class="display">
+                <table id="custom_table" class="display">
                     <thead>
                         <tr>
                             <th>{{ trans('product_properties_trans.Id') }}</th>
@@ -86,7 +86,30 @@
 @section('js')
 <script>
     $(document).ready(function() {
-        $('#table_id').DataTable();
+
+
+        var datatable = $('#custom_table').DataTable({
+            stateSave: true,
+            sortable: true,
+            dom: 'Bfrtip',
+            buttons: [{
+                    extend: 'copyHtml5',
+                    exportOptions: {
+                        columns: [0, ':visible']
+                    }
+                },
+                {
+                    extend: 'excelHtml5',
+                    exportOptions: {
+                        columns: [1, 2, 3, 4]
+                    }
+                },
+
+                'colvis'
+            ]
+        });
+
+
     });
 </script>
 @endsection

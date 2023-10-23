@@ -30,7 +30,7 @@
         <div class="card card-statistics h-100">
             <div class="card-body">
 
-                <table id="table_id" class="display">
+                <table id="custom_table" class="display">
                     <thead>
                         <tr>
                             <th>{{ trans('coupons_trans.Id') }}</th>
@@ -47,12 +47,12 @@
                             <tr>
 
                                 <td>{{ $coupon->id }}</td>
-                                <td>{{ $coupon->name  }}</td>
+                                <td>{{ $coupon->name }}</td>
                                 <td>{{ $coupon->code }}</td>
                                 <td>{{ $coupon->usage_count }}</td>
                                 <td>{{ $coupon->expiration_date }}</td>
                                 <td>{{ $coupon->store->name }}</td>
-                                
+
                                 <td>
                                     <a href="" class="btn btn-primary btn-sm">
                                         <i class="fa fa-eye"></i>
@@ -92,7 +92,30 @@
 @section('js')
 <script>
     $(document).ready(function() {
-        $('#table_id').DataTable();
+
+
+        var datatable = $('#custom_table').DataTable({
+            stateSave: true,
+            sortable: true,
+            dom: 'Bfrtip',
+            buttons: [{
+                    extend: 'copyHtml5',
+                    exportOptions: {
+                        columns: [0, ':visible']
+                    }
+                },
+                {
+                    extend: 'excelHtml5',
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4, 5]
+                    }
+                },
+
+                'colvis'
+            ]
+        });
+
+
     });
 </script>
 @endsection

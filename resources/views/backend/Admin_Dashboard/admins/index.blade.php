@@ -30,7 +30,7 @@
         <div class="card card-statistics h-100">
             <div class="card-body">
 
-                <table id="table_id" class="display">
+                <table id="custom_table" class="display">
                     <thead>
                         <tr>
                             <th>{{ trans('admins_trans.Id') }}</th>
@@ -41,7 +41,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($admins as $admin) 
+                        @foreach ($admins as $admin)
                             <tr>
 
                                 <td>{{ $admin->id }}</td>
@@ -53,10 +53,10 @@
                                     {{ $admin->email }}
                                 </td>
                                 <td>
-                                    @if ( $admin->super_admin == 1)
-                                        <span class="text-success">  {{ trans('admins_trans.Yes') }}</span> 
+                                    @if ($admin->super_admin == 1)
+                                        <span class="text-success"> {{ trans('admins_trans.Yes') }}</span>
                                     @else
-                                         <span class="text-danger">  {{ trans('admins_trans.No') }} </span> 
+                                        <span class="text-danger"> {{ trans('admins_trans.No') }} </span>
                                     @endif
                                 </td>
                                 <td>
@@ -98,7 +98,27 @@
 @section('js')
 <script>
     $(document).ready(function() {
-        $('#table_id').DataTable();
+        var datatable = $('#custom_table').DataTable({
+            stateSave: true,
+            sortable: true,
+            dom: 'Bfrtip',
+            buttons: [{
+                    extend: 'copyHtml5',
+                    exportOptions: {
+                        columns: [0, ':visible']
+                    }
+                },
+                {
+                    extend: 'excelHtml5',
+                    exportOptions: {
+                        columns: [0, 1, 2, 3]
+                    }
+                },
+
+                'colvis'
+            ]
+        });
+
     });
 </script>
 @endsection

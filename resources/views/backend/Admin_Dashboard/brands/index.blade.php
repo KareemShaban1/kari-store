@@ -30,13 +30,12 @@
         <div class="card card-statistics h-100">
             <div class="card-body">
 
-                <table id="table_id" class="display">
+                <table id="custom_table" class="display">
                     <thead>
                         <tr>
                             <th></th>
                             <th>{{ trans('brands_trans.Id') }}</th>
                             <th>{{ trans('brands_trans.Brand_Name') }}</th>
-
                             <th>{{ trans('brands_trans.Control') }}</th>
                         </tr>
                     </thead>
@@ -46,23 +45,23 @@
                                 <td>
                                     <img src="{{ $brand->image_url }}" height="50" width="50" alt="">
                                 </td>
-                                
+
                                 <td>{{ $brand->id }}</td>
-                                
-                                <td>                                   
-                                        {{ $brand->name }}
+
+                                <td>
+                                    {{ $brand->name }}
                                 </td>
                                 <td>
                                     <a href="" class="btn btn-primary btn-sm">
                                         <i class="fa fa-eye"></i>
                                     </a>
-                                    @can('update',$brand)
+                                    @can('update', $brand)
                                         <a href="{{ Route('admin.brands.edit', $brand->id) }}"
                                             class="btn btn-warning btn-sm">
                                             <i class="fa fa-edit"></i>
                                         </a>
                                     @endcan
-                                    
+
 
 
                                     <form action="{{ Route('admin.brands.destroy', $brand->id) }}" method="post"
@@ -91,10 +90,35 @@
 </div>
 <!-- row closed -->
 @endsection
+
 @section('js')
+
 <script>
     $(document).ready(function() {
-        $('#table_id').DataTable();
+
+
+        var datatable = $('#custom_table').DataTable({
+            stateSave: true,
+            sortable: true,
+            dom: 'Bfrtip',
+            buttons: [{
+                    extend: 'copyHtml5',
+                    exportOptions: {
+                        columns: [0, ':visible']
+                    }
+                },
+                {
+                    extend: 'excelHtml5',
+                    exportOptions: {
+                        columns: [1, 2]
+                    }
+                },
+
+                'colvis'
+            ]
+        });
+
+
     });
 </script>
 @endsection

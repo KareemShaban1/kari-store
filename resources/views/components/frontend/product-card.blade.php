@@ -1,5 +1,6 @@
 <!-- Start Single Product -->
-<div class="single-product">
+
+<div class="single-product" style="{{ App::getLocale() == 'ar' ? 'direction: rtl;' : 'direction: ltr;' }}">
     <div class="product-image">
         <img src="{{ $product->image_url }}" height="200" width="200" alt="#">
         @if ($product->sale_percent)

@@ -39,7 +39,7 @@ return [
           'Choose_Delivery' => 'أختار مندوب شحن',
           'Cart_Number' => 'رقم العربة',
           'Variant' => 'Variant',
-          '' => '',
+          'Change_Status' => 'Change Status',
           '' => '',
           '' => '',
 ];

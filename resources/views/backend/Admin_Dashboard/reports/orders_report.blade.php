@@ -33,7 +33,7 @@
         <div class="card card-statistics h-100">
             <div class="card-body">
 
-                <table id="table_id" class="display">
+                <table id="custom_table" class="display">
                     <thead>
                         <tr>
                             <th>{{ trans('orders_trans.Id') }}</th>
@@ -42,6 +42,7 @@
                             <th>{{ trans('orders_trans.Category_Name') }}</th>
                             <th>{{ trans('orders_trans.Product_Name') }}</th>
                             <th>{{ trans('orders_trans.Status') }}</th>
+                            <th>{{ trans('orders_trans.Change_Status') }}</th>
                             <th>{{ trans('orders_trans.Order_Number') }}</th>
                             <th>{{ trans('orders_trans.Total') }}</th>
                         </tr>
@@ -101,6 +102,12 @@
                                     @endif
                                 </td>
 
+                                <td>
+                                    <a href="{{ Route('admin.orders.changeStatus', [$order->id, $order->status]) }}"
+                                        class="btn btn-warning btn-sm">
+                                        Change to next process
+                                    </a>
+                                </td>
 
                                 <td>{{ $order->number }}</td>
 
@@ -137,7 +144,32 @@
 @section('js')
 <script>
     $(document).ready(function() {
-        $('#table_id').DataTable();
+        $(document).ready(function() {
+
+
+            var datatable = $('#custom_table').DataTable({
+                stateSave: true,
+                sortable: true,
+                dom: 'Bfrtip',
+                buttons: [{
+                        extend: 'copyHtml5',
+                        exportOptions: {
+                            columns: [0, ':visible']
+                        }
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7]
+                        }
+                    },
+
+                    'colvis'
+                ]
+            });
+
+
+        });
 
         $('#assign_delivery').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget); // Button that triggered the modal

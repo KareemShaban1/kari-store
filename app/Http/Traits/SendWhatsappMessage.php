@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
 
-trait sendWhatsAppMessage
+trait SendWhatsAppMessage
 {
     public function sendMessage($phone_number,$messageBody)
     {
