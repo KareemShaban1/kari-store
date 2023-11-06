@@ -28,7 +28,7 @@ class Brand extends Model
         if(Str::startsWith($this->image, ['http://','https://'])) {
             return $this->image;
         }
-        return asset('thumbnail/brands/'.$this->image);
+        return asset('storage/'.$this->image);
     } // $brand->image_url
 
 

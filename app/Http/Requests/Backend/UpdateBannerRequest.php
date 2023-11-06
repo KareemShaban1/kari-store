@@ -24,7 +24,14 @@ class UpdateBannerRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'banner_name' => 'required|string|max:255',
+            'url' => 'nullable|url',
+            'title' => 'nullable|string|max:255',
+            'sub_title' => 'nullable|string|max:255',
+            'offer_title' => 'nullable|string|max:255',
+            'offer' => 'nullable|string|max:255',
+            'content' => 'nullable|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Example image validation rules
         ];
     }
 }

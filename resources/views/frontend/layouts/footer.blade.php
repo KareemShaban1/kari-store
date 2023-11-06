@@ -43,15 +43,15 @@
                       <div class="col-lg-3 col-md-6 col-12">
                           <!-- Single Widget -->
                           <div class="single-footer f-contact">
-                              <h3>{{ trans('home_trans.Get In Touch With Us') }}</h3>
-                              <p class="phone">{{ trans('home_trans.Phone') }}: 0111111111</p>
+                              <h3>{{ trans('front_home_trans.Get In Touch With Us') }}</h3>
+                              <p class="phone">{{ trans('front_home_trans.Phone') }}: 0111111111</p>
                               {{-- <ul>
                                       <li><span>Monday-Friday: </span> 9.00 am - 8.00 pm</li>
                                       <li><span>Saturday: </span> 10.00 am - 6.00 pm</li>
                                   </ul> --}}
                               <p class="mail">
                                   <a href="mailto:support@shopgrids.com">
-                                      {{ trans('home_trans.Technical Support') }} support@shopgrids.com</a>
+                                      {{ trans('front_home_trans.Technical Support') }} support@shopgrids.com</a>
                               </p>
                           </div>
                           <!-- End Single Widget -->
@@ -62,7 +62,7 @@
                               <h3>Our Mobile App</h3>
                               <ul class="app-btn">
                                   <li>
-                                      Coming Soon
+                                      <p style="color: white">Coming Soon</p>
                                   </li>
                                   {{-- <li>
                                           <a href="javascript:void(0)">

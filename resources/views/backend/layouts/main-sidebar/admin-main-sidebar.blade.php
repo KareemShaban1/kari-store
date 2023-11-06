@@ -49,20 +49,22 @@
                                 </ul>
                             </li>
 
-                            <li>
-                                <a href="javascript:void(0);" data-toggle="collapse" data-target="#banners-menu">
-                                    <div class="pull-left"><i class="fa-solid fa-image fa-fade"></i><span
-                                            class="right-nav-text">{{ trans('sidebar_trans.Banners') }}</span></div>
-                                    <div class="pull-right"><i class="ti-plus"></i></div>
-                                    <div class="clearfix"></div>
-                                </a>
-                                <ul id="banners-menu" class="collapse">
-                                    <li> <a href="{{ Route('admin.banners.create') }}">{{ trans('sidebar_trans.Add_Banner') }}
-                                        </a> </li>
-                                    <li> <a href="{{ Route('admin.banners.index') }}">{{ trans('sidebar_trans.All_Banners') }}
-                                        </a> </li>
-                                </ul>
-                            </li>
+                            @can('view', 'App\Models\Banner')
+                                <li>
+                                    <a href="javascript:void(0);" data-toggle="collapse" data-target="#banners-menu">
+                                        <div class="pull-left"><i class="fa-solid fa-image fa-fade"></i><span
+                                                class="right-nav-text">{{ trans('sidebar_trans.Banners') }}</span></div>
+                                        <div class="pull-right"><i class="ti-plus"></i></div>
+                                        <div class="clearfix"></div>
+                                    </a>
+                                    <ul id="banners-menu" class="collapse">
+                                        <li> <a href="{{ Route('admin.banners.create') }}">{{ trans('sidebar_trans.Add_Banner') }}
+                                            </a> </li>
+                                        <li> <a href="{{ Route('admin.banners.index') }}">{{ trans('sidebar_trans.All_Banners') }}
+                                            </a> </li>
+                                    </ul>
+                                </li>
+                            @endcan
 
                         </ul>
                     </li>
@@ -83,20 +85,22 @@
 
                         <ul id="store_management" class="collapse" data-parent="#sidebarnav">
 
-                            <li>
-                                <a href="javascript:void(0);" data-toggle="collapse" data-target="#stores-menu">
-                                    <div class="pull-left"><i class="fa-solid fa-store fa-fade"></i><span
-                                            class="right-nav-text">{{ trans('sidebar_trans.Stores') }}</span></div>
-                                    <div class="pull-right"><i class="ti-plus"></i></div>
-                                    <div class="clearfix"></div>
-                                </a>
-                                <ul id="stores-menu" class="collapse">
-                                    <li> <a href="{{ Route('admin.stores.create') }}">{{ trans('sidebar_trans.Add_Store') }}
-                                        </a> </li>
-                                    <li> <a href="{{ Route('admin.stores.index') }}">{{ trans('sidebar_trans.All_Stores') }}
-                                        </a> </li>
-                                </ul>
-                            </li>
+                            @can('view', 'App\Models\Store')
+                                <li>
+                                    <a href="javascript:void(0);" data-toggle="collapse" data-target="#stores-menu">
+                                        <div class="pull-left"><i class="fa-solid fa-store fa-fade"></i><span
+                                                class="right-nav-text">{{ trans('sidebar_trans.Stores') }}</span></div>
+                                        <div class="pull-right"><i class="ti-plus"></i></div>
+                                        <div class="clearfix"></div>
+                                    </a>
+                                    <ul id="stores-menu" class="collapse">
+                                        <li> <a href="{{ Route('admin.stores.create') }}">{{ trans('sidebar_trans.Add_Store') }}
+                                            </a> </li>
+                                        <li> <a href="{{ Route('admin.stores.index') }}">{{ trans('sidebar_trans.All_Stores') }}
+                                            </a> </li>
+                                    </ul>
+                                </li>
+                            @endcan
 
                             <li>
                                 <a href="javascript:void(0);" data-toggle="collapse" data-target="#destinations-menu">
@@ -181,11 +185,11 @@
                                         <li> <a href="{{ Route('admin.brands.create') }}">{{ trans('sidebar_trans.Add_Brand') }}
                                             </a> </li>
                                     @endcan
-                                    @can('view', 'App\Models\Brand')
-                                        <li> <a
-                                                href="{{ Route('admin.brands.index') }}">{{ trans('sidebar_trans.All_Brands') }}</a>
-                                        </li>
-                                    @endcan
+                                    {{-- @can('view', 'App\Models\Brand') --}}
+                                    <li> <a
+                                            href="{{ Route('admin.brands.index') }}">{{ trans('sidebar_trans.All_Brands') }}</a>
+                                    </li>
+                                    {{-- @endcan --}}
                                 </ul>
                             </li>
 
@@ -478,7 +482,7 @@
                 <li>
 
                     <a href="javascript:void(0);" data-toggle="collapse" data-target="#settings_management">
-                        <div class="pull-left"><i class="fa-regular fa-file-lines"></i><span class="right-nav-text">
+                        <div class="pull-left"><i class="fa fa-cog"></i><span class="right-nav-text">
                                 {{ trans('sidebar_trans.Settings') }}</span></div>
                         <div class="pull-right"><i class="ti-plus"></i></div>
                         <div class="clearfix"></div>
@@ -488,16 +492,21 @@
 
                         <!-- menu item reports-->
                         <li>
-                            <a href="javascript:void(0);" data-toggle="collapse" data-target="#website-settings">
-                                <div class="pull-left"><i class="fa-solid fa-cart-shopping"></i><span
-                                        class="right-nav-text">{{ trans('sidebar_trans.Payment') }} </span>
+                            <a href="javascript:void(0);" data-toggle="collapse" data-target="#payment-settings">
+                                <div class="pull-left"><i class="fa-solid fa-credit-card"></i><span
+                                        class="right-nav-text">{{ trans('sidebar_trans.Payment_Gateways') }} </span>
                                 </div>
                                 <div class="pull-right"><i class="ti-plus"></i></div>
                                 <div class="clearfix"></div>
                             </a>
-                            <ul id="website-settings" class="collapse">
+                            <ul id="payment-settings" class="collapse">
 
-                                <li> <a href="">{{ trans('sidebar_trans.Payment_Settings') }}</a>
+                                <li> <a
+                                        href="{{ route('admin.paymentGateways.create') }}">{{ trans('sidebar_trans.Add_Payment_Gateways') }}</a>
+                                </li>
+
+                                <li> <a
+                                        href="{{ route('admin.paymentGateways.index') }}">{{ trans('sidebar_trans.All_Payment_Gateways') }}</a>
                                 </li>
 
                             </ul>
@@ -505,20 +514,46 @@
 
                         <!-- menu item reports-->
                         <li>
-                            <a href="javascript:void(0);" data-toggle="collapse" data-target="#payment-settings">
+                            <a href="javascript:void(0);" data-toggle="collapse" data-target="#website-settings">
                                 <div class="pull-left"><i class="fa-solid fa-cart-shopping"></i><span
                                         class="right-nav-text">{{ trans('sidebar_trans.Website') }} </span>
                                 </div>
                                 <div class="pull-right"><i class="ti-plus"></i></div>
                                 <div class="clearfix"></div>
                             </a>
-                            <ul id="payment-settings" class="collapse">
+                            <ul id="website-settings" class="collapse">
                                 <li> <a href="">{{ trans('sidebar_trans.Website_Settings') }}
                                     </a>
                                 </li>
 
                             </ul>
                         </li>
+
+                        <!-- menu item reports-->
+                        <li>
+                            <a href="javascript:void(0);" data-toggle="collapse" data-target="#config">
+                                <div class="pull-left"><i class="fa fa-cog"></i><span
+                                        class="right-nav-text">{{ trans('sidebar_trans.Config') }} </span>
+                                </div>
+                                <div class="pull-right"><i class="ti-plus"></i></div>
+                                <div class="clearfix"></div>
+                            </a>
+                            <ul id="config" class="collapse">
+                                <li> <a href="{{ route('admin.config.notifications') }}">{{ trans('sidebar_trans.Notifications_Config') }}
+                                    </a>
+                                </li>
+
+                                <li> <a href="{{ route('admin.config.payment') }}">{{ trans('sidebar_trans.Payment_Config') }}
+                                    </a>
+                                </li>
+
+                                <li> <a href="{{ route('admin.config.sms') }}">{{ trans('sidebar_trans.SMS_Config') }}
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </li>
+
 
                     </ul>
                 </li>

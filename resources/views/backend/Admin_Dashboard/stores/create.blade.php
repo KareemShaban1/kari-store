@@ -52,8 +52,8 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <select  name="categories_id[]" class="custom-select mr-sm-2" multiple required>
-                                    
+                                <select name="categories_id[]" class="custom-select mr-sm-2" multiple required>
+
                                     @foreach ($categories as $category)
                                         <option value="{{ $category->id }}">{{ $category->name }}</option>
                                     @endforeach
@@ -64,13 +64,13 @@
                             </div>
                         </div>
                     </div>
-                    
+
 
                     <div class="row">
 
                         <div class="col-md-4">
                             <div class="form-group">
-                                <select name="governorate" id="" class="custom-select mr-sm-2" required>
+                                <select name="governorate_id" id="" class="custom-select mr-sm-2" required>
 
                                     <option disabled selected> اختار المحافظة </option>
                                     @foreach ($destinations as $destination)
@@ -79,7 +79,7 @@
                                         @endif
                                     @endforeach
                                 </select>
-                                @error('governorate')
+                                @error('governorate_id')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </div>
@@ -88,11 +88,11 @@
 
                         <div class="col-md-4">
                             <div class="form-group">
-                                <select name="city" id="" class="custom-select mr-sm-2" required>
+                                <select name="city_id" id="" class="custom-select mr-sm-2" required>
                                     <option disabled selected> اختار المدينة </option>
-                                
+
                                 </select>
-                                @error('city')
+                                @error('city_id')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </div>
@@ -101,23 +101,24 @@
 
                         <div class="col-md-4">
                             <div class="form-group">
-                                <select name="neighborhood" id="" class="custom-select mr-sm-2" required>
+                                <select name="neighborhood_id" id="" class="custom-select mr-sm-2" required>
                                     <option disabled selected> اختار المنطقة </option>
-                                
+
                                 </select>
-                                @error('neighborhood')
+                                @error('neighborhood_id')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </div>
                         </div>
-                    
+
                     </div>
 
 
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>{{ trans('stores_trans.Street_Address') }}<span class="text-danger">*</span></label>
+                                <label>{{ trans('stores_trans.Street_Address') }}<span
+                                        class="text-danger">*</span></label>
                                 <input type="text" name="street_address" class="form-control">
                                 @error('street_address')
                                     <div class="alert alert-danger">{{ $message }}</div>
@@ -130,7 +131,8 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>{{ trans('stores_trans.Phone_Number') }}<span class="text-danger">*</span></label>
+                                <label>{{ trans('stores_trans.Phone_Number') }}<span
+                                        class="text-danger">*</span></label>
                                 <input type="tel" name="phone_number" class="form-control">
                                 @error('phone_number')
                                     <div class="alert alert-danger">{{ $message }}</div>
@@ -144,7 +146,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>{{ trans('stores_trans.Percent') }}<span class="text-danger">*</span></label>
-                                <input type="number" name="percent" class="form-control" min="0" >
+                                <input type="number" name="percent" class="form-control" min="0">
                                 @error('percent')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
@@ -175,19 +177,41 @@
                             <div class="form-group">
                                 <label>{{ trans('stores_trans.Status') }}<span class="text-danger">*</span></label>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="status" value="active">
+                                    <input class="form-check-input" type="radio" name="status" value="1">
                                     <label class="form-check-label">
                                         {{ trans('stores_trans.Active') }}
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="status" value="inactive"
+                                    <input class="form-check-input" type="radio" name="status" value="0"
                                         checked>
                                     <label class="form-check-label">
                                         {{ trans('stores_trans.Inactive') }}
                                     </label>
                                 </div>
                                 @error('status')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>{{ trans('stores_trans.feature') }}<span class="text-danger">*</span></label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="featured" value="1">
+                                    <label class="form-check-label">
+                                        {{ trans('stores_trans.Featured') }}
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="featured" value="0"
+                                        checked>
+                                    <label class="form-check-label">
+                                        {{ trans('stores_trans.Not_Featured') }}
+                                    </label>
+                                </div>
+                                @error('featured')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </div>
@@ -281,7 +305,7 @@
 
     $(document).ready(function() {
         // When the "governorate" dropdown value changes
-        $('select[name="governorate"]').on('change', function() {
+        $('select[name="governorate_id"]').on('change', function() {
             var governorateId = $(this).val(); // Get the selected governorate ID
 
             console.log(governorateId);
@@ -295,12 +319,12 @@
                 },
                 success: function(response) {
                     // Clear the current city options
-                    $('select[name="city"]').empty();
-                    $('select[name="city"]').append(
+                    $('select[name="city_id"]').empty();
+                    $('select[name="city_id"]').append(
                         '<option disabled selected>أختار  المدينة</option>');
 
                     $.each(response.cities, function(key, city) {
-                        $('select[name="city"]').append('<option value="' + city
+                        $('select[name="city_id"]').append('<option value="' + city
                             .id + '">' + city.name + '</option>');
                     });
                 },
@@ -311,7 +335,7 @@
         });
 
         // When the "city" dropdown value changes
-        $('select[name="city"]').on('change', function() {
+        $('select[name="city_id"]').on('change', function() {
             var cityId = $(this).val(); // Get the selected city ID
 
             console.log(cityId);
@@ -325,12 +349,13 @@
                 },
                 success: function(response) {
                     // Clear the current neighborhood options
-                    $('select[name="neighborhood"]').empty();
-                    $('select[name="neighborhood"]').append(
+                    $('select[name="neighborhood_id"]').empty();
+                    $('select[name="neighborhood_id"]').append(
                         '<option disabled selected>أختار  المنطقة</option>');
 
                     $.each(response.neighborhoods, function(key, neighborhood) {
-                        $('select[name="neighborhood"]').append('<option value="' +
+                        $('select[name="neighborhood_id"]').append(
+                            '<option value="' +
                             neighborhood.id + '">' + neighborhood.name +
                             '</option>');
                     });

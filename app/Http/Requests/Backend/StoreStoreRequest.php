@@ -25,6 +25,19 @@ class StoreStoreRequest extends FormRequest
     {
         return [
             //
+            'name' => 'required|string|max:255',
+            'slug' => 'required|string|unique:stores,slug',
+            'description' => 'nullable|string',
+            'logo_image' => 'nullable',
+            'cover_image' => 'nullable',
+            'status' => 'required|in:active,inactive',
+            'percent' => 'nullable|integer',
+            'phone_number' => 'nullable|string',
+            'governorate_id' => 'nullable|exists:destinations,id',
+            'city_id' => 'nullable|exists:destinations,id',
+            'neighborhood_id' => 'nullable|exists:destinations,id',
+            'street_address' => 'nullable|string',
+            'featured' => 'boolean',
         ];
     }
 }

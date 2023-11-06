@@ -7,8 +7,12 @@ window.Alpine = Alpine;
 Alpine.start();
 
 
+// listing in private channel
+var channel = Echo.private(`App.Model.Admin.${userID}`);
 
-var channel = Echo.private(`App.Model.User.${userID}`);
+// listing on notification event
 channel.notification(function(data) {
-  alert(JSON.stringify(data));
+  console.log(data);
+  alert(data.body);
+  // alert(JSON.stringify(data));
 });

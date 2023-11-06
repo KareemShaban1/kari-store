@@ -62,15 +62,15 @@
                         </div>
 
                     </div>
- 
+
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <x-backend.form.input label="{{ trans('delivery_trans.Phone_Number') }}" name="phone_number"
-                                    type="phone" class="form-control" />
+                                <x-backend.form.input label="{{ trans('delivery_trans.Phone_Number') }}"
+                                    name="phone_number" type="phone" class="form-control" />
                             </div>
                         </div>
- 
+
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label> {{ trans('delivery_trans.Category_Name') }} <span
@@ -86,6 +86,47 @@
                                 @enderror
                             </div>
                         </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label> {{ trans('delivery_trans.Vendor_Name') }} <span
+                                        class="text-danger">*</span></label>
+                                <select name="vendor_id" id="" class="custom-select mr-sm-2">
+                                    <option value="">{{ trans('delivery_trans.Choose') }}</option>
+                                    @foreach ($vendors as $vendor)
+                                        <option value="{{ $vendor->id }}">{{ $vendor->name }}</option>
+                                    @endforeach
+                                </select>
+                                @error('vendor_id')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>{{ trans('delivery_trans.IsOnline') }}<span class="text-danger">*</span></label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="isOnline" value="1">
+                                    <label class="form-check-label">
+                                        {{ trans('delivery_trans.Online') }}
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="isOnline" value="0"
+                                        checked>
+                                    <label class="form-check-label">
+                                        {{ trans('delivery_trans.Offline') }}
+                                    </label>
+                                </div>
+                                @error('isOnline')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+
                     </div>
 
 

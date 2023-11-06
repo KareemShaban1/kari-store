@@ -28,25 +28,23 @@ return new class extends Migration
 
             // $table->foreignId('category_id')->constrained('categories')->restrictOnDelete();
 
-            // text(64000)
+            // text(64000) 
             // $table->text('column_name');
             $table->text('description')->nullable();
-
             $table->string('logo_image')->nullable();
-
             $table->string('cover_image')->nullable();
-
-            $table->enum('status',['active','inactive'])->default('active');
+            // $table->enum('status',['active','inactive'])->default('active');
+            $table->boolean('active')->default(1);
             $table->integer('percent')->nullable();
             $table->string('phone_number')->nullable();
-            $table->foreignId('governorate')->nullable()->constrained('destinations', 'id')->nullOnDelete();
-            $table->foreignId('city')->nullable()->constrained('destinations', 'id')->nullOnDelete();
-            $table->foreignId('neighborhood')->nullable()->constrained('destinations', 'id')->nullOnDelete();
+            $table->foreignId('governorate_id')->nullable()->constrained('destinations', 'id')->nullOnDelete();
+            $table->foreignId('city_id')->nullable()->constrained('destinations', 'id')->nullOnDelete();
+            $table->foreignId('neighborhood_id')->nullable()->constrained('destinations', 'id')->nullOnDelete();
             $table->string('street_address')->nullable();
+            $table->boolean('featured');
 
             $table->softDeletes();
 
-            
             
             // 2 columns: created_at updated_at (timestamps)  
             $table->timestamps();

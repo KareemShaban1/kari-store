@@ -106,9 +106,12 @@ class CustomAuthentication
         $password = $request->password;
         // dd($request->all());
         $user = Delivery::where('email', '=', $email)->first();
-        // dd( Hash::check($password, $delivery->password));
+        // dd( Hash::check($password, $user->password));
+        // dd($user);
         if ($user && Hash::check($password, $user->password)) {
+            
             return $user;
+            
         }
         return false;
     }

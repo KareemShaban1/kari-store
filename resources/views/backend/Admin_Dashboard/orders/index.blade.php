@@ -245,17 +245,22 @@
                                 @endphp
 
                                 @can('assignDelivery', App\Models\Admin::class)
-                                    <td>
+                                    <td rowspan="{{ $ordersGroup->count() }}">
+
                                         @if ($order_delivery)
                                             <div>{{ $delivery->name }} تم أرسال الطلب لمندوب الشحن</div>
                                         @else
                                             <button type="button" class="button x-small" data-toggle="modal"
-                                                data-target="#assign_delivery" data-order-id="{{ $ordersGroup[0]->id }}">
+                                                data-target="#assign_delivery"
+                                                data-cart-id="{{ $ordersGroup[0]->cart_id }}"
+                                                data-order-id="{{ $ordersGroup[0]->id }}">
                                                 {{ trans('orders_trans.Assign_Delivery') }}
                                             </button>
                                         @endif
                                     </td>
                                 @endcan
+
+
                                 <td>
                                     <a href="" class="btn btn-primary btn-sm">
                                         <i class="fa fa-eye"></i>
@@ -276,6 +281,8 @@
                                     </form>
                                 </td>
                             </tr>
+
+
 
                             @foreach ($ordersGroup->skip(1) as $additionalOrder)
                                 <tr>
@@ -340,8 +347,8 @@
                                         $delivery = $order_delivery ? App\Models\Delivery::where('id', $order_delivery->delivery_id)->first() : null;
                                     @endphp
 
-                                    @can('assignDelivery', App\Models\Admin::class)
-                                        <td>
+                                    {{-- @can('assignDelivery', App\Models\Admin::class)
+                                        <td rowspan="{{ $ordersGroup->count() }}">
                                             @if ($order_delivery)
                                                 <div>{{ $delivery->name }} تم أرسال الطلب لمندوب الشحن</div>
                                             @else
@@ -352,7 +359,7 @@
                                                 </button>
                                             @endif
                                         </td>
-                                    @endcan
+                                    @endcan --}}
                                     <td>
                                         <a href="" class="btn btn-primary btn-sm">
                                             <i class="fa fa-eye"></i>
@@ -375,11 +382,12 @@
                                 </tr>
                             @endforeach
                         @endforeach
+
                     </tbody>
                 </table>
 
 
-                <!-- assign_delivery_modal -->
+                <!-- Assign Delivery modal -->
                 <div class="modal fade" id="assign_delivery" tabindex="-1" role="dialog"
                     aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
@@ -394,8 +402,6 @@
                                 </button>
                             </div>
 
-
-
                             <div class="modal-body">
                                 <!-- add_form -->
                                 <form action="{{ Route('admin.orders.assignDelivery') }}" method="POST">
@@ -406,6 +412,7 @@
 
                                         <div class="col-md-12">
                                             <input name="order_id" id="order_id" hidden />
+                                            <input name="cart_id" id="cart_id" hidden />
                                         </div>
 
                                     </div>
@@ -456,8 +463,24 @@
 <!-- row closed -->
 @endsection
 @section('js')
+
 <script>
     $(document).ready(function() {
+
+        $('#assign_delivery').on('show.bs.modal', function(event) {
+            console.log("Modal shown");
+            var button = $(event.relatedTarget);
+            console.log("Button: ", button);
+
+            var orderId = button.data('order-id');
+            console.log("Order ID: ", orderId);
+
+            var cartId = button.data('cart-id');
+            console.log("Cart ID: ", cartId);
+
+            $('#order_id').val(orderId);
+            $('#cart_id').val(cartId);
+        });
 
         var datatable = $('#custom_table').DataTable({
             stateSave: true,
@@ -480,12 +503,27 @@
             ]
         });
 
-        $('#assign_delivery').on('show.bs.modal', function(event) {
-            var button = $(event.relatedTarget); // Button that triggered the modal
-            var orderId = button.data(
-                'order-id'); // Extract the order ID from the button data attribute
-            $('#order_id').val(orderId); // Set the value of the hidden input field with the order ID
-        });
+
+
+
+
+        // $('#assign_delivery').on('show.bs.modal', function(event) {
+
+        //     var button = $(event.relatedTarget); // Button that triggered the modal
+
+        //     var orderId = button.data(
+        //         'order-id'); // Extract the order ID from the button data attribute
+        //     $('#order_id').val(orderId); // Set the value of the hidden input field with the order ID
+
+        //     var cartId = button.data(
+        //         'cart-id'); // Extract the order ID from the button data attribute
+        //     $('#cart_id').val(cartId); // Set the value of the hidden input field with the order ID
+
+        // });
+
+
     });
 </script>
+
+
 @endsection

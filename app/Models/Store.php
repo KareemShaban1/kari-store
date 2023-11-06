@@ -24,8 +24,20 @@ class Store extends Model
 
     protected $fillable = [
         'name', 'description', 'logo_image', 'cover_image', 'slug', 'status','percent',
-        'phone_number','governorate','city','neighborhood','street_address'
+        'phone_number','governorate_id','city_id','neighborhood_id','street_address','featured'
     ];
+
+   public function scopeActive($query)
+    {
+        $query->where('active', '=', 1);
+    }
+
+    public function scopeFeatured($query)
+    {
+        $query->where('featured', '=', 1);
+    }
+
+    
 
     public function products()
     {
@@ -35,6 +47,7 @@ class Store extends Model
     // {
     //     return $this->hasMany(Category::class, 'category_id', 'id');
     // }
+    
 
     public function categories()
     {

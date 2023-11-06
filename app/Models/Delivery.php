@@ -22,7 +22,9 @@ class Delivery extends User
         'email',
         'password',
        'phone_number',
-       'category_id'
+       'category_id',
+       'vendor_id',
+       'isOnline'
     ];
 
     public function category(){

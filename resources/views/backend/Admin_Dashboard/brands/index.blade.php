@@ -24,6 +24,12 @@
 <!-- breadcrumb -->
 @endsection
 @section('content')
+
+@if (session('success_message'))
+    <div class="alert alert-success">
+        {{ session('success_message') }}
+    </div>
+@endif
 <!-- row -->
 <div class="row">
     <div class="col-md-12 mb-30">
@@ -90,6 +96,7 @@
 </div>
 <!-- row closed -->
 @endsection
+
 
 @section('js')
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Backend\StoreDestinationRequest;
 use App\Models\Destination;
 use Illuminate\Http\Request;
 
@@ -37,10 +38,11 @@ class DestinationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreDestinationRequest $request)
     {
-        $destinations = Destination::create($request->all());
-        return redirect()->route('admin.destinations.index'); 
+        $validatedData = $request->validated();
+        Destination::create($validatedData);
+        return redirect()->route('admin.destinations.index')->with('toast_success','Destination Created Successfully'); 
     }
 
     /**

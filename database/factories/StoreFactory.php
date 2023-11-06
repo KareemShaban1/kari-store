@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Category;
+use App\Models\Destination;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 /**
@@ -20,12 +21,28 @@ class StoreFactory extends Factory
         $name = $this->faker->words(2,true);
         return [
             //
-            'name'=>$name,
-            'slug'=>Str::slug($name),
-            // 'category_id'=>Category::inRandomOrder()->first()->id,
-            'description'=>$this->faker->sentence(15),
+            // 'name'=>$name,
+            // 'slug'=>Str::slug($name),
+            // 'governorate_id'=>Destination::where('rank','1')->inRandomOrder()->first()->id,
+            // 'city_id'=>Destination::where('rank','1')->inRandomOrder()->first()->id,
+            // 'governorate_id'=>Destination::where('rank','1')->inRandomOrder()->first()->id,
+            // 'description'=>$this->faker->sentence(15),
+            // 'logo_image'=>$this->faker->imageUrl,
+            // 'cover_image'=>$this->faker->imageUrl,
+            // 'featured'=>true
+            'name' => $this->faker->name,
+            'slug' => $this->faker->unique()->slug,
+            'description' => $this->faker->text,
             'logo_image'=>$this->faker->imageUrl,
             'cover_image'=>$this->faker->imageUrl,
+            'active' => $this->faker->boolean(50), // 50% chance of being true
+            'percent' => $this->faker->numberBetween(0, 100),
+            'phone_number' => $this->faker->phoneNumber,
+            'governorate_id' => Destination::where('rank','1')->inRandomOrder()->first()->id, // Replace with actual IDs
+            'city_id' => Destination::where('rank','2')->inRandomOrder()->first()->id, // Replace with actual IDs
+            'neighborhood_id' => Destination::where('rank','3')->inRandomOrder()->first()->id, // Replace with actual IDs
+            'street_address' => $this->faker->streetAddress,
+            'featured' => $this->faker->boolean(50), // 50% chance of being true
         ];
     }
 }

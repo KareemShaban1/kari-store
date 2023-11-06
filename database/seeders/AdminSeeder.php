@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use App\Models\Admin;
+use App\Models\Role;
+use GuzzleHttp\Promise\Create;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -17,7 +19,7 @@ class AdminSeeder extends Seeder
     public function run()
     {
         //
-        Admin::create([
+        $admin = Admin::create([
             'name'=>'Super Admin',
             'email'=>'super_admin@admin.com',
             'user_name'=>'admin',
@@ -25,5 +27,6 @@ class AdminSeeder extends Seeder
             'phone_number'=>'01111111111',
             'super_admin'=>true
         ]);
+
     }
 }

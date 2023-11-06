@@ -1,64 +1,72 @@
 ////////// get values from request
         ////// get value from url
-                // $request->query('name');
+                - $request->query('name');
         ////// get value from input
-                // $request->input('name');
-                // $request->post('name');
-                // $request->get('name');
-                // $request['name'];
-                // $request->name;
+                - $request->input('name');
+                - $request->post('name');
+                - $request->get('name');
+                - $request['name'];
+                - $request->name;
         ////// return array of all request data
-                // $request->all();
+                - $request->all();
         ////// get specific input 
-                // $request->only(['name']);
+                - $request->only(['name']);
         ////// get all inputs except that input
-                // $request->except(['name']);
+                - $request->except(['name']);
 
         
-        ////// add new model | row of data
+
+        /////////////////   Model  //////////////////
+
+        ////// Add new model | row of data
                 //// first way
-                // $category = new Category();
-                // $category->name = $request->post('name');
-                // $category->parent_id = $request->post('parent_id');
-                // $category->status = $request->post('status');
-                // $category->save();
+                  // $category = new Category();
+                  // $category->name = $request->post('name');
+                  // $category->parent_id = $request->post('parent_id');
+                  // $category->status = $request->post('status');
+                  // $category->save();
 
                 //// second way
-                // $category = new Category($request->all());
-                // $category->save();
+                  // $category = new Category($request->all());
+                  // $category->save();
 
+                //// third way 
+                  // $category = Category::create($request->all());
 
-                //////// update category
+                    
 
-                //// first way
-                // $category->update($request->all());
-
-                //// second way
-                // $category->fill($request->all());
-                // $category->save();
-
-
-                //////// delete category
+                /////////// Update Model  
 
                 //// first way
-                // $category = Category::findOrFail($id);
-                // $category->delete();
+                  // $category->update($request->all());
 
                 //// second way
-                // Category::where('id','=',$id)->delete();
-
-                //// third way
-                // Category::destroy($id);
+                  // $category->fill($request->all());
+                  // $category->save();
 
 
-            //////// file attributes
-            $file->getClientOriginalName();      // file name
-            $file->getSize();                    // file size
-            $file->getClientOriginalExtension(); // file extention
-            $file->getMimeType();                // 
+                //////// Delete Model
+
+                //// First way
+                  // $category = Category::findOrFail($id);
+                  // $category->delete();
+
+                //// Second way
+                  // Category::where('id','=',$id)->delete();
+
+                //// Third way
+                  // Category::destroy($id);
 
 
-            // old('input_name')   // return input value in the previous request
+
+                //////// file attributes
+                $file->getClientOriginalName();      // file name
+                $file->getSize();                    // file size
+                $file->getClientOriginalExtension(); // file extension
+                $file->getMimeType();                // 
+
+
+                // old('input_name')   // return input value in the previous request
 
 
 
@@ -79,8 +87,9 @@ Variations_values (Variation_id , attribute_value_id)
 
 
 
-////////// 
-redirect user to login page after registration
+///////////////////////////////////////////
+
+"redirect user to login page after registration"
 
 in Laravel\Fortify\Http\Controllers\RegisteredUserController;
 
@@ -100,10 +109,26 @@ in App\Http\Controllers\Auth\RegisteredUserController;
         return redirect()->route('login');
         }        
 
+////////////////////////////////////////
+
+// restrictOnDelete(Default) // if parent row has childeren rows it can't be deleted 
+// cascadeOnDelete // if parent row has childeren rows they will be deleted when it delete
+// nullOnDelete   // if parent row has childeren rows they will be null when it delete 
 
 
-// destination
+/////////////////////
+
+
+
+//////////// destination ///////////////
 0 => country
 1 => governorate
 2 => city
 3 => neighborhood
+/////////////
+
+Notes : 
+- Vendor can have many stores 
+- store have one vendor
+
+//// isset() => Determine if a variable is declared and is different than NULL

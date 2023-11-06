@@ -64,7 +64,6 @@ class SendOrderCreatedNotification
              // send notification to store vendor 
             foreach ($vendors as $vendor) {
                 $vendor->notify(new OrderCreatedNotification($order));
-
                 // send whatsapp message to vendor 
                 $message = 'تم طلب أوردر رقم : ' . $order->number . "\n";
                 $message .=  'أسم المحل: ' . $order->store->name . "\n";

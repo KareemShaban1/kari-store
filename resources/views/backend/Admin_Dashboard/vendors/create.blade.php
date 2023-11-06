@@ -70,7 +70,7 @@
                                     type="phone" class="form-control" />
                             </div>
                         </div>
- 
+
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label> {{ trans('vendors_trans.Store_Name') }} <span
@@ -82,6 +82,30 @@
                                     @endforeach
                                 </select>
                                 @error('store_id')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>{{ trans('vendors_trans.Status') }}<span class="text-danger">*</span></label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="active" value="1">
+                                    <label class="form-check-label">
+                                        {{ trans('vendors_trans.Active') }}
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="active" value="0"
+                                        checked>
+                                    <label class="form-check-label">
+                                        {{ trans('vendors_trans.Inactive') }}
+                                    </label>
+                                </div>
+                                @error('active')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </div>

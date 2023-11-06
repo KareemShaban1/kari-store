@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Backend\StoreBannerRequest;
+use App\Http\Requests\Backend\UpdateBannerRequest;
 use App\Http\Traits\UploadImageTrait;
 use App\Models\Banner;
 use Illuminate\Http\Request;
@@ -11,6 +12,12 @@ use Illuminate\Http\Request;
 class BannerController extends Controller
 {
     use UploadImageTrait;
+
+    public function __construct()
+    {
+        $this->authorizeResource(Banner::class,'banner');
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -47,16 +54,19 @@ class BannerController extends Controller
      */
     public function store(StoreBannerRequest $request)
     {
-        //
-        $request->validated();
-        
+        // Validate the request data
+        $validatedData = $request->validated();
+
+        // Extract data excluding the 'image' field
         $data = $request->except('image');
 
-        $data['image'] = $this->uploadImage($request, 'image', 'banners');
+        // Upload the image and add its path to the data
+        $data['image'] = $this->ProcessImage($request, 'image', 'banners');
 
+        // Create the banner with the validated and modified data
         Banner::create($data);
 
-        return redirect()->route('admin.banners.index');
+        return redirect()->route('admin.banners.index')->with('toast_success','Banner Created Successfully');;
     }
 
     /**
@@ -90,22 +100,23 @@ class BannerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(StoreBannerRequest $request, $id)
+    public function update(UpdateBannerRequest $request, $id)
     {
         //
 
 
-        // $request->validated();
-
+        // Validate the request data
+        $validatedData = $request->validated();
+        
         $banner = Banner::findOrFail($id);
         
         $data = $request->except('image');
 
-        $data['image'] = $this->uploadImage($request, 'image', 'banners');
+        $data['image'] = $this->ProcessImage($request, 'image', 'banners');
 
         $banner->update($data);
 
-        return redirect()->route('admin.banners.index');
+        return redirect()->route('admin.banners.index')->with('toast_success','Banner Updated Successfully');;
 
     }
 

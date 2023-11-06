@@ -1,35 +1,23 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-{{-- <script src="{{ URL::asset('backend/assets/js/jquery-3.3.1.min.js') }}"></script> --}}
-
-
+<!-- Include common scripts used in most of your views -->
 <script src="{{ URL::asset('backend/assets/js/plugins-jquery.js') }}"></script>
 <script>
     var plugin_path = '{{ asset('backend/assets/js/') }}';
 </script>
-
-
-
-<!-- datepicker -->
-<script src="{{ URL::asset('backend/assets/js/datepicker.js') }}"></script>
-
-<!-- sweetalert2 -->
-{{-- <script src="{{ URL::asset('backend/assets/js/sweetalert2.js') }}"></script> --}}
-
-<!-- toastr -->
+<script src="{{ URL::asset('backend/assets/js/datepicker.js') }}" defer></script>
 <script src="{{ URL::asset('backend/assets/js/toastr.js') }}"></script>
-<!-- validation -->
-<script src="{{ URL::asset('backend/assets/js/validation.js') }}"></script>
-
-<!-- custom -->
+{{-- <script src="{{ URL::asset('backend/assets/js/validation.js') }}" defer></script> --}}
 <script src="{{ URL::asset('backend/assets/js/custom.js') }}"></script>
-
-{{-- Datatables --}}
-{{-- <script src="{{ URL::asset('backend/assets/datatables/datatables.min.js') }}"></script> --}}
-
-<script src="{{ URL::asset('backend/assets/js/summernote-lite.min.js') }}"></script>
+<script src="{{ URL::asset('backend/assets/js/summernote-lite.min.js') }}" defer></script>
 
 <script>
+    const userID = "{{ auth('admin')->id() }}";
+    console.log(userID);
+</script>
+
+<script>
+    // Initialize the summernote editor
     $('#summernote').summernote({
         placeholder: 'Hello ..!',
         tabsize: 2,
@@ -46,6 +34,9 @@
     });
 </script>
 
+@include('sweetalert::alert')
+
+
 @if (request()->routeIs('admin.brands.index') ||
         request()->routeIs('admin.categories.index') ||
         request()->routeIs('admin.stores.index') ||
@@ -60,32 +51,51 @@
         request()->routeIs('admin.coupons.index') ||
         request()->routeIs('admin.roles.index') ||
         request()->routeIs('admin.admins.index') ||
-        request()->routeIs('admin.reports.orders'))
+        request()->routeIs('admin.reports.orders') ||
+        request()->routeIs('admin.websiteParts.index') ||
+        request()->routeIs('admin.banners.index') ||
+        request()->routeIs('delivery.orders.index') ||
+        request()->routeIs('admin.paymentGateways.index'))
     <script src="{{ asset('backend/assets/datatables/datatables.min.js') }}"></script>
     <script src="{{ asset('backend/assets/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('backend/assets/jquery-ui/jquery-ui.min.js') }}"></script>
     <script src="{{ asset('backend/assets/datatables/export-tables/dataTables.buttons.min.js') }}"></script>
-    <script src="{{ asset('backend/assets/datatables/export-tables/buttons.flash.min.js') }}"></script>
+    <script src="{{ asset('backend/assets/datatables/export-tables/buttons.flash.min.js') }}" defer></script>
     <script src="{{ asset('backend/assets/datatables/export-tables/jszip.min.js') }}"></script>
-    <script src="{{ asset('backend/assets/datatables/export-tables/pdfmake.min.js') }}"></script>
-    <script src="{{ asset('backend/assets/datatables/export-tables/vfs_fonts.js') }}"></script>
-    <script src="{{ asset('backend/assets/datatables/export-tables/buttons.print.min.js') }}"></script>
-
-    {{-- <script>
-        $(document).ready(function() {
-            $('#custom_table').DataTable({
-                stateSave: true,
-                sortable: true,
-                dom: 'Bfrtip',
-                buttons: [
-                    'copy', 'excel', 'print'
-                ]
-            });
-        });
-    </script> --}}
+    <script src="{{ asset('backend/assets/datatables/export-tables/pdfmake.min.js') }}" defer></script>
+    <script src="{{ asset('backend/assets/datatables/export-tables/vfs_fonts.js') }}" defer></script>
+    <script src="{{ asset('backend/assets/datatables/export-tables/buttons.print.min.js') }}" defer></script>
+@endif
 
 
-    {{-- @if (App::getLocale() == 'ar')
+
+@if (request()->routeIs('admin.brands.create') ||
+        request()->routeIs('admin.brands.edit') ||
+        request()->routeIs('admin.categories.create') ||
+        request()->routeIs('admin.categories.edit') ||
+        request()->routeIs('admin.stores.create') ||
+        request()->routeIs('admin.stores.edit') ||
+        request()->routeIs('admin.vendors.create') ||
+        request()->routeIs('admin.vendors.edit') ||
+        request()->routeIs('admin.products.create') ||
+        request()->routeIs('admin.products.edit') ||
+        request()->routeIs('admin.product_variants.create') ||
+        request()->routeIs('admin.orders.create') ||
+        request()->routeIs('admin.deliveries.create') ||
+        request()->routeIs('admin.product_properties.create') ||
+        request()->routeIs('admin.attributes.create') ||
+        request()->routeIs('admin.attribute_values.create') ||
+        request()->routeIs('admin.coupons.create') ||
+        request()->routeIs('admin.roles.create') ||
+        request()->routeIs('admin.admins.create') ||
+        request()->routeIs('admin.reports.orders') ||
+        request()->routeIs('admin.websiteParts.create') ||
+        request()->routeIs('admin.banners.create') ||
+        request()->routeIs('delivery.orders.create'))
+@endif
+
+{{-- 
+    @if (App::getLocale() == 'ar')
         <script>
             $(document).ready(function() {
 
@@ -136,7 +146,10 @@
                 });
             });
         </script>
-    @endif --}}
-@endif
+    @endif 
+--}}
+
+
+
 
 @yield('js')

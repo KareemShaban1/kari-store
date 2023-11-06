@@ -9,7 +9,7 @@
         <div class="button">
             <a href="{{ Route('products.show_product', $product->slug) }}" class="btn">
                 {{-- <i class="lni lni-cart"></i> --}}
-                {{ trans('home_trans.Show_Product') }}
+                {{ trans('front_home_trans.Show_Product') }}
             </a>
         </div>
         @if ($product->quantity == 0)
@@ -20,13 +20,13 @@
 
 
 
-        <span class="category">{{ trans('home_trans.Category') }} :
+        <span class="category">{{ trans('front_home_trans.Category') }} :
             <a href="{{ route('shop_grid.index', ['categoryId' => $product->category->id]) }}">
                 {{ $product->category->name }}
             </a>
         </span>
 
-        <span class="category">{{ trans('home_trans.Store') }} :
+        <span class="category">{{ trans('front_home_trans.Store') }} :
             <a href="{{ route('shop_grid.indexStore', ['storeId' => $product->store->id]) }}">
                 {{ $product->store->name }}
             </a>
@@ -60,7 +60,7 @@
             <li><i class="lni lni-star"></i></li>
             <?php endfor; ?>
 
-            <li><span>{{ $average_rating }}.0 {{ trans('home_trans.Review(s)') }}</span></li>
+            <li><span>{{ $average_rating }}.0 {{ trans('front_home_trans.Review(s)') }}</span></li>
         </ul>
 
         <div class="price">

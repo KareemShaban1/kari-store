@@ -57,21 +57,23 @@ class AdminController extends Controller
         //
         $request->validate([
             'name' => 'required',
+            'phone_number'=>'required|unique:admins,phone_number',
             'roles' => 'nullable|array'
         ]);
 
-        $data = $request->all();
-
+        $data = $request->except('roles');
+        
         $data['password'] = Hash::make($request->password);
 
-        $admin = Admin::create($request->all());
+        // dd($data);
+        $admin = Admin::create($data);
 
         if($request->roles) {
             $admin->roles()->attach($request->roles);
         }
 
 
-        return redirect()->route('admin.admins.index');
+        return redirect()->route('admin.admins.index')->with('toast_success','Admin Created Successfully');;
     }
 
     /**
@@ -134,7 +136,7 @@ class AdminController extends Controller
         $data['password'] = $request->password ? Hash::make($request->password) : $admin->password;
         $admin->update($data);
 
-        return redirect()->route('admin.admins.index');
+        return redirect()->route('admin.admins.index')->with('toast_success','Admin Updated Successfully');;
     }
 
     /**

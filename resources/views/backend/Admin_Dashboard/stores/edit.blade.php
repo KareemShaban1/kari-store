@@ -39,7 +39,7 @@
                     @method('put')
 
                     <div class="row">
-                    
+
                         <div class="col-md-6">
                             <div class="form-group">
                                 <x-backend.form.input label="{{ trans('stores_trans.Name') }}" name="name"
@@ -47,124 +47,125 @@
                             </div>
                         </div>
 
-                    
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6">
-    <div class="form-group">
-        <label>{{ trans('stores_trans.Categories') }}<span class="text-danger">*</span></label>
-        <select name="categories_id[]" class="custom-select mr-sm-2" multiple required>
-            
-            @foreach ($categories as $category)
-                <option value="{{ $category->id }}" {{ $store->categories->contains('id', $category->id) ? 'selected' : '' }}>
-                    {{ $category->name }}
-                </option>
-            @endforeach
-        </select>
-        @error('categories_id')
-            <div class="alert alert-danger">{{ $message }}</div>
-        @enderror
-    </div>
-</div>
-                        {{-- <div class="col-md-6">
-                            <div class="form-group">
-                                <label>{{ trans('stores_trans.Categories') }}<span class="text-danger">*</span></label>
-                                <select name="categories_id[]" class="custom-select mr-sm-2" multiple required>
-                                    <option value="">اختر تصنيفات</option>
-                                    @foreach ($categories as $category)
-                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                    @endforeach
-                                </select>
-                                @error('categories_id')
-                                    <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div> --}}
-                    </div>
-                    
-
-                    <div class="row">
-
-
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label>{{ trans('stores_trans.Governorate') }}<span class="text-danger">*</span></label>
-                                <select name="governorate" id="" class="custom-select mr-sm-2" required>
-                                    <option disabled selected> اختار المحافظة </option>
-                                    @foreach ($destinations as $destination)
-                                        @if ($destination->rank == '1')
-                                            <option value="{{ $destination->id }}">{{ $destination->name }}</option>
-                                        @endif
-                                    @endforeach
-                                </select>
-                                @error('governorate')
-                                    <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-
-
-                        
-
-
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label>{{ trans('stores_trans.City') }}<span class="text-danger">*</span></label>
-                                <select name="city" id="" class="custom-select mr-sm-2" required>
-                                    <option disabled selected> اختار المدينة </option>
-                                </select>
-                                @error('neighborhood')
-                                    <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-
-
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label>{{ trans('stores_trans.Neighborhood') }}<span class="text-danger">*</span></label>
-                                <select name="neighborhood" id="" class="custom-select mr-sm-2" required>
-                                    <option disabled selected> اختار المنطقة </option>
-                                </select>
-                                @error('neighborhood')
-                                    <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>{{ trans('stores_trans.Street_Address') }}<span class="text-danger">*</span></label>
-                                <input type="text" name="street_address" class="form-control">
-                                @error('street_address')
-                                    <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>{{ trans('stores_trans.Phone_Number') }}<span class="text-danger">*</span></label>
-                                <input type="tel" name="phone_number" class="form-control">
+                                <label>{{ trans('stores_trans.Phone_Number') }}<span
+                                        class="text-danger">*</span></label>
+                                <input type="tel" name="phone_number" value="{{ $store->phone_number }}"
+                                    class="form-control">
                                 @error('phone_number')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </div>
                         </div>
 
+
                     </div>
-                    
+
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
+                                <label>{{ trans('stores_trans.Categories') }}<span class="text-danger">*</span></label>
+                                <select name="categories_id[]" class="custom-select mr-sm-2" multiple required>
+                                    @foreach ($categories as $category)
+                                        <option value="{{ $category->id }}"
+                                            {{ $store->categories->contains('id', $category->id) ? 'selected' : '' }}>
+                                            {{ $category->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @error('categories_id')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="row">
+
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>{{ trans('stores_trans.Governorate') }}<span
+                                        class="text-danger">*</span></label>
+                                <select name="governorate_id" id="" class="custom-select mr-sm-2" required>
+                                    <option disabled selected> اختار المحافظة </option>
+                                    @foreach ($destinations as $destination)
+                                        @if ($destination->rank == '1')
+                                            <option value="{{ $destination->id }}" @selected($store->governorate_id == $destination->id)>
+                                                {{ $destination->name }}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                                @error('governorate_id')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+
+
+
+
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>{{ trans('stores_trans.City') }}<span class="text-danger">*</span></label>
+                                <select name="city_id" id="" class="custom-select mr-sm-2" required>
+                                    <option disabled selected> اختار المدينة </option>
+                                    @foreach ($destinations as $destination)
+                                        @if ($destination->rank == '2')
+                                            <option value="{{ $destination->id }}" @selected($store->city_id == $destination->id)>
+                                                {{ $destination->name }}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                                @error('city_id')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>{{ trans('stores_trans.Neighborhood') }}<span
+                                        class="text-danger">*</span></label>
+                                <select name="neighborhood_id" id="" class="custom-select mr-sm-2" required>
+                                    <option disabled selected> اختار المنطقة </option>
+                                    @foreach ($destinations as $destination)
+                                        @if ($destination->rank == '3')
+                                            <option value="{{ $destination->id }}" @selected($store->neighborhood_id == $destination->id)>
+                                                {{ $destination->name }}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                                @error('neighborhood_id')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>{{ trans('stores_trans.Street_Address') }}<span
+                                        class="text-danger">*</span></label>
+                                <input type="text" name="street_address" value="{{ $store->street_address }}"
+                                    class="form-control">
+                                @error('street_address')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
                                 <label>{{ trans('stores_trans.Percent') }}<span class="text-danger">*</span></label>
-                                <input type="number" name="percent" class="form-control" min="0" >
+                                <input type="number" name="percent" class="form-control" value="{{ $store->percent }}"
+                                    min="0">
                                 @error('percent')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
@@ -190,17 +191,41 @@
                             <div class="form-group">
                                 <label>{{ trans('stores_trans.Status') }}<span class="text-danger">*</span></label>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="status" value="active"
-                                        @checked($store->status == 'active')>
+                                    <input class="form-check-input" type="radio" name="status" value="1"
+                                        @checked($store->status == '1')>
                                     <label class="form-check-label">
                                         {{ trans('categories_trans.Active') }}
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="status" value="inactive"
-                                        @checked($store->status == 'inactive')>
+                                    <input class="form-check-input" type="radio" name="status" value="0"
+                                        @checked($store->status == '0')>
                                     <label class="form-check-label">
                                         {{ trans('categories_trans.Inactive') }}
+                                    </label>
+                                </div>
+                                @error('status')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>{{ trans('stores_trans.Featured') }}<span class="text-danger">*</span></label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="featured" value="1"
+                                        @checked($store->featured == '1')>
+                                    <label class="form-check-label">
+                                        {{ trans('stores_trans.Featured') }}
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="featured"
+                                        @checked($store->featured == '0') value="0">
+                                    <label class="form-check-label">
+                                        {{ trans('stores_trans.Not_Featured') }}
                                     </label>
                                 </div>
                                 @error('status')
@@ -300,9 +325,10 @@
         frame_1.src = URL.createObjectURL(event.target.files[0]);
     }
 
+
     $(document).ready(function() {
         // When the "governorate" dropdown value changes
-        $('select[name="governorate"]').on('change', function() {
+        $('select[name="governorate_id"]').on('change', function() {
             var governorateId = $(this).val(); // Get the selected governorate ID
 
             console.log(governorateId);
@@ -316,13 +342,25 @@
                 },
                 success: function(response) {
                     // Clear the current city options
-                    $('select[name="city"]').empty();
-                    $('select[name="city"]').append(
+                    $('select[name="city_id"]').empty();
+                    $('select[name="city_id"]').append(
                         '<option disabled selected>أختار  المدينة</option>');
 
                     $.each(response.cities, function(key, city) {
-                        $('select[name="city"]').append('<option value="' + city
-                            .id + '">' + city.name + '</option>');
+                        // $('select[name="city_id"]').append('<option value="' + city
+                        //     .id + '" value={{ $store->city_id }}>' + city.name + '</option>');
+
+                        var option = $('<option>', {
+                            value: city.id,
+                            text: city.name
+                        });
+
+                        // Check if the city's ID matches the $store->city_id and mark it as selected
+                        if (city.id == {{ $store->city_id }}) {
+                            option.prop('selected', true);
+                        }
+
+                        $('select[name="city_id"]').append(option);
                     });
                 },
                 error: function(xhr, status, error) {
@@ -332,7 +370,7 @@
         });
 
         // When the "city" dropdown value changes
-        $('select[name="city"]').on('change', function() {
+        $('select[name="city_id"]').on('change', function() {
             var cityId = $(this).val(); // Get the selected city ID
 
             console.log(cityId);
@@ -346,12 +384,13 @@
                 },
                 success: function(response) {
                     // Clear the current neighborhood options
-                    $('select[name="neighborhood"]').empty();
-                    $('select[name="neighborhood"]').append(
+                    $('select[name="neighborhood_id"]').empty();
+                    $('select[name="neighborhood_id"]').append(
                         '<option disabled selected>أختار  المنطقة</option>');
 
                     $.each(response.neighborhoods, function(key, neighborhood) {
-                        $('select[name="neighborhood"]').append('<option value="' +
+                        $('select[name="neighborhood_id"]').append(
+                            '<option value="' +
                             neighborhood.id + '">' + neighborhood.name +
                             '</option>');
                     });

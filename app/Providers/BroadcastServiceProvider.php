@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Support\ServiceProvider;
 
@@ -14,8 +15,10 @@ class BroadcastServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Broadcast::routes();
+        // Broadcast::routes();
+        Broadcast::routes(['middleware' => ['web','admin']]);
 
+        
         require base_path('routes/channels.php');
     }
 }

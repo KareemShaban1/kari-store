@@ -24,6 +24,8 @@ class VendorFactory extends Factory
             'password'=>Hash::make('password'),
             'phone'=>$this->faker->phoneNumber,
             'store_id'=>$this->faker->unique()->numberBetween(1,5),
+            'active' => $this->faker->boolean(50), // 50% chance of being true
+
         ];
     }
 }

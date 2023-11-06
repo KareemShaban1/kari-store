@@ -23,38 +23,30 @@ class StoreCategoryRequest extends FormRequest
      * @return array<string, mixed>
      */
     public function rules()
-    {
+    { 
         return 
         [
             'name'=>[
                 'required',
-                'alpha',
                 'min:3',
                 'max:355',
                 'unique:categories,name',
-                
-                // function($attributes, $value ,$fails){
-                //     if(strtolower($value) == 'laravel'){
-                //         $fails('This is name forbidden');
-                //     }
-                // }
-
-                // new Filter(['laravel','flutter','html'])
-                
-                'filter:laravel,flutter'
             ],
-            'parent_id'=>['nullable','int','exists:categories,id'],
-            'image'=>['image'],
-            'status'=>'in:active,inactive',
-           
+            'parent_id' => 'nullable|exists:categories,id',
+            'slug' => 'required|string|unique:categories,slug',
+            'description' => 'nullable|string',
+            'image' => 'nullable|string',
+            'featured' => 'boolean',
+            'status' => 'in:active,inactive',
+            'percent' => 'nullable|integer',
+        
         ];
     }
 
     public function messages()
     {
         return[
-            'name.required'=>'أسم التنصيف مطلوب',
-            'name.alpha'=>'أسم التنصيف يجب أن يكون حروف ليس أرقام',
+            'name.required'=>'أسم التصنيف مطلوب',
             'name.min'=>'أسم التنصيف يجب أن يكون 3 حروف أو أكثر',
             'name.max'=>'أسم التنصيف يجب أن لا يتخطى 255 حرف',
             'name.unique'=>'أسم التنصيف موجود من قبل',

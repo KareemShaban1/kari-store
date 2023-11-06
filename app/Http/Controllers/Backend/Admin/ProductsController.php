@@ -14,9 +14,7 @@ use App\Models\{
     Store,
     Tag
 };
-use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Storage;
 
 class ProductsController extends Controller
 {
@@ -34,14 +32,8 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        /* comments
-        - $this->authorize('viewAny',Product::class);
-        - dd($this->authorize('viewAny',Product::class));
-        // SELECT * FROM products
-        // SELECT * FROM categories WHERE id IN (...)
-        // SELECT * FROM stores WHERE id IN (....)
-         */
 
+        //  Authorization
         $this->authorize('viewAny', Product::class);
 
         $products = Product::with(['category', 'store', 'brand'])
@@ -50,8 +42,6 @@ class ProductsController extends Controller
                 return $query;
             }
         ])->get();
-
-
 
         return view('backend.Admin_Dashboard.products.index', compact('products'));
     }
@@ -99,13 +89,12 @@ class ProductsController extends Controller
         $data = $request->except('image', 'tags');
 
         // add 'image' to the input array $data
-        // $data['image'] = $this->uploadImage($request, 'image', 'products');
         $data['image'] = $this->ProcessImage($request, 'image', 'products');
 
         // create product model with the $data array
         $product = Product::create($data);
 
-        // get tags from the request
+        // get tags from the request 
         $tags = json_decode($request->post('tags'));
         $tag_ids = [];
         // get all tags from DB
@@ -126,7 +115,7 @@ class ProductsController extends Controller
 
         $product->tags()->sync($tag_ids);
 
-        return redirect()->route('admin.products.index');
+        return redirect()->route('admin.products.index')->with('toast_success','Product Created Successfully');
 
 
     }
@@ -197,7 +186,6 @@ class ProductsController extends Controller
         // get product old image
         $current_image = $product->image;
         $data = $request->except('image', 'tags');
-        // $new_image = $this->uploadImage($request, 'image', 'products');
 
         $new_image = $this->ProcessImage($request, 'image', 'products', $current_image);
 
@@ -237,7 +225,7 @@ class ProductsController extends Controller
         // $product->tags()->detach($tag_ids);
         // $product->tags()->syncWithoutDetaching($tag_ids);
 
-        return redirect()->route('admin.products.index');
+        return redirect()->route('admin.products.index')->with('toast_success','Product Updated Successfully');
     }
 
     /**

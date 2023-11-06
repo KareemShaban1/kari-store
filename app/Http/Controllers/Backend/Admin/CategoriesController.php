@@ -13,6 +13,13 @@ use Illuminate\Support\Str;
 class CategoriesController extends Controller
 {
     use UploadImageTrait;
+
+    public function __construct()
+    {
+        $this->authorizeResource(Category::class,'category');
+    }
+
+    
     /**
      * Display a listing of the resource.
      *
@@ -71,12 +78,12 @@ class CategoriesController extends Controller
 
         $data = $request->except('image');
 
-        $data['image'] = $this->uploadImage($request,'image','categories');
+        $data['image'] = $this->ProcessImage($request,'image','categories');
         
         Category::create($data);
 
         // PRG
-        return redirect()->route('admin.categories.index');
+        return redirect()->route('admin.categories.index')->with('toast_success','Categories Created Successfully');
         
 
     }
@@ -110,7 +117,7 @@ class CategoriesController extends Controller
         // <> mean right side not equal left side
         $parents = Category::where('id','<>',$id)
         ->where(function($query) use ($id){
-            $query->whereNull('parent_id')->orwhere('parent_id','<>',$id);
+            $query->whereNull('parent_id')->orWhere('parent_id','<>',$id);
         })->get();
 
         return view('backend.Admin_Dashboard.categories.edit',compact('category','parents'));
@@ -134,7 +141,7 @@ class CategoriesController extends Controller
 
         $data = $request->except('image');
 
-        $new_image = $this->uploadImage($request,'image','categories');
+        $new_image = $this->ProcessImage($request,'image','categories',$old_image);
 
         if ($new_image) {
             $data['image'] = $new_image;
@@ -148,7 +155,7 @@ class CategoriesController extends Controller
             Storage::disk('uploads')->delete($old_image);
         }
 
-        return redirect()->route('admin.categories.index');
+        return redirect()->route('admin.categories.index')->with('toast_success','Categories Updated Successfully');
 
     }
 
@@ -205,18 +212,5 @@ class CategoriesController extends Controller
     }
 
 
-    // // custom function to upload images
-    // protected function uploadImage(Request $request){
-    //     // check if input of type 'file' with name 'image' is exist or not
-    //     if(!$request->hasFile('image')){
-    //         return;
-    //     }
-    //         $file = $request->file('image'); // UploadedFile Object
-    //         // $file->store('folder_name','disk_name'[default=>'local'] );
-    //         $path = $file->store('categories',[
-    //             'disk'=>'uploads'
-    //         ]);
-    //         return  $path;
-        
-    // }
+   
 }

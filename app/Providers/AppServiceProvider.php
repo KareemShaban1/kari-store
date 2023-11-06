@@ -36,5 +36,7 @@ class AppServiceProvider extends ServiceProvider
         },'this name is forbidden');
 
         Paginator::useBootstrap();
+
+
     }
 }

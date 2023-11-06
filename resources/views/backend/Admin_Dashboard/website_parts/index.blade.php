@@ -30,7 +30,7 @@
         <div class="card card-statistics h-100">
             <div class="card-body">
 
-                <table id="table_id" class="display">
+                <table id="custom_table" class="display">
                     <thead>
                         <tr>
                             <th>{{ trans('websiteParts_trans.Id') }}</th>
@@ -59,13 +59,11 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <img src="{{ $part->image_url }}" 
-                                    @if($part->image) 
-                                    height="100" width="200" 
+                                    <img src="{{ $part->image_url }}"
+                                        @if ($part->image) height="100" width="200" 
                                     @else  
-                                    height="50" width="50" 
-                                    @endif 
-                                    alt="">
+                                    height="50" width="50" @endif
+                                        alt="">
                                 </td>
                                 <td>
                                     <a href="" class="btn btn-primary btn-sm">
@@ -80,8 +78,8 @@
 
 
 
-                                    <form action="{{ Route('admin.websiteParts.destroy', $part->id) }}"
-                                        method="post" style="display:inline">
+                                    <form action="{{ Route('admin.websiteParts.destroy', $part->id) }}" method="post"
+                                        style="display:inline">
                                         @csrf
                                         @method('delete')
 
@@ -106,7 +104,27 @@
 @section('js')
 <script>
     $(document).ready(function() {
-        $('#table_id').DataTable();
+
+        var datatable = $('#custom_table').DataTable({
+            stateSave: true,
+            sortable: true,
+            dom: 'Bfrtip',
+            buttons: [{
+                    extend: 'copyHtml5',
+                    exportOptions: {
+                        columns: [0, ':visible']
+                    }
+                },
+                {
+                    extend: 'excelHtml5',
+                    exportOptions: {
+                        columns: [1, 2]
+                    }
+                },
+
+                'colvis'
+            ]
+        });
     });
 </script>
 @endsection

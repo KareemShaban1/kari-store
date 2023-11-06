@@ -16,10 +16,10 @@ class AdminPolicy
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAny($user)
+    public function viewAny(Admin $admin)
     {
         //
-        return $user->hasAbility('admins.view');
+        return $admin->hasAbility('admins.view');
     }
 
     /**
@@ -29,10 +29,10 @@ class AdminPolicy
      * @param  \App\Models\Admin  $admin
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view($user, Admin $admin)
+    public function view(Admin $admin)
     {
         //
-        return $user->hasAbility('admins.view');
+        return $admin->hasAbility('admins.view');
     }
 
     /**
@@ -41,10 +41,10 @@ class AdminPolicy
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function create($user)
+    public function create(Admin $admin)
     {
         //
-        return $user->hasAbility('admins.create');
+        return $admin->hasAbility('admins.create');
     }
 
     /**
@@ -54,10 +54,10 @@ class AdminPolicy
      * @param  \App\Models\Admin  $admin
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update($user, Admin $admin)
+    public function update(Admin $admin)
     {
         //
-        return $user->hasAbility('admins.update');
+        return $admin->hasAbility('admins.update');
     }
 
     /**
@@ -67,10 +67,10 @@ class AdminPolicy
      * @param  \App\Models\Admin  $admin
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete($user, Admin $admin)
+    public function delete(Admin $admin)
     {
         //
-        return $user->hasAbility('admins.delete');
+        return $admin->hasAbility('admins.delete');
     }
 
     /**
@@ -80,7 +80,7 @@ class AdminPolicy
      * @param  \App\Models\Admin  $admin
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, Admin $admin)
+    public function restore(Admin $admin)
     {
         //
     }
@@ -92,7 +92,7 @@ class AdminPolicy
      * @param  \App\Models\Admin  $admin
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, Admin $admin)
+    public function forceDelete(Admin $admin)
     {
         //
     }

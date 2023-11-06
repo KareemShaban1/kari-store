@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('delivery_id')->nullable()->constrained('delivery')->nullOnDelete();
             $table->foreignId('order_id')->nullable()->constrained('orders')->nullOnDelete();
+            $table->string('cart_id');
             $table->string('seen_time')->nullable();
             $table->string('order_status')->nullable();
             $table->string('order_location')->nullable();

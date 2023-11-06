@@ -170,6 +170,8 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
+        RealRashid\SweetAlert\SweetAlertServiceProvider::class,
+
         
 
         /*
@@ -202,7 +204,9 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         'Currency' => App\Helpers\Currency::class,
-        'Image' => Intervention\Image\Facades\Image::class
+        'Image' => Intervention\Image\Facades\Image::class,
+        'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
+
         // ...
 
     ])->toArray(),

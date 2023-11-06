@@ -24,7 +24,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return Auth::guard('sanctum')->user();
 });
 
-Route::apiResource('products_api', ProductsController::class);
+Route::apiResource('products', ProductsController::class);
+
+// Route::get('products', [ProductsController::class,'index']);
 
 Route::post('auth/access-token', [AccessTokenController::class, 'store'])
     ->middleware('guest:sanctum');

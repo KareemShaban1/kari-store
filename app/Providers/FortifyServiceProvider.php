@@ -30,6 +30,7 @@ class FortifyServiceProvider extends ServiceProvider
 
         // check if route start with admin/
         if ($request->is('admin/*')) {
+            
             Config::set('fortify.guard', 'admin');
             Config::set('fortify.password', 'admins');
             Config::set('fortify.prefix', 'admin');
@@ -151,8 +152,6 @@ class FortifyServiceProvider extends ServiceProvider
 
             /// put prefix for auth frontend pages =>  /login
             Fortify::viewPrefix('frontend.auth.');
-
-
 
         }
     }

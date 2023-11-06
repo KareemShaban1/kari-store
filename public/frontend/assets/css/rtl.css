@@ -1579,7 +1579,7 @@ ol {
     float: none;
     text-align: center;
     display: block;
-    margin-top: 15px;
+    /* margin-top: 15px; */
   }
 }
 
@@ -1605,7 +1605,7 @@ ol {
 
 .header .topbar .top-end .user-login li {
   display: inline-block;
-  border-left: 1px solid rgba(255, 255, 255, 0.459);
+  /* border-left: 1px solid rgba(255, 255, 255, 0.459); */
   padding: 0px 10px;
   white-space: nowrap;
 }
@@ -2155,7 +2155,7 @@ ol {
   }
 
   .header .navbar-nav .nav-item a {
-    padding: 12px 16px !important;
+    /* padding: 12px 16px !important; */
   }
 
   .header .navbar-nav .nav-item a::before {
@@ -2184,7 +2184,8 @@ ol {
   }
 
   .header .navbar-nav .nav-item a {
-    color: #051441;
+    /* color: #051441; */
+    color: #0167F3;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -2273,7 +2274,7 @@ ol {
   }
 
   .header .navbar-nav .nav-item a {
-    padding: 12px 16px !important;
+    /* padding: 12px 16px !important; */
   }
 
   .header .navbar-nav .nav-item a::before {
@@ -2302,7 +2303,8 @@ ol {
   }
 
   .header .navbar-nav .nav-item a {
-    color: #051441;
+    /* color: #051441; */
+    color: #0167F3;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -5171,6 +5173,50 @@ blockquote span {
   border-radius: 4px 0px 0px 4px;
 }
 
+/*
+Stores CSS
+ */
+
+      .stores {
+          padding: 80px 0;
+          background-color: #f9f9f9;
+        }
+        
+        .stores #tns2>.tns-item {
+          padding-left: 28px;
+        }
+        .stores .title {
+          text-align: center;
+          font-size: 20px;
+          font-weight: 500;
+          margin-bottom: 30px;
+        }
+        .stores .stores-logo-wrapper {
+          /* background-color: #f0e9e1; */
+          background-color: #ffffff;
+        }
+        .stores .stores-logo-wrapper .stores-logo-carousel .stores-logo {
+          padding: 20px 20px;
+          text-align: center;
+          margin: 0;
+          border-left: 1px solid #eee;
+        }
+        
+        .stores .stores-logo-wrapper .stores-logo-carousel .stores-logo img {
+          width: 90px;
+          height: 90px;
+          border-radius: 45px;
+          opacity: .8;
+          -webkit-transition: all .3s ease-out 0s;
+          transition: all .3s ease-out 0s;
+        }
+        
+        .stores .stores-logo-wrapper .stores-logo-carousel .stores-logo img:hover {
+          opacity: 1;
+        }
+        
+        
+
 
 /* 
 Categories Css
@@ -5192,7 +5238,9 @@ Categories Css
   margin-bottom: 30px;
 }
 .categories .categories-logo-wrapper {
-  background-color: #f0e9e1;
+  /* background-color: #f0e9e1; */
+  background-color: #ffffff;
+
 }
 .categories .categories-logo-wrapper .categories-logo-carousel .categories-logo {
   padding: 20px 20px;
@@ -8451,13 +8499,17 @@ Categories Css
 }
 
 .navbar-nav .nav-item:first-child {
-  margin-right: 20px !important;
+  /* margin-right: 20px !important; */
 }
 
 .navbar-nav .nav-item:last-child {
   /* margin-right: 20px !important; */
 }
 
+.navbar-nav .nav-item .sub-nav-item a{
+padding: 0px 15px;
+color: #051441;
+}
 .navbar-nav .nav-item a.dd-menu::after {
   content: "\ea5e";
   font: normal normal normal 1em/1 "LineIcons";

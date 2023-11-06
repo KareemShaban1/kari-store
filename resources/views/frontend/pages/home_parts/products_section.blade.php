@@ -30,8 +30,10 @@
        <div class="products-slider" style="direction: ltr">
            <div class="container">
                <div class="row">
-                   <div class="col-lg-6 offset-lg-3 col-md-12 col-12">
-                       <h2 class="title">All Products</h2>
+                   <div class="col-lg-12 offset-lg-12 col-md-12 col-12">
+                       <div class="section-title">
+                           <h2>{{ trans('front_home_trans.Products') }}</h2>
+                       </div>
                    </div>
                </div>
 

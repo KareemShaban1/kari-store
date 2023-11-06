@@ -52,7 +52,9 @@ class Category extends Model
             return $this->image;
         }
         return asset('storage/'.$this->image);
-    } // $category->image_url
+        // storage/thumbnail/categories/{image_name}
+        
+    } // $category->image_url  
 
 
 }

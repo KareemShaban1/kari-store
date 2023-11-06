@@ -42,6 +42,8 @@
 
     @include('frontend.pages.home_parts.categories_section')
 
+    @include('frontend.pages.home_parts.stores_section')
+
 
 
     {{-- @include('frontend.pages.home_parts.featured_categories') --}}
@@ -130,6 +132,7 @@
                 };
             })
         </script>
+
         <script type="text/javascript">
             //========= Hero Slider 
             tns({
@@ -145,6 +148,7 @@
                 controlsText: ['<i class="lni lni-chevron-left"></i>', '<i class="lni lni-chevron-right"></i>'],
             });
 
+            // products
             tns({
                 container: '.products-slider-logo-carousel',
                 autoplay: true,
@@ -152,11 +156,35 @@
                 mouseDrag: true,
                 gutter: 15,
                 nav: false,
-                controls: true,
-                controlsText: ['<i class="lni lni-chevron-left"></i>', '<i class="lni lni-chevron-right"></i>'],
+                controls: false,
                 responsive: {
                     0: {
                         items: 1,
+                    },
+                    540: {
+                        items: 3,
+                    },
+                    768: {
+                        items: 5,
+                    },
+                    992: {
+                        items: 6,
+                    }
+                }
+            });
+
+            // stores
+            tns({
+                container: '.stores-logo-carousel',
+                autoplay: true,
+                autoplayButtonOutput: false,
+                mouseDrag: true,
+                gutter: 15,
+                nav: false,
+                controls: false,
+                responsive: {
+                    0: {
+                        items: 2,
                     },
                     540: {
                         items: 3,
@@ -207,7 +235,7 @@
                 controls: false,
                 responsive: {
                     0: {
-                        items: 1,
+                        items: 2,
                     },
                     540: {
                         items: 3,

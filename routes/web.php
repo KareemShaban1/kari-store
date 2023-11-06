@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Auth\CustomVerificationController;
 use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Fortify;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
@@ -25,6 +27,7 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 //     function () {
 //     });
 
+Broadcast::routes(['middleware' => ['web', 'auth:admin']]);
 
 
 Route::middleware('auth')->group(function () {
@@ -34,7 +37,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::post('verify', [CustomVerificationController::class, 'verify'])
-    ->name('custom_verification');
+    ->name('custom_verification.store');
 
 
 Route::get('/verify', function () {

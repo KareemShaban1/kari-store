@@ -133,15 +133,16 @@
 
                         <div class="col-md-6">
                             <div class="form-group">
-                                <x-backend.form.input label="{{ trans('products_trans.Price') }}" name="price"
-                                    class="form-control" />
+                                <x-backend.form.input type="number" label="{{ trans('products_trans.Price') }}"
+                                    name="price" class="form-control" />
                             </div>
                         </div>
 
                         <div class="col-md-6">
                             <div class="form-group">
-                                <x-backend.form.input label="{{ trans('products_trans.Compare_Price') }}"
-                                    name="compare_price" class="form-control" />
+                                <x-backend.form.input type="number"
+                                    label="{{ trans('products_trans.Compare_Price') }}" name="compare_price"
+                                    class="form-control" />
                             </div>
                         </div>
 

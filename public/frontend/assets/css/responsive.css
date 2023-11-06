@@ -1,0 +1,73 @@
+
+
+/*  X-Small devices (portrait phones, less than 576px) */
+/* No media query for `xs` since this is the default in Bootstrap */
+
+@media (min-width: 375px)  and (max-width: 576px){  
+ 
+          .header .topbar .top-middle-bar {
+                    display: none;
+          }
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) {  
+
+          /* .header .topbar .top-middle-bar {
+                    display: none;
+          } */
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+          /* .header .topbar .top-middle-bar {
+                    display: none;
+          } */
+  }
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {  }
+
+/* X-Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {  }
+
+/* XX-Large devices (larger desktops, 1400px and up) */
+@media (min-width: 1400px) {  }
+
+
+
+
+
+
+@media (max-width: 576px) {  
+          body{
+                    direction: ltr;
+                    
+          }
+
+          /* .header .topbar .top-middle-bar {
+                    display: none;
+          } */
+}
+
+@media (max-width: 768px) {
+          body{
+                    direction: ltr;
+          }
+          /* .header .topbar .top-middle-bar {
+                    display: none;
+          } */
+          .header .mega-category-menu {
+                    margin-bottom: 10px;
+                    margin-right: 0px;
+          }
+          .header .pages-nav {
+                    width: 350px;
+          }
+  }
+
+@media (max-width: 992px) {  }
+
+@media (max-width: 1200px) {  }
+
+@media (max-width: 1400px) {  }

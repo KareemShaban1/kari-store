@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -24,7 +25,7 @@ class AccessTokenController extends Controller
             'abilities'=>'nullable|array'
         ]);
 
-        $user = User::where('email', $request->email)->first();
+        $user = Admin::where('email', $request->email)->first();
         if ($user && Hash::check($request->password, $user->password)) {
             $device_name = $request->post('device_name', $request->userAgent());
             $token = $user->createToken($device_name,$request->post('abilities'));
@@ -48,7 +49,7 @@ class AccessTokenController extends Controller
     {
         $user = Auth::guard('sanctum')->user();
 
-        // revoke all tokens
+        // revoke / delete all tokens
         // $user->tokens()->delete();
 
         if (null === $token) {

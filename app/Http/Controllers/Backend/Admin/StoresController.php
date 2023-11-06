@@ -17,6 +17,11 @@ class StoresController extends Controller
 {
     use UploadImageTrait;
 
+    public function __construct()
+    {
+        $this->authorizeResource(Store::class,'store');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -77,7 +82,6 @@ class StoresController extends Controller
          */
     public function store(StoreStoreRequest $request)
     {
-        // dd($request->all());
 
         $request->validated();
 
@@ -90,23 +94,18 @@ class StoresController extends Controller
         $data = $request->except('logo_image', 'cover_image');
 
         // assign image to the request
-        $data['logo_image'] = $this->uploadImage($request, 'logo_image', 'stores');
-        $data['cover_image'] = $this->uploadImage($request, 'cover_image', 'stores');
-        $data['phone_number']=null;
-        $data['percent']=null;
-        $data['street_address']=null;
+        // processImage ($request , file_name , folder_name)
+        $data['logo_image'] = $this->ProcessImage($request, 'logo_image', 'stores');
+        $data['cover_image'] = $this->ProcessImage($request, 'cover_image', 'stores');
         
         
-        // dd($data);
         // store the request
         $store = Store::create($data);
 
-        // dd($store);
 
         $store->categories()->sync($request->categories_id);
 
-        // PRG
-        return redirect()->route('admin.stores.index');
+        return redirect()->route('admin.stores.index')->with('toast_success','Store Created Successfully');
     }
 
     /**
@@ -163,8 +162,8 @@ class StoresController extends Controller
         $data = $request->except('logo_image', 'cover_image');
 
         // assign image to the request
-        $new_logo_image = $this->uploadImage($request, 'logo_image', 'stores');
-        $new_cover_image = $this->uploadImage($request, 'cover_image', 'stores');
+        $new_logo_image = $this->ProcessImage($request, 'logo_image', 'stores',$old_logo_image);
+        $new_cover_image = $this->ProcessImage($request, 'cover_image', 'stores',$old_cover_image);
 
         if ($new_logo_image) {
             $data['logo_image'] = $new_logo_image;
@@ -174,25 +173,14 @@ class StoresController extends Controller
             $data['cover_image'] = $new_cover_image;
         }
 
-
-        // store the request
+        
         $store->update($data);
 
-        // isset => Determine if a variable is declared and is different than NULL
-        if ($old_logo_image && $new_logo_image) {
-            // Storage::disk('disk_name')->delete('image_path');
-            Storage::disk('uploads')->delete($old_logo_image);
-        }
-
-        if ($old_cover_image && $new_cover_image) {
-            // Storage::disk('disk_name')->delete('image_path');
-            Storage::disk('uploads')->delete($old_cover_image);
-        }
 
         $store->categories()->sync($request->categories_id);
 
         // PRG
-        return redirect()->route('admin.stores.index');
+        return redirect()->route('admin.stores.index')->with('toast_success','Store Updated Successfully');
     }
 
     /**
@@ -207,19 +195,28 @@ class StoresController extends Controller
     }
 
 
+        public function updateStoreFeatured(Request $request, $id)
+    {
+        $store = Store::findOrFail($id);
+        $store->update([
+            'featured' => $request->input('featured'),
+        ]);
 
-    //  // custom function to upload images
-    //  protected function uploadImage(Request $request , $file_name){
-    //     // check if input of type 'file' with name 'image' is exist or not
-    //     if(!$request->hasFile($file_name)){
-    //         return;
-    //     }
-    //         $file = $request->file($file_name); // UploadedFile Object
-    //         // $file->store('folder_name','disk_name'[default=>'local'] );
-    //         $path = $file->store('stores',[
-    //             'disk'=>'uploads'
-    //         ]);
-    //         return  $path;
+        // You can add a success message here if needed.
 
-    // }
+        return redirect()->route('admin.stores.index');
+    }
+
+    public function updateStoreStatus(Request $request, $id){
+        $store = Store::findOrFail($id);
+        $store->update([
+            'status' => $request->input('status'),
+        ]);
+
+        // You can add a success message here if needed.
+
+        return redirect()->route('admin.stores.index');
+    }
+
+
 }

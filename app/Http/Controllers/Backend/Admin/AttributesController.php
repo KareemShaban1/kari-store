@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Backend\StoreAttributeRequest;
 use App\Models\Attribute;
 use Illuminate\Http\Request;
 
@@ -25,17 +26,20 @@ class AttributesController extends Controller
     {
         return view('backend.Admin_Dashboard.attributes.show',compact('attribute'));
     }
-
+ 
 
     public function store(Request $request)
     {
-        // $request->validate();
+        $data =  $request->validate([
+                'name' => 'required|string|max:255',
+                'vendor_id' => 'nullable|exists:vendors,id',
+                // Add more validation rules as needed
+        ]);
 
-        $data = $request->all();
 
         Attribute::create($data);
 
-        return redirect()->route('admin.attributes.index');
+        return redirect()->route('admin.attributes.index')->with('toast_success','Attribute Created Successfully');;
     }
 
 
@@ -48,15 +52,18 @@ class AttributesController extends Controller
     public function update(Request $request, $id)
     {
         // $request->validated();
+        $data =  $request->validate([
+            'name' => 'required|string|max:255',
+            'vendor_id' => 'nullable|exists:vendors,id',
+            // Add more validation rules as needed
+        ]);
 
         $attribute = Attribute::findOrFail($id);
-
-        $data = $request->all();
 
         $attribute->update($data);
 
 
-        return redirect()->route('admin.attributes.index');
+        return redirect()->route('admin.attributes.index')->with('toast_success','Attribute Updated Successfully');;
     }
     public function destroy()
     {

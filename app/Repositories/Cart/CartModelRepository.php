@@ -44,7 +44,6 @@ class CartModelRepository implements CartRepository
 
          // if there is cart with products get it
          $item =  Cart::where('variant_id', '=', $variant_id)->first();
-
          
          // if not there is cart with products create one and add products
          if (!$item) {
@@ -61,7 +60,6 @@ class CartModelRepository implements CartRepository
          }
          return $item->increment('quantity', $quantity);
         
-       
        }else {
          // if there is cart with products get it
          $item =  Cart::where('product_id', '=', $product->id)->first();
@@ -99,6 +97,8 @@ class CartModelRepository implements CartRepository
         // delete cart based on cart id
         Cart::where('id', '=', $id)->delete();
     }
+
+    
     public function empty()
     {
         $this->couponCode = null; // Clear the applied coupon code

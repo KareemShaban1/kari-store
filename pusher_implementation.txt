@@ -1,0 +1,34 @@
+----------- Use Pusher In Laravel ---------------
+
+1- edit .env file 
+          - set BROADCAST_DRIVER to "pusher" => BROADCAST_DRIVER=pusher         
+
+2- edit app/config.php file
+          - uncomment BroadcastServiceProvider =>  App\Providers\BroadcastServiceProvider::class,          
+
+3- register in pusher website
+   - Choose GetStart in channels
+   - Enter project information such as : 
+         - app name (Enter application name)
+         - cluster (location of web socket server)
+         - Choose frontend / backend (optional) [Jquery for frontend , Laravel for backend]
+
+4- install pusher package for laravel 
+      - execute this command in terminal => composer require pusher/pusher-php-server
+
+5- set pusher keys in .env file
+    - add values for [ PUSHER_APP_ID , PUSHER_APP_KEY , PUSHER_APP_SECRET ] 
+      from pusher website (GetStarted Tap)
+
+6- add broadcast channel in Notification that you want to use pusher 
+
+7- add toBroadcast function to handle the message returned when notification create using pusher 
+
+8- specify channel that used in broadcast (private channel) 
+    - in routes/channels.php
+
+9- install laravel-echo and pusher-js packages => npm install --save laravel-echo pusher-js
+          - add code that exist in pusher website in resources/bootstrap.js
+          - add [ MIX_PUSHER_APP_KEY="${PUSHER_APP_KEY}" , MIX_PUSHER_APP_CLUSTER="${PUSHER_APP_CLUSTER}"] in .env file
+          - add code from pusher website "GetStarted" tab in resources/app.js
+          Note : any variable in .env file , i want to get to use in js file , add MIX_ before its name

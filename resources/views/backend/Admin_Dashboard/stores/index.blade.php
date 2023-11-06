@@ -30,7 +30,7 @@
         <div class="card card-statistics h-100">
             <div class="card-body">
 
-                <table id="table_id" class="display">
+                <table id="custom_table" class="display">
                     <thead>
                         <tr>
                             <th></th>
@@ -40,6 +40,7 @@
                             <th>{{ trans('stores_trans.Categories') }}</th>
                             <th>{{ trans('stores_trans.Number_Of_Products') }}</th>
                             <th>{{ trans('stores_trans.Status') }}</th>
+                            <th>{{ trans('stores_trans.Featured') }}</th>
                             <th>{{ trans('stores_trans.Created_at') }}</th>
                             <th>{{ trans('stores_trans.Control') }}</th>
                         </tr>
@@ -66,6 +67,8 @@
                                         {{ $store->products_count }}
                                     </a>
                                 </td>
+
+
                                 <td>
                                     @if ($store->status == 'active')
                                         <span class="badge badge-rounded badge-success p-2 mb-2">
@@ -76,6 +79,46 @@
                                             {{ trans('stores_trans.Inactive') }}
                                         </span>
                                     @endif
+
+                                    <div class="form-check form-switch" style="display: flex;justify-content: center">
+
+                                        <input type="checkbox" id="statusCheckbox{{ $store->id }}"
+                                            class="form-check-input" {{ $store->status == 'active' ? 'checked' : '' }}>
+                                        <form method="POST"
+                                            action="{{ route('admin.stores.updateStoreStatus', $store->id) }}"
+                                            id="statusForm{{ $store->id }}" style="display: none;">
+                                            @csrf
+                                            @method('PUT')
+                                        </form>
+                                    </div>
+
+                                </td>
+
+                                <td>
+                                    @if ($store->featured == '1')
+                                        <span class="badge badge-rounded badge-success p-2 mb-2">
+                                            {{ trans('stores_trans.Featured') }}
+                                        </span>
+                                    @elseif($store->featured == '0')
+                                        <span class="badge badge-rounded badge-danger p-2 mb-2">
+                                            {{ trans('stores_trans.Not_Featured') }}
+                                        </span>
+                                    @endif
+
+                                    <div class="form-check form-switch"
+                                        style="display: flex;
+                                    justify-content: center">
+
+                                        <input type="checkbox" id="featuredCheckbox{{ $store->id }}"
+                                            class="form-check-input" {{ $store->featured == '1' ? 'checked' : '' }}>
+                                        <form method="POST"
+                                            action="{{ route('admin.stores.updateStoreFeatured', $store->id) }}"
+                                            id="featuredForm{{ $store->id }}" style="display: none;">
+                                            @csrf
+                                            @method('PUT')
+                                        </form>
+                                    </div>
+
                                 </td>
                                 <td>{{ $store->created_at }}</td>
 
@@ -142,6 +185,37 @@
             ]
         });
 
+        document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                const storeId = this.id.replace('featuredCheckbox', '');
+                const form = document.getElementById('featuredForm' + storeId);
+
+                if (this.checked) {
+                    form.innerHTML += '<input type="hidden" name="featured" value="1">';
+                } else {
+                    form.innerHTML += '<input type="hidden" name="featured" value="0">';
+                }
+
+                form.submit();
+            });
+        });
+
+
+        // update store status
+        document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                const storeId = this.id.replace('statusCheckbox', '');
+                const form = document.getElementById('statusForm' + storeId);
+
+                if (this.checked) {
+                    form.innerHTML += '<input type="hidden" name="status" value="active">';
+                } else {
+                    form.innerHTML += '<input type="hidden" name="status" value="Inactive">';
+                }
+
+                form.submit();
+            });
+        });
 
     });
 </script>

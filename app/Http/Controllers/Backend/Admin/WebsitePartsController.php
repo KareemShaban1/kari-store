@@ -11,6 +11,10 @@ use Illuminate\Support\Facades\Storage;
 class WebsitePartsController extends Controller
 {
     use UploadImageTrait;
+    public function __construct()
+    {
+        $this->authorizeResource(WebsiteParts::class,'websitePart');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -45,15 +49,20 @@ class WebsitePartsController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate([
+            'key' => 'required|string',
+            'value' => 'nullable|string',
+            'image' => 'nullable|string',
+        ]);
         $data = $request->except('image');
         
         if($request->file('image')){
-            $data['image'] = $this->uploadImage($request, 'image', 'website_part');
+            $data['image'] = $this->ProcessImage($request, 'image', 'website_part');
         }
 
         WebsiteParts::create($data);
 
-        return redirect()->route('admin.websiteParts.index');
+        return redirect()->route('admin.websiteParts.index')->with('toast_success','Website Part Created Successfully');
     }
 
     /**
@@ -90,15 +99,20 @@ class WebsitePartsController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $request->validate([
+            'key' => 'required|string',
+            'value' => 'nullable|string',
+            'image' => 'nullable|string',
+        ]);
+        
         $WebsitePart= WebsiteParts::findOrFail($id);
 
-        // $data = $request->all();
 
         $old_image = $WebsitePart->image;
 
         $data = $request->except('image');
 
-        $new_image = $this->uploadImage($request, 'image', 'website_part');
+        $new_image = $this->ProcessImage($request, 'image', 'website_part');
 
         if ($new_image) {
             $data['image'] = $new_image;
@@ -106,15 +120,9 @@ class WebsitePartsController extends Controller
 
         $WebsitePart->update($data);
 
-        // isset => Determine if a variable is declared and is different than NULL
-        if ($old_image && $new_image) {
-            // Storage::disk('disk_name')->delete('image_path');
-            Storage::disk('uploads')->delete($old_image);
-        }
-
         // $WebsitePart->update($data);
 
-        return redirect()->route('admin.websiteParts.index');
+        return redirect()->route('admin.websiteParts.index')->with('toast_success','Website Part Updated Successfully');
 
     }
 

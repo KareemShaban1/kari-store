@@ -33,17 +33,15 @@ class UpdateCategoryRequest extends FormRequest
                 "min:3",
                 "max:355",
                 "unique:categories,name,$id",
-                // function($attributes, $value ,$fails){
-                //     if(strtolower($value) == 'laravel'){
-                //         $fails('This is name forbidden');
-                //     }
-                // }
-                // new Filter('laravel')
-                'filter:laravel,flutter'
+                
             ],
-            'parent_id'=>['nullable','int','exists:categories,id'],
-            'image'=>['image'],
-            'status'=>'in:active,inactive' 
+            'parent_id' => 'nullable|exists:categories,id',
+            'slug' => 'required|string|unique:categories,slug',
+            'description' => 'nullable|string',
+            'image' => 'nullable|string',
+            'featured' => 'boolean',
+            'status' => 'in:active,inactive',
+            'percent' => 'nullable|integer',
         ];
     }
 

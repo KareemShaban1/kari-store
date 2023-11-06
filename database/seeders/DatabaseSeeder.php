@@ -23,7 +23,8 @@ class DatabaseSeeder extends Seeder
         // Admin::factory(3)->create();
         Brand::factory(20)->create();
         Category::factory(10)->create();
-        Store::factory(5)->create();
+        $this->call(DestinationSeeder::class);
+        Store::factory(10)->create();
         Vendor::factory(5)->create();
         Product::factory(50)->create();
 
@@ -33,8 +34,10 @@ class DatabaseSeeder extends Seeder
         // $this->call(UserSeeder::class);
         $this->call(AdminSeeder::class);
         $this->call(WebsitePartsSeeder::class);
-        $this->call(DestinationSeeder::class);
         $this->call(UserSeeder::class);
+        $this->call(ConfigSettingsSeeder::class);
         \App\Models\User::factory(4)->create();
+        $this->call(DeliverySeeder::class);
+
     }
 }

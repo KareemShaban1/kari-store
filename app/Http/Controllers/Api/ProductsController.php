@@ -4,13 +4,17 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ProductResource;
+use App\Http\Traits\ApiResponseTrait;
 use App\Models\Product;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Response;
 
 class ProductsController extends Controller
 {
+
+    use ApiResponseTrait;
 
     public function __construct()
     {
@@ -31,7 +35,10 @@ class ProductsController extends Controller
             ->with('category:id,name', 'store:id,name', 'tags:id,name')
             ->paginate();
 
-        return ProductResource::collection($products);
+        $products_collection = ProductResource::collection($products);
+
+        return $this->apiResponse($products_collection, 'All Products', 200);
+
 
         // return Product::filter($request->query())
 
@@ -65,12 +72,16 @@ class ProductsController extends Controller
         $user = $request->user();
         if ($user->tokenCan('products.create')) {
             abort(403, 'Not Allowed');
+            
         }
 
         $product = Product::create($request->all());
 
+        return $this->apiResponse(new ProductResource($product), 'Product Stored Successfully', 200);
 
-        return Response::json($product, 201);
+
+
+        // return Response::json($product, 201);
     }
 
     /**
@@ -82,16 +93,21 @@ class ProductsController extends Controller
     public function show(Product $product)
     {
         //
+        /*
+            return new ProductResource($product);
 
-        return new ProductResource($product);
+            return $product
+                return relation that related with product object in json format
+                ->load('category:id,name', 'store:id,name', 'tags:id,name');
+        */
 
-        return $product
-            // return relation that related with product object in json format
-            ->load('category:id,name', 'store:id,name', 'tags:id,name');
+        try {
+        return $this->apiResponse(new ProductResource($product), 'Product', 200);
+        }catch(ModelNotFoundException $e) {
+            return response()->json(['message' => 'Product not found'], 404);
 
-        //// another way
-        // ->with('category:id,name','store:id,name','tags:id,name')
-        // ->first();
+        }
+
     }
 
     /**
@@ -114,13 +130,18 @@ class ProductsController extends Controller
         ]);
         $user = $request->user();
         if (!$user->tokenCan('products.update')) {
-            abort(403, 'Not Allowed');
+            // abort(403, 'Not Allowed');
+            return response()->json([
+                'message'=>'Not Allowed'
+            ]);
         }
 
         $product->update($request->all());
 
 
-        return Response::json($product);
+        return $this->apiResponse(new ProductResource($product), 'Product Updated Successfully', 200);
+
+        // return Response::json($product);
     }
 
     /**
@@ -143,7 +164,7 @@ class ProductsController extends Controller
         Product::destroy($id);
 
         return response()->json([
-            'message' => 'product deleted successfully'
+            'message' => 'Product Deleted Successfully'
         ], 200);
     }
 }

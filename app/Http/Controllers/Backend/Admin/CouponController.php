@@ -3,15 +3,19 @@
 namespace App\Http\Controllers\Backend\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Category;
+use App\Http\Requests\Backend\StoreCouponRequest;
+use App\Http\Requests\Backend\UpdateCouponRequest;
 use App\Models\Coupon;
-use App\Models\Product;
 use App\Models\Store;
-use Illuminate\Http\Request;
 
 class CouponController extends Controller
 {
     //
+
+    public function __construct()
+    {
+        $this->authorizeResource(Coupon::class,'coupon');
+    }
 
     public function index()
     {
@@ -24,36 +28,42 @@ class CouponController extends Controller
     public function show()
     {
     }
-
+ 
     public function create()
     {
         $stores = Store::all();
         return view('backend.Admin_Dashboard.coupons.create', compact('stores'));
     }
 
-    public function store(Request $request)
+    public function store(StoreCouponRequest $request)
     {
-        $data = $request->all();
-        Coupon::create($data);
-        return redirect()->route('admin.coupons.index');
+        // Validate the request data
+        $validatedData = $request->validated();
+        Coupon::create($validatedData);
+        return redirect()->route('admin.coupons.index')->with('toast_success','Coupon Created Successfully');
     }
 
     public function edit($id)
     {
         $stores = Store::all();
-        $coupon = Coupon::findorfail($id);
+        $coupon = Coupon::findOrFail($id);
         return view('backend.Admin_Dashboard.coupons.Edit', compact('coupon', 'stores'));
     }
 
-    public function update(Request $request ,$id )
+    public function update(UpdateCouponRequest $request ,$id )
     {
-        $data = $request->all();
-        $coupon = Coupon::findorfail($id);
-        $coupon->update($data);
-        return redirect()->route('admin.coupons.index');
+        // Validate the request data
+        $validatedData = $request->validated();
+        $coupon = Coupon::findOrFail($id);
+        $coupon->update($validatedData);
+        return redirect()->route('admin.coupons.index')->with('toast_success','Coupon Updated Successfully');
     }
 
-    public function destroy()
+    public function destroy($id)
     {
+        $coupon = Coupon::findOrFail($id);
+        $coupon->delete();
+        return redirect()->route('admin.coupons.index');
+
     }
 }

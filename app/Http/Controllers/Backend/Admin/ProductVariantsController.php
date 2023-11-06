@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Backend\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Backend\StoreProductVariantRequest;
+use App\Http\Requests\Backend\UpdateProductVariantRequest;
 use App\Http\Traits\UploadImageTrait;
 use App\Models\Attribute;
 use App\Models\AttributeValue;
@@ -50,45 +52,43 @@ class ProductVariantsController extends Controller
         return $attribute_value;
     }
 
-    public function store(Request $request)
+    public function store(StoreProductVariantRequest $request)
     {
-        $this->validate($request, [
-            'product_id' => 'required',
-            'attribute_id' => 'required',
-            'attribute_value_id' => 'required',
-            'sku' => 'required',
-            'price' => 'required',
-            'compare_price' => 'required',
-            'quantity' => 'required',
-        ]);
-        // $data = $request->all();
-
-        // get request input array without [image]
-        $data = $request->except('image');
-
-        // add 'image' to the input array $data
-        $data['image'] = $this->ProcessImage($request, 'image', 'products_variants');
-        $product = Product::findOrFail($request->product_id)->first();
-        $data['store_id'] = $product->store_id;
-        $product_variant =  ProductVariant::create($data);
-
+        // Validate the request data
+        $validatedData = $request->validated();
+    
+        // Process and store the image
+        $image = $this->ProcessImage($request, 'image', 'products_variants');
+        $validatedData['image'] = $image;
+    
+        // Find the associated product and store_id
+        $product = Product::findOrFail($validatedData['product_id']);
+        $validatedData['store_id'] = $product->store_id;
+    
+        // Create the product variant
+        $productVariant = ProductVariant::create($validatedData);
+    
         // Prepare the response data
         $responseData = [
-            'id' => $product_variant->id,
-            'image_url' => $product_variant->image_url,
-            'product_name' => $product_variant->product->name,
-            'attribute_name' => $product_variant->attribute->name,
-            'attribute_value_name' => $product_variant->attribute_value->name,
-            'quantity' => $product_variant->quantity,
-            'price' => $product_variant->price,
-            'compare_price' => $product_variant->compare_price,
-            'edit_url' => route('admin.product_variants.edit', $product_variant->id),
-            'delete_url' => route('admin.product_variants.destroy', $product_variant->id),
+            'id' => $productVariant->id,
+            'image_url' => $productVariant->image_url,
+            'product_name' => $productVariant->product->name,
+            'attribute_name' => $productVariant->attribute->name,
+            'attribute_value_name' => $productVariant->attribute_value->name,
+            'quantity' => $productVariant->quantity,
+            'price' => $productVariant->price,
+            'compare_price' => $productVariant->compare_price,
+            'edit_url' => route('admin.product_variants.edit', $productVariant->id),
+            'delete_url' => route('admin.product_variants.destroy', $productVariant->id),
         ];
-
+    
         // Return the response as JSON
         return response()->json($responseData);
     }
+    
+
+
+    
     public function edit($id)
     {
         $product_variant = ProductVariant::find($id);
@@ -101,18 +101,26 @@ class ProductVariantsController extends Controller
             compact('attributes', 'attribute_values', 'product', 'product_variant')
         );
     }
-    public function update(Request $request,$id)
+    public function update(UpdateProductVariantRequest $request, $id)
     {
-        // dd($request->all());
-        $product_variant = ProductVariant::find($id);
-        $data = $request->except('image');
-        // add 'image' to the input array $data
-        $data['image'] = $this->uploadImage($request, 'image', 'products_variants');
-        $product_variant->update($data);
-
+        $productVariant = ProductVariant::find($id);
+    
+        // Validate the request data
+        $validatedData = $request->validated();
+    
+        // Process and update the image if it's included in the request
+        if ($request->hasFile('image')) {
+            $image = $this->ProcessImage($request, 'image', 'products_variants');
+            $validatedData['image'] = $image;
+        }
+    
+        $productVariant->update($validatedData);
+    
         return redirect()->route('admin.product_variants.index');
     }
-    public function destroy()
+    
+    public function destroy($id)
     {
+        
     }
 }

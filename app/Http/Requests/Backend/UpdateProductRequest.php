@@ -25,6 +25,18 @@ class UpdateProductRequest extends FormRequest
     {
         return [
             //
+            'store_id' => 'required|exists:stores,id',
+            'category_id' => 'required|exists:categories,id',
+            'name' => 'required|string',
+            'brand_id' => 'nullable|exists:brands,id',
+            'slug' => 'required|string|unique:products',
+            'description' => 'nullable|string',
+            'image' => 'nullable|string',
+            'price' => 'numeric',
+            'compare_price' => 'nullable|numeric',
+            'quantity' => 'integer',
+            'featured' => 'boolean',
+            'status' => 'in:active,draft,archived',
         ];
     }
 }

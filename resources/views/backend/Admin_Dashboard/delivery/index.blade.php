@@ -36,7 +36,7 @@
                             <th>{{ trans('delivery_trans.Id') }}</th>
                             <th>{{ trans('delivery_trans.Delivery_Name') }}</th>
                             <th>{{ trans('delivery_trans.Email') }}</th>
-                            <th>{{ trans('delivery_trans.Phone_Number') }}</th>ظ
+                            <th>{{ trans('delivery_trans.Phone_Number') }}</th>
                             <th>{{ trans('delivery_trans.Category_Name') }}</th>
                             <th>{{ trans('delivery_trans.Control') }}</th>
                         </tr>
@@ -97,4 +97,30 @@
 @endsection
 @section('js')
 
+<script>
+    $(document).ready(function() {
+
+        var datatable = $('#custom_table').DataTable({
+            stateSave: true,
+            sortable: true,
+            dom: 'Bfrtip',
+            buttons: [{
+                    extend: 'copyHtml5',
+                    exportOptions: {
+                        columns: [0, ':visible']
+                    }
+                },
+                {
+                    extend: 'excelHtml5',
+                    exportOptions: {
+                        columns: [0, 1, 2, 3]
+                    }
+                },
+
+                'colvis'
+            ]
+        });
+
+    });
+</script>
 @endsection

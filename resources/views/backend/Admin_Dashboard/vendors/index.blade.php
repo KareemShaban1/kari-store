@@ -30,13 +30,14 @@
         <div class="card card-statistics h-100">
             <div class="card-body">
 
-                <table id="table_id" class="display">
+                <table id="custom_table" class="display">
                     <thead>
                         <tr>
                             <th>{{ trans('vendors_trans.Id') }}</th>
                             <th>{{ trans('vendors_trans.Vendor_Name') }}</th>
                             <th>{{ trans('vendors_trans.Email') }}</th>
                             <th>{{ trans('vendors_trans.Store_Name') }}</th>
+                            <th>{{ trans('vendors_trans.Active') }}</th>
                             <th>{{ trans('vendors_trans.Control') }}</th>
                         </tr>
                     </thead>
@@ -54,6 +55,34 @@
                                 </td>
                                 <td>
                                     {{ $vendor->store->name }}
+                                </td>
+
+                                <td>
+                                    <div style="padding: 5px; margin-bottom:10px">
+                                        @if ($vendor->active == '1')
+                                            <span class="badge badge-rounded badge-success p-2 mb-2">
+                                                {{ trans('vendors_trans.Active') }}
+                                            </span>
+                                        @elseif($vendor->active == '0')
+                                            <span class="badge badge-rounded badge-danger p-2 mb-2">
+                                                {{ trans('vendors_trans.Inactive') }}
+                                            </span>
+                                        @endif
+
+                                        <div class="form-check form-switch"
+                                            style="display: flex;justify-content: center">
+
+                                            <input type="checkbox" id="statusCheckbox{{ $vendor->id }}"
+                                                class="form-check-input" {{ $vendor->active == '1' ? 'checked' : '' }}>
+                                            <form method="POST"
+                                                action="{{ route('admin.vendors.updateVendorStatus', $vendor->id) }}"
+                                                id="statusForm{{ $vendor->id }}" style="display: none;">
+                                                @csrf
+                                                @method('PUT')
+                                            </form>
+                                        </div>
+                                    </div>
+
                                 </td>
                                 <td>
                                     <a href="" class="btn btn-primary btn-sm">
@@ -94,7 +123,44 @@
 @section('js')
 <script>
     $(document).ready(function() {
-        $('#table_id').DataTable();
+
+        var datatable = $('#custom_table').DataTable({
+            stateSave: true,
+            sortable: true,
+            dom: 'Bfrtip',
+            buttons: [{
+                    extend: 'copyHtml5',
+                    exportOptions: {
+                        columns: [0, ':visible']
+                    }
+                },
+                {
+                    extend: 'excelHtml5',
+                    exportOptions: {
+                        columns: [0, 1, 2, 3]
+                    }
+                },
+
+                'colvis'
+            ]
+        });
+
+        // update vendor status
+        document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                const vendorId = this.id.replace('statusCheckbox', '');
+                const form = document.getElementById('statusForm' + vendorId);
+
+                if (this.checked) {
+                    form.innerHTML += '<input type="hidden" name="active" value="1">';
+                } else {
+                    form.innerHTML += '<input type="hidden" name="active" value="0">';
+                }
+
+                form.submit();
+            });
+        });
+
     });
 </script>
 @endsection

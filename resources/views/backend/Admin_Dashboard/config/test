@@ -1,0 +1,103 @@
+    {{-- <div class="col-xl-12 mb-30">
+        <div class="card card-statistics ">
+            <div class="card-body">
+                <h5 class="card-title">Configurations </h5>
+                <div class="tab">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active show" id="pusher-tab" data-toggle="tab" href="#pusher" role="tab"
+                                aria-controls="pusher" aria-selected="true">Pusher</a>
+                        </li>
+                        {{-- <li class="nav-item">
+                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
+                                aria-controls="profile" aria-selected="false">Profile</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="portfolio-tab" data-toggle="tab" href="#portfolio" role="tab"
+                                aria-controls="portfolio" aria-selected="false">Portfolio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab"
+                                aria-controls="contact" aria-selected="false">Contact</a>
+                        </li> --}}
+    </ul>
+    <div class="tab-content">
+
+
+        <div class="tab-pane fade active show" id="pusher" role="tabpanel" aria-labelledby="pusher-tab">
+
+            <div>
+                <form action="{{ route('admin.config.updatePusherSettings') }}" method="POST">
+                    @csrf
+                    <div class="row mb-4">
+                        <div class="col-lg-3 col-md-4 col-sm-6 col-5">
+                            <h5 class="setting-title">
+                                PUSHER APP ID</h5>
+                        </div>
+                        <div class="col-lg-6 col-md-8 col-sm-6 col-7"><input type="text" name="PUSHER_APP_ID"
+                                value="{{ env('PUSHER_APP_ID') }}" class="form-control"></div>
+                    </div>
+
+                    <div class="row mb-4">
+                        <div class="col-lg-3 col-md-4 col-sm-6 col-5">
+                            <h5 class="setting-title">
+                                PUSHER APP kEY</h5>
+                        </div>
+                        <div class="col-lg-6 col-md-8 col-sm-6 col-7"><input type="text" name="PUSHER_APP_KEY"
+                                value="{{ env('PUSHER_APP_KEY') }}" class="form-control"></div>
+                    </div>
+
+                    <div class="row mb-4">
+                        <div class="col-lg-3 col-md-4 col-sm-6 col-5">
+                            <h5 class="setting-title">
+                                PUSHER APP SECRET</h5>
+                        </div>
+                        <div class="col-lg-6 col-md-8 col-sm-6 col-7"><input type="text" name="PUSHER_APP_SECRET"
+                                value="{{ env('PUSHER_APP_SECRET') }}" class="form-control"></div>
+                    </div>
+
+                    <div class="row mb-4">
+                        <div class="col-lg-3 col-md-4 col-sm-6 col-5">
+                            <h5 class="setting-title">
+                                PUSHER APP CLUSTER</h5>
+                        </div>
+                        <div class="col-lg-6 col-md-8 col-sm-6 col-7"><input type="text" name="PUSHER_APP_CLUSTER"
+                                value="{{ env('PUSHER_APP_CLUSTER') }}" class="form-control"></div>
+                    </div>
+
+                    <button type="submit" class="btn btn-success btn-md nextBtn btn-lg ">Submit</button>
+
+                </form>
+            </div>
+
+        </div>
+
+
+        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+            <p>We all carry a lot of baggage, thanks to our upbringing. The majority of people carry with
+                them, an entire series of self-limiting beliefs that will absolutely stop, and hold them
+                back from, success. Things like “I’m not good enough”, “I’m not smart enough”, “I’m not
+                lucky enough”, and the worst, “I’m not worthy” are but a few of the self-limiting beliefs I
+                have encountered. We carry them with us like rocks in a knapsack, and then use them to
+                sabotage our success. So, how twisted is that? </p>
+        </div>
+        <div class="tab-pane fade" id="portfolio" role="tabpanel" aria-labelledby="portfolio-tab">
+            <p>Benjamin Franklin, inventor, statesman, writer, publisher and economist relates in his
+                autobiography that early in his life he decided to focus on arriving at moral perfection. He
+                made a list of 13 virtues, assigning a page to each. Under each virtue he wrote a summary
+                that gave it fuller meaning. Then he practiced each one for a certain length of time. To
+                make these virtues a habit, Franklin can up with a method to grade himself on his daily
+                actions.</p>
+        </div>
+        <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+            <p>The other virtues practice in succession by Franklin were silence, order, resolution,
+                frugality, industry, sincerity, Justice, moderation, cleanliness, tranquility, chastity and
+                humility. For the summary order he followed a little scheme of employing his time each day.
+                From five to seven each morning he spent in bodily personal attention, saying a short
+                prayer, thinking over the day’s business and resolutions.</p>
+        </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div> --}}

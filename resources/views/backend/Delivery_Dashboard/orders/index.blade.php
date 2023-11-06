@@ -96,7 +96,7 @@
                                 <td>{{ $order->number }}</td>
 
 
-                               
+
                                 {{-- <td>
                                     <a href="" class="btn btn-primary btn-sm">
                                         <i class="fa fa-eye"></i>
@@ -126,7 +126,7 @@
 
 
 
-         
+
 
             </div>
         </div>

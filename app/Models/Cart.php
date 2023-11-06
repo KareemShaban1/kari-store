@@ -41,7 +41,9 @@ class Cart extends Model
 
         if (!$cookie_id) {
             $cookie_id = Str::uuid();
-            Cookie::queue('cart_id', $cookie_id, 30 * 24 * 60);
+            // Cookie::queue('cart_id', $cookie_id, 30 * 24 * 60);
+            Cookie::queue('cart_id', $cookie_id, 1 * 24 * 60);
+
         }
         return $cookie_id;
     }

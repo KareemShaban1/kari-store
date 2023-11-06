@@ -16,17 +16,23 @@ trait SendVerifications
         // Step 2: Store the OTP in the session (for temporary storage)
         Session::put('phone_otp', $otp);
 
-        // dd($phone_number ,$otp);
+        
+        // $url = 'https://api.ultramsg.com/instance62549/messages/chat';
+        // $params = [
+        //     'token' => '9nnuiblewc8b955q',
+        //     'to' => $phone_number,
+        //     'body' => 'Your OTP is: ' . $otp . ' for account verification on YourApp.', // Modify the message as needed
+        // ];
 
-        $url = 'https://api.ultramsg.com/instance62549/messages/chat';
+        $url = 'https://api.ultramsg.com/instance' . env('ULTRA_MESSAGE_INSTANCE') . '/messages/chat';
         $params = [
-            'token' => '9nnuiblewc8b955q',
+            'token' => env('ULTRA_MESSAGE_TOKEN'),
             'to' => $phone_number,
             'body' => 'Your OTP is: ' . $otp . ' for account verification on YourApp.', // Modify the message as needed
         ];
 
         $response = Http::post($url, $params);
-        dd($phone_number ,$otp , $response);
+        
 
         // Check if the request was successful
         if ($response->successful()) {

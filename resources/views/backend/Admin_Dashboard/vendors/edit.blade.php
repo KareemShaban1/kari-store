@@ -31,8 +31,8 @@
             <div class="card-body">
 
 
-                <form method="post" enctype="multipart/form-data" action="{{ Route('admin.vendors.update',$vendor->id) }}"
-                    autocomplete="off">
+                <form method="post" enctype="multipart/form-data"
+                    action="{{ Route('admin.vendors.update', $vendor->id) }}" autocomplete="off">
 
                     @method('PUT')
                     @csrf
@@ -40,7 +40,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <x-backend.form.input label="{{ trans('vendors_trans.Vendor_Name') }}" name="name"
-                                 value="{{$vendor->name}}"   class="form-control" />
+                                    value="{{ $vendor->name }}" class="form-control" />
                             </div>
                         </div>
                     </div>
@@ -51,7 +51,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <x-backend.form.input label="{{ trans('vendors_trans.Email') }}" name="email"
-                                value="{{$vendor->email}}" type="email" class="form-control" />
+                                    value="{{ $vendor->email }}" type="email" class="form-control" />
                             </div>
                         </div>
 
@@ -68,10 +68,10 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <x-backend.form.input label="{{ trans('vendors_trans.Phone') }}" name="phone"
-                                   value="{{$vendor->phone}}"  type="phone" class="form-control" />
+                                    value="{{ $vendor->phone }}" type="phone" class="form-control" />
                             </div>
                         </div>
- 
+
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label> {{ trans('vendors_trans.Store_Name') }} <span
@@ -79,10 +79,36 @@
                                 <select name="store_id" id="" class="custom-select mr-sm-2">
                                     <option value="">{{ trans('vendors_trans.Choose') }}</option>
                                     @foreach ($stores as $store)
-                                        <option value="{{ $store->id }}" @selected($store->id == $vendor->store->id)>{{ $store->name }}</option>
+                                        <option value="{{ $store->id }}" @selected($store->id == $vendor->store->id)>
+                                            {{ $store->name }}</option>
                                     @endforeach
                                 </select>
                                 @error('store_id')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>{{ trans('vendors_trans.Status') }}<span class="text-danger">*</span></label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="active" value="1"
+                                        @checked($vendor->active == '1')>
+                                    <label class="form-check-label">
+                                        {{ trans('vendors_trans.Active') }}
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="active" value="0"
+                                        @checked($vendor->active == '0')>
+                                    <label class="form-check-label">
+                                        {{ trans('vendors_trans.Inactive') }}
+                                    </label>
+                                </div>
+                                @error('active')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </div>

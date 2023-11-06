@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Backend\StoreAttributeValueRequest;
 use App\Models\Attribute;
 use App\Models\AttributeValue;
 use Illuminate\Http\Request;
@@ -12,7 +13,7 @@ class AttributeValuesController extends Controller
     //
     public function index()
     {
-
+ 
         $attribute_values = AttributeValue::all();
         return view('backend.Admin_Dashboard.attribute_values.index', compact('attribute_values'));
     }
@@ -23,12 +24,13 @@ class AttributeValuesController extends Controller
         $attributes = Attribute::all();
         return view('backend.Admin_Dashboard.attribute_values.create', compact('attributes'));
     }
-    public function store(Request $request)
+    public function store(StoreAttributeValueRequest $request)
     {
         $data = $request->all();
-        $attribute_value = AttributeValue::create($data);
+        
+        AttributeValue::create($data);
 
-        return redirect()->route('admin.attribute_values.index')->with('success', 'Attribute Value Inserted Successfully');
+        return redirect()->route('admin.attribute_values.index')->with('toast_success', 'Attribute Value Inserted Successfully');
     }
     public function edit()
     {

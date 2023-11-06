@@ -52,7 +52,7 @@ class RoleController extends Controller
             'abilities'=>'required|array'
         ]);
         $role = Role::createWithAbilities($request);
-        return redirect()->route('admin.roles.index');
+        return redirect()->route('admin.roles.index')->with('toast_success','Role Created Successfully');
     }
 
     /**
@@ -98,7 +98,7 @@ class RoleController extends Controller
         
         $role->updateWithAbilities($request);
 
-        return redirect()->route('admin.roles.index');
+        return redirect()->route('admin.roles.index')->with('toast_success','Role Updated Successfully');
 
     }
 

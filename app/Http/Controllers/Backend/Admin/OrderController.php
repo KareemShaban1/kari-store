@@ -13,6 +13,11 @@ use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Order::class,'order');
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -45,16 +50,6 @@ class OrderController extends Controller
         $order->save();
 
         return redirect()->route('admin.reports.orders');
-
-        // elseif($status == "completed"){
-        //     $order->status = "";
-        // }
-        // elseif($status == "pending"){
-        //     $order->status = "";
-        // }
-        // elseif($status == "pending"){
-        //     $order->status = "";
-        // }
         
         
     }
@@ -63,14 +58,21 @@ class OrderController extends Controller
 
     public function assignDelivery(Request $request)
     {
-        $data = $request->all();
-        // dd($data);
-        $order_delivery =  OrderDelivery::create($data);
+        // $data = $request->all();
+        $orders = Order::where('cart_id', $request->cart_id)->get();
 
-        $order = Order::where('id', $order_delivery->order_id)->first();
-        // dd($order);
-        event(new OrderToDelivery($order));
+        
+        foreach($orders as $order){
+            
+            $data['order_id'] = $order->id;
+            $data['cart_id'] = $request->cart_id;
+            $data['delivery_id'] = $request->delivery_id;
+            OrderDelivery::create($data);
 
+            event(new OrderToDelivery($order));
+
+        }
+        
 
         return redirect()->route('admin.orders.index');
 

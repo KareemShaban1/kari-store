@@ -58,6 +58,7 @@ class HomeController extends Controller
         $categories = Category::get();
 
         $all_products = Product::active()->get();
+        $stores = Store::active()->featured()->get();
         
         return view(
             'frontend.pages.home',
@@ -68,7 +69,8 @@ class HomeController extends Controller
                 'featured_categories',
                 'brands',
                 'categories',
-                'all_products'
+                'all_products',
+                'stores'
                 // ,'best_seller_products'
             )
         );

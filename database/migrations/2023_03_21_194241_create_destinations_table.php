@@ -20,7 +20,6 @@ return new class extends Migration
             $table->enum('rank', [0, 1, 2, 3])->default(1);
             $table->float('price')->nullable();
             $table->timestamps(); 
-
         });
     }
 

@@ -3,11 +3,10 @@
 namespace App\Http\Controllers\Backend\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Backend\StoreBrandRequest;
-use App\Http\Requests\Backend\UpdateBrandRequest;
 use App\Http\Traits\UploadImageTrait;
 use App\Models\Brand;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class BrandsController extends Controller
 {
@@ -33,9 +32,15 @@ class BrandsController extends Controller
     }
 
 
-    public function store(StoreBrandRequest $request)
+    public function store(Request $request)
     {
-        $request->validated();
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'image' => 'nullable|file',
+            'info' => 'nullable|string',
+        ],[
+            'name.required'=>'أسم الماركة مطلوب'
+        ]);
 
         $data = $request->except('image');
 
@@ -45,7 +50,8 @@ class BrandsController extends Controller
 
         Brand::create($data);
 
-        return redirect()->route('admin.brands.index');
+
+        return redirect()->route('admin.brands.index')->with('toast_success','Brand Created Successfully');
     }
 
 
@@ -55,9 +61,13 @@ class BrandsController extends Controller
 
         return view('backend.Admin_Dashboard.brands.edit', compact('brand'));
     }
-    public function update(UpdateBrandRequest $request, $id)
+    public function update(Request $request, $id)
     {
-        $request->validated();
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'image' => 'nullable|file',
+            'info' => 'nullable|string',
+        ]);
 
         $brand = Brand::findOrFail($id);
 
@@ -74,9 +84,15 @@ class BrandsController extends Controller
         $brand->update($data);
 
 
-        return redirect()->route('admin.brands.index');
+        return redirect()->route('admin.brands.index')->with('toast_success','Brand Updated Successfully');
     }
-    public function destroy()
+    public function destroy($id)
     {
+        $brand = Brand::findOrFail($id);
+
+        $brand->delete();
+
+        return redirect()->route('admin.brands.index')->with('toast_success','Brand Deleted Successfully');
+
     }
 }
