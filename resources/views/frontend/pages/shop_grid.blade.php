@@ -224,11 +224,26 @@
                                                         </div>
                                                     </div>
                                                     <div class="product-info">
-                                                        <span class="category"> {{ $product->category->name }} </span>
+                                                        <span
+                                                            class="category">{{ trans('front_home_trans.Category') }}
+                                                            :
+                                                            <a
+                                                                href="{{ route('shop_grid.index', ['categoryId' => $product->category->id]) }}">
+                                                                {{ $product->category->name }}
+                                                            </a>
+                                                        </span>
+
+                                                        <span class="category">{{ trans('front_home_trans.Store') }} :
+                                                            <a
+                                                                href="{{ route('shop_grid.indexStore', ['storeId' => $product->store->id]) }}">
+                                                                {{ $product->store->name }}
+                                                            </a>
+                                                        </span>
+                                                        {{-- <span class="category"> {{ $product->category->name }} </span>
                                                         <span class="category">
                                                             <span class="text-danger">
                                                                 {{ trans('shop_grid_trans.Store') }} </span>
-                                                            {{ $product->store->name }} </span>
+                                                            {{ $product->store->name }} </span> --}}
 
                                                         <h4 class="title">
                                                             <a
@@ -391,11 +406,16 @@
                                     '</div>' +
                                     '</div>' +
                                     '<div class="product-info">' +
-                                    '<span class="category">' +
-                                    '{{ trans('shop_grid_trans.Category') }} : ' +
-                                    product.category.name + '</span>' +
-                                    '<span class="category">' + '{{ trans('shop_grid_trans.Store') }} : ' +
-                                    product.store.name + '</span>' +
+                                    '<span class="category">{{ trans('front_home_trans.Category') }} :' +
+                                    '<a href="{{ route('shop_grid.index', ['categoryId' => $product->category->id]) }}">' +
+                                    '{{ $product->category->name }}' +
+                                    '</a>' +
+                                    '</span>' +
+                                    '<span class="category">{{ trans('front_home_trans.Store') }} :' +
+                                    '<a href="{{ route('shop_grid.indexStore', ['storeId' => $product->store->id]) }}">' +
+                                    '{{ $product->store->name }}' +
+                                    '</a>' +
+                                    '</span>' +
                                     '<h4 class="title">' +
                                     '<a href="' + getProductRoute(product.slug) + '">' + product.name +
                                     '</a>' +
@@ -494,12 +514,16 @@
                                         '</div>' +
                                         '</div>' +
                                         '<div class="product-info">' +
-                                        '<span class="category">' +
-                                        '{{ trans('shop_grid_trans.Category') }} : ' +
-                                        product.category.name + '</span>' +
-                                        '<span class="category">' +
-                                        '{{ trans('shop_grid_trans.Store') }} : ' +
-                                        product.store.name + '</span>' +
+                                        '<span class="category">{{ trans('front_home_trans.Category') }} :' +
+                                        '<a href="{{ route('shop_grid.index', ['categoryId' => $product->category->id]) }}">' +
+                                        '{{ $product->category->name }}' +
+                                        '</a>' +
+                                        '</span>' +
+                                        '<span class="category">{{ trans('front_home_trans.Store') }} :' +
+                                        '<a href="{{ route('shop_grid.indexStore', ['storeId' => $product->store->id]) }}">' +
+                                        '{{ $product->store->name }}' +
+                                        '</a>' +
+                                        '</span>' +
                                         '<h4 class="title">' +
                                         '<a href="' + getProductRoute(product.slug) + '">' + product.name +
                                         '</a>' +
