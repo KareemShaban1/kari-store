@@ -30,7 +30,7 @@
             <div class="row justify-content-center">
                 <div class="col-lg-6 col-md-10  col-12">
 
-                    <x-backend.alert />
+                    {{-- <x-backend.alert /> --}}
 
                     <form class="card login-form" action="{{ Route('login') }}" method="post">
                         @csrf
@@ -64,10 +64,16 @@
                             <div class="form-group input-group">
                                 <label for="reg-fn">Email</label>
                                 <input class="form-control" name="email">
+                                @error('email')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                             <div class="form-group input-group">
                                 <label for="reg-fn">Password</label>
                                 <input class="form-control" type="password" name="password" id="reg-pass">
+                                @error('password')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                             <div class="d-flex flex-wrap justify-content-between bottom-content">
                                 <div class="form-check">

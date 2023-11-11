@@ -26,6 +26,8 @@ class FortifyServiceProvider extends ServiceProvider
     public function register(): void
     {
         //
+        Fortify::ignoreRoutes();
+
         $request = request();
 
         // check if route start with admin/
@@ -71,6 +73,8 @@ class FortifyServiceProvider extends ServiceProvider
                 }
             }
         );
+
+        
 
         $this->app->instance(RegisterResponse::class, new class () implements RegisterResponse {
             public function toResponse($request)

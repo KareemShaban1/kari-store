@@ -8439,4 +8439,79 @@ categories CSS
       padding-bottom: .375rem;
       font-size: 125%; }
     
+
       
+      /* profile section */
+
+      .tab {
+        float: left;
+        /* border: 1px solid #ccc; */
+        background-color: #f1f1f1;
+        width: 30%;
+        /* height: 300px; */
+    }
+
+    /* Style the buttons inside the tab */
+    .tab button {
+        display: block;
+        background-color: inherit;
+        color: black;
+        padding: 22px 16px;
+        width: 100%;
+        border: none;
+        outline: none;
+        text-align: left;
+        cursor: pointer;
+        transition: 0.3s;
+        font-size: 17px;
+    }
+
+    /* Change background color of buttons on hover */
+    .tab button:hover {
+        background-color: #ddd;
+    }
+
+    /* Create an active/current "tab button" class */
+    .tab button.active {
+        background-color: #ccc;
+    }
+
+    /* Style the tab content */
+    .tabcontent {
+        float: left;
+        /* padding: 0px 12px; */
+        border: 1px solid #ccc;
+        width: 70%;
+        border-left: none;
+        /* height: 300px; */
+    }
+
+    @media (min-width: 1025px) {
+        .h-custom {
+            height: 100vh !important;
+        }
+    }
+
+    .horizontal-timeline .items {
+        border-top: 2px solid #ddd;
+    }
+
+    .horizontal-timeline .items .items-list {
+        position: relative;
+        margin-right: 0;
+    }
+
+    .horizontal-timeline .items .items-list:before {
+        content: "";
+        position: absolute;
+        height: 8px;
+        width: 8px;
+        border-radius: 50%;
+        background-color: #ddd;
+        top: 0;
+        margin-top: -5px;
+    }
+
+    .horizontal-timeline .items .items-list {
+        padding-top: 15px;
+    }

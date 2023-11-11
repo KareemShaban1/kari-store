@@ -37,6 +37,9 @@ class AppServiceProvider extends ServiceProvider
 
         Paginator::useBootstrap();
 
+        $this->app->bind('Laravel\Fortify\Http\Requests\LoginRequest', \App\Http\Requests\Auth\LoginRequest::class);
+
+
 
     }
 }

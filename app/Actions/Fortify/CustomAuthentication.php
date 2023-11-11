@@ -14,10 +14,20 @@ class CustomAuthentication
 {
     public function authenticateAdmin($request)
     {
+
+        // $request->validate([
+        //     'email'=>'required|email|exists:users,email',
+        //     'password'=>'required'
+        // ],[
+        //     'email.required'=>'البريد الألكترونى مطلوب'
+        // ]);
+        
         // determine which field used to authenticate as username , email , phone
         $user_name = $request->post(config('fortify.username')); // username
         $password = $request->post('password');
 
+        
+        
 
         // get admin based on user_name , email , phone_number
         $user = Admin::where('user_name', '=', $user_name)
@@ -39,13 +49,11 @@ class CustomAuthentication
 
     public function authenticateUser($request)
     {
-        // $email = $request->email;
-        // $password = $request->password;
-        // $user = User::where('email_address', '=', $email)->first();
 
+       
          // determine which field used to authenticate as username , email , phone
-         $user_name = $request->post(config('fortify.username')); // username
-         $password = $request->post('password');
+        $user_name = $request->post(config('fortify.username')); // username
+        $password = $request->post('password');
  
  
          // get admin based on user_name , email , phone_number
@@ -66,8 +74,8 @@ class CustomAuthentication
             //     // return 'email_not_verified';
             //     return false;
             // }
-
             return $user;
+            
         }
 
         return false; // Incorrect password

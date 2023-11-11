@@ -6,6 +6,8 @@
         <label for="">Admin Login</label>
     </div>
 
+
+
     <form method="POST" action="{{ route('login') }}">
         @csrf
 

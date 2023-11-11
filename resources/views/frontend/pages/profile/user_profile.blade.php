@@ -2,78 +2,7 @@
 
     @push('styles')
         <style>
-            .tab {
-                float: left;
-                /* border: 1px solid #ccc; */
-                background-color: #f1f1f1;
-                width: 30%;
-                /* height: 300px; */
-            }
 
-            /* Style the buttons inside the tab */
-            .tab button {
-                display: block;
-                background-color: inherit;
-                color: black;
-                padding: 22px 16px;
-                width: 100%;
-                border: none;
-                outline: none;
-                text-align: left;
-                cursor: pointer;
-                transition: 0.3s;
-                font-size: 17px;
-            }
-
-            /* Change background color of buttons on hover */
-            .tab button:hover {
-                background-color: #ddd;
-            }
-
-            /* Create an active/current "tab button" class */
-            .tab button.active {
-                background-color: #ccc;
-            }
-
-            /* Style the tab content */
-            .tabcontent {
-                float: left;
-                /* padding: 0px 12px; */
-                border: 1px solid #ccc;
-                width: 70%;
-                border-left: none;
-                /* height: 300px; */
-            }
-
-            @media (min-width: 1025px) {
-                .h-custom {
-                    height: 100vh !important;
-                }
-            }
-
-            .horizontal-timeline .items {
-                border-top: 2px solid #ddd;
-            }
-
-            .horizontal-timeline .items .items-list {
-                position: relative;
-                margin-right: 0;
-            }
-
-            .horizontal-timeline .items .items-list:before {
-                content: "";
-                position: absolute;
-                height: 8px;
-                width: 8px;
-                border-radius: 50%;
-                background-color: #ddd;
-                top: 0;
-                margin-top: -5px;
-            }
-
-            .horizontal-timeline .items .items-list {
-                padding-top: 15px;
-            }
         </style>
     @endpush
 
@@ -86,13 +15,13 @@
                             <h1 class="page-title"></h1>
                         </div>
                     </div>
-                    <div class="col-lg-6 col-md-6 col-12">
+                    {{-- <div class="col-lg-6 col-md-6 col-12">
                         <ul class="breadcrumb-nav">
                             <li><a href=""><i class="lni lni-home"></i> Home</a></li>
                             <li><a href="">Shop</a></li>
                             <li></li>
                         </ul>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>
@@ -104,8 +33,11 @@
     <section class="user-profile" style="position: relative; height:1300px;">
 
         <div class="tab">
-            <button class="tablinks" onclick="openCity(event, 'profile')" id="defaultOpen">Profile</button>
-            <button class="tablinks" onclick="openCity(event, 'orders')">orders</button>
+            <button class="tablinks" onclick="openSection(event, 'profile')" id="defaultOpen">
+                {{ trans('frontend/profile_trans.Profile') }}
+            </button>
+            <button class="tablinks"
+                onclick="openSection(event, 'orders')">{{ trans('frontend/profile_trans.Orders') }}</button>
             {{-- <button class="tablinks" onclick="openCity(event, 'Tokyo')">Tokyo</button> --}}
         </div>
 
@@ -471,7 +403,7 @@
 
     @push('scripts')
         <script>
-            function openCity(evt, cityName) {
+            function openSection(evt, cityName) {
                 var i, tabcontent, tablinks;
                 tabcontent = document.getElementsByClassName("tabcontent");
                 for (i = 0; i < tabcontent.length; i++) {

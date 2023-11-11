@@ -87,7 +87,7 @@
 
     <script src="{{ URL::asset('backend/assets/js/plugins-jquery.js') }}"></script>
 
-    
+
 
     {{-- <script>
         $('#summernote').summernote({
