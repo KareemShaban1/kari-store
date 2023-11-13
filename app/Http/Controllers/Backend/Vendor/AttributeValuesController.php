@@ -21,7 +21,7 @@ class AttributeValuesController extends Controller
     public function create()
     {
 
-        $attributes = Attribute::all();
+        $attributes = Attribute::where('vendor_id',Auth::user('vendor')->id)->get();
         return view('backend.Vendor_Dashboard.attribute_values.create', compact('attributes'));
     }
     public function store(Request $request)

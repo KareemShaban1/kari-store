@@ -2,7 +2,7 @@
 @section('css')
 
 @section('title')
-    {{ trans('attribute_values_trans.Attribute_Values') }}
+    {{ trans('coupons_trans.Coupons') }}
 @stop
 @endsection
 @section('page-header')
@@ -10,13 +10,13 @@
 <div class="page-title">
     <div class="row">
         <div class="col-sm-6">
-            <h4 class="mb-0"> {{ trans('attribute_values_trans.Attribute_Values') }}</h4>
+            <h4 class="mb-0"> {{ trans('coupons_trans.Coupons') }}</h4>
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb pt-0 pr-0 float-left float-sm-right ">
                 <li class="breadcrumb-item"><a href="#"
-                        class="default-color">{{ trans('attribute_values_trans.All_Attribute_Values') }}</a></li>
-                <li class="breadcrumb-item active">{{ trans('attribute_values_trans.Attribute_Values') }}</li>
+                        class="default-color">{{ trans('coupons_trans.All_Coupons') }}</a></li>
+                <li class="breadcrumb-item active">{{ trans('coupons_trans.Coupons') }}</li>
             </ol>
         </div>
     </div>
@@ -33,38 +33,38 @@
                 <table id="custom_table" class="display">
                     <thead>
                         <tr>
-                            <th>{{ trans('attribute_values_trans.Id') }}</th>
-                            <th>{{ trans('attribute_values_trans.Attribute_Value_Name') }}</th>
-                            <th>{{ trans('attribute_values_trans.Value') }}</th>
-                            <th>{{ trans('attribute_values_trans.Vendor_Name') }}</th>
-                            <th>{{ trans('attribute_values_trans.Control') }}</th>
+                            <th>{{ trans('coupons_trans.Id') }}</th>
+                            <th>{{ trans('coupons_trans.Coupon_Name') }}</th>
+                            <th>{{ trans('coupons_trans.Code') }}</th>
+                            <th>{{ trans('coupons_trans.Usage_Count') }}</th>
+                            <th>{{ trans('coupons_trans.Expiration_Date') }}</th>
+                            <th>{{ trans('coupons_trans.Store_Name') }}</th>
+                            <th>{{ trans('coupons_trans.Control') }}</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($attribute_values as $attribute_value)
+                        @foreach ($coupons as $coupon)
                             <tr>
 
-                                <td>{{ $attribute_value->id }}</td>
-                                <td>
-                                    {{ $attribute_value->name }}
-                                </td>
-                                <td>
-                                    {{ $attribute_value->value }}
-                                </td>
-                                <td>
-                                    {{ $attribute_value->vendor->name }}
-                                </td>
+                                <td>{{ $coupon->id }}</td>
+                                <td>{{ $coupon->name }}</td>
+                                <td>{{ $coupon->code }}</td>
+                                <td>{{ $coupon->usage_count }}</td>
+                                <td>{{ $coupon->expiration_date }}</td>
+                                <td>{{ $coupon->store->name }}</td>
+
                                 <td>
                                     <a href="" class="btn btn-primary btn-sm">
                                         <i class="fa fa-eye"></i>
                                     </a>
 
-                                    <a href="{{ Route('vendor.attribute_values.edit', $attribute_value->id) }}"
+                                    <a href="{{ Route('vendor.coupons.edit', $coupon->id) }}"
                                         class="btn btn-warning btn-sm">
                                         <i class="fa fa-edit"></i>
                                     </a>
-                                    <form action="{{ Route('vendor.attribute_values.destroy', $attribute_value->id) }}"
-                                        method="post" style="display:inline">
+
+                                    <form action="{{ Route('vendor.coupons.destroy', $coupon->id) }}" method="post"
+                                        style="display:inline">
                                         @csrf
                                         @method('delete')
 
@@ -73,7 +73,10 @@
                                         </button>
                                     </form>
 
-
+                                    {{-- <a href="" class="btn btn-danger btn-sm">
+                                    <i class="fa fa-trash"></i> 
+                                    
+                                </a>     --}}
                                 </td>
 
                             </tr>
@@ -89,6 +92,8 @@
 @section('js')
 <script>
     $(document).ready(function() {
+
+
         var datatable = $('#custom_table').DataTable({
             stateSave: true,
             sortable: true,
@@ -102,13 +107,15 @@
                 {
                     extend: 'excelHtml5',
                     exportOptions: {
-                        columns: [0, 1, 2]
+                        columns: [0, 1, 2, 3, 4, 5]
                     }
                 },
 
                 'colvis'
             ]
         });
+
+
     });
 </script>
 @endsection

@@ -54,8 +54,16 @@
         request()->routeIs('admin.reports.orders') ||
         request()->routeIs('admin.websiteParts.index') ||
         request()->routeIs('admin.banners.index') ||
+        request()->routeIs('admin.paymentGateways.index') ||
         request()->routeIs('delivery.orders.index') ||
-        request()->routeIs('admin.paymentGateways.index'))
+        request()->routeIs('vendor.products.index') ||
+        request()->routeIs('vendor.orders.index') ||
+        request()->routeIs('vendor.attributes.index') ||
+        request()->routeIs('vendor.attribute_values.index') ||
+        request()->routeIs('vendor.product_variants.index') ||
+        request()->routeIs('vendor.product_variants.create') ||
+        request()->routeIs('vendor.coupons.index') ||
+        request()->routeIs('vendor.notifications.index'))
     <script src="{{ asset('backend/assets/datatables/datatables.min.js') }}"></script>
     <script src="{{ asset('backend/assets/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('backend/assets/jquery-ui/jquery-ui.min.js') }}"></script>

@@ -17,7 +17,10 @@ class ProductVariantsController extends Controller
     //
     public function index()
     {
-        $product_variants = ProductVariant::all();
+        $vendor = Auth::user('vendor');
+        $productIds = Product::where('store_id', $vendor->store_id)->pluck('id');
+        $product_variants = ProductVariant::whereIn('product_id', $productIds)->get();
+        // dd($vendor,$productIds);
         return view('backend.Vendor_Dashboard.product_variant.index', compact('product_variants'));
     }
 
@@ -54,7 +57,6 @@ class ProductVariantsController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request->all());
         $this->validate($request, [
             'product_id' => 'required',
             'attribute_id' => 'required',
@@ -70,7 +72,7 @@ class ProductVariantsController extends Controller
         $data = $request->except('image');
 
         // add 'image' to the input array $data
-        $data['image'] = $this->uploadImage($request, 'image', 'products_variants');
+        $data['image'] = $this->ProcessImage($request, 'image', 'products_variants');
         $data['vendor_id'] = Auth::user('vendor')->id; 
         $product_variant =  ProductVariant::create($data);
         // Prepare the response data
@@ -108,7 +110,7 @@ class ProductVariantsController extends Controller
         $product_variant = ProductVariant::find($id);
         $data = $request->except('image');
         // add 'image' to the input array $data
-        $data['image'] = $this->uploadImage($request, 'image', 'products_variants');
+        $data['image'] = $this->ProcessImage($request, 'image', 'products_variants');
         $product_variant->update($data);
 
         return redirect()->route('vendor.product_variants.index');

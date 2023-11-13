@@ -142,8 +142,8 @@
 
                 <br>
 
-                <form method="post" enctype="multipart/form-data" action="{{ Route('vendor.product_variants.store') }}"
-                    id="product_variant_form" autocomplete="off">
+                <form method="post" enctype="multipart/form-data"
+                    action="{{ Route('vendor.product_variants.store') }}" id="product_variant_form" autocomplete="off">
 
                     @csrf
 
@@ -247,7 +247,28 @@
 
     $(document).ready(function() {
 
-        $('#product-variants-table').DataTable();
+        var datatable = $('#product-variants-table').DataTable({
+            stateSave: true,
+            sortable: true,
+            dom: 'Bfrtip',
+            buttons: [{
+                    extend: 'copyHtml5',
+                    exportOptions: {
+                        columns: [0, ':visible']
+                    }
+                },
+                {
+                    extend: 'excelHtml5',
+                    exportOptions: {
+                        columns: [0, 1, 2, 3]
+                    }
+                },
+
+                'colvis'
+            ]
+        });
+
+        // $('#product-variants-table').DataTable();
 
         // change attribute_value based on attribute
         $('select[name="attribute_id"]').on('change', function() {
@@ -287,7 +308,7 @@
                     success: function(response) {
                         var $form = $(
                             '#product_variant_form'
-                            ); // Convert the HTML code into a jQuery object
+                        ); // Convert the HTML code into a jQuery object
 
                         // Create and append the two input elements to the form
                         var input1 = '<input type="hidden" name="attribute_id" value="' +
@@ -317,6 +338,7 @@
 
             var form = $(this);
             var formData = new FormData(form[0]); // Create FormData object to send form data
+            console.log(formData);
             $.ajax({
                 url: form.attr('action'), // Get the form action URL
                 type: form.attr('method'), // Get the form method type (POST)
@@ -350,14 +372,14 @@
                     // Assuming the response is the HTML code for a new table row
                     // You can modify this based on your actual response format
                     $('#product-variants-table').append(
-                    newRow); // Append the new row to the table body
+                        newRow); // Append the new row to the table body
                     form[0].reset(); // Reset the form inputs
                     $('#frame').attr('src',
                         "{{ asset('backend/assets/images/profile-avatar.jpg') }}");
 
                 },
                 error: function(xhr, status, error) {
-                    var errors = xhr.responseJSON.errors;
+                    var errors = xhr.responseJSON;
 
                     // Clear previous error messages
                     $('.alert.alert-danger').remove();

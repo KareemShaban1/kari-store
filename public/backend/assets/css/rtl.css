@@ -23382,7 +23382,7 @@ textarea.form-control {
   white-space: nowrap; }
 
 .pagination .page-item .page-link {
-  padding: 1.0rem 1.3rem;
+  /* padding: 1.0rem 1.3rem; */
   color: #626262; }
 
 .pagination .page-item.active .page-link {

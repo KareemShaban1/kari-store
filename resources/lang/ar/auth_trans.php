@@ -10,7 +10,7 @@ return [
           'Email_Address'=>'البريد الألكترونى',
           'Password'=>'كلمة المرور',
           'Phone_Number'=>'رقم الهاتف (به واتس أب)',
-          'Choose_Governorate'=>'أختار المحفظة',
+          'Choose_Governorate'=>'أختار المحافظة',
           'Choose_City'=>'أختار المدينة',
           'Choose_Neighborhood'=>'أختار المنطقة',
           'Postal_Code'=>'الرقم البريدى (أختيارى)',

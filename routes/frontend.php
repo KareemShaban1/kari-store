@@ -30,22 +30,16 @@ Route::group([
             Route::get('/checkout', [CheckoutController::class, 'create'])->name('checkout.create');
             Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
 
+            Route::get('/profile_edit', [ProfileController::class, 'edit'])->name('profile.edit');
+            Route::put('/profile_update', [ProfileController::class, 'update'])->name('profile.update');
+
         }
     );
 
     Route::get('/', [HomeController::class, 'index'])->name('home');
 
-
-
-
-
-
-    Route::get('/profile_edit', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::put('/profile_update', [ProfileController::class, 'update'])->name('profile.update');
     Route::get('/user/get-cities', [ProfileController::class, 'getCities']);
     Route::get('/user/get-neighborhoods', [ProfileController::class, 'getNeighborhoods']);
-
-
 
     Route::get('/all_products', [ProductsController::class, 'index'])->name('products.show_all');
     Route::get('/product_autocomplete', [ProductsController::class, 'productAutocomplete'])->name('products.autocomplete');

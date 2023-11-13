@@ -13,6 +13,7 @@ use App\Models\Product;
 use App\Models\Store;
 use App\Models\Tag;
 use App\Models\Vendor;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -56,13 +57,14 @@ class ProductsController extends Controller
     {
 
         $vendor = Vendor::where('id', Auth::user('vendor')->id)->first();
-        $store = Store::where('id', $vendor->store_id)->first();
-        $category = Category::where('id', $store->category_id)->first();
+        $stores = Store::where('id', $vendor->store_id)->get();
+        // $category =  Category::where('id', $store->category_id)->first();
+        $categories = Category::all();
         $brands = Brand::all();
         $attributes = Attribute::all();
         return view(
             'backend.Vendor_Dashboard.products.create',
-            compact('category', 'store', 'brands', 'attributes')
+            compact('categories', 'stores', 'brands', 'attributes')
         );
     }
 
@@ -75,43 +77,41 @@ class ProductsController extends Controller
     public function store(StoreProductRequest $request)
     {
 
-        $request->validated();
+    // Validating the request
+    $validated = $request->validated();
 
-        // Merge 'slug' input into the current request's input array
-        $request->merge([
-            'slug' => Str::slug($request->post('name'))
-        ]);
+    // Process 'slug' only if not provided in the request
+    if (!$request->has('slug')) {
+        $validated['slug'] = Str::slug($validated['name']);
+    }
 
-        // get requst input array without [image , tags]
-        $data = $request->except('image', 'tags');
+    // Process the image if provided
+    if ($request->hasFile('image')) {
+        $validated['image'] = $this->ProcessImage($request, 'image', 'products');
+    }
 
-        // add 'image' to the input array $data
-        $data['image'] = $this->uploadImage($request, 'image', 'products');
+    // dd($validated);
 
-        // dd($data);
-        // create product model with the $data array
-        $product = Product::create($data);
+    // Create the product
+    $product = Product::create($validated);
 
-        // get tags from the request 
-        $tags = json_decode($request->post('tags'));
-        $tag_ids = [];
-        // get all tags from DB
-        $saved_tags = Tag::all();
-        // loop on tags that we get from request 
-        foreach ($tags as $item) {
-            // create slug from this tags
-            $slug = Str::slug($item->value);
-            $tag = $saved_tags->where('slug', $slug)->first();
-            if (!$tag) {
-                $tag = Tag::create([
-                    'name' => $item->value,
-                    'slug' => $slug
-                ]);
+    // dd($product);
+
+    // Process tags if available in the request
+    if ($request->has('tags')) {
+        $tags = json_decode($request->input('tags'));
+
+        if ($tags) {
+            $tagIds = [];
+            foreach ($tags as $item) {
+                $slug = Str::slug($item->value);
+                $tag = Tag::firstOrNew(['slug' => $slug], ['name' => $item->value]);
+                $tag->save();
+                $tagIds[] = $tag->id;
             }
-            $tag_ids[] = $tag->id;
+            $product->tags()->sync($tagIds);
         }
-
-        $product->tags()->sync($tag_ids);
+    }
 
         return redirect()->route('vendor.products.index');
     }
@@ -214,7 +214,7 @@ class ProductsController extends Controller
         // $product->tags()->detach($tag_ids);
         // $product->tags()->syncWithoutDetaching($tag_ids);
 
-        return redirect()->route('admin.products.index');
+        return redirect()->route('vendor.products.index');
     }
 
     /**
@@ -227,7 +227,7 @@ class ProductsController extends Controller
     {
         //
         Product::findOrFail($id);
-        return redirect()->route('admin.products.index');
+        return redirect()->route('vendor.products.index');
     }
 
 
@@ -240,5 +240,38 @@ class ProductsController extends Controller
             'backend.Vendor_Dashboard.products.product_variant',
             compact('attributes', 'product')
         );
+    }
+
+    public function edit_products_price(){
+
+        $products = Product::select('id','name','price')->get();
+
+        // dd($products);
+        
+        return view(
+            'backend.Vendor_Dashboard.products.edit_products_price',
+            compact('products')
+        );
+    }
+    
+    public function updateProductsPrice(Request $request) {
+        // dd($request->all());
+        $productIds = $request->input('product_id');
+        $prices = $request->input('price');
+
+    
+        foreach ($productIds as $key => $productId) {
+            // Find the product by ID
+            $product = Product::findOrFail($productId);
+    
+            if ($product) {
+                // Update the product's price
+                $product->price = $prices[$key];
+                $product->save();
+            }
+        }
+    
+        // Redirect back or to a specific route after the update
+        return redirect()->route('vendor.products.index')->with('success', 'Prices updated successfully');
     }
 }

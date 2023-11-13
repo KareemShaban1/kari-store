@@ -30,23 +30,40 @@ class Cart extends Model
         //     $cart->id = Str::uuid();
         // });
 
+        // static::addGlobalScope('cookie_id', function (Builder $builder) {
+        //     $builder->where('cookie_id', '=', Cart::getCookieId());
+        // });
+
         static::addGlobalScope('cookie_id', function (Builder $builder) {
-            $builder->where('cookie_id', '=', Cart::getCookieId());
+            $builder->where('cookie_id', '=', Cart::getCartSessionId());
         });
+        
     }
 
-    public static function getCookieId()
-    {
-        $cookie_id = Cookie::get('cart_id');
+    // public static function getCookieId()
+    // {
+    //     $cookie_id = Cookie::get('cart_id');
 
-        if (!$cookie_id) {
-            $cookie_id = Str::uuid();
-            // Cookie::queue('cart_id', $cookie_id, 30 * 24 * 60);
-            Cookie::queue('cart_id', $cookie_id, 1 * 24 * 60);
+    //     if (!$cookie_id) {
+    //         $cookie_id = Str::uuid();
+    //         // Cookie::queue('cart_id', $cookie_id, 30 * 24 * 60);
+    //         Cookie::queue('cart_id', $cookie_id, 1 * 24 * 60);
 
-        }
-        return $cookie_id;
+    //     }
+    //     return $cookie_id;
+    // }
+
+    public static function getCartSessionId()
+{
+    $cartId = session('cart_id');
+
+    if (!$cartId) {
+        $cartId = Str::uuid();
+        session(['cart_id' => $cartId]);
     }
+
+    return $cartId;
+}
 
     public static function regenerateCookieId()
 {

@@ -36,7 +36,9 @@ use  App\Http\Controllers\Backend\Vendor\{
     AttributesController as VendorAttributesController,
     AttributeValuesController as VendorAttributeValuesController,
     NotificationsController as VendorNotificationsController ,
-    OrderController as VendorOrderController
+    OrderController as VendorOrderController,
+    CouponController as VendorCouponController
+    
     
 };
 
@@ -121,7 +123,6 @@ Route::group(
 
         Route::resource('/product_properties', ProductPropertiesController::class);
 
-
         Route::resource('/coupons', CouponController::class);
 
         Route::resource('/orders', OrderController::class);
@@ -157,9 +158,6 @@ Route::group(
 
 
 
-
-
-
 // vendor dashboard
 Route::group([
   // url prefix
@@ -176,12 +174,27 @@ Route::group([
 
       Route::resource('/products', VendorProductsController::class);
 
-      Route::get('/add_variant/{product_id}', [VendorProductsController::class, 'add_variant'])->name('products.add_variant');
+      Route::get('/edit_products_price', [VendorProductsController::class,'edit_products_price'])->name('products.edit_products_price');
 
-      Route::resource('/product_variants', VendorProductVariantsController::class);
+      Route::put('/update_products_price', [VendorProductsController::class,'updateProductsPrice'])->name('products.update_products_price');
+
+      // Route::get('/add_variant/{product_id}', [VendorProductsController::class, 'add_variant'])->name('products.add_variant');
+
+      // Route::resource('/product_variants', VendorProductVariantsController::class);
       
+      Route::get('/product_variant', [VendorProductVariantsController::class, 'index'])->name('product_variants.index');
+      Route::get('/create_product_variant/{product_id}', [VendorProductVariantsController::class, 'create'])->name('product_variants.create');
+      Route::post('/store_product_variant', [VendorProductVariantsController::class, 'store'])->name('product_variants.store');
+
+      Route::get('/edit_product_variant/{product_id}', [VendorProductVariantsController::class, 'edit'])->name('product_variants.edit');
+      Route::put('/update_product_variant/{product_id}', [VendorProductVariantsController::class, 'update'])->name('product_variants.update');
+
+      Route::get('/show_product_variant/{product_id}', [VendorProductVariantsController::class, 'show'])->name('product_variants.show');
+
+      Route::get('/delete_product_variant/{product_id}', [VendorProductVariantsController::class, 'destroy'])->name('product_variants.destroy');
+
       // notes
-      Route::get('/create_product_variant/{product_id}', [VendorProductVariantsController::class, 'create'])->name('vendor.product_variants.create');
+      // Route::get('/create_product_variant/{product_id}', [VendorProductVariantsController::class, 'create'])->name('vendor.product_variants.create');
 
       Route::get('/get_attribute_value/{attribute_id}', [VendorProductVariantsController::class, 'get_attribute_value'])->name('get_attribute_value');
 
@@ -189,7 +202,7 @@ Route::group([
 
       Route::resource('/attribute_values', VendorAttributeValuesController::class);
 
-      Route::resource('/coupons', CouponController::class);
+      Route::resource('/coupons',VendorCouponController::class);
 
       Route::resource('/orders', VendorOrderController::class);
 

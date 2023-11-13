@@ -30,9 +30,10 @@
         <div class="card card-statistics h-100">
             <div class="card-body">
 
-                <table id="table_id" class="display">
+                <table id="custom_table" class="display">
                     <thead>
                         <tr>
+                            <th></th>
                             <th>{{ trans('product_variant_trans.Id') }}</th>
                             <th>{{ trans('product_variant_trans.Product_Name') }}</th>
                             <th>{{ trans('product_variant_trans.Quantity') }}</th>
@@ -44,12 +45,13 @@
                     <tbody>
                         @foreach ($product_variants as $product_variant)
                             <tr>
-                                
+                                <td><img src="{{ $product_variant->image_url }}" height="50" width="50"
+                                        alt=""></td>
                                 <td>{{ $product_variant->id }}</td>
                                 <td>{{ $product_variant->product->name }}</td>
-                               
+
                                 <td>{{ $product_variant->quantity }}</td>
-                                <td>{{ $product_variant->price}}</td>
+                                <td>{{ $product_variant->price }}</td>
                                 <td>{{ $product_variant->compare_price }}</td>
 
                                 <td>
@@ -62,8 +64,8 @@
                                     </a>
 
 
-                                    <form action="{{ Route('vendor.product_variants.destroy', $product_variant->id) }}" method="post"
-                                        style="display:inline">
+                                    <form action="{{ Route('vendor.product_variants.destroy', $product_variant->id) }}"
+                                        method="post" style="display:inline">
                                         @csrf
                                         @method('delete')
 
@@ -90,8 +92,25 @@
 @endsection
 @section('js')
 <script>
-    $(document).ready(function() {
-        $('#table_id').DataTable();
+    var datatable = $('#custom_table').DataTable({
+        stateSave: true,
+        sortable: true,
+        dom: 'Bfrtip',
+        buttons: [{
+                extend: 'copyHtml5',
+                exportOptions: {
+                    columns: [0, ':visible']
+                }
+            },
+            {
+                extend: 'excelHtml5',
+                exportOptions: {
+                    columns: [0, 1, 2, 3]
+                }
+            },
+
+            'colvis'
+        ]
     });
 </script>
 @endsection

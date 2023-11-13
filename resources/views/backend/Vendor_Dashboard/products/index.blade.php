@@ -24,13 +24,22 @@
 <!-- breadcrumb -->
 @endsection
 @section('content')
+
+<a class="btn btn-info mb-3" href="{{ route('vendor.products.create') }}">
+    {{ trans('products_trans.Add_Product') }}
+</a>
+<a class="btn btn-success mb-3" href="{{ route('vendor.products.edit_products_price') }}">
+    {{ trans('products_trans.Edit_Prices') }}
+</a>
 <!-- row -->
 <div class="row">
     <div class="col-md-12 mb-30">
         <div class="card card-statistics h-100">
             <div class="card-body">
 
-                <table id="table_id" class="display">
+
+
+                <table id="custom_table" class="display">
                     <thead>
                         <tr>
                             <th></th>
@@ -38,6 +47,7 @@
                             <th>{{ trans('products_trans.Name') }}</th>
                             <th>{{ trans('products_trans.Brand_Name') }}</th>
                             <th>{{ trans('products_trans.Quantity') }}</th>
+                            <th>{{ trans('products_trans.Price') }}</th>
                             {{-- <th>{{ trans('products_trans.Tags') }}</th> --}}
                             <th>{{ trans('products_trans.Category_Name') }}</th>
                             <th>{{ trans('products_trans.Store_Name') }}</th>
@@ -51,12 +61,13 @@
                         @foreach ($products as $product)
                             <tr>
                                 <td>
-                                    <img src="{{$product->image_url}}" height="50" width="50" alt="">
+                                    <img src="{{ $product->image_url }}" height="50" width="50" alt="">
                                 </td>
                                 <td>{{ $product->id }}</td>
                                 <td>{{ $product->name }}</td>
                                 <td>{{ $product->brand->name }}</td>
                                 <td>{{ $product->quantity }}</td>
+                                <td>{{ $product->price }} جنية</td>
                                 {{-- <td>{{ implode(',',$product->tags()->pluck('name')->toArray() ); }}</td> --}}
                                 <td>{{ $product->category->name }}</td>
                                 <td>{{ $product->store->name }}</td>
@@ -77,12 +88,14 @@
                                 </td>
 
                                 <td>
-                                    <a href="{{ route('vendor.product_variants.show', $product->id) }}" class="btn btn-info btn-sm">
-                                    {{$product->product_variants_count}}
+                                    <a href="{{ route('vendor.product_variants.show', $product->id) }}"
+                                        class="btn btn-info btn-sm">
+                                        {{ $product->product_variants_count }}
                                     </a>
                                 </td>
                                 <td>
-                                    <a href="{{Route('vendor.product_variants.create',$product->id)}}" class="btn btn-primary btn-sm">
+                                    <a href="{{ Route('vendor.product_variants.create', $product->id) }}"
+                                        class="btn btn-primary btn-sm">
                                         {{ trans('products_trans.Add_Variant') }}
                                     </a>
                                 </td>
@@ -126,7 +139,27 @@
 @section('js')
 <script>
     $(document).ready(function() {
-        $('#table_id').DataTable();
+        var datatable = $('#custom_table').DataTable({
+            stateSave: true,
+            sortable: true,
+            dom: 'Bfrtip',
+            buttons: [{
+                    extend: 'copyHtml5',
+                    exportOptions: {
+                        columns: [0, ':visible']
+                    }
+                },
+                {
+                    extend: 'excelHtml5',
+                    exportOptions: {
+                        columns: [0, 1, 2, 3]
+                    }
+                },
+
+                'colvis'
+            ]
+        });
+
     });
 </script>
 @endsection

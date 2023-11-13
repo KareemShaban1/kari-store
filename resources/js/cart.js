@@ -17,21 +17,41 @@
           
           });
 
-          $('.remove-item').on('click',function(e){
 
-                    let $id = $(this).data('id');
-                    $.ajax({
-                              url:"/cart/" + $id,
-                              method:'delete',
-                              data:{ 
-                                        _token:csrf_token
-                               },
-                               success: response =>{
-                                        $(`#${id}`).remove();
-                               }
-                    });
+          // $('.remove-item').on('click',function(e){
+
+          //           let $id = $(this).data('id');
+          //           $.ajax({
+          //                     url:"/cart/" + $id,
+          //                     method:'delete',
+          //                     data:{ 
+          //                               _token:csrf_token
+          //                      },
+          //                      success: response =>{
+          //                               $(`#${id}`).remove();
+          //                      }
+          //           });
           
-          });
+          // });
+
+          $('.remove-item').on('click', function (e) {
+                    e.preventDefault(); // Prevents the default behavior of the anchor tag
+                
+                    let $id = $(this).data('id');
+                    let csrf_token = '{{ csrf_token() }}'; // Ensure the token is retrieved correctly
+                
+                    $.ajax({
+                        url: "/cart/" + $id,
+                        method: 'delete',
+                        data: {
+                            _token: csrf_token
+                        },
+                        success: response => {
+                            $(`#${$id}`).remove(); // Use $id instead of id
+                        }
+                    });
+                });
+                
 
 
 })(jQuery);

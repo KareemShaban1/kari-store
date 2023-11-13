@@ -196,7 +196,7 @@
                             </div>
 
                             <p class="outer-link">{{ trans('auth_trans.Already have an account?') }}
-                                <a href="login.html">{{ trans('auth_trans.Login Now') }}</a>
+                                <a href="{{ route('login') }}">{{ trans('auth_trans.Login Now') }}</a>
 
                             </p>
                         </form>

@@ -8928,3 +8928,19 @@ color: #051441;
 .horizontal-timeline .items .items-list {
   padding-top: 15px;
 }
+
+.btn-plus{
+  width: 30px; 
+  color: white;
+  background-color: #26be53;
+  margin-right: 10px;
+  font-size: 20px;
+ }
+ 
+ .btn-minus{
+   width: 30px; 
+   color: white;
+   background-color: #cd3c3c;
+   margin-left: 10px;
+   font-size: 20px;
+ }

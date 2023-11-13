@@ -45,6 +45,8 @@ config('fortify.middleware', ['web']) ,  'localeCookieRedirect', 'localizationRe
             $limiter ? 'throttle:'.$limiter : null,
         ]));
 
+        
+
     Route::post(RoutePath::for('logout', '/logout'), [AuthenticatedSessionController::class, 'destroy'])
         ->name('logout');
 

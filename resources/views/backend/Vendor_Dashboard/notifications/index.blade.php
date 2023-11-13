@@ -30,7 +30,7 @@
         <div class="card card-statistics h-100">
             <div class="card-body">
 
-                <table id="table_id" class="display">
+                <table id="custom_table" class="display">
                     <thead>
                         <tr>
                             <th>{{ trans('notifications_trans.Notification') }}</th>
@@ -55,17 +55,17 @@
                                     {{ $notification->vendor->name }}
                                 </td>
                                 <td>
-                                    @if ($notification->read_at == NULL)
+                                    @if ($notification->read_at == null)
                                         <span class="text-danger">
-                                           {{ trans('notifications_trans.Unread') }}
+                                            {{ trans('notifications_trans.Unread') }}
                                         </span>
                                     @else
-                                    <span class="text-success">
-                                        {{ trans('notifications_trans.Read') }}
-                                     </span>
+                                        <span class="text-success">
+                                            {{ trans('notifications_trans.Read') }}
+                                        </span>
                                     @endif
                                 </td>
-                                <td>{{$notification->read_at}}</td>
+                                <td>{{ $notification->read_at }}</td>
                                 <td>
                                     <a href="" class="btn btn-primary btn-sm">
                                         <i class="fa fa-eye"></i>
@@ -85,7 +85,26 @@
 @section('js')
 <script>
     $(document).ready(function() {
-        $('#table_id').DataTable();
+        var datatable = $('#custom_table').DataTable({
+            stateSave: true,
+            sortable: true,
+            dom: 'Bfrtip',
+            buttons: [{
+                    extend: 'copyHtml5',
+                    exportOptions: {
+                        columns: [0, ':visible']
+                    }
+                },
+                {
+                    extend: 'excelHtml5',
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4, 5]
+                    }
+                },
+
+                'colvis'
+            ]
+        });
     });
 </script>
 @endsection

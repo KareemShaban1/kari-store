@@ -1,6 +1,6 @@
 @extends('backend.layouts.master')
 @section('css')
-<link href="{{ URL::asset('backend/assets/tagify/tagify.css') }}" rel="stylesheet">
+    <link href="{{ URL::asset('backend/assets/tagify/tagify.css') }}" rel="stylesheet">
 
 @section('title')
     {{ trans('products_trans.Create_Product') }}
@@ -24,7 +24,12 @@
 </div>
 <!-- breadcrumb -->
 @endsection
+
+
 @section('content')
+
+<x-backend.alert />
+
 <!-- row -->
 <div class="row">
     <div class="col-md-12 mb-30">
@@ -65,15 +70,15 @@
 
                     <div class="row">
 
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label> {{ trans('products_trans.Category_Name') }} <span
                                         class="text-danger">*</span></label>
                                 <select name="category_id" id="" class="custom-select mr-sm-2">
-                                    {{-- <option value="">{{ trans('products_trans.Choose') }}</option> --}}
-                                    {{-- @foreach ($categories as $category) --}}
+                                    <option value="">{{ trans('products_trans.Choose') }}</option>
+                                    @foreach ($categories as $category)
                                         <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                    {{-- @endforeach --}}
+                                    @endforeach
                                 </select>
                                 @error('category_id')
                                     <div class="alert alert-danger">{{ $message }}</div>
@@ -82,15 +87,15 @@
                         </div>
 
 
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label> {{ trans('products_trans.Store_Name') }} <span
                                         class="text-danger">*</span></label>
                                 <select name="store_id" id="" class="custom-select mr-sm-2">
-                                    {{-- <option value="">{{ trans('products_trans.Choose') }}</option> --}}
-                                    {{-- @foreach ($stores as $store) --}}
+                                    <option value="">{{ trans('products_trans.Choose') }}</option>
+                                    @foreach ($stores as $store)
                                         <option value="{{ $store->id }}">{{ $store->name }}</option>
-                                    {{-- @endforeach --}}
+                                    @endforeach
                                 </select>
                                 @error('store_id')
                                     <div class="alert alert-danger">{{ $message }}</div>
@@ -99,6 +104,25 @@
                         </div>
 
 
+                        {{-- <div class="col-md-4">
+                            <div class="form-group">
+                                <label> {{ trans('products_trans.Product_Type') }} <span
+                                        class="text-danger">*</span></label>
+                                <select name="product_type" id="" class="custom-select mr-sm-2">
+                                    <option value="" selected>{{ trans('products_trans.Choose') }}</option>
+
+                                    <option value="normal">Normal</option>
+                                    <option value="best_seller">Best Seller</option>
+                                    <option value="new_arrival">New Arrival</option>
+                                    <option value="top_rated">Top Rated</option>
+                                    <option value="other">Other</option>
+
+                                </select>
+                                @error('product_type')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div> --}}
 
 
 
@@ -109,83 +133,35 @@
 
                         <div class="col-md-6">
                             <div class="form-group">
-                                <x-backend.form.input label="{{ trans('products_trans.Price') }}" name="price"
-                                    class="form-control" />
+                                <x-backend.form.input type="number" label="{{ trans('products_trans.Price') }}"
+                                    name="price" class="form-control" />
                             </div>
                         </div>
 
                         <div class="col-md-6">
                             <div class="form-group">
-                                <x-backend.form.input label="{{ trans('products_trans.Compare_Price') }}"
-                                    name="compare_price" class="form-control" />
-                            </div>
-                        </div>
-
-                    </div>
-
-                    {{-- <div class="row">
-                        @if (\App\Models\Attribute::count() > 0)
-                        <div class="col-md-6">
-                            <div class="col-6">
-                                <div class="d-flex">
-                                    <label for="">Color : </label>
-
-                                    <label class="custom-switch form-switch mb-0">
-                                        <input type="checkbox" class="custom-switch-input" name="colors_active" checked>
-                                        <span class="custom-switch-indicator"></span>
-                                    </label>
-
-                                </div>
-                                <select  name="colors[]" class="form-control select2 color-var-select" id="colors-selector" multiple >
-                                    @if(\App\Models\Attribute::where(['has_color'=>1])->count()>0)
-                                        @foreach(\App\Models\Attribute::where(['has_color'=>1])->first()->attribute_values as $color)
-                                            <option value={{$color->value}} @isset($product['colors']) {{in_array($color->color_code,$product['colors'])?'selected':''}} @endisset>{{$color['key']}}</option>
-                                        @endforeach
-                                    @endif
-                                </select>
-                            </div>
-                        </div>
-                        @endif
-                    </div> --}}
-
-
-                    <div class="row">
-
-                        {{-- <div class="col-md-4">
-                            <div class="form-group">
-                                <x-backend.form.input label="{{ trans('products_trans.Options') }}" name="options"
+                                <x-backend.form.input type="number"
+                                    label="{{ trans('products_trans.Compare_Price') }}" name="compare_price"
                                     class="form-control" />
-                            </div>
-                        </div> --}}
-
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <x-backend.form.input label="{{ trans('products_trans.Rating') }}"
-                                  type="number"  name="rating" value="0" class="form-control" />
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <x-backend.form.input label="{{ trans('products_trans.Featured') }}"
-                                type="number" name="featured" value="0" class="form-control" />
                             </div>
                         </div>
 
                     </div>
 
 
+
+
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <x-backend.form.input label="{{ trans('products_trans.Tags') }}" name="tags"  />
+                                <x-backend.form.input label="{{ trans('products_trans.Tags') }}" name="tags" />
                             </div>
                         </div>
 
                         <div class="col-md-6">
                             <div class="form-group">
-                                <x-backend.form.input label="{{ trans('products_trans.Quantity') }}"
-                                    name="quantity" class="form-control" />
+                                <x-backend.form.input label="{{ trans('products_trans.Quantity') }}" name="quantity"
+                                    class="form-control" />
                             </div>
                         </div>
                     </div>
@@ -195,19 +171,19 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <textarea id="summernote" name="description" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" id="message" name="content" required="">
+                                <textarea id="summernote" name="description"
+                                    class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    id="message" name="content" required="">
                                     {{-- {{ old('content') }} --}}
                                 </textarea>
-
-
-                                {{-- <x-backend.form.textarea label="{{ trans('products_trans.Description') }}"
-                                    name="description" /> --}}
                             </div>
                         </div>
                     </div>
 
 
                     <div class="row">
+
+
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>{{ trans('products_trans.Status') }}<span class="text-danger">*</span></label>
@@ -238,6 +214,43 @@
                                 @enderror
                             </div>
                         </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-3">
+                                        <label>{{ trans('products_trans.Featured') }}
+                                            <span class="text-danger">*</span> : </label>
+                                    </div>
+
+                                    <div class="col-3">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="featured"
+                                                value="1">
+                                            <label class="form-check-label">
+                                                {{ trans('products_trans.Featured') }}
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-3">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="featured"
+                                                value="0" checked>
+                                            <label class="form-check-label">
+                                                {{ trans('products_trans.Not_Featured') }}
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                @error('featured')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+
                     </div>
 
 
@@ -248,8 +261,7 @@
                             <div class="form-group">
                                 <label> {{ trans('products_trans.Image') }}<span class="text-danger">*</span></label>
                                 <div class="avatar-img">
-                                    {{-- <label class="avatar-label circle" for="upload-photo" >+</label>
-                                    <img class="avatar" src="{{URL::asset('assets/images/user.png')}}" alt=""> --}}
+
                                     <input onchange="preview()" type="file" name="image" accept="image/*"
                                         id="upload-photo" />
                                 </div>
@@ -276,7 +288,7 @@
 
 
                 </form>
-                
+
             </div>
         </div>
     </div>
@@ -287,11 +299,9 @@
 @endsection
 @section('js')
 {{-- Tagify --}}
-<script src="{{ asset('backend/assets/tagify/tagify.js') }}" ></script>
-<script src="{{ asset('backend/assets/tagify/tagify.polyfills.min.js') }}" ></script>
+<script src="{{ asset('backend/assets/tagify/tagify.js') }}"></script>
+<script src="{{ asset('backend/assets/tagify/tagify.polyfills.min.js') }}"></script>
 
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 <script>
     $('#summernote').summernote({
         placeholder: 'Hello ..!',
@@ -314,10 +324,7 @@
     }
 
     var inputElm = document.querySelector('[name=tags]'),
-    tagify = new Tagify (inputElm);
-
-
-    
+        tagify = new Tagify(inputElm);
 </script>
 
 {{-- Color enable & disabled --}}

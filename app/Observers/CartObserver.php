@@ -16,7 +16,8 @@ class CartObserver
     {
         //
         $cart->id = Str::uuid();
-        $cart->cookie_id = Cart::getCookieId();
+        // $cart->cookie_id = Cart::getCookieId();
+        $cart->cookie_id =  Cart::getCartSessionId();
     }
 
     /**

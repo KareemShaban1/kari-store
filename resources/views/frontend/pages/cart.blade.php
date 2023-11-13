@@ -48,7 +48,7 @@
                             <p>Quantity</p>
                         </div>
                         <div class="col-lg-2 col-md-2 col-12">
-                            <p>Subtotal</p>
+                            <p>Price</p>
                         </div>
                         <div class="col-lg-2 col-md-2 col-12">
                             <p>Discount</p>
@@ -75,8 +75,8 @@
                                         href="{{ Route('products.show_product', $cart_item->product->slug) }}">
                                         {{ $cart_item->product->name }}</a></h5>
                                 <p class="product-des">
-                                    <span><em>Type:</em> {{ $cart_item->product->category->name }}</span>
-                                    <span><em>Color:</em> Black</span>
+                                    <span><em>Category:</em> {{ $cart_item->product->category->name }}</span>
+                                    {{-- <span><em>Color:</em> Black</span> --}}
                                 </p>
                             </div>
                             <div class="col-lg-2 col-md-2 col-12">
@@ -232,7 +232,7 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                         </div>
                     </div>
                     <!--/ End Total Amount -->

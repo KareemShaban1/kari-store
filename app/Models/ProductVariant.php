@@ -26,8 +26,8 @@ class ProductVariant extends Model
         if (Str::startsWith($this->image, ['http://', 'https://'])) {
             return $this->image;
         }
-        return asset('thumbnail/products_variants/' . $this->image);
-    } // $variant->image_url
+        return asset('storage/' . $this->image);
+    } // storage/thumbnail/product_variants/{image_name}
 
 
     // Relationships

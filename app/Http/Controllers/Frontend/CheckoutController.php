@@ -77,14 +77,6 @@ class CheckoutController extends Controller
             // for loop on items as key , value  [store_id , cart_item]
             // each store and its products
             foreach ($items as $store_id => $cart_items) {
-
-                // $order = Order::create([
-                    //     'store_id' => $store_id,
-                    //     'user_id' => Auth::user('user')->id,
-                    //     'payment_method' => 'cash_on_delivery',
-                    //     'total' => $total,
-                    //     'coupon_id' => $coupon ? $coupon->id : null
-                // ]);
                 
                 
                 $order = new Order();
