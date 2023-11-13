@@ -26,6 +26,7 @@ class AdminSeeder extends Seeder
             'password'=>Hash::make('password'),
             'phone_number'=>'01111111111',
             'super_admin'=>true
+
         ]);
 
     }

@@ -260,6 +260,12 @@
                                         aria-label="Toggle navigation">{{ trans('front_home_trans.Shop') }}</a>
                                 </li>
 
+                                <li class="nav-item">
+                                    <a href="{{ Route('offers.index') }}"
+                                        class="{{ request()->routeIs('offers.index') ? 'nav-link active' : 'nav-link' }}"
+                                        aria-label="Toggle navigation">{{ trans('front_home_trans.Offers') }}</a>
+                                </li>
+
                                 <li class="nav-item"><a href="{{ Route('cart.index') }}"
                                         class="{{ request()->routeIs('cart.index') ? 'nav-link active' : 'nav-link' }}">{{ trans('front_home_trans.Cart') }}</a>
                                 </li>

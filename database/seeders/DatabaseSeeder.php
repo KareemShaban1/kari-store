@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
         Category::factory(10)->create();
         $this->call(DestinationSeeder::class);
         Store::factory(10)->create();
+        $this->call(VendorSeeder::class);
         Vendor::factory(5)->create();
         Product::factory(50)->create();
 

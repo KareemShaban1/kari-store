@@ -184,7 +184,7 @@
                     <div class="row">
 
 
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label>{{ trans('products_trans.Status') }}<span class="text-danger">*</span></label>
 
@@ -215,37 +215,62 @@
                             </div>
                         </div>
 
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
-                                <div class="row">
-                                    <div class="col-3">
-                                        <label>{{ trans('products_trans.Featured') }}
-                                            <span class="text-danger">*</span> : </label>
-                                    </div>
+                                {{-- <div class="row"> --}}
+                                {{-- <div class="col-3"> --}}
+                                <label>{{ trans('products_trans.Featured') }}
+                                    <span class="text-danger">*</span> : </label>
+                                {{-- </div> --}}
 
-                                    <div class="col-3">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="featured"
-                                                value="1">
-                                            <label class="form-check-label">
-                                                {{ trans('products_trans.Featured') }}
-                                            </label>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-3">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="featured"
-                                                value="0" checked>
-                                            <label class="form-check-label">
-                                                {{ trans('products_trans.Not_Featured') }}
-                                            </label>
-                                        </div>
-                                    </div>
-
+                                {{-- <div class="col-3"> --}}
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="featured" value="1">
+                                    <label class="form-check-label">
+                                        {{ trans('products_trans.Featured') }}
+                                    </label>
                                 </div>
+                                {{-- </div> --}}
+
+                                {{-- <div class="col-3"> --}}
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="featured" value="0"
+                                        checked>
+                                    <label class="form-check-label">
+                                        {{ trans('products_trans.Not_Featured') }}
+                                    </label>
+                                </div>
+                                {{-- </div> --}}
+
+                                {{-- </div> --}}
 
                                 @error('featured')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>{{ trans('products_trans.Offer') }}<span class="text-danger">*</span></label>
+
+
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="offer" value="1">
+                                    <label class="form-check-label">
+                                        {{ trans('products_trans.Offer') }}
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="offer" value="0"
+                                        checked>
+                                    <label class="form-check-label">
+                                        {{ trans('products_trans.Not_Offer') }}
+                                    </label>
+                                </div>
+
+                                @error('offer')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </div>

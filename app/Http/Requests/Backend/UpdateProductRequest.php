@@ -29,7 +29,7 @@ class UpdateProductRequest extends FormRequest
             'category_id' => 'required|exists:categories,id',
             'name' => 'required|string',
             'brand_id' => 'nullable|exists:brands,id',
-            'slug' => 'required|string|unique:products',
+            'slug' => 'nullable|unique:products,slug',
             'description' => 'nullable|string',
             'image' => 'nullable|string',
             'price' => 'numeric',

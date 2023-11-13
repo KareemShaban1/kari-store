@@ -147,43 +147,6 @@
                             </div>
                         </div>
 
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label> {{ trans('products_trans.Product_Type') }} <span
-                                        class="text-danger">*</span></label>
-                                <select name="product_type" id="" class="custom-select mr-sm-2">
-                                    <option value="">{{ trans('products_trans.Choose') }}</option>
-
-                                    <option value="normal" 
-                                    @selected($product->product_type == "normal")>
-                                    Normal
-                                    </option>
-                                    <option value="best_seller"
-                                    @selected($product->product_type == "best_seller")>
-                                    Best Seller
-                                    </option>
-                                    <option value="new_arrival"
-                                    @selected($product->product_type == "new_arrival")>
-                                    New Arrival
-                                    </option>
-                                    <option value="top_rated" 
-                                    @selected($product->product_type == "top_rated")>
-                                    Top Rated
-                                    </option>
-                                    <option value="other" 
-                                    @selected($product->product_type == "other")>
-                                    Other
-                                    </option>
-
-                                </select>
-                                @error('product_type')
-                                    <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-
-
-
 
 
                     </div>
@@ -208,7 +171,7 @@
                     </div>
 
 
-                
+
 
                     <div class="row">
                         <div class="col-md-6">
@@ -225,7 +188,7 @@
                         </div>
                     </div>
 
-                    
+
 
                     <div class="row">
                         <div class="col-md-12">
@@ -235,14 +198,14 @@
                                 </textarea>
 
 
-                            
+
                             </div>
                         </div>
                     </div>
 
 
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label>{{ trans('products_trans.Status') }}<span class="text-danger">*</span></label>
 
@@ -272,9 +235,10 @@
                             </div>
                         </div>
 
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
-                                <label>{{ trans('products_trans.Featured') }}<span class="text-danger">*</span></label>
+                                <label>{{ trans('products_trans.Featured') }}<span
+                                        class="text-danger">*</span></label>
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="featured" value="1"
                                         @checked($product->featured == '1')>
@@ -290,6 +254,32 @@
                                     </label>
                                 </div>
                                 @error('featured')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>{{ trans('products_trans.Offer') }}<span class="text-danger">*</span></label>
+
+
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="offer" value="1"
+                                        @checked($product->offer == '1')>
+                                    <label class="form-check-label">
+                                        {{ trans('products_trans.Offer') }}
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="offer" value="0"
+                                        @checked($product->offer == '0')>
+                                    <label class="form-check-label">
+                                        {{ trans('products_trans.Not_Offer') }}
+                                    </label>
+                                </div>
+
+                                @error('offer')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </div>
@@ -368,8 +358,8 @@
 
 
 
-  
-   
+
+
 
     $(document).ready(function() {
         $('input[name="attribute"]').on('change', function() {
@@ -383,27 +373,23 @@
                     url: "{{ URL::to('get_attribute_value') }}/" + Grade_id,
                     type: "GET",
                     dataType: "json",
-                    success: function (data) {
+                    success: function(data) {
                         $('select[name="class_id"]').empty();
-                        $('select[name="class_id"]').append('<option selected disabled >{{ trans('Parent_trans.Choose') }}...</option>');
-                        $.each(data, function (key, value) {
-                            $('select[name="class_id"]').append('<option value="' + key + '">' + value + '</option>');
-                        }
+                        $('select[name="class_id"]').append(
+                            '<option selected disabled >{{ trans('Parent_trans.Choose') }}...</option>'
                         );
+                        $.each(data, function(key, value) {
+                            $('select[name="class_id"]').append('<option value="' +
+                                key + '">' + value + '</option>');
+                        });
 
                     },
                 });
-            }
-
-            else {
+            } else {
                 console.log('AJAX load did not work');
             }
         });
     });
-
-
-
-
 </script>
 
 @endsection

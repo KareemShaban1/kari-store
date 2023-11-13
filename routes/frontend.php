@@ -4,6 +4,7 @@ use App\Http\Controllers\Frontend\Auth\TwoFactorAuthenticationController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\CheckoutController;
 use App\Http\Controllers\Frontend\HomeController;
+use App\Http\Controllers\Frontend\OffersController;
 use App\Http\Controllers\Frontend\ProductsController;
 use App\Http\Controllers\Frontend\ProfileController;
 use App\Http\Controllers\Frontend\ReviewsController;
@@ -55,14 +56,19 @@ Route::group([
 
     Route::get('get_all_total', [CartController::class, 'get_all_total'])->name('get_all_total');
 
+    
     Route::get('/shop_grid/{categoryId?}', [ShopGridController::class, 'index'])->name('shop_grid.index');
-
     Route::get('/shop_grid_store/{storeId?}', [ShopGridController::class, 'indexStore'])->name('shop_grid.indexStore');
-
     Route::get('/all_filters', [ShopGridController::class, 'all_filters'])->name('all_filters');
-
     Route::get('/reset_filters', [ShopGridController::class, 'reset_filters'])->name('reset_filters');
 
+    
+    Route::get('/offers/{categoryId?}', [OffersController::class, 'index'])->name('offers.index');
+    Route::get('/offers_filters', [OffersController::class, 'offers_filters'])->name('offers_filters');
+    Route::get('/offers_store/{storeId?}', [OffersController::class, 'store'])->name('offers.store');
+
+    
+    
     Route::get('auth/user/2fa', [TwoFactorAuthenticationController::class, 'index'])->name('front.2fa');
 
     Route::get('/send-otp', function () {

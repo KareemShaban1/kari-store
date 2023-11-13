@@ -16,11 +16,11 @@ class Product extends Model
 
     protected $fillable = [
         'name', 'slug', 'description', 'image', 'category_id', 'brand_id', 'store_id', 'price', 'compare_price', 'status',
-        'featured', 'quantity',
+        'featured', 'quantity','offer'
         // 'product_type'
     ];
 
-    //// array that have fields/columns that I want to hide in json response using api
+    /// array that have fields/columns that I want to hide in json response using api
     protected $hidden = [
         'created_at', 'updated_at', 'deleted_at', 'image'
     ];
@@ -33,7 +33,7 @@ class Product extends Model
 
     // -------------------------------------   ---------------------------------------------- //
 
-    //// global scope defined on booted function
+    /// global scope defined on booted function
     protected static function booted()
     {
         // used to get stored of the auth user
@@ -47,20 +47,20 @@ class Product extends Model
 
     // -------------------------------------Relationships---------------------------------------------- //
 
-    //// one-to-one relationship
+    /// one-to-one relationship
     public function brand()
     {
         return $this->belongsTo(Brand::class, 'brand_id', 'id')->withDefault(['name' => '-']);
     }
 
-    //// one-to-one relationship
+    /// one-to-one relationship
     public function category()
     {
         return $this->belongsTo(Category::class, 'category_id', 'id');
     }
 
 
-    //// one-to-one relationship
+    /// one-to-one relationship
     public function store()
     {
         return $this->belongsTo(Store::class, 'store_id', 'id');
@@ -70,7 +70,7 @@ class Product extends Model
 
 
 
-    //// many-to-many relationship
+    /// many-to-many relationship
     public function tags()
     {
         return $this->belongsToMany(
@@ -90,7 +90,7 @@ class Product extends Model
 
 
 
-    //// many-to-many relationship
+    /// many-to-many relationship
     public function attributes()
     {
         return $this->belongsToMany(
@@ -103,7 +103,7 @@ class Product extends Model
         );
     }
 
-    //// many-to-many relationship
+    /// many-to-many relationship
     public function attribute_values()
     {
         return $this->belongsToMany(
@@ -122,11 +122,11 @@ class Product extends Model
     }
 
 
-    // -------------------------------------Acessories---------------------------------------------- //
+    // -------------------------------------Accessories---------------------------------------------- //
 
 
 
-    // Acessories definition =>  public function get...Attribute(){}
+    // Accessories definition =>  public function get...Attribute(){}
 
     public function getImageUrlAttribute()
     {
@@ -187,9 +187,9 @@ class Product extends Model
             return  $query->where('status', $value);
         });
 
-        //// بتاعوا بيساوى كذا store_id اللى ال Product هات موديل ال  store_id لما يبقى فيه
+        /// بتاعوا بيساوى كذا store_id اللى ال Product هات موديل ال  store_id لما يبقى فيه
         $builder->when($options['store_id'], function ($builder, $value) {
-            //// $builder equivalent to Product model
+            /// $builder equivalent to Product model
             $builder->where('store_id', $value);
         });
 
@@ -199,18 +199,18 @@ class Product extends Model
 
         $builder->when($options['tag_id'], function ($builder, $value) {
 
-            //// دى tags اللى ليهم ال products هاتلى كل ال
+            /// دى tags اللى ليهم ال products هاتلى كل ال
             // $builder->whereRaw(
             //     'id In (SELECT product_id FROM product_tag WHERE tag_id = ?)' , [$value]
             // );
 
-            //// بتاعها أحسن performance اللى فوق بس دى ال function نفس ال
+            /// بتاعها أحسن performance اللى فوق بس دى ال function نفس ال
             // $builder->whereRaw(
             //     'EXISTS (SELECT * FROM product_tag WHERE tag_id = ? AND product_id = products.id)' , [$value]
             // );
 
 
-            //// query اللى فوقيها على طول بس بطريقة ال function  نفس ال
+            /// query اللى فوقيها على طول بس بطريقة ال function  نفس ال
             $builder->whereExists(function ($query) use ($value) {
                 $query->select(1)
                     ->from('product_tag')
@@ -219,14 +219,14 @@ class Product extends Model
             });
 
 
-            //// less performance than above function but do something
+            /// less performance than above function but do something
             // $builder->whereHas('tags',function($builder) use ($value){
             //     $builder->where('id',$value);
             // });
 
 
 
-            //// Product models which has tags
+            /// Product models which has tags
             // $builder->has('tags');
         });
     }
