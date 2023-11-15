@@ -231,4 +231,7 @@ Route::group([
 
       Route::resource('/orders', DeliveryOrdersController::class);
 
+      Route::get('/changeStatus/{order}/{status}', [DeliveryOrdersController::class,'changeStatus'])->name('orders.changeStatus');
+
+
   });

@@ -13,7 +13,7 @@
                 <div class="row align-items-center">
                     <div class="col-lg-6 col-md-6 col-12">
                         <div class="breadcrumbs-content">
-                            <h1 class="page-title">Shop Grid</h1>
+                            <h1 class="page-title">{{ trans('shop_grid_trans.Shop_Grid') }}</h1>
                         </div>
                     </div>
                     {{-- <div class="col-lg-6 col-md-6 col-12">
@@ -107,8 +107,8 @@
                             <ul class="list">
                                 @foreach ($stores as $store)
                                     <li>
-                                        <input type="checkbox" value="{{ $store->id }}" name="store[]" class="store"
-                                            @checked($store_id == $store->id)>
+                                        <input type="checkbox" value="{{ $store->id }}" name="store[]"
+                                            class="store" @checked($store_id == $store->id)>
                                         <label for="">{{ $store->name }}
                                             {{-- ({{ $vendor->products()->count() }} ) --}}
                                         </label>

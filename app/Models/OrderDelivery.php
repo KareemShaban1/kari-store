@@ -12,6 +12,6 @@ class OrderDelivery extends Model
     protected $table = 'delivery_order';
 
     protected $fillable = [
-        'delivery_id','order_id','seen_time','order_status','order_location','order_delivery_time'
+        'delivery_id','cart_id','order_id','seen_time','order_status','order_location','order_delivery_time'
     ];
 }

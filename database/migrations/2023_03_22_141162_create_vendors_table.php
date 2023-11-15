@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('phone');
             $table->boolean('active')->default(1);
             $table->foreignId('store_id')->nullable()->constrained('stores')->nullOnDelete();
+            $table->rememberToken();
             $table->timestamps();
         });
     }

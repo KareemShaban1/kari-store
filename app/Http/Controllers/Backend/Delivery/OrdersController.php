@@ -17,4 +17,25 @@ class OrdersController extends Controller
         $orders = Order::whereIn('id', $order_delivery)->get();
         return view('backend.Delivery_Dashboard.orders.index', compact('orders'));
     }
+
+    public function changeStatus($order_id , $status){
+        // 'pending','processing','delivering','completed','cancelled','refunded'
+        $order = Order::find($order_id);
+
+        if($status == "pending"){            
+                $order->status = "processing";
+        }
+        elseif($status == "processing"){
+            $order->status = "delivering";
+        }
+        elseif($status == "delivering"){
+            $order->status = "completed";
+        }
+        $order->save();
+
+        return redirect()->route('delivery.orders.index')->with('toast_success','order status changed successfully');
+        
+    }
+
+    
 }

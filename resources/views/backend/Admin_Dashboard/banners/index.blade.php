@@ -25,6 +25,7 @@
 @endsection
 @section('content')
 <!-- row -->
+
 <div class="row">
     <div class="col-md-12 mb-30">
         <div class="card card-statistics h-100">
@@ -36,6 +37,8 @@
                             <th></th>
                             <th>{{ trans('banners_trans.Id') }}</th>
                             <th>{{ trans('banners_trans.Banner_Name') }}</th>
+                            <th>{{ trans('banners_trans.Banner_Type') }}</th>
+                            <th>{{ trans('banners_trans.Status') }}</th>
                             <th>{{ trans('banners_trans.Title') }}</th>
                             <th>{{ trans('banners_trans.Control') }}</th>
                         </tr>
@@ -51,6 +54,22 @@
 
                                 <td>
                                     {{ $banner->banner_name }}
+                                </td>
+                                <td>
+                                    @if ($banner->banner_type == 'main_banner')
+                                        <span class="text-info"> {{ trans('banners_trans.Main_Banner') }}</span>
+                                    @elseif ($banner->banner_type == 'product_banner')
+                                        <span class="text-info"> {{ trans('banners_trans.Product_Banner') }}</span>
+                                    @elseif ($banner->banner_type == 'offer_banner')
+                                        <span class="text-info"> {{ trans('banners_trans.Offer_Banner') }}</span>
+                                    @endif
+                                </td>
+                                <td>
+                                    @if ($banner->active == 1)
+                                        <span class="text-success"> {{ trans('banners_trans.Active') }}</span>
+                                    @else
+                                        <span class="text-danger"> {{ trans('banners_trans.Inactive') }}</span>
+                                    @endif
                                 </td>
 
                                 <td>
@@ -94,6 +113,8 @@
 @endsection
 @section('js')
 <script>
+   
+
     var datatable = $('#custom_table').DataTable({
         stateSave: true,
         sortable: true,

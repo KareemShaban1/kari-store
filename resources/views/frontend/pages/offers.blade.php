@@ -13,7 +13,7 @@
                 <div class="row align-items-center">
                     <div class="col-lg-6 col-md-6 col-12">
                         <div class="breadcrumbs-content">
-                            <h1 class="page-title">Shop Grid</h1>
+                            <h1 class="page-title">{{ trans('offers_trans.Offers') }}</h1>
                         </div>
                     </div>
                     {{-- <div class="col-lg-6 col-md-6 col-12">
@@ -52,10 +52,10 @@
 
                         <!-- Start Product search -->
                         <div class="single-widget search">
-                            <h3> {{ trans('shop_grid_trans.Search_Product') }} </h3>
+                            <h3> {{ trans('offers_trans.Search_Product') }} </h3>
                             <form action="#">
                                 <input type="text" name="search"id="search"
-                                    placeholder=" {{ trans('shop_grid_trans.Search_Here') }} ">
+                                    placeholder=" {{ trans('offers_trans.Search_Here') }} ">
                                 {{-- <button type="submit"><i class="lni lni-search-alt"></i></button> --}}
                             </form>
                         </div>
@@ -63,7 +63,7 @@
 
                         <!-- Start Categories Filter -->
                         <div class="single-widget">
-                            <h3>{{ trans('shop_grid_trans.All_Categories') }}</h3>
+                            <h3>{{ trans('offers_trans.All_Categories') }}</h3>
 
                             <ul class="list">
                                 @foreach ($categories as $category)
@@ -107,8 +107,8 @@
                             <ul class="list">
                                 @foreach ($stores as $store)
                                     <li>
-                                        <input type="checkbox" value="{{ $store->id }}" name="store[]" class="store"
-                                            @checked($store_id == $store->id)>
+                                        <input type="checkbox" value="{{ $store->id }}" name="store[]"
+                                            class="store" @checked($store_id == $store->id)>
                                         <label for="">{{ $store->name }}
                                             {{-- ({{ $vendor->products()->count() }} ) --}}
                                         </label>
@@ -219,7 +219,7 @@
                                                         <div class="button">
                                                             <a href="{{ Route('products.show_product', $product->slug) }}"
                                                                 class="btn"><i
-                                                                    class="lni lni-cart"></i>{{ trans('shop_grid_trans.Add_To_Cart') }}
+                                                                    class="lni lni-cart"></i>{{ trans('offers_trans.Add_To_Cart') }}
                                                             </a>
                                                         </div>
                                                     </div>
@@ -242,7 +242,7 @@
                                                         {{-- <span class="category"> {{ $product->category->name }} </span>
                                                               <span class="category">
                                                                   <span class="text-danger">
-                                                                      {{ trans('shop_grid_trans.Store') }} </span>
+                                                                      {{ trans('offers_trans.Store') }} </span>
                                                                   {{ $product->store->name }} </span> --}}
 
                                                         <h4 class="title">
@@ -397,7 +397,7 @@
                                     '<div class="product-image">' +
                                     '<img src="' + product.image_url + '" alt="#">';
                                 if (product.sale_percent) {
-                                    productHtml += '<span class="sale-tag">- ' + product.sale_percent +
+                                    productHtml += '<span class="sale-tag"> ' + product.sale_percent +
                                         ' %</span>';
                                 }
                                 productHtml += '<div class="button">' +

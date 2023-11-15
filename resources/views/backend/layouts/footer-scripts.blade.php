@@ -6,7 +6,7 @@
     var plugin_path = '{{ asset('backend/assets/js/') }}';
 </script>
 <script src="{{ URL::asset('backend/assets/js/datepicker.js') }}" defer></script>
-<script src="{{ URL::asset('backend/assets/js/toastr.js') }}"></script>
+{{-- <script src="{{ URL::asset('backend/assets/js/toastr.js') }}"></script> --}}
 {{-- <script src="{{ URL::asset('backend/assets/js/validation.js') }}" defer></script> --}}
 <script src="{{ URL::asset('backend/assets/js/custom.js') }}"></script>
 <script src="{{ URL::asset('backend/assets/js/summernote-lite.min.js') }}" defer></script>
@@ -34,7 +34,15 @@
     });
 </script>
 
-@include('sweetalert::alert')
+{{-- @include('sweetalert::alert') --}}
+
+<script>
+    @if (session('toast_success'))
+        toastr.success("{{ session('toast_success') }}", "", {
+            "timeOut": 1000
+        }); // Set timeOut to 1000 milliseconds (1 second)
+    @endif
+</script>
 
 
 @if (request()->routeIs('admin.brands.index') ||

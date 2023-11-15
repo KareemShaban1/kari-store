@@ -25,6 +25,7 @@ class UpdateBannerRequest extends FormRequest
     {
         return [
             'banner_name' => 'required|string|max:255',
+            'banner_type'=>'required|in:main_banner,product_banner,offer_banner',
             'url' => 'nullable|url',
             'title' => 'nullable|string|max:255',
             'sub_title' => 'nullable|string|max:255',

@@ -42,13 +42,61 @@
                                     name="banner_name" class="form-control" />
                             </div>
                         </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label id="active">{{ trans('banners_trans.Status') }}<span
+                                        class="text-danger">*</span></label>
+
+                                <select name="active" id="active" class="custom-select mr-sm-2">
+                                    <option value="1">
+                                        {{ trans('banners_trans.Active') }}
+                                    </option>
+                                    <option value="0">
+                                        {{ trans('banners_trans.Inactive') }}
+                                    </option>
+                                </select>
+                                @error('active')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+
+
+
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+
+                                <label for="banner_type">{{ trans('banners_trans.Banner_Type') }}<span
+                                        class="text-danger">*</span></label>
+
+                                <select name="banner_type" id="banner_type" class="custom-select mr-sm-2">
+                                    <option value="main_banner">
+                                        {{ trans('banners_trans.Main_Banner') }}
+                                    </option>
+                                    <option value="product_banner">
+                                        {{ trans('banners_trans.Product_Banner') }}
+                                    </option>
+                                    <option value="offer_banner">
+                                        {{ trans('banners_trans.Offer_Banner') }}
+                                    </option>
+                                </select>
+                                @error('banner_type')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
                     </div>
+
+
+
 
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <x-backend.form.input label="{{ trans('banners_trans.Banner_Title') }}"
-                                    name="title" class="form-control" />
+                                <x-backend.form.input label="{{ trans('banners_trans.Banner_Title') }}" name="title"
+                                    class="form-control" />
                             </div>
                         </div>
 
@@ -63,8 +111,8 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <x-backend.form.input label="{{ trans('banners_trans.Offer') }}"
-                                    name="offer" class="form-control" />
+                                <x-backend.form.input label="{{ trans('banners_trans.Offer') }}" name="offer"
+                                    class="form-control" />
                             </div>
                         </div>
 
@@ -76,12 +124,14 @@
                         </div>
                     </div>
 
-                    
+
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="form-group">
-                                <textarea id="summernote" name="content" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" id="message" name="content" required="">
-                                    {{-- {{ old('content') }} --}}
+                            <div class="form-group" style="direction: ltr">
+                                <textarea id="summernote" name="content"
+                                    class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    id="message" name="content">
+                                    {{ old('content') }}
                                 </textarea>
                             </div>
                         </div>
@@ -156,7 +206,6 @@
     });
 </script>
 <script>
-    
     function preview() {
         frame.src = URL.createObjectURL(event.target.files[0]);
     }

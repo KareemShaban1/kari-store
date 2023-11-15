@@ -75,7 +75,7 @@ class BrandsController extends Controller
 
         $data = $request->except('image');
 
-        $new_image = $this->ProcessImage($request, 'image', 'brands', $current_image);
+        $new_image = $this->ProcessImage($request, 'image', 'brands',300,300, $current_image);
 
         if ($new_image) {
             $data['image'] = $new_image;

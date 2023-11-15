@@ -22,6 +22,7 @@ return new class extends Migration
             $table->boolean('isOnline')->default(1);
             $table->foreignId('category_id')->nullable()->constrained('categories')->nullOnDelete();
             $table->foreignId('vendor_id')->nullable()->constrained('vendors')->nullOnDelete();
+            $table->rememberToken();
             $table->timestamps();
         });
     }

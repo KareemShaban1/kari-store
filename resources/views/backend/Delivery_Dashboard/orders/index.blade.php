@@ -31,18 +31,19 @@
 <div class="row">
     <div class="col-md-12 mb-30">
         <div class="card card-statistics h-100">
-            <div class="card-body">
+            <div class="card-body p-0">
 
-                <table id="table_id" class="display">
+                <table id="custom_table" class="display">
                     <thead>
                         <tr>
                             <th>{{ trans('orders_trans.Id') }}</th>
+                            <th>{{ trans('orders_trans.Order_Number') }}</th>
                             <th>{{ trans('orders_trans.User_Name') }}</th>
                             <th>{{ trans('orders_trans.Store_Name') }}</th>
                             <th>{{ trans('orders_trans.Category_Name') }}</th>
                             <th>{{ trans('orders_trans.Status') }}</th>
-                            <th>{{ trans('orders_trans.Order_Number') }}</th>
-                            {{-- <th>{{ trans('orders_trans.Control') }}</th> --}}
+                            <th>{{ trans('orders_trans.Change_Status') }}</th>
+                            <th>{{ trans('orders_trans.Control') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -50,6 +51,8 @@
                             <tr>
 
                                 <td>{{ $order->id }}</td>
+
+                                <td>{{ $order->number }}</td>
 
                                 <td>
                                     {{ $order->user->first_name }}
@@ -92,9 +95,22 @@
                                     @endif
                                 </td>
 
+                                <td>
+                                    @if (!$order->status == 'completed')
+                                        <a href="{{ Route('delivery.orders.changeStatus', [$order->id, $order->status]) }}"
+                                            class="btn btn-warning btn-sm">
+                                            Change to next process
+                                        </a>
+                                    @endif
+                                </td>
 
-                                <td>{{ $order->number }}</td>
 
+                                <td>
+                                    <button data-toggle="modal" data-target="#showOrderModal"
+                                        class="btn btn-primary btn-sm">
+                                        <i class="fa fa-eye"></i>
+                                    </button>
+                                </td>
 
 
                                 {{-- <td>
@@ -120,11 +136,11 @@
                                 </td> --}}
 
                             </tr>
+
+                            @include('backend.Delivery_Dashboard.orders.show_modal')
                         @endforeach
                     </tbody>
                 </table>
-
-
 
 
 
@@ -137,7 +153,27 @@
 @section('js')
 <script>
     $(document).ready(function() {
-        $('#table_id').DataTable();
+        var datatable = $('#custom_table').DataTable({
+            stateSave: true,
+            sortable: true,
+            responsive: true,
+            dom: 'Bfrtip',
+            buttons: [{
+                    extend: 'copyHtml5',
+                    exportOptions: {
+                        columns: [0, ':visible']
+                    }
+                },
+                {
+                    extend: 'excelHtml5',
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4, 5]
+                    }
+                },
+
+                'colvis'
+            ]
+        });
     });
 </script>
 @endsection

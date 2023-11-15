@@ -30,8 +30,8 @@ class ProductPropertiesController extends Controller
             'value'=>'required',
         ]);
         // dd($data);
-        $product_property = ProductProperty::create($data);
-        return redirect()->route('admin.product_properties.index');
+        ProductProperty::create($data);
+        return redirect()->route('admin.product_properties.index')->with('toast_success','Product Property Created Successfully');
 
 
 

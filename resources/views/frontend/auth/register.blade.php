@@ -12,14 +12,14 @@
                 <div class="row align-items-center">
                     <div class="col-lg-6 col-md-12 col-12">
                         <div class="breadcrumbs-content">
-                            <h1 class="page-title">{{ trans('auth_trans.Register') }}</h1>
+                            <h1 class="page-title">{{ trans('frontend/auth_trans.Register') }}</h1>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-12 col-12">
                         <ul class="breadcrumb-nav">
                             <li><a href="{{ Route('home') }}"><i class="lni lni-home"></i>
-                                    {{ trans('auth_trans.Home') }}</a></li>
-                            <li>{{ trans('auth_trans.Register') }}</li>
+                                    {{ trans('frontend/auth_trans.Home') }}</a></li>
+                            <li>{{ trans('frontend/auth_trans.Register') }}</li>
                         </ul>
                     </div>
                 </div>
@@ -43,8 +43,8 @@
 
                     <div class="register-form">
                         <div class="title">
-                            <h3>{{ trans('auth_trans.Register') }}</h3>
-                            <p>{{ trans('auth_trans.Registration takes less than a minute but gives you full control over your orders.') }}
+                            <h3>{{ trans('frontend/auth_trans.Register') }}</h3>
+                            <p>{{ trans('frontend/auth_trans.Registration takes less than a minute but gives you full control over your orders.') }}
                             </p>
                         </div>
 
@@ -56,7 +56,7 @@
 
                             <div class="col-md-12 col-sm-6">
                                 <div class="form-group">
-                                    <label for="reg-fn">{{ trans('auth_trans.First_Name') }}</label>
+                                    <label for="reg-fn">{{ trans('frontend/auth_trans.First_Name') }}</label>
                                     <input class="form-control" type="text" name="first_name" id="reg-fn">
 
                                 </div>
@@ -64,7 +64,7 @@
 
                             <div class="col-md-12 col-sm-6">
                                 <div class="form-group">
-                                    <label for="reg-fn">{{ trans('auth_trans.Last_Name') }}</label>
+                                    <label for="reg-fn">{{ trans('frontend/auth_trans.Last_Name') }}</label>
                                     <input class="form-control" type="text" name="last_name" id="reg-fn">
                                 </div>
 
@@ -72,7 +72,7 @@
 
                             <div class="col-md-12 col-sm-6">
                                 <div class="form-group">
-                                    <label for="reg-email">{{ trans('auth_trans.Email_Address') }}</label>
+                                    <label for="reg-email">{{ trans('frontend/auth_trans.Email_Address') }}</label>
                                     <input class="form-control" type="email" name="email_address" id="reg-email">
 
                                 </div>
@@ -80,7 +80,7 @@
 
                             <div class="col-md-12 col-sm-6">
                                 <div class="form-group">
-                                    <label for="reg-pass">{{ trans('auth_trans.Password') }}</label>
+                                    <label for="reg-pass">{{ trans('frontend/auth_trans.Password') }}</label>
                                     <input class="form-control" type="password" name="password" id="reg-pass">
                                 </div>
 
@@ -88,7 +88,7 @@
 
                             <div class="col-md-12 col-sm-6">
                                 <div class="form-group">
-                                    <label for="reg-phone">{{ trans('auth_trans.Phone_Number') }}</label>
+                                    <label for="reg-phone">{{ trans('frontend/auth_trans.Phone_Number') }}</label>
                                     <input class="form-control" type="text" name="phone_number">
 
                                 </div>
@@ -124,9 +124,12 @@
 
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <select name="governorate_id" id="" class="custom-select mr-sm-2">
+                                        <label
+                                            for="governorate_id">{{ trans('frontend/auth_trans.Choose_Governorate') }}</label>
+                                        <select name="governorate_id" id="governorate_id" class="custom-select mr-sm-2">
 
-                                            <option disabled selected> {{ trans('auth_trans.Choose_Governorate') }}
+                                            <option disabled selected>
+                                                {{ trans('frontend/auth_trans.Choose_From_List') }}
                                             </option>
                                             @foreach ($destinations as $destination)
                                                 @if ($destination->rank == '1')
@@ -144,8 +147,11 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
+                                        <label for="city-id">{{ trans('frontend/auth_trans.Choose_City') }}</label>
                                         <select name="city_id" id="" class="custom-select mr-sm-2">
-                                            <option disabled selected> {{ trans('auth_trans.Choose_City') }}</option>
+                                            <option disabled selected>
+                                                {{ trans('frontend/auth_trans.Choose_From_List') }}
+                                            </option>
 
                                         </select>
 
@@ -157,8 +163,12 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <select name="neighborhood_id" class="custom-select mr-sm-2">
-                                            <option disabled selected> {{ trans('auth_trans.Choose_Neighborhood') }}
+                                        <label
+                                            for="neighborhood_id">{{ trans('frontend/auth_trans.Choose_Neighborhood') }}</label>
+                                        <select name="neighborhood_id" id="neighborhood_id"
+                                            class="custom-select mr-sm-2">
+                                            <option disabled selected>
+                                                {{ trans('frontend/auth_trans.Choose_From_List') }}
                                             </option>
 
                                         </select>
@@ -173,7 +183,7 @@
 
                             <div class="col-md-12 col-sm-6">
                                 <div class="form-group">
-                                    <label for="reg-email">{{ trans('auth_trans.Postal_Code') }}</label>
+                                    <label for="reg-email">{{ trans('frontend/auth_trans.Postal_Code') }}</label>
                                     <input class="form-control" type="text" name="postal_code">
 
 
@@ -183,7 +193,7 @@
 
                             <div class="col-md-12 col-sm-6">
                                 <div class="form-group">
-                                    <label for="reg-email">{{ trans('auth_trans.Street_Address') }}</label>
+                                    <label for="reg-email">{{ trans('frontend/auth_trans.Street_Address') }}</label>
                                     <input class="form-control" type="text" name="street_address">
 
                                 </div>
@@ -192,11 +202,12 @@
 
 
                             <div class="button">
-                                <button class="btn" type="submit">{{ trans('auth_trans.Register') }}</button>
+                                <button class="btn"
+                                    type="submit">{{ trans('frontend/auth_trans.Register') }}</button>
                             </div>
 
-                            <p class="outer-link">{{ trans('auth_trans.Already have an account?') }}
-                                <a href="{{ route('login') }}">{{ trans('auth_trans.Login Now') }}</a>
+                            <p class="outer-link">{{ trans('frontend/auth_trans.Already have an account?') }}
+                                <a href="{{ route('login') }}">{{ trans('frontend/auth_trans.Login Now') }}</a>
 
                             </p>
                         </form>

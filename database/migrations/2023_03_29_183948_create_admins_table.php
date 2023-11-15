@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('phone_number')->unique();
             $table->boolean('super_admin')->default(false);
             $table->enum('status',['active','inactive'])->default('active');
+            $table->rememberToken();
             $table->timestamps();
         });
     }

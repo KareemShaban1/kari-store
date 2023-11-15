@@ -49,8 +49,7 @@ class OrderController extends Controller
         }
         $order->save();
 
-        return redirect()->route('admin.reports.orders');
-        
+        return redirect()->route('admin.reports.orders')->with('toast_success','order status changed successfully');
         
     }
 
