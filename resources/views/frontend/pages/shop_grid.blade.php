@@ -71,17 +71,18 @@
                                         <li>
                                             {{-- <input type="checkbox" value="{{ $category->id }}" name="category[]"
                                                 class="category" @checked($category_id == $category->id)> --}}
-                                            <label for="">{{ $category->name }}
-                                                ({{ $category->products()->count() }})</label>
+                                            <span>{{ $category->name }}
+                                                ({{ $category->products()->count() }})</span>
 
                                             @if ($category->children->count() > 0)
                                                 <ul class="list" style="margin-left: 10px;">
                                                     @foreach ($category->children as $child)
                                                         <li class="m-0">
-                                                            <input type="checkbox" value="{{ $child->id }}"
-                                                                name="category[]" class="category"
-                                                                @checked($category_id == $child->id)>
-                                                            <label for="">{{ $child->name }}
+                                                            <input type="checkbox" id="category{{ $child->id }}"
+                                                                value="{{ $child->id }}" name="category[]"
+                                                                class="category" @checked($category_id == $child->id)>
+                                                            <label
+                                                                for="category{{ $child->id }}">{{ $child->name }}
                                                                 ({{ $child->products()->count() }})
                                                             </label>
                                                         </li>
@@ -107,9 +108,10 @@
                             <ul class="list">
                                 @foreach ($stores as $store)
                                     <li>
-                                        <input type="checkbox" value="{{ $store->id }}" name="store[]"
-                                            class="store" @checked($store_id == $store->id)>
-                                        <label for="">{{ $store->name }}
+                                        <input type="checkbox" value="{{ $store->id }}"
+                                            id="store{{ $store->id }}" name="store[]" class="store"
+                                            @checked($store_id == $store->id)>
+                                        <label for="store{{ $store->id }}">{{ $store->name }}
                                             {{-- ({{ $vendor->products()->count() }} ) --}}
                                         </label>
                                     </li>
@@ -126,9 +128,9 @@
                                 @foreach ($brands as $brand)
                                     <li>
                                         {{-- <input type="radio" class="brands" name="brand" value="{{ $brand->id }}"> --}}
-                                        <input type="checkbox" value="{{ $brand->id }}" name="brand[]"
-                                            class="brand">
-                                        <label>
+                                        <input type="checkbox" id="brand{{ $brand->id }}"
+                                            value="{{ $brand->id }}" name="brand[]" class="brand">
+                                        <label for="brand{{ $brand->id }}">
                                             {{ $brand->name }}
                                         </label>
                                     </li>
@@ -178,7 +180,7 @@
 
                                 <div class="col-lg-7 col-md-8 col-12">
                                     <div class="product-sorting dropdown">
-                                        <label for="sorting">Sort by:</label>
+                                        <label for="sort">Sort by:</label>
                                         <select class="form-control" name="sort" id="sort">
                                             <option value="default">Select Order</option>
                                             <option value="Low Price">Low Price</option>
@@ -203,10 +205,6 @@
 
                                     <div class="row show_products">
                                         @forelse ($products as $product)
-                                            {{-- <div class="col-lg-3 col-md-6 col-12">
-                                                <x-frontend.product-card :product="$product" />
-                                            </div> --}}
-
                                             <div class="col-lg-4 col-md-6 col-12">
                                                 <!-- Start Single Product -->
                                                 <div class="single-product">
@@ -239,11 +237,7 @@
                                                                 {{ $product->store->name }}
                                                             </a>
                                                         </span>
-                                                        {{-- <span class="category"> {{ $product->category->name }} </span>
-                                                        <span class="category">
-                                                            <span class="text-danger">
-                                                                {{ trans('shop_grid_trans.Store') }} </span>
-                                                            {{ $product->store->name }} </span> --}}
+
 
                                                         <h4 class="title">
                                                             <a
@@ -284,7 +278,11 @@
                                             <!-- Pagination -->
                                             <div class="pagination center">
                                                 <ul class="pagination-list">
-                                                    {{ $products->links() }}
+                                                    {{-- {{ $products->links() }} --}}
+                                                    <button id="seeMoreButton" class="btn btn-primary"
+                                                        data-page="1">See
+                                                        More</button>
+
                                                 </ul>
                                             </div>
                                             <!--/ End Pagination -->
@@ -349,7 +347,138 @@
                 document.getElementById('right_value').innerHTML = value;
             }
 
+
+
             $(document).ready(function() {
+
+
+
+                function seeMore() {
+                    // See More Button Click Event
+                    $('#seeMoreButton').on('click', function() {
+                        // Update the page number or any other parameters as needed
+                        var nextPage = parseInt($(this).data('page')) + 1;
+                        console.log(nextPage);
+
+                        var category = $('.category:checked').map(function() {
+                            return $(this).val();
+                        }).get();
+                        var brand = $('.brand:checked').map(function() {
+                            return $(this).val();
+                        }).get();
+
+                        var store = $('.store:checked').map(function() {
+                            return $(this).val();
+                        }).get();
+                        var minPrice = $('#left_value').text();
+                        var maxPrice = $('#right_value').text();
+                        var search = $('#search').val();
+                        var sort = $('#sort').val();
+
+                        // Make an AJAX request to get more products
+                        $.ajax({
+                            url: "{{ route('all_filters') }}?page=" + nextPage,
+                            type: "GET",
+                            data: {
+                                category: category,
+                                brand: brand,
+                                store: store,
+                                min_price: minPrice,
+                                max_price: maxPrice,
+                                search: search,
+                                sort: sort
+                            },
+                            // Include other necessary parameters for filtering
+                            // ...
+                            success: function(response) {
+                                var product_length = response.products.data.length;
+                                var products = response.products.data;
+                                var html = '';
+                                console.log(products);
+
+                                // Similar to your existing loop to create product HTML
+                                // ...
+                                for (var i = 0; i < product_length; i++) {
+                                    var product = products[i];
+                                    // Create HTML elements to display product information
+                                    var productHtml =
+                                        '<div class="col-lg-4 col-md-6 col-12">' +
+                                        '<!-- Start Single Product -->' +
+                                        '<div class="single-product">' +
+                                        '<div class="product-image">' +
+                                        '<img src="' + product.image_url + '" alt="#">';
+                                    if (product.sale_percent) {
+                                        productHtml += '<span class="sale-tag">- ' + product
+                                            .sale_percent +
+                                            ' %</span>';
+                                    }
+                                    productHtml += '<div class="button">' +
+                                        '<a href="' + getProductRoute(product.slug) +
+                                        '" class="btn"><i class="lni lni-cart"></i>Add to Cart</a>' +
+                                        '</div>' +
+                                        '</div>' +
+                                        '<div class="product-info">' +
+                                        '<span class="category">{{ trans('front_home_trans.Category') }} :' +
+                                        '<a href="{{ route('shop_grid.index', ['categoryId' => $product->category->id]) }}">' +
+                                        (product.category ? product.category.name : '') +
+                                        '</a>' +
+                                        '</span>' +
+                                        '<span class="category">{{ trans('front_home_trans.Store') }} :' +
+                                        '<a href="{{ route('shop_grid.indexStore', ['storeId' => $product->store->id]) }}">' +
+                                        (product.store ? product.store.name : '') +
+                                        '</a>' +
+                                        '</span>' +
+                                        '<h4 class="title">' +
+                                        '<a href="' + getProductRoute(product.slug) + '">' + product
+                                        .name +
+                                        '</a>' +
+                                        '</h4>' +
+                                        '<ul class="review">' +
+                                        '<li><i class="lni lni-star-filled"></i></li>' +
+                                        '<li><i class="lni lni-star-filled"></i></li>' +
+                                        '<li><i class="lni lni-star-filled"></i></li>' +
+                                        '<li><i class="lni lni-star-filled"></i></li>' +
+                                        '<li><i class="lni lni-star"></i></li>' +
+                                        '<li><span>4.0 Review(s)</span></li>' +
+                                        '</ul>' +
+                                        '<div class="price">' +
+                                        '<span>' + product.formatted_price + '</span>';
+
+                                    if (product.formatted_compare_price) {
+                                        productHtml += '<span class="discount-price">' + product
+                                            .formatted_compare_price +
+                                            '</span>';
+                                    }
+
+                                    productHtml +=
+                                        '</div>' +
+                                        '</div>' +
+                                        '</div>' +
+                                        '</div>' +
+                                        '</div>';
+
+                                    html += productHtml;
+                                }
+
+                                function getProductRoute(slug) {
+                                    return '{{ route('products.show_product', '') }}/' + slug;
+                                }
+
+                                // Append new products to the existing grid
+                                $('.show_products').append(html);
+
+                                // Update the data-page attribute for the next request
+                                $('#seeMoreButton').data('page', nextPage);
+
+                                // Optionally, hide the "See More" button if there are no more pages
+                                if (nextPage >= response.products.last_page) {
+                                    $('#seeMoreButton').hide();
+                                }
+                            },
+                        });
+                    });
+                }
+
 
                 // apply filters function
                 function applyFilters() {
@@ -381,14 +510,12 @@
                             sort: sort
                         },
                         success: function(response) {
-                            console.log(response.products.data.length);
 
                             var product_length = response.products.data.length;
                             var products = response.products.data;
                             var html = ''; // Variable to store the updated HTML
                             for (var i = 0; i < product_length; i++) {
                                 var product = products[i];
-                                console.log(product.sale_percent);
                                 // Create HTML elements to display product information
                                 var productHtml =
                                     '<div class="col-lg-4 col-md-6 col-12">' +
@@ -408,12 +535,12 @@
                                     '<div class="product-info">' +
                                     '<span class="category">{{ trans('front_home_trans.Category') }} :' +
                                     '<a href="{{ route('shop_grid.index', ['categoryId' => $product->category->id]) }}">' +
-                                    '{{ $product->category->name }}' +
+                                    (product.category ? product.category.name : '') +
                                     '</a>' +
                                     '</span>' +
                                     '<span class="category">{{ trans('front_home_trans.Store') }} :' +
                                     '<a href="{{ route('shop_grid.indexStore', ['storeId' => $product->store->id]) }}">' +
-                                    '{{ $product->store->name }}' +
+                                    (product.store ? product.store.name : '') +
                                     '</a>' +
                                     '</span>' +
                                     '<h4 class="title">' +
@@ -453,13 +580,19 @@
                             // Update the HTML with the new results
                             $('.show_products').html(html);
 
+                            // // Update the data-page attribute for the next request
+                            // $('#seeMoreButton').data('page', nextPage);
+
+                            // // Optionally, hide the "See More" button if there are no more pages
+                            // if (nextPage >= response.products.last_page) {
+                            //     $('#seeMoreButton').hide();
+                            // }
+
                             // Update pagination links
-                            $('.pagination-list').html(response.pagination_links);
+                            // $('.pagination-list').html(response.pagination_links);
                         },
                     });
                 }
-
-
 
 
                 function paginate() {
@@ -516,12 +649,12 @@
                                         '<div class="product-info">' +
                                         '<span class="category">{{ trans('front_home_trans.Category') }} :' +
                                         '<a href="{{ route('shop_grid.index', ['categoryId' => $product->category->id]) }}">' +
-                                        '{{ $product->category->name }}' +
+                                        (product.category ? product.category.name : '') +
                                         '</a>' +
                                         '</span>' +
                                         '<span class="category">{{ trans('front_home_trans.Store') }} :' +
                                         '<a href="{{ route('shop_grid.indexStore', ['storeId' => $product->store->id]) }}">' +
-                                        '{{ $product->store->name }}' +
+                                        (product.store ? product.store.name : '') +
                                         '</a>' +
                                         '</span>' +
                                         '<h4 class="title">' +
@@ -587,35 +720,45 @@
                 // Apply category filter
                 $('input.category').on('change', function() {
                     applyFilters();
-                    paginate();
+                    // seeMore();
+
+                    // paginate();
                 });
 
                 // Apply store filter
                 $('input.store').on('change', function() {
                     applyFilters();
-                    paginate();
+                    // seeMore();
+
+                    // paginate();
                 });
 
                 // Apply brand filter
                 $('input.brand').on('change', function() {
                     applyFilters();
+                    // seeMore();
+
+                    // paginate();
                 });
 
                 // Apply sort filter
                 $('#sort').on('change', function() {
                     applyFilters();
+                    // paginate();
                 });
 
                 // Apply price range filter
                 $('.range_slider').on('change', function() {
                     applyFilters();
+                    // paginate();
                 });
 
                 // Initialize filters
-                applyFilters();
+                // applyFilters();
 
-                paginate();
+                // paginate();
 
+                seeMore();
 
 
 

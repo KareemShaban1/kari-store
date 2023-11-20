@@ -16,7 +16,7 @@ class Product extends Model
 
     protected $fillable = [
         'name', 'slug', 'description', 'image', 'category_id', 'brand_id', 'store_id', 'price', 'compare_price', 'status',
-        'featured', 'quantity','offer'
+        'featured', 'quantity','offer','gallery'
         // 'product_type'
     ];
 
@@ -28,6 +28,10 @@ class Product extends Model
     // append take Accessory name that we want to append in json response
     protected $appends = [
         'image_url',
+    ];
+
+    protected $casts = [
+        'options' => 'array',
     ];
 
 

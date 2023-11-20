@@ -23,10 +23,11 @@ return new class () extends Migration {
             $table->string('slug')->unique();
             $table->longText('description')->nullable();
             $table->string('image')->nullable();
+            $table->string('gallery')->nullable();
             $table->float('price')->default(0);
             $table->float('compare_price')->nullable();
             $table->unsignedSmallInteger('quantity')->default(0);
-            // $table->json('options')->nullable();
+            $table->json('options')->nullable();
             $table->boolean('featured')->default(0);
             $table->boolean('offer')->default(0);
             // $table->enum('product_type',['normal','best_seller','new_arrival','top_rated','other'])->default('normal');

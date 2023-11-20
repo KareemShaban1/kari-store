@@ -41,7 +41,7 @@
                    <div class="products-slider-logo-carousel d-flex align-items-center justify-content-between">
 
                        @foreach ($all_products as $product)
-                           <div class="col-lg-3 col-md-6 col-12">
+                           <div class="col-lg-3 col-md-6 col-12" style="height: 100%;">
                                <x-frontend.product-card :product="$product" />
                            </div>
                        @endforeach

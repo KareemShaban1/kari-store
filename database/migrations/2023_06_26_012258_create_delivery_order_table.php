@@ -20,6 +20,9 @@ return new class extends Migration
             $table->string('cart_id');
             $table->string('seen_time')->nullable();
             $table->string('order_status')->nullable();
+            // $table->double('latitude')->nullable();
+            // $table->double('longitude')->nullable();
+            $table->point('current_location')->nullable();
             $table->string('order_location')->nullable();
             $table->string('order_delivery_time')->nullable();
 
