@@ -28,7 +28,7 @@ class BannerController extends Controller
         //
         $banners = Banner::all();
 
-        return view('backend.Admin_Dashboard.banners.index',compact('banners'));
+        return view('backend.dashboards.admin.banners.index',compact('banners'));
 
         //  
         
@@ -42,7 +42,7 @@ class BannerController extends Controller
     public function create()
     {
         //
-        return view('backend.Admin_Dashboard.banners.create');
+        return view('backend.dashboards.admin.banners.create');
 
     }
 
@@ -90,7 +90,7 @@ class BannerController extends Controller
     {
         //
         $banner = Banner::findOrFail($id);
-        return view('backend.Admin_Dashboard.banners.edit',compact('banner'));
+        return view('backend.dashboards.admin.banners.edit',compact('banner'));
     }
 
     /**

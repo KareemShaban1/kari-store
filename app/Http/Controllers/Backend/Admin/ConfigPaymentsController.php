@@ -11,7 +11,7 @@ class ConfigPaymentsController extends Controller
     //
     public function paymentConfig(){
 
-        return view('backend.Admin_Dashboard.config.payment');
+        return view('backend.dashboards.admin.config.payment');
         
     }
     

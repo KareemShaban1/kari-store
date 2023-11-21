@@ -12,6 +12,6 @@ class DashboardController extends Controller
 
      
 
-        return view('backend.Delivery_Dashboard.dashboard.index');
+        return view('backend..dashboards.delivery.dashboard.index');
     }
 }

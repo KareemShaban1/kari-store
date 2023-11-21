@@ -15,7 +15,7 @@ class OrdersController extends Controller
     {
         $order_delivery = OrderDelivery::where('delivery_id', Auth::user('delivery')->id)->pluck('order_id');
         $orders = Order::whereIn('id', $order_delivery)->get();
-        return view('backend.Delivery_Dashboard.orders.index', compact('orders'));
+        return view('backend..dashboards.delivery.orders.index', compact('orders'));
     }
 
     public function changeStatus($order_id , $status){

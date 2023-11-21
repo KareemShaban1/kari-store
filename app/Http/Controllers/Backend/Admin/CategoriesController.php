@@ -44,7 +44,7 @@ class CategoriesController extends Controller
         ->get();
 
 
-        return view('backend.Admin_Dashboard.categories.index',compact('categories'));
+        return view('backend.dashboards.admin.categories.index',compact('categories'));
     }
  
     /**
@@ -57,7 +57,7 @@ class CategoriesController extends Controller
         //
         $parents = Category::all();
 
-        return view('backend.Admin_Dashboard.categories.create',compact('parents'));
+        return view('backend.dashboards.admin.categories.create',compact('parents'));
     }
 
     /**
@@ -97,7 +97,7 @@ class CategoriesController extends Controller
     public function show(Category $category)
     {
         //
-        return view('backend.Admin_Dashboard.categories.show',[
+        return view('backend.dashboards.admin.categories.show',[
             'category'=>$category
         ]);
     }
@@ -120,7 +120,7 @@ class CategoriesController extends Controller
             $query->whereNull('parent_id')->orWhere('parent_id','<>',$id);
         })->get();
 
-        return view('backend.Admin_Dashboard.categories.edit',compact('category','parents'));
+        return view('backend.dashboards.admin.categories.edit',compact('category','parents'));
     }
 
     /**
@@ -185,7 +185,7 @@ class CategoriesController extends Controller
 
         $categories = Category::onlyTrashed()->get();
 
-        return view('backend.Admin_Dashboard.categories.trash',compact('categories'));
+        return view('backend.dashboards.admin.categories.trash',compact('categories'));
 
     }
 

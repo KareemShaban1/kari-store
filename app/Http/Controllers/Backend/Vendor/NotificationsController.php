@@ -18,6 +18,6 @@ class NotificationsController extends Controller
         ->where('notifiable_id',Auth::user('vendor')->id)
         ->get();
         
-        return view('backend.Vendor_Dashboard.notifications.index',compact('notifications'));
+        return view('backend.dashboards.vendor.notifications.index',compact('notifications'));
     }
 }

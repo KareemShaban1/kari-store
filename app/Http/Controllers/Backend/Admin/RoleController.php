@@ -21,7 +21,7 @@ class RoleController extends Controller
     public function index()
     {
         $roles = Role::all();
-        return view('backend.Admin_Dashboard.roles.index',compact('roles'));
+        return view('backend.dashboards.admin.roles.index',compact('roles'));
     }
 
     /**
@@ -32,7 +32,7 @@ class RoleController extends Controller
     public function create()
     {
         //
-        return view('backend.Admin_Dashboard.roles.create',[
+        return view('backend.dashboards.admin.roles.create',[
             'role'=> new Role()
         ]);
     }
@@ -78,7 +78,7 @@ class RoleController extends Controller
         // $role = Role::findOrFail($id);    
         $role_abilities = $role->abilities()->pluck('type','ability')->toArray();
 
-        return view('backend.Admin_Dashboard.roles.edit',compact('role','role_abilities'));
+        return view('backend.dashboards.admin.roles.edit',compact('role','role_abilities'));
     }
 
     /**

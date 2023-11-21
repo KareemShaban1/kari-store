@@ -15,14 +15,14 @@ class AttributeValuesController extends Controller
     {
  
         $attribute_values = AttributeValue::all();
-        return view('backend.Admin_Dashboard.attribute_values.index', compact('attribute_values'));
+        return view('backend.dashboards.admin.attribute_values.index', compact('attribute_values'));
     }
 
     public function create()
     {
 
         $attributes = Attribute::all();
-        return view('backend.Admin_Dashboard.attribute_values.create', compact('attributes'));
+        return view('backend.dashboards.admin.attribute_values.create', compact('attributes'));
     }
     public function store(StoreAttributeValueRequest $request)
     {

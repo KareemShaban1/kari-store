@@ -22,7 +22,7 @@ class CouponController extends Controller
 
         $coupons = Coupon::all();
 
-        return view('backend.Admin_Dashboard.coupons.index', compact('coupons'));
+        return view('backend.dashboards.admin.coupons.index', compact('coupons'));
     }
 
     public function show()
@@ -32,7 +32,7 @@ class CouponController extends Controller
     public function create()
     {
         $stores = Store::all();
-        return view('backend.Admin_Dashboard.coupons.create', compact('stores'));
+        return view('backend.dashboards.admin.coupons.create', compact('stores'));
     }
 
     public function store(StoreCouponRequest $request)
@@ -47,7 +47,7 @@ class CouponController extends Controller
     {
         $stores = Store::all();
         $coupon = Coupon::findOrFail($id);
-        return view('backend.Admin_Dashboard.coupons.Edit', compact('coupon', 'stores'));
+        return view('backend.dashboards.admin.coupons.Edit', compact('coupon', 'stores'));
     }
 
     public function update(UpdateCouponRequest $request ,$id )

@@ -1,15 +1,15 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <!-- Include common scripts used in most of your views -->
-<script src="{{ URL::asset('backend/assets/js/plugins-jquery.js') }}"></script>
+<script src="{{ asset('backend/assets/js/plugins-jquery.js') }}"></script>
 <script>
     var plugin_path = '{{ asset('backend/assets/js/') }}';
 </script>
-<script src="{{ URL::asset('backend/assets/js/datepicker.js') }}" defer></script>
-{{-- <script src="{{ URL::asset('backend/assets/js/toastr.js') }}"></script> --}}
-{{-- <script src="{{ URL::asset('backend/assets/js/validation.js') }}" defer></script> --}}
-<script src="{{ URL::asset('backend/assets/js/custom.js') }}"></script>
-<script src="{{ URL::asset('backend/assets/js/summernote-lite.min.js') }}" defer></script>
+<script src="{{ asset('backend/assets/js/datepicker.js') }}" defer></script>
+{{-- <script src="{{ asset('backend/assets/js/toastr.js') }}"></script> --}}
+{{-- <script src="{{ asset('backend/assets/js/validation.js') }}" defer></script> --}}
+<script src="{{ asset('backend/assets/js/custom.js') }}"></script>
+<script src="{{ asset('backend/assets/js/summernote-lite.min.js') }}" defer></script>
 
 <script>
     const userID = "{{ auth('admin')->id() }}";
@@ -85,30 +85,30 @@
 
 
 
-@if (request()->routeIs('admin.brands.create') ||
-        request()->routeIs('admin.brands.edit') ||
-        request()->routeIs('admin.categories.create') ||
-        request()->routeIs('admin.categories.edit') ||
-        request()->routeIs('admin.stores.create') ||
-        request()->routeIs('admin.stores.edit') ||
-        request()->routeIs('admin.vendors.create') ||
-        request()->routeIs('admin.vendors.edit') ||
-        request()->routeIs('admin.products.create') ||
-        request()->routeIs('admin.products.edit') ||
-        request()->routeIs('admin.product_variants.create') ||
-        request()->routeIs('admin.orders.create') ||
-        request()->routeIs('admin.deliveries.create') ||
-        request()->routeIs('admin.product_properties.create') ||
-        request()->routeIs('admin.attributes.create') ||
-        request()->routeIs('admin.attribute_values.create') ||
-        request()->routeIs('admin.coupons.create') ||
-        request()->routeIs('admin.roles.create') ||
-        request()->routeIs('admin.admins.create') ||
-        request()->routeIs('admin.reports.orders') ||
-        request()->routeIs('admin.websiteParts.create') ||
-        request()->routeIs('admin.banners.create') ||
-        request()->routeIs('delivery.orders.create'))
-@endif
+{{-- @if (request()->routeIs('admin.brands.create') ||
+    request()->routeIs('admin.brands.edit') ||
+    request()->routeIs('admin.categories.create') ||
+    request()->routeIs('admin.categories.edit') ||
+    request()->routeIs('admin.stores.create') ||
+    request()->routeIs('admin.stores.edit') ||
+    request()->routeIs('admin.vendors.create') ||
+    request()->routeIs('admin.vendors.edit') ||
+    request()->routeIs('admin.products.create') ||
+    request()->routeIs('admin.products.edit') ||
+    request()->routeIs('admin.product_variants.create') ||
+    request()->routeIs('admin.orders.create') ||
+    request()->routeIs('admin.deliveries.create') ||
+    request()->routeIs('admin.product_properties.create') ||
+    request()->routeIs('admin.attributes.create') ||
+    request()->routeIs('admin.attribute_values.create') ||
+    request()->routeIs('admin.coupons.create') ||
+    request()->routeIs('admin.roles.create') ||
+    request()->routeIs('admin.admins.create') ||
+    request()->routeIs('admin.reports.orders') ||
+    request()->routeIs('admin.websiteParts.create') ||
+    request()->routeIs('admin.banners.create') ||
+    request()->routeIs('delivery.orders.create'))
+@endif --}}
 
 {{-- 
     @if (App::getLocale() == 'ar')
@@ -167,5 +167,4 @@
 
 
 
-
-@yield('js')
+@stack('scripts')

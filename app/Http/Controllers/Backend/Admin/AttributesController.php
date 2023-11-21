@@ -14,17 +14,17 @@ class AttributesController extends Controller
     {
         $attributes = Attribute::all();
 
-        return view('backend.Admin_Dashboard.attributes.index', compact('attributes'));
+        return view('backend.dashboards.admin.attributes.index', compact('attributes'));
     }
 
     public function create()
     {
-        return view('backend.Admin_Dashboard.attributes.create');
+        return view('backend.dashboards.admin.attributes.create');
     }
 
     public function show(Attribute $attribute)
     {
-        return view('backend.Admin_Dashboard.attributes.show',compact('attribute'));
+        return view('backend.dashboards.admin.attributes.show',compact('attribute'));
     }
  
 
@@ -47,7 +47,7 @@ class AttributesController extends Controller
     {
         $attribute = Attribute::findOrFail($id);
 
-        return view('backend.Admin_Dashboard.attributes.edit', compact('attribute'));
+        return view('backend.dashboards.admin.attributes.edit', compact('attribute'));
     }
     public function update(Request $request, $id)
     {

@@ -19,13 +19,13 @@ class ProductVariantsController extends Controller
     public function index()
     {
         $product_variants = ProductVariant::all();
-        return view('backend.Admin_Dashboard.product_variant.index', compact('product_variants'));
+        return view('backend.dashboards.admin.product_variant.index', compact('product_variants'));
     }
 
     public function show($id)
     {
         $product_variants = ProductVariant::where('product_id', '=', $id)->get();
-        return view('backend.Admin_Dashboard.product_variant.show', compact('product_variants'));
+        return view('backend.dashboards.admin.product_variant.show', compact('product_variants'));
     }
 
 
@@ -39,7 +39,7 @@ class ProductVariantsController extends Controller
 
 
         return view(
-            'backend.Admin_Dashboard.product_variant.create',
+            'backend.dashboards.admin.product_variant.create',
             compact('attributes', 'attribute_values', 'product', 'product_variants')
         );
     }
@@ -97,7 +97,7 @@ class ProductVariantsController extends Controller
         $product =  Product::where('id', '=', $product_variant->product_id)->first();
 
         return view(
-            'backend.Admin_Dashboard.product_variant.edit',
+            'backend.dashboards.admin.product_variant.edit',
             compact('attributes', 'attribute_values', 'product', 'product_variant')
         );
     }

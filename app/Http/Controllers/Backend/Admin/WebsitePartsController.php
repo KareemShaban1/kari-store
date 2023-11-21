@@ -26,7 +26,7 @@ class WebsitePartsController extends Controller
         $WebsiteParts = WebsiteParts::all();
 
 
-        return view('backend.Admin_Dashboard.website_parts.index',compact('WebsiteParts'));
+        return view('backend.dashboards.admin.website_parts.index',compact('WebsiteParts'));
     }
 
     /**
@@ -37,7 +37,7 @@ class WebsitePartsController extends Controller
     public function create()
     {
         //
-        return view('backend.Admin_Dashboard.website_parts.create');
+        return view('backend.dashboards.admin.website_parts.create');
     }
 
     /**
@@ -86,7 +86,7 @@ class WebsitePartsController extends Controller
     {
         //
         $websitePart= WebsiteParts::findOrFail($id);
-        return view('backend.Admin_Dashboard.website_parts.edit', compact('websitePart'));
+        return view('backend.dashboards.admin.website_parts.edit', compact('websitePart'));
     }
 
     /**

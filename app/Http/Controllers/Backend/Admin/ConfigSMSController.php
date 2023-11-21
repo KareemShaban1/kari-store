@@ -13,7 +13,7 @@ class ConfigSMSController extends Controller
     public function index(){
         $config = ConfigSettings::all();
 
-        return view('backend.Admin_Dashboard.config.sms',compact('config'));
+        return view('backend.dashboards.admin.config.sms',compact('config'));
     }
 
 

@@ -26,7 +26,7 @@ class AdminController extends Controller
 
         //
         $admins = Admin::all();
-        return view('backend.Admin_Dashboard.admins.index', compact('admins'));
+        return view('backend.dashboards.admin.admins.index', compact('admins'));
 
     }
 
@@ -40,7 +40,7 @@ class AdminController extends Controller
         //
         $roles = Role::all();
         // $admin_roles = $admin->roles()->pluck('id')->toArray();
-        return view('backend.Admin_Dashboard.admins.create', [
+        return view('backend.dashboards.admin.admins.create', [
             'roles' => $roles,
             'admin' => new Admin()
         ]);
@@ -103,7 +103,7 @@ class AdminController extends Controller
         // }
         // dd($admin_roles);
 
-        return view('backend.Admin_Dashboard.admins.edit', compact('admin', 'roles', 'admin_roles'));
+        return view('backend.dashboards.admin.admins.edit', compact('admin', 'roles', 'admin_roles'));
 
     }
 

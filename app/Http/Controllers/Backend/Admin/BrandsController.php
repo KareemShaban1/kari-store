@@ -23,12 +23,12 @@ class BrandsController extends Controller
     {
         $brands = Brand::all();
 
-        return view('backend.Admin_Dashboard.brands.index', compact('brands'));
+        return view('backend.dashboards.admin.brands.index', compact('brands'));
     }
 
     public function create()
     {
-        return view('backend.Admin_Dashboard.brands.create');
+        return view('backend.dashboards.admin.brands.create');
     }
 
 
@@ -59,7 +59,7 @@ class BrandsController extends Controller
     {
         $brand = Brand::findOrFail($id);
 
-        return view('backend.Admin_Dashboard.brands.edit', compact('brand'));
+        return view('backend.dashboards.admin.brands.edit', compact('brand'));
     }
     public function update(Request $request, $id)
     {

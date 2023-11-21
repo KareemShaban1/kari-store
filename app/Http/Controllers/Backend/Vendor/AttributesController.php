@@ -14,17 +14,17 @@ class AttributesController extends Controller
     {
         $attributes = Attribute::all();
 
-        return view('backend.Vendor_Dashboard.attributes.index', compact('attributes'));
+        return view('backend.dashboards.vendor.attributes.index', compact('attributes'));
     }
 
     public function create()
     {
-        return view('backend.Vendor_Dashboard.attributes.create');
+        return view('backend.dashboards.vendor.attributes.create');
     }
 
     public function show(Attribute $attribute)
     {
-        return view('backend.Vendor_Dashboard.attributes.show',compact('attribute'));
+        return view('backend.dashboards.vendor.attributes.show',compact('attribute'));
     }
 
 
@@ -45,7 +45,7 @@ class AttributesController extends Controller
     {
         $attribute = Attribute::findOrFail($id);
 
-        return view('backend.Vendor_Dashboard.attributes.edit', compact('attribute'));
+        return view('backend.dashboards.vendor.attributes.edit', compact('attribute'));
     }
     public function update(Request $request, $id)
     {

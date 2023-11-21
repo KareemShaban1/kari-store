@@ -25,8 +25,7 @@ class OrderController extends Controller
         $vendor = Vendor::findOrFail($vendor_id);
         
         $orders = Order::where('store_id',$vendor->store_id)->with('user', 'store', 'products.category')->get();
-        // dd($orders);
-        return view('backend.Vendor_Dashboard.orders.index', compact('orders'));
+        return view('backend.dashboards.vendor.orders.index', compact('orders'));
     }
 
 

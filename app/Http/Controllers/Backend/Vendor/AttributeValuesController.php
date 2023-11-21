@@ -15,14 +15,14 @@ class AttributeValuesController extends Controller
     {
 
         $attribute_values = AttributeValue::all();
-        return view('backend.Vendor_Dashboard.attribute_values.index', compact('attribute_values'));
+        return view('backend.dashboards.vendor.attribute_values.index', compact('attribute_values'));
     }
 
     public function create()
     {
 
         $attributes = Attribute::where('vendor_id',Auth::user('vendor')->id)->get();
-        return view('backend.Vendor_Dashboard.attribute_values.create', compact('attributes'));
+        return view('backend.dashboards.vendor.attribute_values.create', compact('attributes'));
     }
     public function store(Request $request)
     {
@@ -37,7 +37,7 @@ class AttributeValuesController extends Controller
         $attributes = Attribute::all();
         $attribute_value = AttributeValue::findOrFail($id);
         return view(
-            'backend.Vendor_Dashboard.attribute_values.edit',
+            'backend.dashboards.vendor.attribute_values.edit',
             compact('attributes', 'attribute_value')
         );
     }

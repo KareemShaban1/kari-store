@@ -30,7 +30,7 @@ class OrderController extends Controller
         $orders = Order::with('user', 'store', 'products.category')->get();
         $groupedOrders = $orders->groupBy('cart_id');
 
-        return view('backend.Admin_Dashboard.orders.index', compact('orders', 'deliveries','groupedOrders'));
+        return view('backend.dashboards.admin.orders.index', compact('orders', 'deliveries','groupedOrders'));
     }
 
 
@@ -87,7 +87,7 @@ class OrderController extends Controller
         //
         $users = User::all();
         $stores = Store::all();
-        return view('backend.Admin_Dashboard.orders.create', compact('users', 'stores'));
+        return view('backend.dashboards.admin.orders.create', compact('users', 'stores'));
     }
 
     /**
@@ -123,7 +123,7 @@ class OrderController extends Controller
         //
         $users = User::all();
         $stores = Store::all();
-        return view('backend.Admin_Dashboard.orders.edit', compact('order', 'users', 'stores'));
+        return view('backend.dashboards.admin.orders.edit', compact('order', 'users', 'stores'));
     }
 
     /**

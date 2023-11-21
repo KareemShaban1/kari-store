@@ -31,6 +31,6 @@ class DashboardController extends Controller
 
         // Retrieve the products associated with the top product IDs
         $products = Product::whereIn('id', $productIds)->get();
-        return view('backend.Admin_Dashboard.dashboard.index',compact('topProducts','products'));
+        return view('backend.dashboards.admin.dashboard.index',compact('topProducts','products'));
     }
 }

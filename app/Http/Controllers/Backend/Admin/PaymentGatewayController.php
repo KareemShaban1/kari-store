@@ -17,12 +17,12 @@ class PaymentGatewayController extends Controller
         
         $paymentGateways = PaymentGateway::all();
 
-        return view('backend.Admin_Dashboard.payment_gateway.index',compact('paymentGateways'));
+        return view('backend.dashboards.admin.payment_gateway.index',compact('paymentGateways'));
     }
 
     public function create(){
         
-        return view('backend.Admin_Dashboard.payment_gateway.create');
+        return view('backend.dashboards.admin.payment_gateway.create');
 
     }
 
@@ -44,7 +44,7 @@ class PaymentGatewayController extends Controller
     public function edit($id){
         
         $paymentGateway = PaymentGateway::findOrFail($id);
-        return view('backend.Admin_Dashboard.payment_gateway.edit',compact('paymentGateway'));
+        return view('backend.dashboards.admin.payment_gateway.edit',compact('paymentGateway'));
 
     }
 

@@ -44,7 +44,7 @@ class ProductsController extends Controller
         // SELECT * FROM stores WHERE id IN (....)
 
 
-        return view('backend.Vendor_Dashboard.products.index', compact('products'));
+        return view('backend.dashboards.vendor.products.index', compact('products'));
     }
 
 
@@ -63,7 +63,7 @@ class ProductsController extends Controller
         $brands = Brand::all();
         $attributes = Attribute::all();
         return view(
-            'backend.Vendor_Dashboard.products.create',
+            'backend.dashboards.vendor.products.create',
             compact('categories', 'stores', 'brands', 'attributes')
         );
     }
@@ -128,7 +128,7 @@ class ProductsController extends Controller
 
         $product = Product::findOrFail($id);
 
-        return view('backend.Vendor_Dashboard.products.edit');
+        return view('backend.dashboards.vendor.products.edit');
     }
 
     /**
@@ -151,7 +151,7 @@ class ProductsController extends Controller
 
 
 
-        return view('backend.Vendor_Dashboard.products.edit', compact(
+        return view('backend.dashboards.vendor.products.edit', compact(
             'tags',
             'product',
             'category',
@@ -237,7 +237,7 @@ class ProductsController extends Controller
         $product = Product::findOrFail($id);
 
         return view(
-            'backend.Vendor_Dashboard.products.product_variant',
+            'backend.dashboards.vendor.products.product_variant',
             compact('attributes', 'product')
         );
     }
@@ -249,7 +249,7 @@ class ProductsController extends Controller
         // dd($products);
         
         return view(
-            'backend.Vendor_Dashboard.products.edit_products_price',
+            'backend.dashboards.vendor.products.edit_products_price',
             compact('products')
         );
     }

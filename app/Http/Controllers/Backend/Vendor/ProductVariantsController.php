@@ -21,13 +21,13 @@ class ProductVariantsController extends Controller
         $productIds = Product::where('store_id', $vendor->store_id)->pluck('id');
         $product_variants = ProductVariant::whereIn('product_id', $productIds)->get();
         // dd($vendor,$productIds);
-        return view('backend.Vendor_Dashboard.product_variant.index', compact('product_variants'));
+        return view('backend.dashboards.vendor.product_variant.index', compact('product_variants'));
     }
 
     public function show($id)
     {
         $product_variants = ProductVariant::where('product_id', '=', $id)->get();
-        return view('backend.Vendor_Dashboard.product_variant.show', compact('product_variants'));
+        return view('backend.dashboards.vendor.product_variant.show', compact('product_variants'));
     }
 
 
@@ -42,7 +42,7 @@ class ProductVariantsController extends Controller
         // dd($product);
 
         return view(
-            'backend.Vendor_Dashboard.product_variant.create',
+            'backend.dashboards.vendor.product_variant.create',
             compact('attributes', 'attribute_values', 'product', 'product_variants')
         );
     }
@@ -100,7 +100,7 @@ class ProductVariantsController extends Controller
         $product =  Product::where('id', '=', $product_variant->product_id)->first();
 
         return view(
-            'backend.Vendor_Dashboard.product_variant.edit',
+            'backend.dashboards.vendor.product_variant.edit',
             compact('attributes', 'attribute_values', 'product', 'product_variant')
         );
     }

@@ -12,7 +12,7 @@ class ConfigNotificationsController extends Controller
     public function index(){
         $config = ConfigSettings::all();
 
-        return view('backend.Admin_Dashboard.config.notifications',compact('config'));
+        return view('backend.dashboards.admin.config.notifications',compact('config'));
     }
 
 

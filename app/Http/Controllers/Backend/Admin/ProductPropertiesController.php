@@ -13,13 +13,13 @@ class ProductPropertiesController extends Controller
     public function index()
     {
         $product_properties = ProductProperty::all();
-        return view('backend.Admin_Dashboard.product_properties.index', compact('product_properties'));
+        return view('backend.dashboards.admin.product_properties.index', compact('product_properties'));
     }
 
     public function create()
     {
         $products = Product::all();
-        return view('backend.Admin_Dashboard.product_properties.create', compact('products'));
+        return view('backend.dashboards.admin.product_properties.create', compact('products'));
     }
 
     public function store(Request $request)
@@ -42,7 +42,7 @@ class ProductPropertiesController extends Controller
         $products = Product::all();
         $product_property = ProductProperty::findOrFail($id);
         return view(
-            'backend.Admin_Dashboard.product_properties.edit',
+            'backend.dashboards.admin.product_properties.edit',
             compact('products', 'product_property')
         );
     }

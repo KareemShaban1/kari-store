@@ -35,7 +35,7 @@ class StoresController extends Controller
                 $query->where('status', '=', 'active');
             }
         ])->get();
-        return view('backend.Admin_Dashboard.stores.index', compact('stores'));
+        return view('backend.dashboards.admin.stores.index', compact('stores'));
     }
 
 
@@ -51,7 +51,7 @@ class StoresController extends Controller
         //
         $destinations = Destination::all();
         $categories = Category::all();
-        return view('backend.Admin_Dashboard.stores.create', compact('categories', 'destinations'));
+        return view('backend.dashboards.admin.stores.create', compact('categories', 'destinations'));
     }
 
     public function getCities(Request $request)
@@ -117,7 +117,7 @@ class StoresController extends Controller
     public function show(Store $store)
     {
         //
-        return view('backend.Admin_Dashboard.stores.show', compact('store'));
+        return view('backend.dashboards.admin.stores.show', compact('store'));
     }
 
     /**
@@ -132,7 +132,7 @@ class StoresController extends Controller
         $store = Store::findOrFail($id);
         $destinations = Destination::all();
         $categories = Category::all();
-        return view('backend.Admin_Dashboard.stores.edit', 
+        return view('backend.dashboards.admin.stores.edit', 
         compact('store', 'categories','destinations'));
     }
 

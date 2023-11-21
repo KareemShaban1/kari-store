@@ -22,7 +22,7 @@ class DeliveryController extends Controller
     public function index()
     {
         $deliveries = Delivery::all();
-        return view('backend.Admin_Dashboard.delivery.index', compact('deliveries'));
+        return view('backend.dashboards.admin.delivery.index', compact('deliveries'));
 
     }
 
@@ -30,7 +30,7 @@ class DeliveryController extends Controller
     {
         $categories = Category::all();
         $vendors = Vendor::all();
-        return view('backend.Admin_Dashboard.delivery.create', compact('categories','vendors'));
+        return view('backend.dashboards.admin.delivery.create', compact('categories','vendors'));
     }
 
     public function store(StoreDeliveryRequest $request)
@@ -56,7 +56,7 @@ class DeliveryController extends Controller
         $categories = Category::all();
         $delivery = Delivery::findOrFail($id);
         $vendors = Vendor::all();
-        return view('backend.Admin_Dashboard.delivery.edit', compact('delivery', 'categories','vendors'));
+        return view('backend.dashboards.admin.delivery.edit', compact('delivery', 'categories','vendors'));
 
     }
     public function update(UpdateDeliveryRequest $request, $id)

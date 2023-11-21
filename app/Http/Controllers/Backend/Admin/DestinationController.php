@@ -18,7 +18,7 @@ class DestinationController extends Controller
     public function index()
     {
         $destinations = Destination::with('parent')->get();
-        return view('backend.Admin_Dashboard.destinations.index', compact('destinations'));
+        return view('backend.dashboards.admin.destinations.index', compact('destinations'));
     }
 
     /**
@@ -29,7 +29,7 @@ class DestinationController extends Controller
     public function create()
     {
         $parents = Destination::all();
-        return view('backend.Admin_Dashboard.destinations.create',compact('parents'));
+        return view('backend.dashboards.admin.destinations.create',compact('parents'));
     }
 
     /**

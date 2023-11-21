@@ -22,7 +22,7 @@ class ReportsController extends Controller
 
 
 
-        return view('backend.Admin_Dashboard.reports.orders_report', compact('orders', 'deliveries', 'status'));
+        return view('backend.dashboards.admin.reports.orders_report', compact('orders', 'deliveries', 'status'));
     }
 
 }

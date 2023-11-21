@@ -21,12 +21,12 @@ class VendorController extends Controller
     public function index()
     {
         $vendors = Vendor::all();
-        return view('backend.Admin_Dashboard.vendors.index', compact('vendors'));
+        return view('backend.dashboards.admin.vendors.index', compact('vendors'));
     }
     public function create()
     {
         $stores= Store::all();
-        return view('backend.Admin_Dashboard.vendors.create',compact('stores'));
+        return view('backend.dashboards.admin.vendors.create',compact('stores'));
     }
     public function store(StoreVendorRequest $request )
     {
@@ -45,7 +45,7 @@ class VendorController extends Controller
     {
         $vendor = Vendor::findOrFail($id);
         $stores= Store::all();
-        return view('backend.Admin_Dashboard.vendors.edit', compact('vendor', 'stores'));
+        return view('backend.dashboards.admin.vendors.edit', compact('vendor', 'stores'));
 
     }
     public function update($id , UpdateVendorRequest $request)

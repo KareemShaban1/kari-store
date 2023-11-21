@@ -5,8 +5,6 @@
 <link rel="shortcut icon" href="{{ URL::asset('backend/assets/images/favicon.ico') }}" type="image/x-icon" />
 
 
-@yield('css')
-
 {{-- Datatables --}}
 <link href="{{ URL::asset('backend/assets/datatables/datatables.min.css') }}" rel="stylesheet">
 
@@ -33,3 +31,5 @@
 
 <!--- Style css -->
 <link href="{{ URL::asset('backend/assets/css/style.css') }}" rel="stylesheet">
+
+@stack('style')

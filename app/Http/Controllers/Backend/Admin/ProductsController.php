@@ -43,7 +43,7 @@ class ProductsController extends Controller
             }
         ])->get();
 
-        return view('backend.Admin_Dashboard.products.index', compact('products'));
+        return view('backend.dashboards.admin.products.index', compact('products'));
     }
 
 
@@ -61,7 +61,7 @@ class ProductsController extends Controller
         $brands = Brand::all();
         $attributes = Attribute::all();
         return view(
-            'backend.Admin_Dashboard.products.create',
+            'backend.dashboards.admin.products.create',
             compact('categories', 'stores', 'brands', 'attributes')
         );
     }
@@ -133,7 +133,7 @@ class ProductsController extends Controller
 
         $product = Product::findOrFail($id);
 
-        return view('backend.Admin_Dashboard.products.edit');
+        return view('backend.dashboards.admin.products.edit');
     }
 
     /**
@@ -156,7 +156,7 @@ class ProductsController extends Controller
 
 
 
-        return view('backend.Admin_Dashboard.products.edit', compact(
+        return view('backend.dashboards.admin.products.edit', compact(
             'tags',
             'product',
             'categories',
@@ -251,7 +251,7 @@ class ProductsController extends Controller
         $product = Product::findOrFail($id);
 
         return view(
-            'backend.Admin_Dashboard.products.product_variant',
+            'backend.dashboards.admin.products.product_variant',
             compact('attributes', 'product')
         );
     }

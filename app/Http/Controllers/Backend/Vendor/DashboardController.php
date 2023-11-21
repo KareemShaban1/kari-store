@@ -22,7 +22,7 @@ class DashboardController extends Controller
         $attributes_count = Attribute::where('vendor_id',$vendor->id)->count();
         $attribute_values_count = AttributeValue::where('vendor_id',$vendor->id)->count();
 
-        return view('backend.Vendor_Dashboard.dashboard.index',
+        return view('backend.dashboards.vendor.dashboard.index',
         compact('orders_count','attributes_count','attribute_values_count'));
     }
 }
