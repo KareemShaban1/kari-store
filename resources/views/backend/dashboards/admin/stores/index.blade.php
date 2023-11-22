@@ -68,17 +68,17 @@
 
 
                                     <td>
-                                        @if ($store->status == 'active')
+                                        @if ($store->active == '1')
                                             <span class="badge badge-rounded badge-success p-2 mb-2">
                                                 {{ trans('stores_trans.Active') }}
                                             </span>
-                                        @elseif($store->status == 'inactive')
+                                        @elseif($store->active == '0')
                                             <span class="badge badge-rounded badge-danger p-2 mb-2">
                                                 {{ trans('stores_trans.Inactive') }}
                                             </span>
                                         @endif
 
-                                        <div class="form-check form-switch" style="display: flex;justify-content: center">
+                                        <div class="form-check form-switch" style="display:flex; justify-content: center;">
 
                                             <input type="checkbox" id="statusCheckbox{{ $store->id }}"
                                                 class="form-check-input" {{ $store->status == 'active' ? 'checked' : '' }}>
@@ -165,7 +165,6 @@
             var datatable = $('#custom_table').DataTable({
                 stateSave: true,
                 sortable: true,
-                responsive: true,
                 responsive: true,
                 dom: 'Bfrtip',
                 buttons: [{

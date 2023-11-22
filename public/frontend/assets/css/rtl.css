@@ -1053,22 +1053,22 @@ ol {
 }
 
 .section {
-  padding-top: 90px;
-  padding-bottom: 90px;
+  padding-top: 20px;
+  padding-bottom: 20px;
   position: relative;
 }
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
   .section {
-    padding-top: 60px;
-    padding-bottom: 60px;
+    padding-top: 20px;
+    padding-bottom: 20px;
   }
 }
 
 @media (max-width: 767px) {
   .section {
-    padding-top: 50px;
-    padding-bottom: 50px;
+    padding-top: 20px;
+    padding-bottom: 20px;
   }
 }
 
@@ -1822,7 +1822,7 @@ ol {
   position: absolute;
   top: 45px;
   left: 0;
-  width: 300px;
+  width: 400px;
   background: #fff;
   padding: 20px 25px;
   -webkit-transition: all 0.3s ease 0s;
@@ -1837,7 +1837,7 @@ ol {
 
 @media (max-width: 767px) {
   .header .navbar-cart .cart-items .shopping-item {
-    width: 250px;
+    width: 350px;
   }
 }
 
@@ -1855,8 +1855,8 @@ ol {
 
 .header .navbar-cart .cart-items .shopping-item .dropdown-cart-header {
   padding-bottom: 10px;
-  margin-bottom: 15px;
-  border-bottom: 1px solid #e6e6e6;
+  margin-bottom: 35px;
+  /* border-bottom: 1px solid #e6e6e6; */
 }
 
 .header .navbar-cart .cart-items .shopping-item .dropdown-cart-header span {

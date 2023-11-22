@@ -1900,7 +1900,10 @@ select.form-control-lg:not([size]):not([multiple]) {
 .form-check-input {
   position: absolute;
   margin-top: .3rem;
-  margin-right: -1.25rem; }
+  margin-right: -1.25rem;
+  /* left: 50px;
+  top: -30px; */
+ }
 
 .form-check-input:disabled ~ .form-check-label {
   color: #6c757d; }
@@ -4033,6 +4036,7 @@ tbody.collapse.show {
   margin-bottom: 15px; }
 
 @media (min-width: 576px) {
+  
   .card-deck {
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
@@ -23371,6 +23375,13 @@ textarea.form-control {
     padding: 1.5em 1em; }
 
 @media (max-width: 560px) {
+  /* my edit */
+  .form-check-input {
+    position: absolute;
+    left: 50px;
+    top: -26px;
+   }
+   /* end my edit */
   .wizard.vertical > .steps, .wizard.vertical > .content {
     width: 100%; } }
 

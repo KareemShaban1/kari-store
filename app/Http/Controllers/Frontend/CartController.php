@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Helpers\Currency;
 use App\Http\Controllers\Controller;
 use App\Models\Cart;
+use App\Facades\Cart as CartFacade;
 use App\Models\Coupon;
 use App\Models\Product;
 use App\Models\TempSession;
@@ -69,7 +70,28 @@ class CartController extends Controller
         }
         $cart->add($product, $request->post('quantity'));
 
+        
         return redirect()->route('cart.index');
+    }
+
+
+    public function quickStore(Request $request, CartRepository $cart)
+    {
+
+        $product = Product::findOrFail($request->post('product_id'));
+        if($request->variant_id != null){
+            $cart->add($product, $request->post('quantity'),$request->variant_id);
+        }
+        $cart->add($product, $request->post('quantity'));
+
+        $response = [
+            'cartHtml' => view('components.frontend.cart-menu',
+            ['items'=>CartFacade::get(),'total'=>CartFacade::total()])->render(), // Assuming you have a partials/cart.blade.php file
+            'totalItems' => Cart::count(), // Adjust this based on your actual logic to get the total items in the cart
+        ];
+        
+        return response()->json($response);
+        // return redirect()->route('cart.index');
     }
 
     /**
@@ -123,9 +145,22 @@ class CartController extends Controller
     {
         //
         $this->cart->delete($id);
+        // $response = [
+        //     'totalItems' => Cart::count(), // Adjust this based on your actual logic to get the total items in the cart
+        // ];
 
-        return redirect()->route('cart.index');
+        $response = [
+            'cartHtml' => view('components.frontend.cart-menu',
+            ['items'=>CartFacade::get(),'total'=>CartFacade::total()])->render(), // Assuming you have a partials/cart.blade.php file
+            'totalItems' => Cart::count(), // Adjust this based on your actual logic to get the total items in the cart
+        ];
+        
+        return response()->json($response);
+
+        // return redirect()->route('cart.index');
     }
+
+   
 
     public function emptyCart()
     {

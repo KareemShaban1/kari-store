@@ -8,9 +8,11 @@
         @endif
         <div class="button">
             <a href="{{ Route('products.show_product', $product->slug) }}" class="btn">
-                {{-- <i class="lni lni-cart"></i> --}}
                 {{ trans('front_home_trans.Show_Product') }}
             </a>
+
+
+
         </div>
         @if ($product->quantity == 0)
             <span class="out-of-stock"> Out Of Stock</span>

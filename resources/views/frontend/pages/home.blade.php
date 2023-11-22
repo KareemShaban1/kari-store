@@ -282,11 +282,8 @@
             setInterval(timer, 1000);
         </script>
 
-        <script>
-            const csrf_token = "{{ csrf_token() }}";
-        </script>
+
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-        <script src="{{ asset('frontend/assets/js/cart.js') }}"></script>
     @endpush
 
 

@@ -61,34 +61,34 @@
                             </h3>
                             <p class="info-text">{!! $product->description !!}</p>
 
-                            <form action="{{ Route('cart.store') }}" method="post">
+                            {{-- <form action="{{ Route('cart.store') }}" method="post">
                                 @csrf
 
                                 <input type="hidden" name="product_id" value="{{ $product->id }}">
 
-                                <div class="row">
-                                    {{-- <div class="col-lg-4 col-md-4 col-12">
-                                        <div class="form-group color-option">
-                                            <label class="title-label" for="size">Choose color</label>
-                                            <div class="single-checkbox checkbox-style-1">
-                                                <input type="checkbox" id="checkbox-1" checked>
-                                                <label for="checkbox-1"><span></span></label>
-                                            </div>
-                                            <div class="single-checkbox checkbox-style-2">
-                                                <input type="checkbox" id="checkbox-2">
-                                                <label for="checkbox-2"><span></span></label>
-                                            </div>
-                                            <div class="single-checkbox checkbox-style-3">
-                                                <input type="checkbox" id="checkbox-3">
-                                                <label for="checkbox-3"><span></span></label>
-                                            </div>
-                                            <div class="single-checkbox checkbox-style-4">
-                                                <input type="checkbox" id="checkbox-4">
-                                                <label for="checkbox-4"><span></span></label>
+                               
+
+                                <div class="bottom-content">
+                                    <div class="row align-items-end">
+
+                                        <div class="col-lg-4 col-md-4 col-12">
+                                            <div class="button cart-button">
+                                                <button class="btn" type="submit" style="width: 100%;">Add to
+                                                    Cart</button>
                                             </div>
                                         </div>
-                                    </div> --}}
 
+                                        
+
+                                    </div>
+                                </div>
+
+                            </form> --}}
+
+                            <form id="addToCartForm" action="{{ route('cart.quickStore') }}" method="post">
+                                @csrf
+                                <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                <div class="row">
                                     <div class="col-lg-4 col-md-4 col-12">
                                         <div class="form-group quantity">
                                             <label for="color">Quantity</label>
@@ -101,36 +101,21 @@
                                             </select>
                                         </div>
                                     </div>
-
                                 </div>
-
-
                                 <div class="bottom-content">
                                     <div class="row align-items-end">
-
                                         <div class="col-lg-4 col-md-4 col-12">
                                             <div class="button cart-button">
-                                                <button class="btn" type="submit" style="width: 100%;">Add to
-                                                    Cart</button>
+                                                <button id="addToCartButton" class="btn" type="button"
+                                                    style="width: 100%;">Add to Cart</button>
                                             </div>
                                         </div>
-
-                                        {{-- <div class="col-lg-4 col-md-4 col-12">
-                                            <div class="wish-button">
-                                                <button class="btn"><i class="lni lni-reload"></i> Compare</button>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-4 col-12">
-                                            <div class="wish-button">
-                                                <button class="btn"><i class="lni lni-heart"></i> To
-                                                    Wishlist</button>
-                                            </div>
-                                        </div> --}}
-
                                     </div>
                                 </div>
-
                             </form>
+
+
+
                         </div>
                     </div>
                 </div>
@@ -347,6 +332,33 @@
                     //current.classList.add("fade-in");
                     //opacity
                     e.target.style.opacity = opacity;
+                });
+            });
+        </script>
+
+        <script>
+            $(document).ready(function() {
+                $('#addToCartButton').on('click', function() {
+                    // Serialize the form data
+                    var formData = $('#addToCartForm').serialize();
+
+                    // Make an Ajax request
+                    $.ajax({
+                        url: "{{ route('cart.quickStore') }}",
+                        type: 'post',
+                        data: formData,
+                        success: function(response) {
+                            // Handle the response, e.g., show a success message
+                            // Update the cart UI with the new content
+                            $('#cartContainer').html(response.cartHtml);
+                            // Update the total items in the cart
+                            $('.total-items').text(response.totalItems);
+                        },
+                        error: function(error) {
+                            // Handle the error, e.g., show an error message
+                            console.error(error);
+                        }
+                    });
                 });
             });
         </script>

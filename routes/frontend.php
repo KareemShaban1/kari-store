@@ -26,6 +26,7 @@ Route::group([
         ['middleware' => ['auth:web','email_verified']],
         function () {
             Route::resource('cart', CartController::class);
+            Route::post('quickStore',[CartController::class,'quickStore'])->name('cart.quickStore');
             Route::post('/apply-coupon', [CartController::class, 'applyCoupon'])->name('cart.applyCoupon');
             Route::resource('reviews', ReviewsController::class);
             Route::get('/checkout', [CheckoutController::class, 'create'])->name('checkout.create');

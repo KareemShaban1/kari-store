@@ -1,4 +1,4 @@
-<div class="cart-items" id="cartContainer">
+<div class="cart-items">
     <a href="javascript:void(0)" class="main-btn">
         <i class="lni lni-cart"></i>
         <span class="total-items" id="total-items">{{ $items->count() }}</span>
