@@ -109,39 +109,36 @@
                     <!-- Start Navbar -->
                     <nav class="navbar navbar-expand-lg">
                         <button class="navbar-toggler mobile-menu-btn" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#navbarSupportedContent1" aria-controls="navbarSupportedContent1"
-                            aria-expanded="false" aria-label="Toggle navigation">
+                            data-bs-target="#navbarSupportedContent1" aria-controls="navbarSupportedContent1" aria-expanded="false"
+                            aria-label="Toggle navigation">
                             <span class="toggler-icon"></span>
                             <span class="toggler-icon"></span>
                             <span class="toggler-icon"></span>
                         </button>
                         <div class="collapse navbar-collapse sub-menu-bar pages-nav" id="navbarSupportedContent1">
                             <ul id="nav" class="navbar-nav ms-auto">
-
-                                @foreach ($categories as $category)
-                                    @if ($category->parent_id === null)
-                                        <li class="nav-item" style="font-weight: bold">
-                                            <a
-                                                href="{{ route('shop_grid.index', $category->id) }}">{{ $category->name }}</a>
+                
+                                @foreach ($categories->where('parent_id', null) as $category)
+                                    <li class="nav-item" style="font-weight: bold">
+                                        <a href="{{ route('shop_grid.index', $category->id) }}">{{ $category->name }}</a>
+                                        @if ($category->children->isNotEmpty())
                                             <ul>
-                                                @foreach ($categories as $childCategory)
-                                                    @if ($childCategory->parent_id === $category->id)
-                                                        <li class="sub-nav-item"><a
-                                                                href="{{ route('shop_grid.index', $childCategory->id) }}">{{ $childCategory->name }}</a>
-                                                        </li>
-                                                    @endif
+                                                @foreach ($category->children as $childCategory)
+                                                    <li class="sub-nav-item">
+                                                        <a href="{{ route('shop_grid.index', $childCategory->id) }}">{{ $childCategory->name }}</a>
+                                                    </li>
                                                 @endforeach
                                             </ul>
-                                        </li>
-                                    @endif
+                                        @endif
+                                    </li>
                                 @endforeach
-
-
+                
                             </ul>
                         </div> <!-- navbar collapse -->
                     </nav>
                     <!-- End Navbar -->
                 </div>
+                
 
 
                 <div class="col-lg-3 col-md-3 col-5">
@@ -202,40 +199,6 @@
         <div class="row align-items-center">
             <div class="col-lg-8 col-md-6 col-12">
                 <div class="nav-inner">
-
-                    <!-- Start Mega Category Menu -->
-                    {{-- <div class="mega-category-menu">
-                        <span class="cat-button">
-                            <i class="lni lni-menu"></i> {{ trans('front_home_trans.All_Categories') }}
-                        </span>
-                        <ul class="sub-category">
-                            @foreach ($categories as $category)
-                                @if ($category->parent_id === null)
-                                    <li>
-                                        <a
-                                            href="{{ route('shop_grid.index', $category->id) }}">{{ $category->name }}</a>
-                                        <ul class="inner-sub-category">
-                                            @foreach ($categories as $childCategory)
-                                                @if ($childCategory->parent_id === $category->id)
-                                                    <li><a
-                                                            href="{{ route('shop_grid.index', $childCategory->id) }}">{{ $childCategory->name }}</a>
-                                                    </li>
-                                                @endif
-                                            @endforeach
-                                        </ul>
-                                    </li>
-                                @endif
-                            @endforeach
-                        </ul>
-                    </div> --}}
-                    <!-- End Mega Category Menu -->
-
-
-
-
-
-
-
                     <!-- Start Navbar -->
                     <nav class="navbar navbar-expand-lg">
                         <button class="navbar-toggler mobile-menu-btn" type="button" data-bs-toggle="collapse"

@@ -73,7 +73,7 @@ class AdminController extends Controller
         }
 
 
-        return redirect()->route('admin.admins.index')->with('toast_success','Admin Created Successfully');;
+        return redirect()->route('admin.admins.index')->with('toast_success','Admin Created Successfully');
     }
 
     /**

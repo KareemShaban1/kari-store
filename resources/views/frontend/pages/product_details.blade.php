@@ -88,30 +88,33 @@
                             <form id="addToCartForm" action="{{ route('cart.quickStore') }}" method="post">
                                 @csrf
                                 <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                <div class="row">
-                                    <div class="col-lg-4 col-md-4 col-12">
-                                        <div class="form-group quantity">
-                                            <label for="color">Quantity</label>
-                                            <select class="form-control" name="quantity">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="bottom-content">
-                                    <div class="row align-items-end">
-                                        <div class="col-lg-4 col-md-4 col-12">
-                                            <div class="button cart-button">
-                                                <button id="addToCartButton" class="btn" type="button"
-                                                    style="width: 100%;">Add to Cart</button>
+                                <div class="row d-flex justify-content-between align-items-center ">
+                                    <div class="col-lg-8 col-md-4 col-12 my-4">
+                                        <div class="form-group quantity m-0">
+                                            <div class="row">
+                                                <div class="col-md-4"><label for="color">Quantity:</label></div>
+
+                                                <div class="col-md-8">
+                                                    <select class="form-control" name="quantity">
+                                                        <option>1</option>
+                                                        <option>2</option>
+                                                        <option>3</option>
+                                                        <option>4</option>
+                                                        <option>5</option>
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
+
+                                    <div class="col-lg-4 col-md-4 col-12">
+                                        <div class="button cart-button">
+                                            <button id="addToCartButton" class="btn" type="button"
+                                                style="width: 100%;">Add to Cart</button>
+                                        </div>
+                                    </div>
                                 </div>
+
                             </form>
 
 

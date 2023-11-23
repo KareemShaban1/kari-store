@@ -80,11 +80,7 @@
                                 </p>
                             </div>
                             <div class="col-lg-2 col-md-2 col-12">
-                                {{-- <div class="count-input">
-                                    <input class="form-control item_quantity" name="quantity"
-                                        data-id="{{ $cart_item->id }}" data-product-id="{{ $cart_item->product->id }}"
-                                        value="{{ $cart_item->quantity }}">
-                                </div> --}}
+
 
                                 <div class="count-input">
                                     <button class="quantity-btn minus btn-minus" data-id="{{ $cart_item->id }}"
@@ -246,7 +242,7 @@
         <script src="{{ asset('backend/assets/js/jquery-3.6.0.min.js') }}"></script>
 
         <script>
-            const csrf_token = "{{ csrf_token() }}";
+            // const csrf_token = "{{ csrf_token() }}";
 
             function calculateSubtotalSum() {
                 var subtotalSum = 0;
@@ -391,6 +387,6 @@
             // });
         </script>
 
-        <script src="{{ asset('frontend/assets/js/cart.js') }}"></script>
+        {{-- <script src="{{ asset('frontend/assets/js/cart.js') }}"></script> --}}
     @endpush
 </x-front-layout>

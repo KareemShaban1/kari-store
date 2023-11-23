@@ -203,10 +203,6 @@
 
                                     <div class="row show_products">
                                         @forelse ($products as $product)
-                                            {{-- <div class="col-lg-3 col-md-6 col-12">
-                                                      <x-frontend.product-card :product="$product" />
-                                                  </div> --}}
-
                                             <div class="col-lg-4 col-md-6 col-12">
                                                 <!-- Start Single Product -->
                                                 <div class="single-product">
@@ -407,13 +403,13 @@
                                     '</div>' +
                                     '<div class="product-info">' +
                                     '<span class="category">{{ trans('front_home_trans.Category') }} :' +
-                                    '<a href="{{ route('shop_grid.index', ['categoryId' => $product->category->id]) }}">' +
-                                    '{{ $product->category->name }}' +
+                                    '<a href="{{ route('shop_grid.index', ['categoryId' => 'product->category->id']) }}">' +
+                                    '{{ 'product->category->name' }}' +
                                     '</a>' +
                                     '</span>' +
                                     '<span class="category">{{ trans('front_home_trans.Store') }} :' +
-                                    '<a href="{{ route('shop_grid.indexStore', ['storeId' => $product->store->id]) }}">' +
-                                    '{{ $product->store->name }}' +
+                                    '<a href="{{ route('shop_grid.indexStore', ['storeId' => 'product->store->id']) }}">' +
+                                    '{{ 'product->store->name' }}' +
                                     '</a>' +
                                     '</span>' +
                                     '<h4 class="title">' +
@@ -515,13 +511,13 @@
                                         '</div>' +
                                         '<div class="product-info">' +
                                         '<span class="category">{{ trans('front_home_trans.Category') }} :' +
-                                        '<a href="{{ route('shop_grid.index', ['categoryId' => $product->category->id]) }}">' +
-                                        '{{ $product->category->name }}' +
+                                        '<a href="{{ route('shop_grid.index', ['categoryId' => 'product->category->id']) }}">' +
+                                        '{{ 'product->category->name' }}' +
                                         '</a>' +
                                         '</span>' +
                                         '<span class="category">{{ trans('front_home_trans.Store') }} :' +
-                                        '<a href="{{ route('shop_grid.indexStore', ['storeId' => $product->store->id]) }}">' +
-                                        '{{ $product->store->name }}' +
+                                        '<a href="{{ route('shop_grid.indexStore', ['storeId' => 'product->store->id']) }}">' +
+                                        '{{ 'product->store->name' }}' +
                                         '</a>' +
                                         '</span>' +
                                         '<h4 class="title">' +

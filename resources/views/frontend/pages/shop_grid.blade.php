@@ -419,12 +419,16 @@
                                         '</div>' +
                                         '<div class="product-info">' +
                                         '<span class="category">{{ trans('front_home_trans.Category') }} :' +
-                                        '<a href="{{ route('shop_grid.index', ['categoryId' => $product->category->id]) }}">' +
+                                        '<a href="{{ route('shop_grid.index', ['categoryId' => '']) }}' +
+                                        '/' +
+                                        product.category.id + '">' +
                                         (product.category ? product.category.name : '') +
                                         '</a>' +
                                         '</span>' +
                                         '<span class="category">{{ trans('front_home_trans.Store') }} :' +
-                                        '<a href="{{ route('shop_grid.indexStore', ['storeId' => $product->store->id]) }}">' +
+                                        '<a href="{{ route('shop_grid.indexStore', ['storeId' => '']) }}' +
+                                        '/' +
+                                        product.store.id + '">' +
                                         (product.store ? product.store.name : '') +
                                         '</a>' +
                                         '</span>' +
