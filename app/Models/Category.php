@@ -13,7 +13,7 @@ class Category extends Model
     // SoftDeletes;
     protected $fillable = [
         'name','parent_id','description','image','slug','status',
-        'featured' , 'product_type'
+        'featured' 
     ];
 
     //// reverse of fillable
@@ -51,7 +51,7 @@ class Category extends Model
         if(Str::startsWith($this->image, ['http://','https://'])) {
             return $this->image;
         }
-        return asset('storage/'.$this->image);
+        return asset('storage/categories/'.$this->image);
         // storage/thumbnail/categories/{image_name}
         
     } // $category->image_url  

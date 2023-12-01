@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Session;
 
 class Cart extends Model
 {
@@ -65,6 +66,21 @@ class Cart extends Model
     return $cartId;
 }
 
+public static function regenerateCartSessionId()
+    {
+        // Step 1: Forget the existing 'cart_id' session
+        Session::forget('cart_id');
+
+        // Step 2: Generate a new 'cart_id'
+        $newCartId = Str::uuid();
+
+        // Step 3: Set the new 'cart_id' in the session
+        session(['cart_id' => $newCartId]);
+
+        // Return the new 'cart_id'
+        return $newCartId;
+    }
+
     public static function regenerateCookieId()
 {
     // Step 1: Forget the existing 'cart_id' cookie
@@ -79,7 +95,6 @@ class Cart extends Model
     // Return the new 'cart_id'
     return $newCartId;
 
-    dd($newCartId);
 }
 
         public static function removeCookieId()

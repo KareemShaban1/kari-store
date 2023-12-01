@@ -33,12 +33,10 @@ class StoreCategoryRequest extends FormRequest
                 'unique:categories,name',
             ],
             'parent_id' => 'nullable|exists:categories,id',
-            'slug' => 'required|string|unique:categories,slug',
             'description' => 'nullable|string',
-            'image' => 'nullable|string',
+            'image' => 'nullable',
             'featured' => 'boolean',
             'status' => 'in:active,inactive',
-            'percent' => 'nullable|integer',
         
         ];
     }

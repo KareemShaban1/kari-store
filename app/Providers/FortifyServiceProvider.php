@@ -101,14 +101,11 @@ class FortifyServiceProvider extends ServiceProvider
             CustomRegisterResponse::class
         );
 
-        // Fortify::createUsersUsing(CreateNewUser::class);
-        // Fortify::createUsersUsing(RegisterUser::class);
+      
         Fortify::updateUserProfileInformationUsing(UpdateUserProfileInformation::class);
         Fortify::updateUserPasswordsUsing(UpdateUserPassword::class);
         Fortify::resetUserPasswordsUsing(ResetUserPassword::class);
-        // Fortify::verifyEmailView(function () {
-        //     return view('frontend.auth.verify');
-        // });
+       
 
         Fortify::verifyEmailView(function () { // <--- this
             return view('frontend.auth.verify');

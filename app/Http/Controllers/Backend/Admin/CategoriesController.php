@@ -69,7 +69,9 @@ class CategoriesController extends Controller
     public function store(StoreCategoryRequest $request)
     {
 
-        $request->validated();
+        // $request->validated();
+
+        // dd($request);
 
         // Request Merge
         $request->merge([

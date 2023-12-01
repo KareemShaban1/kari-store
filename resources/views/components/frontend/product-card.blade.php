@@ -11,8 +11,6 @@
                 {{ trans('front_home_trans.Show_Product') }}
             </a>
 
-
-
         </div>
         @if ($product->quantity == 0)
             <span class="out-of-stock"> Out Of Stock</span>
@@ -20,6 +18,12 @@
     </div>
     <div class="product-info">
 
+        <h4 class="title">
+            <a href="{{ Route('products.show_product', $product->slug) }}">
+                {{ $product->name }}
+            </a>
+
+        </h4>
 
 
         <span class="category">{{ trans('front_home_trans.Category') }} :
@@ -36,12 +40,7 @@
 
         {{-- <span class="category">{{ trans('home_trans.Store') }} :{{ $product->store->name }} </span> --}}
 
-        <h4 class="title">
-            <a href="{{ Route('products.show_product', $product->slug) }}">
-                {{ $product->name }}
-            </a>
 
-        </h4>
 
         @php
             $product_reviews = App\Models\Review::where('product_id', $product->id)->get('rating');

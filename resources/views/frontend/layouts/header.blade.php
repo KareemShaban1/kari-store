@@ -2,15 +2,13 @@
 <header class="header navbar-area">
 
     <!-- Start Topbar -->
-    <div class="topbar">
+    {{-- <div class="topbar">
         <div class="container">
             <div class="row align-items-center">
 
                 <div class="col-lg-4 col-md-4 col-5">
                     <div class="top-left">
                         <ul class="menu-top-link">
-
-
                             <li class="btn-group mb-1">
                                 <button type="button" class="btn btn-secondary btn-sm dropdown-toggle"
                                     style="background-color: #081828" data-toggle="dropdown" aria-haspopup="true"
@@ -35,7 +33,27 @@
                                 </div>
                             </li>
 
-                            {{-- </li> --}}
+                        </ul>
+
+                        <ul style="display: flex; gap:20px">
+                            @if (App::getLocale() == 'en')
+                                <li>
+                                    <a href="{{ LaravelLocalization::getLocalizedURL('ar', null, [], true) }}">
+                                        <img src="{{ URL::asset('backend/assets/images/flags/EG.png') }}"
+                                            alt="">
+                                        <span class="mx-2 text-white "> عربى </span>
+
+                                    </a>
+                                </li>
+                            @else
+                                <li><a href="{{ LaravelLocalization::getLocalizedURL('en', null, [], true) }}">
+                                        <span class="mx-2 text-white">English</span> <img
+                                            src="{{ URL::asset('backend/assets/images/flags/US.png') }}"
+                                            alt="">
+                                    </a>
+                                </li>
+                            @endif
+
                         </ul>
                     </div>
                 </div>
@@ -61,7 +79,6 @@
                         @auth('web')
                             <div class="user">
                                 <i class="lni lni-user"></i>
-                                {{-- {{ Auth::guard('web')->user()->first_name }} --}}
                                 <a href="{{ Route('profile.edit') }}">
                                     {{ Auth::user('user')->first_name }}
                                 </a>
@@ -71,7 +88,6 @@
                                     <li>
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();document.getElementById('logout').submit()">
-                                            {{-- <i class="text-danger ti-unlock"></i> --}}
                                             Sign Out
                                         </a>
                                     </li>
@@ -96,7 +112,7 @@
 
             </div>
         </div>
-    </div>
+    </div> --}}
     <!-- End Topbar -->
 
 
@@ -105,43 +121,43 @@
         <div class="container">
             <div class="row align-items-center">
 
-                <div class="d-lg-none d-md-none col-3">
-                    <!-- Start Navbar -->
+                {{-- <div class="d-lg-none d-md-none col-3">
                     <nav class="navbar navbar-expand-lg">
                         <button class="navbar-toggler mobile-menu-btn" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#navbarSupportedContent1" aria-controls="navbarSupportedContent1" aria-expanded="false"
-                            aria-label="Toggle navigation">
+                            data-bs-target="#navbarSupportedContent1" aria-controls="navbarSupportedContent1"
+                            aria-expanded="false" aria-label="Toggle navigation">
                             <span class="toggler-icon"></span>
                             <span class="toggler-icon"></span>
                             <span class="toggler-icon"></span>
                         </button>
                         <div class="collapse navbar-collapse sub-menu-bar pages-nav" id="navbarSupportedContent1">
                             <ul id="nav" class="navbar-nav ms-auto">
-                
+
                                 @foreach ($categories->where('parent_id', null) as $category)
                                     <li class="nav-item" style="font-weight: bold">
-                                        <a href="{{ route('shop_grid.index', $category->id) }}">{{ $category->name }}</a>
+                                        <a
+                                            href="{{ route('shop_grid.index', $category->id) }}">{{ $category->name }}</a>
                                         @if ($category->children->isNotEmpty())
                                             <ul>
                                                 @foreach ($category->children as $childCategory)
                                                     <li class="sub-nav-item">
-                                                        <a href="{{ route('shop_grid.index', $childCategory->id) }}">{{ $childCategory->name }}</a>
+                                                        <a
+                                                            href="{{ route('shop_grid.index', $childCategory->id) }}">{{ $childCategory->name }}</a>
                                                     </li>
                                                 @endforeach
                                             </ul>
                                         @endif
                                     </li>
                                 @endforeach
-                
+
                             </ul>
                         </div> <!-- navbar collapse -->
                     </nav>
-                    <!-- End Navbar -->
-                </div>
-                
+                </div> --}}
 
 
-                <div class="col-lg-3 col-md-3 col-5">
+
+                <div class="col-lg-3 col-md-3 col-8">
                     <!-- Start Header Logo -->
                     <a class="navbar-brand" href="{{ Route('home') }}">
                         <img src="{{ asset('frontend/assets/images/logo/logo.svg') }}" alt="Logo">
@@ -195,7 +211,7 @@
 
 
     <!-- Start Header Bottom -->
-    <div class="container header-bottom">
+    {{-- <div class="container header-bottom">
         <div class="row align-items-center">
             <div class="col-lg-8 col-md-6 col-12">
                 <div class="nav-inner">
@@ -277,8 +293,140 @@
                 <!-- End Nav Social -->
             </div>
         </div>
-    </div>
+    </div> --}}
     <!-- Start Header Bottom -->
+
+    <nav class="custom-navbar container">
+        <section class="custom-navbar-left">
+            <a href="#" class="brand">Kari Store</a>
+            <div class="burger" id="burger">
+                <span class="burger-line"></span>
+                <span class="burger-line"></span>
+                <span class="burger-line"></span>
+            </div>
+        </section>
+        <section class="custom-navbar-center">
+            <span class="overlay"></span>
+            <div class="menu" id="menu">
+                <div class="menu-header">
+                    <span class="menu-arrow"><i class="ion ion-ios-arrow-down m-1"></i></span>
+                    <span class="menu-title"></span>
+                </div>
+                <ul class="menu-inner">
+
+                    <li class="menu-item"><a href="{{ Route('home') }}"
+                            class="menu-link">{{ trans('front_home_trans.Home') }}</a></li>
+
+                    <li class="menu-item"><a href="{{ Route('shop_grid.index') }}"
+                            class="menu-link">{{ trans('front_home_trans.Shop') }}</a></li>
+
+                    <li class="menu-item"><a href="{{ Route('offers.index') }}"
+                            class="menu-link">{{ trans('front_home_trans.Offers') }}</a></li>
+                    <li class="menu-item menu-dropdown">
+                        <span class="menu-link">{{ trans('front_home_trans.Categories') }}<i
+                                class="ion ion-ios-arrow-down m-1"></i></span>
+                        <div class="submenu megamenu megamenu-column-4">
+                            @foreach ($categories->where('parent_id', null) as $category)
+                                <div class="submenu-inner">
+                                    <ul class="submenu-list">
+                                        <li class="submenu-item" style="font-weight: bold">
+                                            <h4 class="submenu-title"><a
+                                                    href="{{ route('shop_grid.index', $category->id) }}">{{ $category->name }}</a>
+                                            </h4>
+                                            @if ($category->children->isNotEmpty())
+                                                <ul class="submenu-list">
+                                                    @foreach ($category->children as $childCategory)
+                                                        <li class="submenu-item">
+                                                            <a class="submenu-link"
+                                                                href="{{ route('shop_grid.index', $childCategory->id) }}">{{ $childCategory->name }}</a>
+                                                        </li>
+                                                    @endforeach
+                                                </ul>
+                                            @endif
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            @endforeach
+                        </div>
+                    </li>
+
+                    <li class="menu-item menu-dropdown">
+                        <span class="menu-link">New Arrival<i class="bx bx-chevron-right"></i></span>
+                        <div class="submenu megamenu megamenu-column-4">
+                            <div class="submenu-inner">
+                                <a href="#" class="submenu-link">
+                                    <img src="https://i.ibb.co/kgNX8ks/Product-2.jpg" class="submenu-image"
+                                        alt="Product">
+                                    <span class="submenu-title">Product Name</span>
+                                </a>
+                            </div>
+                            <div class="submenu-inner">
+                                <a href="#" class="submenu-link">
+                                    <img src="https://i.ibb.co/ZTD2wF6/Product-3.jpg" class="submenu-image"
+                                        alt="Product">
+                                    <span class="submenu-title">Product Name</span>
+                                </a>
+                            </div>
+                            <div class="submenu-inner">
+                                <a href="#" class="submenu-link">
+                                    <img src="https://i.ibb.co/prb0Vz9/Product-4.jpg" class="submenu-image"
+                                        alt="Product">
+                                    <span class="submenu-title">Product Name</span>
+                                </a>
+                            </div>
+                            <div class="submenu-inner">
+                                <a href="#" class="submenu-link">
+                                    <img src="https://i.ibb.co/zPJm9jy/Product-5.jpg" class="submenu-image"
+                                        alt="Product">
+                                    <span class="submenu-title">Product Name</span>
+                                </a>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="menu-item menu-dropdown">
+                        <span class="menu-link">Account<i class="bx bx-chevron-right"></i></span>
+                        <div class="submenu megamenu megamenu-column-1">
+                            <ul class="submenu-list">
+                                <li class="submenu-item"><a href="#" class="submenu-link">Login</a></li>
+                                <li class="submenu-item"><a href="#" class="submenu-link">Register</a></li>
+                                <li class="submenu-item"><a href="#" class="submenu-link">Track Order</a></li>
+                                <li class="submenu-item"><a href="#" class="submenu-link">Help</a></li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li class="menu-item"><a href="#" class="menu-link">Support</a></li>
+                </ul>
+            </div>
+        </section>
+        <section class="custom-navbar-right">
+
+            <ul style="display: flex; gap:20px">
+                @if (App::getLocale() == 'en')
+                    {{-- {{ LaravelLocalization::getCurrentLocaleName() }} --}}
+                    <li>
+                        <a href="{{ LaravelLocalization::getLocalizedURL('ar', null, [], true) }}">
+                            <img src="{{ URL::asset('backend/assets/images/flags/EG.png') }}" alt="">
+                            <span class="mx-2 "> عربى </span>
+
+                        </a>
+                    </li>
+                @else
+                    {{-- {{ LaravelLocalization::getCurrentLocaleName() }} --}}
+                    <li><a href="{{ LaravelLocalization::getLocalizedURL('en', null, [], true) }}">
+                            <span class="mx-2">English</span> <img
+                                src="{{ URL::asset('backend/assets/images/flags/US.png') }}" alt="">
+                        </a>
+                    </li>
+                @endif
+                {{-- <li>عربى</li>
+                <li>english</li> --}}
+            </ul>
+
+        </section>
+    </nav>
 
 
 </header>

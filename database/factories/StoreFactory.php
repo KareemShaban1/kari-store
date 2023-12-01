@@ -18,7 +18,6 @@ class StoreFactory extends Factory
      */
     public function definition()
     {
-        $name = $this->faker->words(2,true);
         return [
             //
             // 'name'=>$name,
@@ -35,14 +34,14 @@ class StoreFactory extends Factory
             'description' => $this->faker->text,
             'logo_image'=>$this->faker->imageUrl,
             'cover_image'=>$this->faker->imageUrl,
-            'active' => $this->faker->boolean(50), // 50% chance of being true
+            'active' => 1,
             'percent' => $this->faker->numberBetween(0, 100),
             'phone_number' => $this->faker->phoneNumber,
             'governorate_id' => Destination::where('rank','1')->inRandomOrder()->first()->id, // Replace with actual IDs
             'city_id' => Destination::where('rank','2')->inRandomOrder()->first()->id, // Replace with actual IDs
             'neighborhood_id' => Destination::where('rank','3')->inRandomOrder()->first()->id, // Replace with actual IDs
             'street_address' => $this->faker->streetAddress,
-            'featured' => $this->faker->boolean(50), // 50% chance of being true
+            'featured' => 1,
         ];
     }
 }

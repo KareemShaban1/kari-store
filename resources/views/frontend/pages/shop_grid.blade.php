@@ -11,7 +11,7 @@
         <div class="breadcrumbs">
             <div class="container">
                 <div class="row align-items-center">
-                    <div class="col-lg-6 col-md-6 col-12">
+                    <div class="col-lg-6 col-md-6 col-6">
                         <div class="breadcrumbs-content">
                             <h1 class="page-title">{{ trans('shop_grid_trans.Shop_Grid') }}</h1>
                         </div>
@@ -23,6 +23,168 @@
                             <li>Shop Grid</li>
                         </ul>
                     </div> --}}
+                    <div class="col-lg-6 col-lg-6 col-md-6 col-6">
+                        <nav class="custom-navbar-shop container">
+                            <section class="">
+                                {{-- <a href="#" class="brand">Kari Store</a> --}}
+                                <div class="burger" id="burger-shop">
+                                    <span class="burger-line"></span>
+                                    <span class="burger-line"></span>
+                                    <span class="burger-line"></span>
+                                </div>
+                            </section>
+
+                            <section class="custom-navbar-center">
+                                <span class="overlay" id="overlay-shop"></span>
+                                <div class="menu-shop" id="menu-shop">
+                                    <div class="menu-header-shop" id="menu-header-shop">
+                                        <span class="menu-arrow-shop" id="menu-arrow-shop"><i
+                                                class="ion ion-ios-arrow-down m-1"></i></span>
+                                        <span class="menu-title-shop" id="menu-title-shop"></span>
+                                    </div>
+                                    <ul class="menu-inner-shop" id="menu-inner-shop">
+
+
+                                        <div class="product-sidebar" id="product-sidebar">
+
+                                            <!-- Start Product reset -->
+                                            <div class="single-widget"
+                                                style="display: flex; justify-content: center; align-items: center;">
+                                                <div class="button "> <a href="" class="btn"> Reset Filters
+                                                    </a> </div>
+                                            </div>
+                                            <!-- End Product reset -->
+
+                                            <!-- Start Product search -->
+                                            <div class="single-widget search">
+                                                <h3> {{ trans('shop_grid_trans.Search_Product') }} </h3>
+                                                <form action="#">
+                                                    <input type="text" name="search"id="search"
+                                                        placeholder=" {{ trans('shop_grid_trans.Search_Here') }} ">
+                                                    {{-- <button type="submit"><i class="lni lni-search-alt"></i></button> --}}
+                                                </form>
+                                            </div>
+                                            <!-- End Product search -->
+
+                                            <!-- Start Categories Filter -->
+                                            <div class="single-widget">
+                                                <h3>{{ trans('shop_grid_trans.All_Categories') }}</h3>
+
+                                                <ul class="list">
+                                                    @foreach ($categories as $category)
+                                                        @if ($category->parent_id === null)
+                                                            <li>
+                                                                {{-- <input type="checkbox" value="{{ $category->id }}" name="category[]"
+                                                                    class="category" @checked($category_id == $category->id)> --}}
+                                                                <span>{{ $category->name }}
+                                                                    ({{ $category->products()->count() }})</span>
+
+                                                                @if ($category->children->count() > 0)
+                                                                    <ul class="list" style="margin-left: 10px;">
+                                                                        @foreach ($category->children as $child)
+                                                                            <li class="m-0">
+                                                                                <input type="checkbox"
+                                                                                    id="category{{ $child->id }}"
+                                                                                    value="{{ $child->id }}"
+                                                                                    name="category[]" class="category"
+                                                                                    @checked($category_id == $child->id)>
+                                                                                <label
+                                                                                    for="category{{ $child->id }}">{{ $child->name }}
+                                                                                    ({{ $child->products()->count() }})
+                                                                                </label>
+                                                                            </li>
+                                                                        @endforeach
+                                                                    </ul>
+                                                                @endif
+                                                            </li>
+                                                        @endif
+                                                    @endforeach
+                                                </ul>
+                                            </div>
+
+                                            <!-- End Categories Filter -->
+
+
+
+
+
+
+                                            <!-- Start stores Filter -->
+                                            <div class="single-widget">
+                                                <h3>All Stores </h3>
+                                                <ul class="list">
+                                                    @foreach ($stores as $store)
+                                                        <li>
+                                                            <input type="checkbox" value="{{ $store->id }}"
+                                                                id="store{{ $store->id }}" name="store[]"
+                                                                class="store" @checked($store_id == $store->id)>
+                                                            <label for="store{{ $store->id }}">{{ $store->name }}
+                                                                {{-- ({{ $vendor->products()->count() }} ) --}}
+                                                            </label>
+                                                        </li>
+                                                    @endforeach
+                                                </ul>
+                                            </div>
+                                            <!-- End stores Filter -->
+
+
+                                            <!-- Start Brand Filter -->
+                                            <div class="single-widget condition">
+                                                <h3>Filter by Brand</h3>
+                                                <ul class="list">
+                                                    @foreach ($brands as $brand)
+                                                        <li>
+                                                            {{-- <input type="radio" class="brands" name="brand" value="{{ $brand->id }}"> --}}
+                                                            <input type="checkbox" id="brand{{ $brand->id }}"
+                                                                value="{{ $brand->id }}" name="brand[]"
+                                                                class="brand">
+                                                            <label for="brand{{ $brand->id }}">
+                                                                {{ $brand->name }}
+                                                            </label>
+                                                        </li>
+                                                    @endforeach
+                                                </ul>
+                                            </div>
+                                            <!-- End Brand Filter -->
+
+
+
+                                            <!-- Start Price Filter -->
+                                            <div class="single-widget range">
+                                                <h3>Price Range</h3>
+                                                <div class="middle">
+                                                    <div id="multi_range">
+                                                        <span id="left_value">0</span><span> ~ </span><span
+                                                            id="right_value">10000</span>
+                                                    </div>
+                                                    <div class="multi-range-slider my-2">
+                                                        <input type="range" id="input_left" class="range_slider"
+                                                            min="0" max="5000" value="0"
+                                                            onmousemove="left_slider(this.value)">
+                                                        <input type="range" id="input_right" class="range_slider"
+                                                            min="5000" max="10000" value="10000"
+                                                            onmousemove="right_slider(this.value)">
+                                                        <div class="slider">
+                                                            <div class="track"></div>
+                                                            <div class="range"></div>
+                                                            <div class="thumb left"></div>
+                                                            <div class="thumb right"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- End Price Filter -->
+
+
+
+                                        </div>
+
+                                    </ul>
+                                </div>
+                            </section>
+
+                        </nav>
+                    </div>
                 </div>
             </div>
         </div>
@@ -40,12 +202,13 @@
 
             <div class="row">
 
-                <div class="col-lg-3 col-12">
+                <div class="col-lg-3 d-s-none d-xs-none products-filter">
 
                     <div class="product-sidebar">
 
                         <!-- Start Product reset -->
-                        <div class="single-widget" style="display: flex; justify-content: center; align-items: center;">
+                        <div class="single-widget"
+                            style="display: flex; justify-content: center; align-items: center;">
                             <div class="button "> <a href="" class="btn"> Reset Filters </a> </div>
                         </div>
                         <!-- End Product reset -->

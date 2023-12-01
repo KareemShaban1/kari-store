@@ -22,7 +22,7 @@ return new class extends Migration
             $table->enum('status',['pending','processing','delivering','completed','cancelled','refunded'])->default('pending');
             $table->enum('payment_status',['pending','paid','failed'])->default('pending');
             $table->float('shipping')->default(0);
-            $table->float('tax')->default(0);
+            $table->float('percent')->default(0);
             $table->foreignId('coupon_id')->nullable()->constrained('coupons')->nullOnDelete();
             $table->float('total')->default(0);
             $table->string('cart_id');

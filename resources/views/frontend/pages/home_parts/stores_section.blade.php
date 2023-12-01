@@ -1,6 +1,6 @@
  <!-- Start stores Area -->
  <div class="stores" style="direction: ltr; padding:30px; margin:30px 0px;">
-     <div>
+     <div class="container">
          <div class="row">
              <div class="col-lg-12 offset-lg-12 col-md-12 col-12">
                  <div class="section-title">

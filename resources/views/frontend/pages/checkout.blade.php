@@ -4,7 +4,7 @@
 
     <x-slot name="breadcrumbs">
 
- 
+
         <!-- Start Breadcrumbs -->
         <div class="breadcrumbs">
             <div class="container">
@@ -42,8 +42,8 @@
                 <div class="col-lg-8">
 
                     <form action="{{ Route('checkout.store') }}" method="post">
-                        
                         @csrf
+                        <input type="hidden" name="shipping_fees" value="{{ $shipping_fees }}">
                         <div class="checkout-steps-form-style-1">
                             <ul id="accordionExample">
                                 <li>
@@ -59,6 +59,8 @@
                                             <div class="col-md-12">
                                                 <div class="single-form form-default">
                                                     {{-- <label>User Name</label> --}}
+
+
                                                     <div class="row">
                                                         <div class="col-md-6 form-input form">
                                                             <label
@@ -109,7 +111,7 @@
                                                         {{-- <x-frontend.form.input name="address[billing][governorate]"
                                                             value="{{ Auth::check() ? Auth::user()->governorate->name : old('address.billing.governorate') }}" /> --}}
                                                         <select name="address[billing][governorate_id]" id=""
-                                                            class="custom-select mr-sm-2">
+                                                            class="form-control custom-select mr-sm-2">
                                                             <option disabled selected>
                                                                 {{ trans('auth_trans.Choose_Governorate') }}
                                                             </option>
@@ -206,13 +208,7 @@
 
 
 
-                                            <div class="col-md-12">
-                                                <div class="single-checkbox checkbox-style-3">
-                                                    <input type="checkbox" id="checkbox-3">
-                                                    <label for="checkbox-3"><span></span></label>
-                                                    <p>My delivery and mailing addresses are the same.</p>
-                                                </div>
-                                            </div>
+
 
 
                                             {{-- <div class="col-md-12">
@@ -229,6 +225,13 @@
                                         </div>
                                     </section>
 
+                                    <div class="col-md-12 bg-white p-2 mt-2">
+                                        <div class="single-checkbox checkbox-style-3">
+                                            <input type="checkbox" id="checkbox-3">
+                                            <label for="checkbox-3"><span></span></label>
+                                            <p>My delivery and mailing addresses are the same.</p>
+                                        </div>
+                                    </div>
                                 </li>
                                 <li>
                                     <h6 class="title collapsed" data-bs-toggle="collapse"
@@ -276,7 +279,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-
                                             <div class="col-md-6">
                                                 <div class="single-form form-default">
                                                     <div class="form-input form">
@@ -302,7 +304,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-
                                             <div class="col-md-6">
                                                 <div class="single-form form-default">
                                                     <div class="form-input form">
@@ -310,7 +311,7 @@
                                                             for="">{{ trans('checkout_trans.City') }}</label>
                                                         {{-- <x-frontend.form.input name="address[shipping][city]" /> --}}
                                                         <select name="address[shipping][city_id]" id=""
-                                                            class="custom-select mr-sm-2">
+                                                            class="custom-select mr-sm-2 ">
                                                             <option disabled selected>
                                                                 {{ trans('auth_trans.Choose_City') }}
                                                             </option>
@@ -377,17 +378,6 @@
                                             </div>
 
 
-
-
-                                            {{-- <div class="col-md-12">
-                                                <div class="steps-form-btn button">
-                                                    <button class="btn" data-bs-toggle="collapse"
-                                                        data-bs-target="#billingAddress" aria-expanded="false"
-                                                        aria-controls="billingAddress">previous</button>
-                                                    <a href="javascript:void(0)" class="btn btn-alt">Save &
-                                                        Continue</a>
-                                                </div>
-                                            </div> --}}
 
                                         </div>
                                     </section>
@@ -494,33 +484,6 @@
                                     <p class="price">{{ Currency::format($cart->total()) }}</p>
                                 </div>
 
-                                @php
-                                    $user = Auth::user();
-                                    $neighborhood_shipping = $user->neighborhood->price;
-                                    $shipping_fees = 0;
-                                    $storeIds = [];
-
-                                    foreach ($cart->get() as $cart_item) {
-                                        $store_id = $cart_item->product->store_id;
-
-                                        if (!in_array($store_id, $storeIds)) {
-                                            // If the store ID is not in the array, it's a unique store
-                                            $storeIds[] = $store_id;
-
-                                            if (count($storeIds) === 1) {
-                                                $shipping_fees += $neighborhood_shipping;
-                                            } else {
-                                                $shipping_fees += 0.5 * $neighborhood_shipping;
-                                            }
-                                        }
-                                    }
-
-                                    // Now, $shipping_fees contains the total shipping fees based on the unique stores in the cart.
-
-                                    $numberOfUniqueStores = count($storeIds);
-
-                                @endphp
-
                                 <div class="total-price shipping">
                                     <p class="value">Shipping:</p>
                                     <p class="price"> {{ Currency::format($shipping_fees) }}</p>
@@ -572,12 +535,12 @@
             $(document).ready(function() {
                 // Get the checkbox and form fields
                 var checkbox = $('#checkbox-3');
-                var billingFields = $('section#billingAddress input');
-                var shippingFields = $('section#shippingAddress input');
+                var billingFields = $('section#billingAddress :input');
+                var shippingFields = $('section#shippingAddress :input');
 
                 // Add event listener to the checkbox
                 checkbox.on('change', function() {
-                    console.log(shippingFields);
+                    console.log(billingFields, shippingFields);
                     // Check if the checkbox is checked
                     if (checkbox.prop('checked')) {
                         // Copy values from billing fields to shipping fields

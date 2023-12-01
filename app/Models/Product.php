@@ -140,8 +140,8 @@ class Product extends Model
         if (Str::startsWith($this->image, ['http://', 'https://'])) {
             return $this->image;
         }
-        return asset('storage/' . $this->image);
-        // storage/thumbnail/products/{image_name}
+        return asset('storage/products/' . $this->image);
+        // public/storage/products/{image_name} => storage/app/uploads/thumbnail/products/{image_name}
 
     } // $product->image_url
 
