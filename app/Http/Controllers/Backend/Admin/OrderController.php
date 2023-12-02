@@ -63,9 +63,12 @@ class OrderController extends Controller
         
         foreach($orders as $order){
             
+            
             $data['order_id'] = $order->id;
             $data['cart_id'] = $request->cart_id;
             $data['delivery_id'] = $request->delivery_id;
+            $data['order_location']= $order->shippingAddress->street_address;
+            $data['order_status'] = $order->status;
             OrderDelivery::create($data);
 
             event(new OrderToDelivery($order));

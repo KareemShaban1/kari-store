@@ -14,7 +14,7 @@
         "laravel/tinker": "^2.7",
         "livewire/livewire": "^2.12",
         "mcamara/laravel-localization": "^1.8",
-        "opcodesio/log-viewer": "^2.5",
+        "opcodesio/log-viewer": "^3.1",
         "pusher/pusher-php-server": "^7.2",
         "realrashid/sweet-alert": "^7.1",
         "samir-hussein/paymob": "^2.0",

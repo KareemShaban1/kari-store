@@ -64,6 +64,8 @@
         request()->routeIs('admin.banners.index') ||
         request()->routeIs('admin.paymentGateways.index') ||
         request()->routeIs('delivery.orders.index') ||
+        request()->routeIs('delivery.orders.reports') ||
+        request()->routeIs('delivery.deliveredOrders.reports') ||
         request()->routeIs('vendor.products.index') ||
         request()->routeIs('vendor.orders.index') ||
         request()->routeIs('vendor.attributes.index') ||

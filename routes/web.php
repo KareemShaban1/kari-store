@@ -49,6 +49,9 @@ Route::get('/resendOTP', [CustomVerificationController::class, 'resendOTP'])
     ->name('resendOTP');
 
 
-require __DIR__.'/backend.php';
+// require __DIR__.'/backend.php';
 // require __DIR__.'/fortify.php';
+require __DIR__.'/admin.php';
+require __DIR__.'/delivery.php';
+require __DIR__.'/vendor.php';
 require __DIR__.'/frontend.php';

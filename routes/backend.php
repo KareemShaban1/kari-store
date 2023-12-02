@@ -214,7 +214,7 @@ Route::group([
 
 
 
-// vendor dashboard
+// delivery dashboard
 Route::group([
   // url prefix
   'prefix' => LaravelLocalization::setLocale() . '/delivery',

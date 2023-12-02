@@ -1,5 +1,5 @@
 <!-- Modal -->
-<div class="modal fade" id="{{ $modalId }}" tabindex="-1" role="dialog" aria-labelledby="showOrderModalLabel"
+<div class="modal2 fade" id="{{ $modalId }}" tabindex="-1" role="dialog" aria-labelledby="showOrderModalLabel"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -12,46 +12,37 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-12">
                         <div class="row">
-                            <div class="col-md-6">
-                                <span class="text-info"> {{ trans('orders_trans.Order_Number') }}</span>
+                            <div class="col-6">
+                                <span> {{ trans('orders_trans.Order_Number') }}</span>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-6">
                                 <span> {{ $order->number }} </span>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-12">
                         <div class="row">
-                            <div class="col-md-6">
-                                <span class="text-info"> {{ trans('orders_trans.Client_Name') }}</span>
+                            <div class="col-6">
+                                <span> {{ trans('orders_trans.Client_Name') }}</span>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-6">
                                 <span> {{ $order->user->first_name }} </span>
                             </div>
                         </div>
                     </div>
 
-                </div>
-                <div class="col-md-12">
-
-                    <div class="row">
-                        <div class="col-md-3">
-                            <span class="text-info"> {{ trans('orders_trans.Products') }}</span>
-                        </div>
-                        <div class="col-md-9">
-                            @foreach ($order->products as $product)
-                                <div>
-                                    {{ $product->name }} / { {{ $product->quantity }} }
-                                </div>
-                            @endforeach
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="col-6">
+                                <span> {{ trans('orders_trans.Delivery_Address') }}</span>
+                            </div>
+                            <div class="col-6">
+                                <span> {{ $order->orderDelivery->order_location }} </span>
+                            </div>
                         </div>
                     </div>
-
-
-
-
                 </div>
             </div>
             <div class="modal-footer">

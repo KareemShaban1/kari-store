@@ -113,6 +113,7 @@ class CheckoutController extends Controller
                 $order->user_id = Auth::user('user')->id;
                 $order->payment_method = 'cash_on_delivery';
                 $order->total = $total;
+                $order->percent = ($store->percent * $total) / 100 ;
                 $order->shipping = $request->shipping_fees;
                 $order->coupon_id = $coupon ? $coupon->id : null;
 
@@ -125,8 +126,8 @@ class CheckoutController extends Controller
                     if($item->product->store->id == $store_id){
                         
                         $order->cart_id = $item->cookie_id;
-                        $product = Product::findOrFail($item->product_id);
-                        $order->percent = ($store->percent * $product->price) / 100 ;
+                        // $product = Product::findOrFail($item->product_id);
+                        // $order->percent = ($store->percent * $product->price) / 100 ;
 
                         $order->save();
 

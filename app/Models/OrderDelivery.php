@@ -16,4 +16,8 @@ class OrderDelivery extends Model
         'current_location',
         'order_location','order_delivery_time'
     ];
+
+    public function order(){
+        return $this->belongsTo(Order::class);
+    }
 }

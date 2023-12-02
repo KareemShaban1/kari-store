@@ -41,6 +41,11 @@ class Order extends Model
     }
 
 
+    public function orderDelivery()
+    {
+        return $this->hasOne(OrderDelivery::class, 'order_id');
+    }
+
     public function products()
     {
 

@@ -425,6 +425,38 @@
                 <li>english</li> --}}
             </ul>
 
+            @auth('web')
+                <div class="user">
+                    <i class="lni lni-user"></i>
+                    <a href="{{ Route('profile.edit') }}">
+                        {{ Auth::user('user')->first_name }}
+                    </a>
+                </div>
+                <div class="user">
+                    <ul class="user-login">
+                        <li>
+                            <a href="{{ route('logout') }}"
+                                onclick="event.preventDefault();document.getElementById('logout').submit()">
+                                Sign Out
+                            </a>
+                        </li>
+                    </ul>
+
+                    <form method="POST" action="{{ route('logout') }}" id="logout" style="display:none">
+                        @csrf
+                    </form>
+                </div>
+            @else
+                <ul class="user-login">
+                    <li>
+                        <a href="{{ Route('login') }}">{{ trans('front_home_trans.Sign_In') }}</a>
+                    </li>
+                    <li>
+                        <a href="{{ Route('register') }}">{{ trans('front_home_trans.Register') }}</a>
+                    </li>
+                </ul>
+            @endauth
+
         </section>
     </nav>
 
