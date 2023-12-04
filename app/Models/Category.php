@@ -26,6 +26,11 @@ class Category extends Model
         return $query->where('status', '=', 'active');
     }
 
+    public function scopeFeatured($query)
+    {
+        return $query->where('featured', '=', 1);
+    }
+
     public function products()
     {
 

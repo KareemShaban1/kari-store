@@ -6,14 +6,14 @@
 @push('style')
     <style>
         /* Default styles for the table */
-        .cutom_table_1 {
+        .custom_table_1 {
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 20px;
         }
 
-        .cutom_table_1 th,
-        .cutom_table_1 td {
+        .custom_table_1 th,
+        .custom_table_1 td {
             border: 1px solid #ddd;
             padding: 8px;
             text-align: center;
@@ -37,7 +37,7 @@
 
         /* Responsive styles - hide columns on small screens */
         @media screen and (max-width: 600px) {
-            .cutom_table_1 {
+            .custom_table_1 {
                 display: none
             }
 
@@ -85,7 +85,7 @@
             <div class="card card-statistics h-100">
                 <div class="card-body">
 
-                    <table id="custom_table_1" class="cutom_table_1">
+                    <table id="custom_table_1" class="custom_table_1">
                         <thead>
                             <tr>
                                 <th>{{ trans('orders_trans.Cart_Number') }}</th>
@@ -100,79 +100,7 @@
                                 <th>{{ trans('orders_trans.Control') }}</th>
                             </tr>
                         </thead>
-                        {{-- <tbody>
-                            @foreach ($orders as $order)
-                                <tr>
 
-                                    <td>{{ $order->id }}</td>
-
-                                    <td>{{ $order->number }}</td>
-
-                                    <td>
-                                        {{ $order->user->first_name }}
-                                    </td>
-
-                                    <td>{{ $order->store->name }}</td>
-
-                                    <td>
-                                        @foreach ($order->products as $product)
-                                            {{ $product->category->name }}
-                                        @endforeach
-                                    </td>
-
-
-                                    <td>
-                                        @if ($order->status == 'pending')
-                                            <span class="badge badge-rounded badge-success p-2 mb-2">
-                                                {{ trans('orders_trans.Pending') }}
-                                            </span>
-                                        @elseif($order->status == 'processing')
-                                            <span class="badge badge-rounded badge-danger p-2 mb-2">
-                                                {{ trans('orders_trans.Processing') }}
-                                            </span>
-                                        @elseif($order->status == 'delivering')
-                                            <span class="badge badge-rounded badge-danger p-2 mb-2">
-                                                {{ trans('orders_trans.Delivering') }}
-                                            </span>
-                                        @elseif($order->status == 'completed')
-                                            <span class="badge badge-rounded badge-danger p-2 mb-2">
-                                                {{ trans('orders_trans.Completed') }}
-                                            </span>
-                                        @elseif($order->status == 'cancelled')
-                                            <span class="badge badge-rounded badge-danger p-2 mb-2">
-                                                {{ trans('orders_trans.Cancelled') }}
-                                            </span>
-                                        @elseif($order->status == 'refunded')
-                                            <span class="badge badge-rounded badge-danger p-2 mb-2">
-                                                {{ trans('orders_trans.Refunded') }}
-                                            </span>
-                                        @endif
-                                    </td>
-
-                                    <td>
-                                        @if (!$order->status == 'completed')
-                                            <a href="{{ Route('delivery.orders.changeStatus', [$order->id, $order->status]) }}"
-                                                class="btn btn-warning btn-sm">
-                                                Change to next process
-                                            </a>
-                                        @endif
-                                    </td>
-
-
-                                    <td>
-                                        <button data-toggle="modal" data-target="#showOrderModal"
-                                            class="btn btn-primary btn-sm">
-                                            <i class="fa fa-eye"></i>
-                                        </button>
-                                    </td>
-
-
-
-                                </tr>
-
-                                @include('backend.dashboards.delivery.orders.show_modal')
-                            @endforeach
-                        </tbody> --}}
 
                         <tbody>
                             @php
@@ -190,7 +118,7 @@
                                     <td>{{ $ordersGroup[0]->store->name }}</td>
                                     <td>
                                         @foreach ($ordersGroup[0]->products as $product)
-                                           / {{ $product->category->name }} 
+                                            / {{ $product->category->name }}
                                         @endforeach
                                     </td>
 

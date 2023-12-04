@@ -351,7 +351,11 @@
                         </div>
                     </li>
 
-                    <li class="menu-item menu-dropdown">
+                    <li class="menu-item"><a href=" {{ Route('cart.index') }}"
+                            class="menu-link">{{ trans('front_home_trans.Cart') }}</a></li>
+
+
+                    {{-- <li class="menu-item menu-dropdown">
                         <span class="menu-link">New Arrival<i class="bx bx-chevron-right"></i></span>
                         <div class="submenu megamenu megamenu-column-4">
                             <div class="submenu-inner">
@@ -395,9 +399,8 @@
                                 <li class="submenu-item"><a href="#" class="submenu-link">Help</a></li>
                             </ul>
                         </div>
-                    </li>
+                    </li> --}}
 
-                    <li class="menu-item"><a href="#" class="menu-link">Support</a></li>
                 </ul>
             </div>
         </section>

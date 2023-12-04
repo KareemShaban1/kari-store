@@ -3,6 +3,62 @@
 @section('title')
     {{ trans('orders_trans.Orders') }}
 @endsection
+@push('style')
+    <style>
+        /* Default styles for the table */
+        .custom_table_1 {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .custom_table_1 th,
+        .custom_table_1 td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+
+        .cutom_table_2 {
+            display: none;
+        }
+
+        .modal2 {
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            z-index: 1060;
+            display: none;
+            overflow: hidden;
+            outline: 0;
+        }
+
+        /* Responsive styles - hide columns on small screens */
+        @media screen and (max-width: 600px) {
+            .custom_table_1 {
+                display: none
+            }
+
+
+            .cutom_table_2 {
+                display: table;
+                width: 100%;
+                border-collapse: collapse;
+                margin-bottom: 20px;
+            }
+
+            .cutom_table_2 th,
+            .cutom_table_2 td {
+                border: 1px solid #ddd;
+                padding: 8px;
+                text-align: center;
+            }
+        }
+    </style>
+@endpush
+
 @section('page-header')
     <!-- breadcrumb -->
     <div class="page-title">
@@ -21,6 +77,7 @@
     </div>
     <!-- breadcrumb -->
 @endsection
+
 @section('content')
     <x-backend.alert type="info" />
 
@@ -30,7 +87,7 @@
             <div class="card card-statistics h-100">
                 <div class="card-body">
 
-                    <table id="custom_table" class="display">
+                    <table id="custom_table_1" class="custom_table_1">
                         <thead>
                             <tr>
                                 <th>{{ trans('orders_trans.Cart_Number') }}</th>
@@ -139,6 +196,7 @@
     </div>
     <!-- row closed -->
 @endsection
+
 @push('scripts')
     <script>
         $(document).ready(function() {

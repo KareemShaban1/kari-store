@@ -32,27 +32,38 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
-                <div class="col-md-12">
 
-                    <div class="row">
-                        <div class="col-md-3">
-                            <span class="text-info"> {{ trans('orders_trans.Products') }}</span>
-                        </div>
-                        <div class="col-md-9">
-                            @foreach ($order->products as $product)
-                                <div>
-                                    {{ $product->name }} / { {{ $product->quantity }} }
-                                </div>
-                            @endforeach
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <span class="text-info"> {{ trans('orders_trans.Delivery_Address') }}</span>
+                            </div>
+                            <div class="col-md-6">
+                                <span> {{ $order->orderDelivery->order_location }} </span>
+                            </div>
                         </div>
                     </div>
 
-
-
-
                 </div>
+
+                <div class="row pt-3">
+                    <div class="col-md-3">
+                        <span class="text-info"> {{ trans('orders_trans.Products') }}</span>
+                    </div>
+                    <div class="col-md-9">
+                        @foreach ($order->products as $product)
+                            <div>
+                                {{ $product->name }} { {{ $product->quantity }} }
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+
+
+
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

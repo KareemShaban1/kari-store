@@ -104,7 +104,9 @@
                                      <div class="price">
                                          <span>$70.00</span>
                                      </div>
+
                                  </div>
+
                              </div>
                              <!-- End Single Product -->
                          </div>

@@ -351,15 +351,24 @@
                         type: 'post',
                         data: formData,
                         success: function(response) {
-                            // Handle the response, e.g., show a success message
-                            // Update the cart UI with the new content
-                            $('#cartContainer').html(response.cartHtml);
-                            // Update the total items in the cart
-                            $('.total-items').text(response.totalItems);
+                            console.log(response);
+                            if (response.error) {
+
+                                toastr.error('تم أضافة المنتج للعربة بالفعل');
+
+                            } else {
+                                toastr.success('تم أضافة المنتج للعربة بنجاح');
+                                // Handle the response, e.g., show a success message
+                                // Update the cart UI with the new content
+                                $('#cartContainer').html(response.cartHtml);
+                                // Update the total items in the cart
+                                $('.total-items').text(response.totalItems);
+                            }
                         },
                         error: function(error) {
+
                             // Handle the error, e.g., show an error message
-                            console.error(error);
+                            console.log(error);
                         }
                     });
                 });

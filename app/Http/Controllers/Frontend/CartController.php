@@ -78,9 +78,17 @@ class CartController extends Controller
     public function quickStore(Request $request, CartRepository $cart)
     {
 
+        
         $product = Product::findOrFail($request->post('product_id'));
         if($request->variant_id != null){
             $cart->add($product, $request->post('quantity'),$request->variant_id);
+        }
+        $items = cart::get();
+        foreach($items as $item){
+            if($item->product_id == $product->id) {
+                return response()->json(['error' => 'Product already exists in the cart']);
+                // return redirect()->back()->with('toast_error','Admin Created Successfully');
+            }
         }
         $cart->add($product, $request->post('quantity'));
 

@@ -14,20 +14,20 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="row">
-                            <div class="col-6">
-                                <span> {{ trans('orders_trans.Order_Number') }}</span>
+                            <div class="col-4">
+                                <span class="text-info"> {{ trans('orders_trans.Order_Number') }}</span>
                             </div>
-                            <div class="col-6">
+                            <div class="col-8">
                                 <span> {{ $order->number }} </span>
                             </div>
                         </div>
                     </div>
                     <div class="col-12">
                         <div class="row">
-                            <div class="col-6">
-                                <span> {{ trans('orders_trans.Client_Name') }}</span>
+                            <div class="col-4">
+                                <span class="text-info"> {{ trans('orders_trans.Client_Name') }}</span>
                             </div>
-                            <div class="col-6">
+                            <div class="col-8">
                                 <span> {{ $order->user->first_name }} </span>
                             </div>
                         </div>
@@ -35,18 +35,37 @@
 
                     <div class="col-12">
                         <div class="row">
-                            <div class="col-6">
-                                <span> {{ trans('orders_trans.Delivery_Address') }}</span>
+
+                            <div class="col-4">
+                                <span class="text-info"> {{ trans('orders_trans.Delivery_Address') }}</span>
                             </div>
-                            <div class="col-6">
+                            <div class="col-8">
                                 <span> {{ $order->orderDelivery->order_location }} </span>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="col-12 pt-3">
+                        <div class="row">
+                            <div class="col-4">
+                                <span class="text-info"> {{ trans('orders_trans.Products') }}</span>
+                            </div>
+                            <div class="col-8">
+                                @foreach ($order->products as $product)
+                                    <div>
+                                        {{ $product->name }} { {{ $product->quantity }} }
+                                    </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary"
+                    data-dismiss="modal">{{ trans('orders_trans.Close') }}</button>
                 {{-- <button type="button" class="btn btn-primary">Save changes</button> --}}
             </div>
         </div>

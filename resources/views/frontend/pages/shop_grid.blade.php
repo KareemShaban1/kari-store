@@ -931,5 +931,6 @@
 
             });
         </script>
+        <script src="{{ asset('frontend/assets/js/shop_grid.js') }}"></script>
     @endpush
 </x-front-layout>

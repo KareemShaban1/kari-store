@@ -11,6 +11,10 @@
                 {{ trans('front_home_trans.Show_Product') }}
             </a>
 
+            {{-- <div>
+                <button id="addToCartButton" class="btn" type="button" style="width: 100%;">Add to Cart</button>
+            </div> --}}
+
         </div>
         @if ($product->quantity == 0)
             <span class="out-of-stock"> Out Of Stock</span>

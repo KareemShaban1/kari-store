@@ -18,23 +18,22 @@ class HomeController extends Controller
     public function index()
     {
 
-        $banner_collection = Banner::all();
-        $banners['banners'] = $banner_collection->flatMap(function ($collection) {
-            return [$collection->banner_name => $collection->image_url];
+        // $banner_collection = Banner::all();
+        // $banners['banners'] = $banner_collection->pluck('image_url', 'banner_name');
 
-        });
+        // $banners['banners'] = $banner_collection->flatMap(function ($collection) {
+        //     return [$collection->banner_name => $collection->image_url];
+        // }); 
 
         $websiteParts_collection = WebsiteParts::all();
         $websiteParts['parts'] = $websiteParts_collection->flatMap(function ($collection) {
             return [$collection->key => $collection->value];
-
+ 
         });
 
-        $featured_categories =
-        Category::active()
-        ->where('featured', '=', 1)->get();
-
-
+        // $featured_categories =
+        // Category::active()
+        // ->featured()->get();
 
         // get latest 8 products which status is active
         // $products = Product::with('category', 'store', 'reviews')->active()->latest()->take(8)->get();
@@ -55,7 +54,7 @@ class HomeController extends Controller
         }
 
         $brands = Brand::all();
-        $categories = Category::get();
+        $categories = Category::active()->select('id','name','image')->get();
 
         $all_products = Product::active()->get();
         $stores = Store::active()->featured()->get();
@@ -64,14 +63,13 @@ class HomeController extends Controller
             'frontend.pages.home',
             compact(
                 'products',
-                'banners',
+                // 'banners',
                 'websiteParts',
-                'featured_categories',
+                // 'featured_categories',
                 'brands',
                 'categories',
                 'all_products',
                 'stores'
-                // ,'best_seller_products'
             )
         );
     }

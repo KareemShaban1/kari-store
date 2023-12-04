@@ -6732,7 +6732,10 @@ Categories Css
 
 @media (max-width: 767px) {
   .shopping-cart .count-input {
-    padding: 10px 65px;
+    padding: 10px 5px;
+  }
+  .shopping-cart .quantity {
+    padding: 5px 20px;
   }
 }
 
@@ -8714,19 +8717,26 @@ color: #051441;
 /* custom css */
 
 .btn-plus {
-  width: 30px;
+  width: 32px;
+  height: 32px;
+  border: #26be53;
   color: white;
   background-color: #26be53;
-  margin-left: 10px;
+  margin: 5px;
   font-size: 20px;
+  border-radius: 30px;
 }
 
 .btn-minus {
-  width: 30px;
+  width: 32px;
+  height: 32px;
+  border: #cd3c3c;
   color: white;
   background-color: #cd3c3c;
-  margin-right: 10px;
+  margin: 5px;
   font-size: 20px;
+  border-radius: 30px;
+
 }
 
 .custom-select.is-invalid,
@@ -8930,18 +8940,4 @@ color: #051441;
   padding-top: 15px;
 }
 
-.btn-plus{
-  width: 30px; 
-  color: white;
-  background-color: #26be53;
-  margin-right: 10px;
-  font-size: 20px;
- }
- 
- .btn-minus{
-   width: 30px; 
-   color: white;
-   background-color: #cd3c3c;
-   margin-left: 10px;
-   font-size: 20px;
- }
+

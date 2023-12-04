@@ -11,6 +11,9 @@
 
     @include('frontend.layouts.head')
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
+
 
 
 </head>
@@ -73,19 +76,20 @@
 
 
     <script>
-
-       
-
-
-
-
-
-
         const csrf_token = "{{ csrf_token() }}";
     </script>
 
     <script src="{{ asset('frontend/assets/js/cart.js') }}"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    <script>
+        @if (session('toast_error'))
+            toastr.error("{{ session('toast_error') }}", "", {
+                "timeOut": 1000
+            }); // Set timeOut to 1000 milliseconds (1 second)
+        @endif
+    </script>
 
     @stack('scripts')
 

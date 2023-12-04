@@ -1,4 +1,41 @@
 <x-front-layout>
+    @push('styles')
+        <style>
+            .empty-cart-container {
+                text-align: center;
+                padding: 20px;
+                background-color: #fff;
+                border-radius: 8px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            }
+
+            .empty-cart-icon {
+                font-size: 48px;
+                color: #d3d3d3;
+                margin-bottom: 20px;
+            }
+
+            .empty-cart-message {
+                font-size: 18px;
+                color: #333;
+                margin-bottom: 20px;
+            }
+
+            .go-shopping-button {
+                background-color: #4caf50;
+                color: #fff;
+                padding: 10px 20px;
+                font-size: 16px;
+                text-decoration: none;
+                border-radius: 4px;
+                transition: background-color 0.3s;
+            }
+
+            .go-shopping-button:hover {
+                background-color: #45a049;
+            }
+        </style>
+    @endpush
 
     <x-slot name="breadcrumbs">
 
@@ -38,48 +75,48 @@
                 <!-- Cart List Title -->
                 <div class="cart-list-title">
                     <div class="row">
-                        <div class="col-lg-1 col-md-1 col-12">
-
+                        <div class="col-lg-2 col-md-1 d-none d-sm-block p-0">
+                            Product Image
                         </div>
-                        <div class="col-lg-4 col-md-3 col-12">
+                        <div class="col-lg-3 col-md-3 col-2 p-0">
                             <p>Product Name</p>
                         </div>
-                        <div class="col-lg-2 col-md-2 col-12">
+                        <div class="col-lg-2 col-md-2 col-2 p-0">
                             <p>Quantity</p>
                         </div>
-                        <div class="col-lg-2 col-md-2 col-12">
+                        <div class="col-lg-2 col-md-2 col-3 p-0">
                             <p>Price</p>
                         </div>
-                        <div class="col-lg-2 col-md-2 col-12">
+                        <div class="col-lg-2 col-md-2 col-3 p-0">
                             <p>Discount</p>
                         </div>
-                        <div class="col-lg-1 col-md-2 col-12">
+                        <div class="col-lg-1 col-md-2 col-2 p-0">
                             <p>Remove</p>
                         </div>
                     </div>
                 </div>
                 <!-- End Cart List Title -->
 
-                @foreach ($cart->get() as $cart_item)
+                @forelse($cart->get() as $cart_item)
                     <!-- Cart Item (product) -->
                     <div class="cart-single-list" id="{{ $cart_item->id }}">
                         <div class="row align-items-center">
 
-                            <div class="col-lg-1 col-md-1 col-12">
+                            <div class="col-lg-1 col-md-1 d-none d-sm-block">
                                 <a href="{{ Route('products.show_product', $cart_item->product->slug) }}">
-                                    <img src="{{ $cart_item->product->image_url }}" alt="#"></a>
+                                    <img src="{{ $cart_item->product->image_url }}" alt="#">
+                                </a>
                             </div>
 
-                            <div class="col-lg-4 col-md-3 col-12">
+                            <div class="col-lg-4 col-md-3 col-2">
                                 <h5 class="product-name"><a
                                         href="{{ Route('products.show_product', $cart_item->product->slug) }}">
                                         {{ $cart_item->product->name }}</a></h5>
-                                <p class="product-des">
+                                {{-- <p class="product-des">
                                     <span><em>Category:</em> {{ $cart_item->product->category->name }}</span>
-                                    {{-- <span><em>Color:</em> Black</span> --}}
-                                </p>
+                                </p> --}}
                             </div>
-                            <div class="col-lg-2 col-md-2 col-12">
+                            <div class="col-lg-2 col-md-2 col-2">
 
 
                                 <div class="count-input">
@@ -92,23 +129,29 @@
 
                             </div>
 
-                            <div class="col-lg-2 col-md-2 col-12" id="sub_total_{{ $cart_item->product->id }}">
+                            <div class="col-lg-2 col-md-2 col-3" id="sub_total_{{ $cart_item->product->id }}">
                                 <p id="sub_total_amount_{{ $cart_item->product->id }}">
                                     {{ Currency::format($cart_item->quantity * $cart_item->product->price) }}</p>
                             </div>
 
-                            <div class="col-lg-2 col-md-2 col-12">
+                            <div class="col-lg-2 col-md-2 col-3">
                                 <p>{{ Currency::format(0) }}</p>
                             </div>
 
-                            <div class="col-lg-1 col-md-2 col-12">
+                            <div class="col-lg-1 col-md-2 col-2">
                                 <a class="remove-item" data-id="{{ $cart_item->id }}" href="javascript:void(0)"><i
                                         class="lni lni-close"></i></a>
                             </div>
                         </div>
                     </div>
                     <!-- End Single List list -->
-                @endforeach
+                @empty
+                    <div class="empty-cart-container">
+                        <div class="empty-cart-icon">🛒</div>
+                        <div class="empty-cart-message">Your cart is empty!</div>
+                        <a href="" class="go-shopping-button">Go Shopping</a>
+                    </div>
+                @endforelse
 
             </div>
 
@@ -239,18 +282,20 @@
     <!--/ End Shopping Cart -->
 
     @push('scripts')
-        <script src="{{ asset('backend/assets/js/jquery-3.6.0.min.js') }}"></script>
+        {{-- <script src="{{ asset('backend/assets/js/jquery-3.6.0.min.js') }}"></script> --}}
 
         <script>
-            // const csrf_token = "{{ csrf_token() }}";
-
+            // calculate sub total based on products in the cart
             function calculateSubtotalSum() {
                 var subtotalSum = 0;
                 $('.cart-single-list').each(function() {
-                    var subtotalText = $(this).find('.col-lg-2.col-md-2.col-12 p').text();
+                    var subtotalText = $(this).find('.col-lg-2.col-md-2.col-3 p').text();
                     var subtotalValue = parseFloat(subtotalText.replace(/[^0-9.-]+/g, ''));
                     subtotalSum += subtotalValue;
+                    console.log(subtotalText, subtotalValue, subtotalSum);
+
                 });
+
 
                 // Cart Subtotal part
                 $.ajax({
@@ -269,6 +314,7 @@
 
             }
 
+            // calculate all total based on shipping + products in the cart
             function calculateAlltotalSum() {
                 var AlltotalSum = 0;
                 // Get the shipping value from the <span> element
@@ -276,7 +322,7 @@
                 var shipping = parseFloat(shippingText.replace(/[^0-9.-]+/g, ''));
 
                 $('.cart-single-list').each(function() {
-                    var alltotalText = $(this).find('.col-lg-2.col-md-2.col-12 p').text();
+                    var alltotalText = $(this).find('.col-lg-2.col-md-2.col-3 p').text();
                     var alltotalValue = parseFloat(alltotalText.replace(/[^0-9.-]+/g, ''));
                     AlltotalSum += alltotalValue;
                     AfterShipping = AlltotalSum + shipping;
@@ -304,6 +350,7 @@
 
                 calculateAlltotalSum();
 
+                // minus button functionality 
                 $('.minus').on('click', function() {
                     var quantityElement = $(this).siblings('.quantity');
                     var currentQuantity = parseInt(quantityElement.text());
@@ -319,6 +366,7 @@
                     calculateAlltotalSum();
                 });
 
+                // plus button functionality
                 $('.plus').on('click', function() {
                     var quantityElement = $(this).siblings('.quantity');
                     var currentQuantity = parseInt(quantityElement.text());
@@ -352,41 +400,6 @@
                     });
                 }
             });
-
-
-            // $(document).ready(function() {
-            //     $('.item_quantity').on('keyup', function() {
-            //         var quantity = $(this).val();
-            //         var cart_id = $(this).data("id");
-            //         var product_id = $(this).data("product-id");
-            //         calculateSubtotalSum();
-            //         console.log(product_id);
-            //         $.ajax({
-            //             url: "{{ route('get_sub_total') }}",
-            //             type: "GET",
-            //             data: {
-            //                 quantity: quantity,
-            //                 product_id: product_id,
-            //                 cart_id:cart_id
-            //             },
-            //             success: function(res) {
-            //                 $('#sub_total_' + product_id).html(res);
-            //             },
-            //         });
-            //     }, );
-            // });
-
-            // calculateSubtotalSum();
-
-            // $(document).ready(function() {
-            //     calculateSubtotalSum();
-            //     // $('.item_quantity').on('keyup', function() {
-
-            //     //     calculateSubtotalSum();
-            //     // }, );
-            // });
         </script>
-
-        {{-- <script src="{{ asset('frontend/assets/js/cart.js') }}"></script> --}}
     @endpush
 </x-front-layout>

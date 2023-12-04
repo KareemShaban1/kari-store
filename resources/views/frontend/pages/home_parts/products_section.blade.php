@@ -21,6 +21,10 @@
                        @foreach ($all_products as $product)
                            <div class="col-lg-3 col-md-6 col-12" style="height: 100%;">
                                <x-frontend.product-card :product="$product" />
+                               <div>
+                                   <button id="addToCartButton" class="btn" type="button" style="width: 100%;">Add
+                                       to Cart</button>
+                               </div>
                            </div>
                            {{-- <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                data-bs-target="#exampleModal">

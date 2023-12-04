@@ -51,6 +51,8 @@
     @include('frontend.pages.home_parts.products_section')
 
 
+
+
     @include('frontend.pages.home_parts.banner_section')
 
 
@@ -224,7 +226,7 @@
                 }
             });
 
-            //======== Brand Slider
+            //======== Categories Slider
             tns({
                 container: '.categories-logo-carousel',
                 autoplay: true,
@@ -249,6 +251,9 @@
                 }
             });
         </script>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+
 
         <script>
             const finaleDate = new Date("December 15, 2023 00:00:00").getTime();
@@ -280,10 +285,8 @@
             }
             timer();
             setInterval(timer, 1000);
+
         </script>
-
-
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     @endpush
 
 

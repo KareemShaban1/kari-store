@@ -22,6 +22,8 @@
             //           $(`#${id}`).remove();
             //  }
             success: function (response) {
+                toastr.error("تم حذف المنتج من العربة بنجاح");
+
                 $(`#${id}`).remove(); // Use $id instead of id
 
                 // Update the cart UI with the new content
