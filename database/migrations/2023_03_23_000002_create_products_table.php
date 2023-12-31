@@ -20,7 +20,7 @@ return new class () extends Migration {
             $table->foreignId('category_id')->constrained('categories')->restrictOnDelete();
             $table->string('name');
             $table->foreignId('brand_id')->nullable()->constrained('brands', 'id')->nullOnDelete();
-            $table->string('slug')->unique();
+            $table->string('slug');
             $table->longText('description')->nullable();
             $table->string('image')->nullable();
             $table->string('gallery')->nullable();

@@ -18,7 +18,8 @@ class ProductsController extends Controller
     }
 
     // show product details
-    public function show(Product $product){
+    public function show($id , $slug){
+        $product = Product::where('id',$id)->where('slug',$slug)->first(); 
 
         $product_variants = ProductVariant::where('product_id',$product->id)->get();
         

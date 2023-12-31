@@ -26,7 +26,7 @@ Route::group([
         ['middleware' => ['auth:web','email_verified']],
         function () {
             Route::resource('cart', CartController::class);
-            Route::post('quickStore',[CartController::class,'quickStore'])->name('cart.quickStore');
+            Route::post('quickStore', [CartController::class,'quickStore'])->name('cart.quickStore');
             Route::post('/apply-coupon', [CartController::class, 'applyCoupon'])->name('cart.applyCoupon');
             Route::resource('reviews', ReviewsController::class);
             Route::get('/checkout', [CheckoutController::class, 'create'])->name('checkout.create');
@@ -45,9 +45,9 @@ Route::group([
 
     Route::get('/all_products', [ProductsController::class, 'index'])->name('products.show_all');
     Route::get('/product_autocomplete', [ProductsController::class, 'productAutocomplete'])->name('products.autocomplete');
-    
-    Route::get('/products/{product:slug}', [ProductsController::class, 'show'])->name('products.show_product');
-    
+
+    Route::get('/products/{id}/{slug}', [ProductsController::class, 'show'])->name('products.show_product');
+
     Route::get('/product_variant/{product:slug}', [ProductsController::class, 'show_variant'])->name('products.show_product_variant');
 
 
@@ -57,19 +57,19 @@ Route::group([
 
     Route::get('get_all_total', [CartController::class, 'get_all_total'])->name('get_all_total');
 
-    
+
     Route::get('/shop_grid/{categoryId?}', [ShopGridController::class, 'index'])->name('shop_grid.index');
     Route::get('/shop_grid_store/{storeId?}', [ShopGridController::class, 'indexStore'])->name('shop_grid.indexStore');
     Route::get('/all_filters', [ShopGridController::class, 'all_filters'])->name('all_filters');
     Route::get('/reset_filters', [ShopGridController::class, 'reset_filters'])->name('reset_filters');
 
-    
+
     Route::get('/offers/{categoryId?}', [OffersController::class, 'index'])->name('offers.index');
     Route::get('/offers_filters', [OffersController::class, 'offers_filters'])->name('offers_filters');
     Route::get('/offers_store/{storeId?}', [OffersController::class, 'store'])->name('offers.store');
 
-    
-    
+
+
     Route::get('auth/user/2fa', [TwoFactorAuthenticationController::class, 'index'])->name('front.2fa');
 
     Route::get('/send-otp', function () {

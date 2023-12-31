@@ -7,7 +7,7 @@
             <span class="sale-tag"> - {{ Currency::convertNumberToArabic($product->sale_percent) }} %</span>
         @endif
         <div class="button">
-            <a href="{{ Route('products.show_product', $product->slug) }}" class="btn">
+            <a href="{{ Route('products.show_product', [$product->id, $product->slug]) }}" class="btn">
                 {{ trans('front_home_trans.Show_Product') }}
             </a>
 
@@ -23,7 +23,7 @@
     <div class="product-info">
 
         <h4 class="title">
-            <a href="{{ Route('products.show_product', $product->slug) }}">
+            <a href="{{ Route('products.show_product', [$product->id, $product->slug]) }}">
                 {{ $product->name }}
             </a>
 

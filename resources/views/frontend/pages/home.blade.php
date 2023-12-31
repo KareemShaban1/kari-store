@@ -45,19 +45,15 @@
     @include('frontend.pages.home_parts.stores_section')
 
 
-
     {{-- @include('frontend.pages.home_parts.featured_categories') --}}
 
     @include('frontend.pages.home_parts.products_section')
 
 
-
-
     @include('frontend.pages.home_parts.banner_section')
 
 
-    @include('frontend.pages.home_parts.special_offers')
-
+    {{-- @include('frontend.pages.home_parts.special_offers') --}}
 
 
     @include('frontend.pages.home_parts.filtered_products')
@@ -122,7 +118,10 @@
                     select: function(event, ui) {
                         $("#search").val(ui.item.label); // Set the product name in the input field
                         // Navigate to the product details page
-                        window.location.href = "{{ route('products.show_product', '') }}/" + ui.item.slug;
+                        window.location.href =
+                            "{{ route('products.show_product', ['id' => ':id', 'slug' => ':slug']) }}"
+                            .replace(':id', ui.item.id).replace(':slug', ui.item.slug);
+
                         // Prevent the default behavior of the autocomplete widget
                         return false;
                     },
@@ -285,7 +284,6 @@
             }
             timer();
             setInterval(timer, 1000);
-
         </script>
     @endpush
 

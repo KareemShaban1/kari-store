@@ -74,8 +74,7 @@
                                                     @foreach ($categories as $category)
                                                         @if ($category->parent_id === null)
                                                             <li>
-                                                                {{-- <input type="checkbox" value="{{ $category->id }}" name="category[]"
-                                                                    class="category" @checked($category_id == $category->id)> --}}
+
                                                                 <span>{{ $category->name }}
                                                                     ({{ $category->products()->count() }})</span>
 
@@ -202,7 +201,9 @@
 
             <div class="row">
 
+                {{-- Products Filters --}}
                 <div class="col-lg-3 d-s-none d-xs-none products-filter">
+
 
                     <div class="product-sidebar">
 
@@ -228,12 +229,10 @@
                         <div class="single-widget">
                             <h3>{{ trans('shop_grid_trans.All_Categories') }}</h3>
 
-                            <ul class="list">
+                            {{-- <ul class="list">
                                 @foreach ($categories as $category)
                                     @if ($category->parent_id === null)
                                         <li>
-                                            {{-- <input type="checkbox" value="{{ $category->id }}" name="category[]"
-                                                class="category" @checked($category_id == $category->id)> --}}
                                             <span>{{ $category->name }}
                                                 ({{ $category->products()->count() }})</span>
 
@@ -255,7 +254,52 @@
                                         </li>
                                     @endif
                                 @endforeach
-                            </ul>
+                            </ul> --}}
+                            @if (isset($categories))
+                                <div class="checkout-steps-form-style-1">
+                                    <ul id="accordionExample mb-2">
+
+                                        @foreach ($categories as $category)
+                                            @if ($category->parent_id === null)
+                                                <li>
+                                                    <h6 class="title collapsed" data-bs-toggle="collapse"
+                                                        data-bs-target="#x{{ $category->id }}" aria-expanded="false"
+                                                        aria-controls="x{{ $category->id }}">
+                                                        {{ $category->name }}
+                                                    </h6>
+                                                    <section class="checkout-steps-form-content collapse"
+                                                        id="x{{ $category->id }}"
+                                                        aria-labelledby="x{{ $category->id }}"
+                                                        data-bs-parent="#accordionExample">
+                                                        <div class="row">
+
+                                                            @if ($category->children->count() > 0)
+                                                                <ul class="list" style="margin-left: 10px;">
+                                                                    @foreach ($category->children as $child)
+                                                                        <li class="m-0">
+                                                                            <input type="checkbox"
+                                                                                value="{{ $child->id }}"
+                                                                                name="category[]" class="category"
+                                                                                @checked($category_id == $child->id)>
+                                                                            <label>{{ $child->name }}
+                                                                                ({{ $child->products()->count() }})
+                                                                            </label>
+                                                                        </li>
+                                                                    @endforeach
+                                                                </ul>
+                                                            @endif
+
+                                                        </div>
+                                                    </section>
+                                                </li>
+                                            @endif
+                                        @endforeach
+
+
+                                    </ul>
+                                </div>
+
+                            @endif
                         </div>
 
                         <!-- End Categories Filter -->
@@ -332,7 +376,6 @@
                     </div>
 
                 </div>
-                <!-- End Product Sidebar -->
 
 
                 <!-- Start Products section -->
@@ -378,7 +421,7 @@
                                                                 %</span>
                                                         @endif
                                                         <div class="button">
-                                                            <a href="{{ Route('products.show_product', $product->slug) }}"
+                                                            <a href="{{ Route('products.show_product', [$product->id, $product->slug]) }}"
                                                                 class="btn"><i
                                                                     class="lni lni-cart"></i>{{ trans('shop_grid_trans.Add_To_Cart') }}
                                                             </a>
@@ -404,7 +447,7 @@
 
                                                         <h4 class="title">
                                                             <a
-                                                                href="{{ Route('products.show_product', $product->slug) }}">{{ $product->name }}</a>
+                                                                href="{{ Route('products.show_product', [$product->id, $product->slug]) }}">{{ $product->name }}</a>
                                                         </h4>
                                                         <ul class="review">
                                                             <li><i class="lni lni-star-filled"></i></li>
@@ -441,10 +484,10 @@
                                             <!-- Pagination -->
                                             <div class="pagination center">
                                                 <ul class="pagination-list">
-                                                    {{-- {{ $products->links() }} --}}
-                                                    <button id="seeMoreButton" class="btn btn-primary"
+                                                    {{ $products->links() }}
+                                                    {{-- <button id="seeMoreButton" class="btn btn-primary"
                                                         data-page="1">See
-                                                        More</button>
+                                                        More</button> --}}
 
                                                 </ul>
                                             </div>
@@ -460,6 +503,7 @@
 
                     </div>
                 </div>
+
             </div>
 
         </div>
@@ -510,141 +554,138 @@
                 document.getElementById('right_value').innerHTML = value;
             }
 
-
-
             $(document).ready(function() {
 
+                // function seeMore() {
+                //     // See More Button Click Event
+                //     $('#seeMoreButton').on('click', function() {
+                //         // Update the page number or any other parameters as needed
+                //         var nextPage = parseInt($(this).data('page')) + 1;
+                //         console.log(nextPage);
 
+                //         var category = $('.category:checked').map(function() {
+                //             return $(this).val();
+                //         }).get();
+                //         var brand = $('.brand:checked').map(function() {
+                //             return $(this).val();
+                //         }).get();
 
-                function seeMore() {
-                    // See More Button Click Event
-                    $('#seeMoreButton').on('click', function() {
-                        // Update the page number or any other parameters as needed
-                        var nextPage = parseInt($(this).data('page')) + 1;
-                        console.log(nextPage);
+                //         var store = $('.store:checked').map(function() {
+                //             return $(this).val();
+                //         }).get();
+                //         var minPrice = $('#left_value').text();
+                //         var maxPrice = $('#right_value').text();
+                //         var search = $('#search').val();
+                //         var sort = $('#sort').val();
 
-                        var category = $('.category:checked').map(function() {
-                            return $(this).val();
-                        }).get();
-                        var brand = $('.brand:checked').map(function() {
-                            return $(this).val();
-                        }).get();
+                //         // Make an AJAX request to get more products
+                //         $.ajax({
+                //             url: "{{ route('all_filters') }}?page=" + nextPage,
+                //             type: "GET",
+                //             data: {
+                //                 category: category,
+                //                 brand: brand,
+                //                 store: store,
+                //                 min_price: minPrice,
+                //                 max_price: maxPrice,
+                //                 search: search,
+                //                 sort: sort
+                //             },
+                //             // Include other necessary parameters for filtering
+                //             // ...
+                //             success: function(response) {
+                //                 var product_length = response.products.data.length;
+                //                 var products = response.products.data;
+                //                 var html = '';
+                //                 console.log(products);
 
-                        var store = $('.store:checked').map(function() {
-                            return $(this).val();
-                        }).get();
-                        var minPrice = $('#left_value').text();
-                        var maxPrice = $('#right_value').text();
-                        var search = $('#search').val();
-                        var sort = $('#sort').val();
+                //                 // Similar to your existing loop to create product HTML
+                //                 // ...
+                //                 for (var i = 0; i < product_length; i++) {
+                //                     var product = products[i];
+                //                     // Create HTML elements to display product information
+                //                     var productHtml =
+                //                         '<div class="col-lg-4 col-md-6 col-12">' +
+                //                         '<!-- Start Single Product -->' +
+                //                         '<div class="single-product">' +
+                //                         '<div class="product-image">' +
+                //                         '<img src="' + product.image_url + '" alt="#">';
+                //                     if (product.sale_percent) {
+                //                         productHtml += '<span class="sale-tag">- ' + product
+                //                             .sale_percent +
+                //                             ' %</span>';
+                //                     }
+                //                     productHtml += '<div class="button">' +
+                //                         '<a href="' + getProductRoute(product.slug) +
+                //                         '" class="btn"><i class="lni lni-cart"></i>Add to Cart</a>' +
+                //                         '</div>' +
+                //                         '</div>' +
+                //                         '<div class="product-info">' +
+                //                         '<span class="category">{{ trans('front_home_trans.Category') }} :' +
+                //                         '<a href="{{ route('shop_grid.index', ['categoryId' => '']) }}' +
+                //                         '/' +
+                //                         product.category.id + '">' +
+                //                         (product.category ? product.category.name : '') +
+                //                         '</a>' +
+                //                         '</span>' +
+                //                         '<span class="category">{{ trans('front_home_trans.Store') }} :' +
+                //                         '<a href="{{ route('shop_grid.indexStore', ['storeId' => '']) }}' +
+                //                         '/' +
+                //                         product.store.id + '">' +
+                //                         (product.store ? product.store.name : '') +
+                //                         '</a>' +
+                //                         '</span>' +
+                //                         '<h4 class="title">' +
+                //                         '<a href="' + getProductRoute(product.slug) + '">' + product
+                //                         .name +
+                //                         '</a>' +
+                //                         '</h4>' +
+                //                         '<ul class="review">' +
+                //                         '<li><i class="lni lni-star-filled"></i></li>' +
+                //                         '<li><i class="lni lni-star-filled"></i></li>' +
+                //                         '<li><i class="lni lni-star-filled"></i></li>' +
+                //                         '<li><i class="lni lni-star-filled"></i></li>' +
+                //                         '<li><i class="lni lni-star"></i></li>' +
+                //                         '<li><span>4.0 Review(s)</span></li>' +
+                //                         '</ul>' +
+                //                         '<div class="price">' +
+                //                         '<span>' + product.formatted_price + '</span>';
 
-                        // Make an AJAX request to get more products
-                        $.ajax({
-                            url: "{{ route('all_filters') }}?page=" + nextPage,
-                            type: "GET",
-                            data: {
-                                category: category,
-                                brand: brand,
-                                store: store,
-                                min_price: minPrice,
-                                max_price: maxPrice,
-                                search: search,
-                                sort: sort
-                            },
-                            // Include other necessary parameters for filtering
-                            // ...
-                            success: function(response) {
-                                var product_length = response.products.data.length;
-                                var products = response.products.data;
-                                var html = '';
-                                console.log(products);
+                //                     if (product.formatted_compare_price) {
+                //                         productHtml += '<span class="discount-price">' + product
+                //                             .formatted_compare_price +
+                //                             '</span>';
+                //                     }
 
-                                // Similar to your existing loop to create product HTML
-                                // ...
-                                for (var i = 0; i < product_length; i++) {
-                                    var product = products[i];
-                                    // Create HTML elements to display product information
-                                    var productHtml =
-                                        '<div class="col-lg-4 col-md-6 col-12">' +
-                                        '<!-- Start Single Product -->' +
-                                        '<div class="single-product">' +
-                                        '<div class="product-image">' +
-                                        '<img src="' + product.image_url + '" alt="#">';
-                                    if (product.sale_percent) {
-                                        productHtml += '<span class="sale-tag">- ' + product
-                                            .sale_percent +
-                                            ' %</span>';
-                                    }
-                                    productHtml += '<div class="button">' +
-                                        '<a href="' + getProductRoute(product.slug) +
-                                        '" class="btn"><i class="lni lni-cart"></i>Add to Cart</a>' +
-                                        '</div>' +
-                                        '</div>' +
-                                        '<div class="product-info">' +
-                                        '<span class="category">{{ trans('front_home_trans.Category') }} :' +
-                                        '<a href="{{ route('shop_grid.index', ['categoryId' => '']) }}' +
-                                        '/' +
-                                        product.category.id + '">' +
-                                        (product.category ? product.category.name : '') +
-                                        '</a>' +
-                                        '</span>' +
-                                        '<span class="category">{{ trans('front_home_trans.Store') }} :' +
-                                        '<a href="{{ route('shop_grid.indexStore', ['storeId' => '']) }}' +
-                                        '/' +
-                                        product.store.id + '">' +
-                                        (product.store ? product.store.name : '') +
-                                        '</a>' +
-                                        '</span>' +
-                                        '<h4 class="title">' +
-                                        '<a href="' + getProductRoute(product.slug) + '">' + product
-                                        .name +
-                                        '</a>' +
-                                        '</h4>' +
-                                        '<ul class="review">' +
-                                        '<li><i class="lni lni-star-filled"></i></li>' +
-                                        '<li><i class="lni lni-star-filled"></i></li>' +
-                                        '<li><i class="lni lni-star-filled"></i></li>' +
-                                        '<li><i class="lni lni-star-filled"></i></li>' +
-                                        '<li><i class="lni lni-star"></i></li>' +
-                                        '<li><span>4.0 Review(s)</span></li>' +
-                                        '</ul>' +
-                                        '<div class="price">' +
-                                        '<span>' + product.formatted_price + '</span>';
+                //                     productHtml +=
+                //                         '</div>' +
+                //                         '</div>' +
+                //                         '</div>' +
+                //                         '</div>' +
+                //                         '</div>';
 
-                                    if (product.formatted_compare_price) {
-                                        productHtml += '<span class="discount-price">' + product
-                                            .formatted_compare_price +
-                                            '</span>';
-                                    }
+                //                     html += productHtml;
+                //                 }
 
-                                    productHtml +=
-                                        '</div>' +
-                                        '</div>' +
-                                        '</div>' +
-                                        '</div>' +
-                                        '</div>';
+                //                 function getProductRoute(slug) {
+                //                      return "{{ route('products.show_product', ['id' => ':id', 'slug' => ':slug']) }}"
+                            // .replace(':id', id).replace(':slug', slug)
+                //                 }
 
-                                    html += productHtml;
-                                }
+                //                 // Append new products to the existing grid
+                //                 $('.show_products').append(html);
 
-                                function getProductRoute(slug) {
-                                    return '{{ route('products.show_product', '') }}/' + slug;
-                                }
+                //                 // Update the data-page attribute for the next request
+                //                 $('#seeMoreButton').data('page', nextPage);
 
-                                // Append new products to the existing grid
-                                $('.show_products').append(html);
-
-                                // Update the data-page attribute for the next request
-                                $('#seeMoreButton').data('page', nextPage);
-
-                                // Optionally, hide the "See More" button if there are no more pages
-                                if (nextPage >= response.products.last_page) {
-                                    $('#seeMoreButton').hide();
-                                }
-                            },
-                        });
-                    });
-                }
+                //                 // Optionally, hide the "See More" button if there are no more pages
+                //                 if (nextPage >= response.products.last_page) {
+                //                     $('#seeMoreButton').hide();
+                //                 }
+                //             },
+                //         });
+                //     });
+                // }
 
 
                 // apply filters function
@@ -695,7 +736,7 @@
                                         ' %</span>';
                                 }
                                 productHtml += '<div class="button">' +
-                                    '<a href="' + getProductRoute(product.slug) +
+                                    '<a href="' + getProductRoute(product.id ,product.slug) +
                                     '" class="btn"><i class="lni lni-cart"></i>Add to Cart</a>' +
                                     '</div>' +
                                     '</div>' +
@@ -711,7 +752,7 @@
                                     '</a>' +
                                     '</span>' +
                                     '<h4 class="title">' +
-                                    '<a href="' + getProductRoute(product.slug) + '">' + product.name +
+                                    '<a href="' + getProductRoute(product.id , product.slug) + '">' + product.name +
                                     '</a>' +
                                     '</h4>' +
                                     '<ul class="review">' +
@@ -741,8 +782,9 @@
                                 html += productHtml;
                             }
 
-                            function getProductRoute(slug) {
-                                return '{{ route('products.show_product', '') }}/' + slug;
+                            function getProductRoute(id, slug) {
+                                return "{{ route('products.show_product', ['id' => ':id', 'slug' => ':slug']) }}"
+                                    .replace(':id', id).replace(':slug', slug)
                             }
                             // Update the HTML with the new results
                             $('.show_products').html(html);
@@ -756,7 +798,7 @@
                             // }
 
                             // Update pagination links
-                            // $('.pagination-list').html(response.pagination_links);
+                            $('.pagination-list').html(response.pagination_links);
                         },
                     });
                 }
@@ -767,7 +809,6 @@
                     $(document).on('click', '.pagination a', function(event) {
                         event.preventDefault();
                         var url = $(this).attr('href');
-                        // var category = $('.category:checked').map(function() {return $(this).val(); }).get();
                         getProducts(url);
                     });
 
@@ -776,6 +817,7 @@
                             url: url,
                             type: 'GET',
                             success: function(response) {
+                                console.log(response.products);
 
                                 var product_length = response.products.data.length;
 
@@ -809,7 +851,7 @@
 
 
                                     productHtml += '<div class="button">' +
-                                        '<a href="' + getProductRoute(product.slug) +
+                                        '<a href="' + getProductRoute(product.id, product.slug) +
                                         '" class="btn"><i class="lni lni-cart"></i>Add to Cart</a>' +
                                         '</div>' +
                                         '</div>' +
@@ -825,7 +867,8 @@
                                         '</a>' +
                                         '</span>' +
                                         '<h4 class="title">' +
-                                        '<a href="' + getProductRoute(product.slug) + '">' + product.name +
+                                        '<a href="' + getProductRoute(product.id, product.slug) + '">' +
+                                        product.name +
                                         '</a>' +
                                         '</h4>' +
                                         '<ul class="review">' +
@@ -854,8 +897,9 @@
                                     html += productHtml;
                                 }
 
-                                function getProductRoute(slug) {
-                                    return '{{ route('products.show_product', '') }}/' + slug;
+                                function getProductRoute(id, slug) {
+                                    return "{{ route('products.show_product', ['id' => ':id', 'slug' => ':slug']) }}"
+                                        .replace(':id', id).replace(':slug', slug)
                                 }
 
                                 // Update the HTML with the new results
@@ -868,7 +912,6 @@
                         });
                     }
                 }
-
 
 
                 // Reset filters
@@ -887,45 +930,40 @@
                 // Apply category filter
                 $('input.category').on('change', function() {
                     applyFilters();
-                    // seeMore();
+                    paginate();
 
-                    // paginate();
                 });
 
                 // Apply store filter
                 $('input.store').on('change', function() {
                     applyFilters();
-                    // seeMore();
+                    paginate();
 
-                    // paginate();
                 });
 
                 // Apply brand filter
                 $('input.brand').on('change', function() {
                     applyFilters();
-                    // seeMore();
 
-                    // paginate();
                 });
 
                 // Apply sort filter
                 $('#sort').on('change', function() {
                     applyFilters();
-                    // paginate();
+
                 });
 
                 // Apply price range filter
                 $('.range_slider').on('change', function() {
                     applyFilters();
-                    // paginate();
                 });
 
                 // Initialize filters
-                // applyFilters();
+                applyFilters();
 
-                // paginate();
+                paginate();
 
-                seeMore();
+                // seeMore();
 
 
 
