@@ -13,7 +13,7 @@ class Category extends Model
     // SoftDeletes;
     protected $fillable = [
         'name','parent_id','description','image','slug','status',
-        'featured' 
+        'featured'
     ];
 
     //// reverse of fillable
@@ -51,15 +51,15 @@ class Category extends Model
     public function getImageUrlAttribute()
     {
         if(!$this->image) {
-            return 'https://scotturb.com/wp-content/uploads/2016/11/product-placeholder-300x300.jpg';
+            return 'https://placehold.co/300x300';
         }
         if(Str::startsWith($this->image, ['http://','https://'])) {
             return $this->image;
         }
         return asset('storage/categories/'.$this->image);
         // storage/thumbnail/categories/{image_name}
-        
-    } // $category->image_url  
+
+    } // $category->image_url
 
 
 }

@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{ 
+return new class () extends Migration {
     /**
      * Run the migrations.
      *
@@ -19,21 +18,15 @@ return new class extends Migration
             // $table->unsignedBigInteger('id)->autoIncrement()->primary();
             // $table->bigIncrements('id);
             $table->id();
-            
-            // VARCHAR(64000)
-            // $table->string('column_name', column_size (Default 255));
+
             $table->string('name');
 
             $table->string('slug')->unique();
 
-            // $table->foreignId('category_id')->constrained('categories')->restrictOnDelete();
-
-            // text(64000) 
-            // $table->text('column_name');
+            // text(64000)
             $table->text('description')->nullable();
             $table->string('logo_image')->nullable();
             $table->string('cover_image')->nullable();
-            // $table->enum('status',['active','inactive'])->default('active');
             $table->boolean('active')->default(1);
             $table->integer('percent')->nullable();
             $table->string('phone_number')->nullable();
@@ -42,11 +35,12 @@ return new class extends Migration
             $table->foreignId('neighborhood_id')->nullable()->constrained('destinations', 'id')->nullOnDelete();
             $table->string('street_address')->nullable();
             $table->boolean('featured');
-
+            $table->string('open_at')->nullable();
+            $table->string('close_at')->nullable();
+            // 24 hours availability
+            $table->boolean('all_time')->default(0);
+            $table->boolean('all_days')->default(0);
             $table->softDeletes();
-
-            
-            // 2 columns: created_at updated_at (timestamps)  
             $table->timestamps();
         });
     }

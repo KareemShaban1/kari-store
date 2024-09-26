@@ -248,7 +248,7 @@ table {
 #table_id th , #table_id td{
 text-align: center;
 /* width: 150px; */
-}  
+}
 
 caption {
   padding-top: .75rem;
@@ -4036,7 +4036,7 @@ tbody.collapse.show {
   margin-bottom: 15px; }
 
 @media (min-width: 576px) {
-  
+
   .card-deck {
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
@@ -19796,7 +19796,7 @@ html {
     src: url(../fonts/Almarai-Bold.ttf);
     src: url(../fonts/Almarai-Regular.ttf);
     src: url(../fonts/Almarai-Regular.ttf);
-    
+
     }
 body {
   /* font-family: 'Poppins', sans-serif; */
@@ -19804,7 +19804,7 @@ body {
   margin: 0;
   padding: 0;
   font-size: 1rem;
-  color: #626262; 
+  color: #626262;
 }
 
 h1, h2, h3, h4, h5, h6, p, span, ul, li, a, ol {
@@ -20996,8 +20996,12 @@ ul.list-unstyled li {
     color: #6c757d; }
 
 .admin-header.navbar .navbar-brand-wrapper {
-  transition: width .5s ease-in-out;
-  width: 230px; }
+    display: flex;
+    justify-content: center;
+    transition: width .5s ease-in-out;
+    width: 210px;
+}
+}
   .admin-header.navbar .navbar-brand-wrapper .navbar-brand {
     color: #5a5f61;
     font-size: 2rem;

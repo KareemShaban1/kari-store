@@ -24,7 +24,7 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 
 Route::group([
-    'prefix' => LaravelLocalization::setLocale(),'middleware' => 
+    'prefix' => LaravelLocalization::setLocale(),'middleware' =>
 config('fortify.middleware', ['web']) ,  'localeCookieRedirect', 'localizationRedirect', 'localeViewPath','verified' ], function () {
     $enableViews = config('fortify.views', true);
 
@@ -44,8 +44,9 @@ config('fortify.middleware', ['web']) ,  'localeCookieRedirect', 'localizationRe
             'guest:'.config('fortify.guard'),
             $limiter ? 'throttle:'.$limiter : null,
         ]));
-
         
+
+
 
     Route::post(RoutePath::for('logout', '/logout'), [AuthenticatedSessionController::class, 'destroy'])
         ->name('logout');

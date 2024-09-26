@@ -15,12 +15,13 @@
                     <a href="javascript:void(0)" class="remove remove-item" data-id="{{ $item->id }}"
                         title="Remove this item"><i class="lni lni-close"></i></a>
                     <div class="cart-img-head">
-                        <a class="cart-img" href="{{ Route('products.show_product', $item->product->slug) }}"><img
+                        <a class="cart-img"
+                            href="{{ Route('products.show_product', [$item->product->id, $item->product->slug]) }}"><img
                                 src="{{ $item->product->image_url }}" alt="#"></a>
                     </div>
 
                     <div class="content">
-                        <h4><a href="{{ Route('products.show_product', $item->product->slug) }}">
+                        <h4><a href="{{ Route('products.show_product', [$item->product->id, $item->product->slug]) }}">
                                 {{ $item->product->name }}</a></h4>
                         <p class="quantity">{{ $item->quantity }}
                             <span class="amount">{{ Currency::format($item->product->price) }}</span>

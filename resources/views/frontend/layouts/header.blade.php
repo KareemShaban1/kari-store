@@ -121,42 +121,6 @@
         <div class="container">
             <div class="row align-items-center">
 
-                {{-- <div class="d-lg-none d-md-none col-3">
-                    <nav class="navbar navbar-expand-lg">
-                        <button class="navbar-toggler mobile-menu-btn" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#navbarSupportedContent1" aria-controls="navbarSupportedContent1"
-                            aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="toggler-icon"></span>
-                            <span class="toggler-icon"></span>
-                            <span class="toggler-icon"></span>
-                        </button>
-                        <div class="collapse navbar-collapse sub-menu-bar pages-nav" id="navbarSupportedContent1">
-                            <ul id="nav" class="navbar-nav ms-auto">
-
-                                @foreach ($categories->where('parent_id', null) as $category)
-                                    <li class="nav-item" style="font-weight: bold">
-                                        <a
-                                            href="{{ route('shop_grid.index', $category->id) }}">{{ $category->name }}</a>
-                                        @if ($category->children->isNotEmpty())
-                                            <ul>
-                                                @foreach ($category->children as $childCategory)
-                                                    <li class="sub-nav-item">
-                                                        <a
-                                                            href="{{ route('shop_grid.index', $childCategory->id) }}">{{ $childCategory->name }}</a>
-                                                    </li>
-                                                @endforeach
-                                            </ul>
-                                        @endif
-                                    </li>
-                                @endforeach
-
-                            </ul>
-                        </div> <!-- navbar collapse -->
-                    </nav>
-                </div> --}}
-
-
-
                 <div class="col-lg-3 col-md-3 col-8">
                     <!-- Start Header Logo -->
                     <a class="navbar-brand" href="{{ Route('home') }}">

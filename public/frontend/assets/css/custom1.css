@@ -122,6 +122,10 @@
           column-gap: 1.5rem;
       }
 
+      .menu-shop {
+        display: none;
+      }
+
 
       
       
@@ -161,6 +165,7 @@
           }
 
           .menu-shop {
+            display: flex;
             position: fixed;
             top: 0;
             right: 0;
@@ -764,3 +769,85 @@
                     display: none;
           }
        }
+
+
+
+       /*icon */
+.social-icons.color-icon a {
+    color: #84ba3f; }
+  
+  .social-icons.color-icon .social-facebook a {
+    color: #3b5998; }
+  
+  .social-icons.color-icon .social-twitter a {
+    color: #00aced; }
+  
+  .social-icons.color-icon .social-linkedin a {
+    color: #0077B5; }
+  
+  .social-icons.color-icon .social-dribbble a {
+    color: #c73b65; }
+  
+  .social-icons.color-icon .social-googleplus a {
+    color: #d34836; }
+  
+  .social-icons.color-icon .social-instagram a {
+    color: #e2306a; }
+  
+  .social-icons.color-icon .social-pinterest a {
+    color: #c92228; }
+  
+  .social-icons.color-icon .social-dropbox a {
+    color: #3d9ae8; }
+  
+  .social-icons.color-icon .social-flickr a {
+    color: #0063DC; }
+  
+  .social-icons.color-icon .social-tumblr a {
+    color: #34526f; }
+  
+  .social-icons.color-icon .social-skype a {
+    color: #12a5f4; }
+  
+  .social-icons.color-icon .social-youtube a {
+    color: #c4302b; }
+  
+  .social-icons.color-icon .social-github a {
+    color: #323232; }
+
+    
+.social-icons li {
+    display: inline-block;
+    list-style: none;
+    padding: 0;
+    margin: 0 8px 8px 0; }
+    .social-icons li:last-child {
+      margin-right: 0; }
+    .social-icons li a {
+      display: block;
+      height: 32px;
+      width: 32px;
+      line-height: 2.14rem;
+      font-size: 1.143rem;
+      text-align: center;
+      margin: 0;
+      border-radius: 4px;
+      border: 0;
+      background: transparent;
+      color: #323232;
+      overflow: hidden;
+      -webkit-transition: all .3s ease;
+      -o-transition: all .3s ease;
+      transition: all .3s ease; }
+    .social-icons li:hover i {
+      -webkit-animation: toTopFromBottom 0.3s forwards;
+      -moz-animation: toTopFromBottom 0.3s forwards;
+      animation: toTopFromBottom 0.3s forwards; }
+  
+  .text-white .social-icons li a i {
+    color: #ffffff; }
+
+
+    .avatar-top {
+        margin-top: -90px;
+    }

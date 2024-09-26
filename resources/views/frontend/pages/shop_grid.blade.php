@@ -16,13 +16,7 @@
                             <h1 class="page-title">{{ trans('shop_grid_trans.Shop_Grid') }}</h1>
                         </div>
                     </div>
-                    {{-- <div class="col-lg-6 col-md-6 col-12">
-                        <ul class="breadcrumb-nav">
-                            <li><a href="{{ Route('home') }}"><i class="lni lni-home"></i> Home</a></li>
-                            <li><a href="">Shop</a></li>
-                            <li>Shop Grid</li>
-                        </ul>
-                    </div> --}}
+
                     <div class="col-lg-6 col-lg-6 col-md-6 col-6">
                         <nav class="custom-navbar-shop container">
                             <section class="">
@@ -669,7 +663,7 @@
 
                 //                 function getProductRoute(slug) {
                 //                      return "{{ route('products.show_product', ['id' => ':id', 'slug' => ':slug']) }}"
-                            // .replace(':id', id).replace(':slug', slug)
+                // .replace(':id', id).replace(':slug', slug)
                 //                 }
 
                 //                 // Append new products to the existing grid
@@ -736,23 +730,24 @@
                                         ' %</span>';
                                 }
                                 productHtml += '<div class="button">' +
-                                    '<a href="' + getProductRoute(product.id ,product.slug) +
+                                    '<a href="' + getProductRoute(product.id, product.slug) +
                                     '" class="btn"><i class="lni lni-cart"></i>Add to Cart</a>' +
                                     '</div>' +
                                     '</div>' +
                                     '<div class="product-info">' +
                                     '<span class="category">{{ trans('front_home_trans.Category') }} :' +
-                                    '<a href="{{ route('shop_grid.index', ['categoryId' => $product->category->id]) }}">' +
+                                    '<a href="' + getCategoryRoute(product.category_id) + '">' +
                                     (product.category ? product.category.name : '') +
                                     '</a>' +
                                     '</span>' +
                                     '<span class="category">{{ trans('front_home_trans.Store') }} :' +
-                                    '<a href="{{ route('shop_grid.indexStore', ['storeId' => $product->store->id]) }}">' +
+                                    '<a href="' + getStoreRoute(product.store_id) + '">' +
                                     (product.store ? product.store.name : '') +
                                     '</a>' +
                                     '</span>' +
                                     '<h4 class="title">' +
-                                    '<a href="' + getProductRoute(product.id , product.slug) + '">' + product.name +
+                                    '<a href="' + getProductRoute(product.id, product.slug) + '">' + product
+                                    .name +
                                     '</a>' +
                                     '</h4>' +
                                     '<ul class="review">' +
@@ -785,6 +780,16 @@
                             function getProductRoute(id, slug) {
                                 return "{{ route('products.show_product', ['id' => ':id', 'slug' => ':slug']) }}"
                                     .replace(':id', id).replace(':slug', slug)
+                            }
+
+                            function getCategoryRoute(categoryId) {
+                                return "{{ route('shop_grid.index', ['categoryId' => ':categoryId']) }}"
+                                    .replace(':categoryId', categoryId);
+                            }
+
+                            function getStoreRoute(storeId) {
+                                return "{{ route('shop_grid.indexStore', ['storeId' => ':storeId']) }}"
+                                    .replace(':storeId', storeId);
                             }
                             // Update the HTML with the new results
                             $('.show_products').html(html);
@@ -823,7 +828,6 @@
 
                                 var products = response.products.data;
 
-                                // console.log(response.products);
 
                                 var html = ''; // Variable to store the updated HTML
 
@@ -857,12 +861,12 @@
                                         '</div>' +
                                         '<div class="product-info">' +
                                         '<span class="category">{{ trans('front_home_trans.Category') }} :' +
-                                        '<a href="{{ route('shop_grid.index', ['categoryId' => $product->category->id]) }}">' +
+                                        '<a href="' + getCategoryRoute(product.category_id) + '">' +
                                         (product.category ? product.category.name : '') +
                                         '</a>' +
                                         '</span>' +
                                         '<span class="category">{{ trans('front_home_trans.Store') }} :' +
-                                        '<a href="{{ route('shop_grid.indexStore', ['storeId' => $product->store->id]) }}">' +
+                                        '<a href="' + getStoreRoute(product.store_id) + '">' +
                                         (product.store ? product.store.name : '') +
                                         '</a>' +
                                         '</span>' +
@@ -900,6 +904,16 @@
                                 function getProductRoute(id, slug) {
                                     return "{{ route('products.show_product', ['id' => ':id', 'slug' => ':slug']) }}"
                                         .replace(':id', id).replace(':slug', slug)
+                                }
+
+                                function getCategoryRoute(categoryId) {
+                                    return "{{ route('shop_grid.index', ['categoryId' => ':categoryId']) }}"
+                                        .replace(':categoryId', categoryId);
+                                }
+
+                                function getStoreRoute(storeId) {
+                                    return "{{ route('shop_grid.indexStore', ['storeId' => ':storeId']) }}"
+                                        .replace(':storeId', storeId);
                                 }
 
                                 // Update the HTML with the new results

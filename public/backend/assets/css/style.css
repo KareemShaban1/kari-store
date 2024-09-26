@@ -139,3 +139,10 @@ table.dataTable.display tbody tr:first-child td {
         
 
       
+        .config-title{
+
+          direction: ltr;
+          font-size:18px;
+          text-align: left;
+
+        }

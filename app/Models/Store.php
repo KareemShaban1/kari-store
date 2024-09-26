@@ -23,11 +23,11 @@ class Store extends Model
     // const   UPDATED_AT ='updated_at';
 
     protected $fillable = [
-        'name', 'description', 'logo_image', 'cover_image', 'slug', 'status','percent',
+        'name', 'description', 'logo_image', 'cover_image', 'slug', 'active','percent',
         'phone_number','governorate_id','city_id','neighborhood_id','street_address','featured'
     ];
 
-   public function scopeActive($query)
+    public function scopeActive($query)
     {
         $query->where('active', '=', 1);
     }
@@ -37,17 +37,22 @@ class Store extends Model
         $query->where('featured', '=', 1);
     }
 
-    
+
 
     public function products()
     {
         return $this->hasMany(Product::class, 'store_id', 'id');
     }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class, 'store_id', 'id');
+    }
     // public function categories()
     // {
     //     return $this->hasMany(Category::class, 'category_id', 'id');
     // }
-    
+
 
     public function categories()
     {
@@ -64,7 +69,7 @@ class Store extends Model
     public function getLogoImageUrlAttribute()
     {
         if (!$this->logo_image) {
-            return 'https://scotturb.com/wp-content/uploads/2016/11/product-placeholder-300x300.jpg';
+            return 'https://placehold.co/300x300';
         }
         if (Str::startsWith($this->logo_image, ['http://', 'https://'])) {
             return $this->logo_image;
@@ -75,7 +80,7 @@ class Store extends Model
     public function getCoverImageUrlAttribute()
     {
         if (!$this->cover_image) {
-            return 'https://scotturb.com/wp-content/uploads/2016/11/product-placeholder-300x300.jpg';
+            return 'https://placehold.co/300x300';
         }
         if (Str::startsWith($this->cover_image, ['http://', 'https://'])) {
             return $this->cover_image;

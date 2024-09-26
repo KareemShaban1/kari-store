@@ -71,8 +71,6 @@ class CategoriesController extends Controller
 
         // $request->validated();
 
-        // dd($request);
-
         // Request Merge
         $request->merge([
             'slug'=>Str::slug($request->post('name'))
@@ -135,7 +133,6 @@ class CategoriesController extends Controller
     public function update(UpdateCategoryRequest $request, $id)
     {
         //
-        $request->validated();
 
         $category = Category::findOrFail($id);
 

@@ -48,6 +48,7 @@
 @if (request()->routeIs('admin.brands.index') ||
         request()->routeIs('admin.categories.index') ||
         request()->routeIs('admin.stores.index') ||
+        request()->routeIs('admin.stores.show') ||
         request()->routeIs('admin.vendors.index') ||
         request()->routeIs('admin.products.index') ||
         request()->routeIs('admin.product_variants.index') ||
@@ -63,6 +64,7 @@
         request()->routeIs('admin.websiteParts.index') ||
         request()->routeIs('admin.banners.index') ||
         request()->routeIs('admin.paymentGateways.index') ||
+        request()->routeIs('admin.destinations.index') ||
         request()->routeIs('delivery.orders.index') ||
         request()->routeIs('delivery.orders.reports') ||
         request()->routeIs('delivery.deliveredOrders.reports') ||
@@ -112,7 +114,7 @@
     request()->routeIs('delivery.orders.create'))
 @endif --}}
 
-{{-- 
+{{--
     @if (App::getLocale() == 'ar')
         <script>
             $(document).ready(function() {
@@ -164,7 +166,7 @@
                 });
             });
         </script>
-    @endif 
+    @endif
 --}}
 
 

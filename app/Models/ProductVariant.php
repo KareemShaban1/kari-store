@@ -21,7 +21,7 @@ class ProductVariant extends Model
     public function getImageUrlAttribute()
     {
         if (!$this->image) {
-            return 'https://scotturb.com/wp-content/uploads/2016/11/product-placeholder-300x300.jpg';
+            return 'https://placehold.co/300x300';
         }
         if (Str::startsWith($this->image, ['http://', 'https://'])) {
             return $this->image;

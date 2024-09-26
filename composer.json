@@ -14,12 +14,14 @@
         "laravel/tinker": "^2.7",
         "livewire/livewire": "^2.12",
         "mcamara/laravel-localization": "^1.8",
+        "nafezly/payments": "dev-master",
         "opcodesio/log-viewer": "^3.1",
         "pusher/pusher-php-server": "^7.2",
         "realrashid/sweet-alert": "^7.1",
         "samir-hussein/paymob": "^2.0",
         "symfony/intl": "^6.2",
-        "twilio/sdk": "^7.5"
+        "twilio/sdk": "^7.5",
+        "yajra/laravel-datatables-oracle": "^10.11"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.9",

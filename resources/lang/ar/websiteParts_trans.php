@@ -1,9 +1,9 @@
-<?php 
+<?php
 return [
-          'WebsiteParts'=>'WebsiteParts',
-          'All_WebsiteParts'=>'All WebsiteParts',
-          'Add_WebsitePart'=>'Add WebsitePart',
-          'Edit_WebsitePart'=>'Edit WebsitePart',
+          'WebsiteParts'=>'أجزاء الموقع',
+          'All_WebsiteParts'=>'كل أجزاء الموقع',
+          'Add_WebsitePart'=>'أضافة أجزاء الموقع',
+          'Edit_WebsitePart'=>'تعديل أجزاء الموقع',
           'Id'=>'Id',
           'Key'=>'Key',
           'Value'=>'Value',
@@ -16,8 +16,8 @@ return [
           'Show'=>'عرض',
           'Hide'=>'أخفاء',
           'Image'=>'الصورة',
-          ''=>'',
-          ''=>'',
+          'Control'=>'التحكم',
+          'Part_Name'=>'أسم الجزء',
           ''=>'',
           ''=>'',
           ''=>'',

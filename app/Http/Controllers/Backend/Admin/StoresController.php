@@ -10,7 +10,6 @@ use App\Models\Category;
 use App\Models\Destination;
 use App\Models\Store;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class StoresController extends Controller
@@ -19,7 +18,7 @@ class StoresController extends Controller
 
     public function __construct()
     {
-        $this->authorizeResource(Store::class,'store');
+        $this->authorizeResource(Store::class, 'store');
     }
 
     /**
@@ -59,7 +58,7 @@ class StoresController extends Controller
         // dd($request->governorate_id);
 
         $governorateId = $request->governorate_id;
-        $cities = Destination::where('parent_id',$governorateId)->get();
+        $cities = Destination::where('parent_id', $governorateId)->get();
 
         return response()->json(['cities' => $cities]);
     }
@@ -69,7 +68,7 @@ class StoresController extends Controller
         // dd($request->governorate_id);
 
         $cityId = $request->city_id;
-        $neighborhoods = Destination::where('parent_id',$cityId)->get();
+        $neighborhoods = Destination::where('parent_id', $cityId)->get();
 
         return response()->json(['neighborhoods' => $neighborhoods]);
     }
@@ -97,15 +96,15 @@ class StoresController extends Controller
         // processImage ($request , file_name , folder_name)
         $data['logo_image'] = $this->ProcessImage($request, 'logo_image', 'stores');
         $data['cover_image'] = $this->ProcessImage($request, 'cover_image', 'stores');
-        
-        
+
+
         // store the request
         $store = Store::create($data);
 
 
         $store->categories()->sync($request->categories_id);
 
-        return redirect()->route('admin.stores.index')->with('toast_success','Store Created Successfully');
+        return redirect()->route('admin.stores.index')->with('toast_success', 'Store Created Successfully');
     }
 
     /**
@@ -132,8 +131,10 @@ class StoresController extends Controller
         $store = Store::findOrFail($id);
         $destinations = Destination::all();
         $categories = Category::all();
-        return view('backend.dashboards.admin.stores.edit', 
-        compact('store', 'categories','destinations'));
+        return view(
+            'backend.dashboards.admin.stores.edit',
+            compact('store', 'categories', 'destinations')
+        );
     }
 
     /**
@@ -162,8 +163,8 @@ class StoresController extends Controller
         $data = $request->except('logo_image', 'cover_image');
 
         // assign image to the request
-        $new_logo_image = $this->ProcessImage($request, 'logo_image', 'stores',$old_logo_image);
-        $new_cover_image = $this->ProcessImage($request, 'cover_image', 'stores',$old_cover_image);
+        $new_logo_image = $this->ProcessImage($request, 'logo_image', 'stores', $old_logo_image);
+        $new_cover_image = $this->ProcessImage($request, 'cover_image', 'stores', $old_cover_image);
 
         if ($new_logo_image) {
             $data['logo_image'] = $new_logo_image;
@@ -173,14 +174,14 @@ class StoresController extends Controller
             $data['cover_image'] = $new_cover_image;
         }
 
-        
+
         $store->update($data);
 
 
         $store->categories()->sync($request->categories_id);
 
         // PRG
-        return redirect()->route('admin.stores.index')->with('toast_success','Store Updated Successfully');
+        return redirect()->route('admin.stores.index')->with('toast_success', 'Store Updated Successfully');
     }
 
     /**
@@ -195,27 +196,36 @@ class StoresController extends Controller
     }
 
 
-        public function updateStoreFeatured(Request $request, $id)
+    public function updateStoreFeatured(Request $request, $id)
     {
         $store = Store::findOrFail($id);
         $store->update([
             'featured' => $request->input('featured'),
         ]);
 
-        // You can add a success message here if needed.
-
-        return redirect()->route('admin.stores.index');
+        // Return the updated store data as JSON response
+        return response()->json([
+            'success' => true,
+            'message' => 'Store featured status updated successfully.',
+            'store' => $store // Send back the updated store data
+        ]);
     }
 
-    public function updateStoreStatus(Request $request, $id){
-        $store = Store::findOrFail($id);
+    public function updateStoreStatus(Request $request, $store_id)
+    {
+
+
+
+        $store = Store::find($store_id);
+
         $store->update([
-            'status' => $request->input('status'),
+            'active' => $request->input('active'),
         ]);
 
-        // You can add a success message here if needed.
-
-        return redirect()->route('admin.stores.index');
+        return response()->json([
+            'success' => true,
+            'message' => 'Store featured status updated successfully.',
+        ]);
     }
 
 

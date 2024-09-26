@@ -42,7 +42,7 @@ class DestinationController extends Controller
     {
         $validatedData = $request->validated();
         Destination::create($validatedData);
-        return redirect()->route('admin.destinations.index')->with('toast_success','Destination Created Successfully'); 
+        return redirect()->route('admin.destinations.index')->with('toast_success','Destination Created Successfully');
     }
 
     /**

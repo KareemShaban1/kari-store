@@ -3,6 +3,7 @@
 @section('title')
     {{ trans('websiteParts_trans.WebsiteParts') }}
 @endsection
+
 @section('page-header')
     <!-- breadcrumb -->
     <div class="page-title">
@@ -11,7 +12,7 @@
                 <h4 class="mb-0"> {{ trans('websiteParts_trans.WebsiteParts') }}</h4>
             </div>
             <div class="col-sm-6">
-                <ol class="breadcrumb pt-0 pr-0 float-left float-sm-right ">
+                <ol class="breadcrumb pt-0 pr-0 float-left float-sm-right">
                     <li class="breadcrumb-item"><a href="#"
                             class="default-color">{{ trans('websiteParts_trans.All_WebsiteParts') }}</a></li>
                     <li class="breadcrumb-item active">{{ trans('websiteParts_trans.WebsiteParts') }}</li>
@@ -21,6 +22,7 @@
     </div>
     <!-- breadcrumb -->
 @endsection
+
 @section('content')
     <!-- row -->
     <div class="row">
@@ -32,95 +34,52 @@
                         <thead>
                             <tr>
                                 <th>{{ trans('websiteParts_trans.Id') }}</th>
-                                <th>{{ trans('websiteParts_trans.Key') }}</th>
-                                <th>{{ trans('websiteParts_trans.Value') }}</th>
+                                <th>{{ trans('websiteParts_trans.Part_Name') }}</th>
+                                <th>{{ trans('websiteParts_trans.Show') }}</th>
                                 <th>{{ trans('websiteParts_trans.Image') }}</th>
                                 <th>{{ trans('websiteParts_trans.Control') }}</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            @foreach ($WebsiteParts as $part)
-                                <tr>
-
-
-                                    <td>{{ $part->id }}</td>
-
-                                    <td>
-                                        {{ $part->key }}
-                                    </td>
-
-                                    <td>
-                                        @if ($part->value == '0')
-                                            <span class="text-danger">{{ trans('websiteParts_trans.Hide') }}</span>
-                                        @elseif($part->value == '1')
-                                            <span class="text-success">{{ trans('websiteParts_trans.Show') }}</span>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        <img src="{{ $part->image_url }}"
-                                            @if ($part->image) height="100" width="200" 
-                                    @else  
-                                    height="50" width="50" @endif
-                                            alt="">
-                                    </td>
-                                    <td>
-                                        <a href="" class="btn btn-primary btn-sm">
-                                            <i class="fa fa-eye"></i>
-                                        </a>
-
-                                        <a href="{{ Route('admin.websiteParts.edit', $part->id) }}"
-                                            class="btn btn-warning btn-sm">
-                                            <i class="fa fa-edit"></i>
-                                        </a>
-
-
-
-
-                                        <form action="{{ Route('admin.websiteParts.destroy', $part->id) }}" method="post"
-                                            style="display:inline">
-                                            @csrf
-                                            @method('delete')
-
-                                            <button type="submit" class="btn btn-danger btn-sm">
-                                                <i class="fa fa-trash"></i>
-                                            </button>
-                                        </form>
-
-
-                                    </td>
-
-                                </tr>
-                            @endforeach
-                        </tbody>
+                        <tbody></tbody>
                     </table>
+
                 </div>
             </div>
         </div>
     </div>
     <!-- row closed -->
 @endsection
+
 @push('scripts')
     <script>
         $(document).ready(function() {
-
             var datatable = $('#custom_table').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: '{{ route("admin.websiteParts.index") }}',
+                columns: [
+                    { data: 'id', name: 'id' },
+                    { data: 'key', name: 'key' },
+                    { data: 'value', name: 'value', orderable: false, searchable: false },
+                    { data: 'image', name: 'image', orderable: false, searchable: false },
+                    { data: 'control', name: 'control', orderable: false, searchable: false }
+                ],
                 stateSave: true,
-                sortable: true,
                 responsive: true,
                 dom: 'Bfrtip',
-                buttons: [{
+                buttons: [
+                    {
                         extend: 'copyHtml5',
                         exportOptions: {
-                            columns: [0, ':visible']
+                            columns: [0, 1, 2]
                         }
                     },
                     {
                         extend: 'excelHtml5',
                         exportOptions: {
-                            columns: [1, 2]
+                            columns: [0, 1, 2]
                         }
                     },
-
                     'colvis'
                 ]
             });

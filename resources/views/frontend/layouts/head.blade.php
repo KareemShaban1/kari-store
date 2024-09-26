@@ -16,7 +16,7 @@
      <link rel="stylesheet" href="{{ asset('frontend/assets/css/rtl.css') }}" />
  @endif
 
- {{-- <link rel="stylesheet" href="{{ asset('frontend/assets/css/custom.css') }}" /> --}}
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
 
  <link rel="stylesheet" href="{{ asset('frontend/assets/css/responsive.css') }}" />
 
@@ -24,7 +24,6 @@
      href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/4.6.3/css/ionicons.min.css">
 
  <link rel="stylesheet" href="{{ asset('frontend/assets/css/custom1.css') }}" />
-
 
 
 

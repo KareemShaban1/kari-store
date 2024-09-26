@@ -9,6 +9,7 @@ use App\Http\Controllers\Frontend\ProductsController;
 use App\Http\Controllers\Frontend\ProfileController;
 use App\Http\Controllers\Frontend\ReviewsController;
 use App\Http\Controllers\Frontend\SendOTPController;
+use App\Http\Controllers\Frontend\ShopController;
 use App\Http\Controllers\Frontend\ShopGridController;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
@@ -39,6 +40,8 @@ Route::group([
     );
 
     Route::get('/', [HomeController::class, 'index'])->name('home');
+
+    Route::get('/shop/{id}', [ShopController::class, 'index'])->name('shop.index');
 
     Route::get('/user/get-cities', [ProfileController::class, 'getCities']);
     Route::get('/user/get-neighborhoods', [ProfileController::class, 'getNeighborhoods']);

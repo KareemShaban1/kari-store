@@ -34,8 +34,30 @@
                 </div> --}}
 
                     <div class="row">
+                        <div class="card card-statistics mb-30">
+                            <div class="card-body">
+                                <h5 class="card-title">الأختصارات</h5>
+                                <a class="button button-border black icon small" href="#"> المتاجر <i
+                                        class="fa fa-long-arrow-left"></i> </a>
+                                <a class="button button-border black icon small" href="#"> مندوبين الشحن <i
+                                        class="fa fa-long-arrow-left"></i> </a>
+                                <a class="button button-border black icon small" href="#"> التصنيفات <i
+                                        class="fa fa-long-arrow-left"></i> </a>
+                                <a class="button button-border black icon small" href="#"> المنتجات <i
+                                        class="fa fa-long-arrow-left"></i> </a>
+                                <a class="button button-border black icon small" href="#"> الطلبات <i
+                                        class="fa fa-long-arrow-left"></i> </a>
+                                <a class="button button-border black icon small" href="#"> المتاجر <i
+                                        class="fa fa-long-arrow-left"></i> </a>
+                                <a class="button button-border black icon small" href="#"> البائعين <i
+                                        class="fa fa-long-arrow-left"></i> </a>
+                                <a class="button button-border black icon small" href="#"> المستخدمين <i
+                                        class="fa fa-long-arrow-left"></i> </a>
+                            </div>
+                        </div>
+                    </div>
 
-
+                    <div class="row">
 
                         {{-- Stores --}}
                         <div class="col-xl-3 col-lg-6 col-md-6 mb-30">
@@ -49,6 +71,53 @@
                                         <div class="float-left text-left">
                                             <p class="card-text text-dark">عدد المتاجر</p>
                                             <h4>{{ \App\Models\Store::count() }}</h4>
+                                        </div>
+                                    </div>
+                                    <p class="text-muted pt-3 mb-0 mt-2 border-top">
+                                        <i class="fas fa-binoculars mr-1" aria-hidden="true"></i><a href=""
+                                            target="_blank"><span class="text-danger">عرض
+                                                البيانات</span></a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        {{-- Vendors --}}
+                        <div class="col-xl-3 col-lg-6 col-md-6 mb-30">
+                            <div class="card card-statistics h-100">
+                                <div class="card-body">
+                                    <div class="clearfix">
+                                        <div class="float-right">
+                                            <span class="text-info">
+                                                <i class="fas fa-store highlight-icon" aria-hidden="true"></i>
+                                            </span>
+                                        </div>
+                                        <div class="float-left text-left">
+                                            <p class="card-text text-dark">عدد البائعين </p>
+                                            <h4>{{ \App\Models\Vendor::count() }}</h4>
+                                        </div>
+                                    </div>
+                                    <p class="text-muted pt-3 mb-0 mt-2 border-top">
+                                        <i class="fas fa-binoculars mr-1" aria-hidden="true"></i><a href=""
+                                            target="_blank"><span class="text-danger">عرض
+                                                البيانات</span></a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        {{-- Stores --}}
+                        <div class="col-xl-3 col-lg-6 col-md-6 mb-30">
+                            <div class="card card-statistics h-100">
+                                <div class="card-body">
+                                    <div class="clearfix">
+                                        <div class="float-right">
+                                            <span class="text-success">
+                                                <i class="fa-solid fa-truck highlight-icon"></i> </span>
+                                        </div>
+                                        <div class="float-left text-left">
+                                            <p class="card-text text-dark">عدد مندوبين الشحن</p>
+                                            <h4>{{ \App\Models\Delivery::count() }}</h4>
                                         </div>
                                     </div>
                                     <p class="text-muted pt-3 mb-0 mt-2 border-top">
@@ -130,29 +199,7 @@
                             </div>
                         </div>
 
-                        {{-- Vendors --}}
-                        <div class="col-xl-3 col-lg-6 col-md-6 mb-30">
-                            <div class="card card-statistics h-100">
-                                <div class="card-body">
-                                    <div class="clearfix">
-                                        <div class="float-right">
-                                            <span class="text-info">
-                                                <i class="fas fa-store highlight-icon" aria-hidden="true"></i>
-                                            </span>
-                                        </div>
-                                        <div class="float-left text-left">
-                                            <p class="card-text text-dark">Vendors </p>
-                                            <h4>{{ \App\Models\Vendor::count() }}</h4>
-                                        </div>
-                                    </div>
-                                    <p class="text-muted pt-3 mb-0 mt-2 border-top">
-                                        <i class="fas fa-binoculars mr-1" aria-hidden="true"></i><a href=""
-                                            target="_blank"><span class="text-danger">عرض
-                                                البيانات</span></a>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
+
 
                         {{-- Users --}}
                         <div class="col-xl-3 col-lg-6 col-md-6 mb-30">

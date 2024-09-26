@@ -52,7 +52,7 @@
                                     </td>
                                     <td>{{ $store->id }}</td>
                                     <td>{{ $store->name }}</td>
-                                    <td>{{ $store->slug }}</td>
+                                    <td style="width: 150px">{{ $store->slug }}</td>
                                     <td>
                                         @foreach ($store->categories as $category)
                                             <span
@@ -68,7 +68,7 @@
 
 
                                     <td>
-                                        @if ($store->active == '1')
+                                        {{-- @if ($store->active == '1')
                                             <span class="badge badge-rounded badge-success p-2 mb-2">
                                                 {{ trans('stores_trans.Active') }}
                                             </span>
@@ -76,24 +76,19 @@
                                             <span class="badge badge-rounded badge-danger p-2 mb-2">
                                                 {{ trans('stores_trans.Inactive') }}
                                             </span>
-                                        @endif
+                                        @endif --}}
+
 
                                         <div class="form-check form-switch" style="display:flex; justify-content: center;">
-
-                                            <input type="checkbox" id="statusCheckbox{{ $store->id }}"
-                                                class="form-check-input" {{ $store->status == 'active' ? 'checked' : '' }}>
-                                            <form method="POST"
-                                                action="{{ route('admin.stores.updateStoreStatus', $store->id) }}"
-                                                id="statusForm{{ $store->id }}" style="display: none;">
-                                                @csrf
-                                                @method('PUT')
-                                            </form>
+                                            <input type="checkbox" class="statusCheckbox form-check-input"
+                                                data-store-id="{{ $store->id }}"
+                                                {{ $store->active == '1' ? 'checked' : '' }}>
                                         </div>
 
                                     </td>
 
                                     <td>
-                                        @if ($store->featured == '1')
+                                        {{-- @if ($store->featured == '1')
                                             <span class="badge badge-rounded badge-success p-2 mb-2">
                                                 {{ trans('stores_trans.Featured') }}
                                             </span>
@@ -101,20 +96,13 @@
                                             <span class="badge badge-rounded badge-danger p-2 mb-2">
                                                 {{ trans('stores_trans.Not_Featured') }}
                                             </span>
-                                        @endif
+                                        @endif --}}
 
-                                        <div class="form-check form-switch"
-                                            style="display: flex;
-                                    justify-content: center">
 
-                                            <input type="checkbox" id="featuredCheckbox{{ $store->id }}"
-                                                class="form-check-input" {{ $store->featured == '1' ? 'checked' : '' }}>
-                                            <form method="POST"
-                                                action="{{ route('admin.stores.updateStoreFeatured', $store->id) }}"
-                                                id="featuredForm{{ $store->id }}" style="display: none;">
-                                                @csrf
-                                                @method('PUT')
-                                            </form>
+                                        <div class="form-check form-switch" style="display:flex; justify-content: center;">
+                                            <input type="checkbox" class="featureCheckbox form-check-input"
+                                                data-store-id="{{ $store->id }}"
+                                                {{ $store->featured == '1' ? 'checked' : '' }}>
                                         </div>
 
                                     </td>
@@ -159,7 +147,85 @@
 @endsection
 @push('scripts')
     <script>
+        // updateStoreFeatured
         $(document).ready(function() {
+
+            document.querySelectorAll('.statusCheckbox').forEach(function(checkbox) {
+                checkbox.addEventListener('change', function() {
+                    const isChecked = this.checked;
+                    const storeId = this.dataset.storeId; // Retrieve store ID from data attribute
+
+
+                    // Send AJAX request to update store status
+                    fetch('{{ route('admin.stores.updateStoreStatus', ':store_id') }}'.replace(
+                            ':store_id', storeId), {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                            },
+                            body: JSON.stringify({
+                                active: isChecked ? 1 : 0
+                            })
+                        })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Failed to update status');
+                            }
+
+                            return response.json();
+                        })
+                        .then(data => {
+                            toastr.success("تم تغير الحالة بنجاح");
+                            console.log('Status updated successfully:', data);
+                        })
+                        .catch(error => {
+                            toastr.error("لم يتم تغير الحالة");
+                            console.error('Error updating status:', error);
+                        });
+                });
+            });
+
+            document.querySelectorAll('.featureCheckbox').forEach(function(checkbox) {
+                checkbox.addEventListener('change', function() {
+                    const isChecked = this.checked;
+                    const storeId = this.dataset.storeId; // Retrieve store ID from data attribute
+
+                    console.log('Store ID:', storeId);
+                    console.log('Is checked:', isChecked);
+
+
+                    // Send AJAX request to update store status
+                    fetch('{{ route('admin.stores.updateStoreFeatured', ':store_id') }}'.replace(
+                            ':store_id', storeId), {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                            },
+                            body: JSON.stringify({
+                                featured: isChecked ? 1 : 0
+                            })
+                        })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Failed to update status');
+                            }
+
+                            return response.json();
+                        })
+                        .then(data => {
+                            toastr.success("تم تغير الحالة بنجاح");
+
+                            console.log('Status updated successfully:', data);
+                        })
+                        .catch(error => {
+                            toastr.error("لم يتم تغير الحالة");
+                            console.error('Error updating status:', error);
+                        });
+                });
+            });
+
 
 
             var datatable = $('#custom_table').DataTable({
@@ -169,52 +235,28 @@
                 dom: 'Bfrtip',
                 buttons: [{
                         extend: 'copyHtml5',
+                        text: 'نسخ',
                         exportOptions: {
                             columns: [0, ':visible']
                         }
                     },
                     {
                         extend: 'excelHtml5',
+                        text: 'Excel',
                         exportOptions: {
                             columns: [1, 2, 3, 4, 5, 6, 7, 8]
                         }
                     },
 
-                    'colvis'
+                    // {
+                    //     extend: 'colvis',
+                    //     text: 'الأعمدة الظاهرة'
+                    // }
+
                 ]
             });
 
-            document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
-                checkbox.addEventListener('change', function() {
-                    const storeId = this.id.replace('featuredCheckbox', '');
-                    const form = document.getElementById('featuredForm' + storeId);
 
-                    if (this.checked) {
-                        form.innerHTML += '<input type="hidden" name="featured" value="1">';
-                    } else {
-                        form.innerHTML += '<input type="hidden" name="featured" value="0">';
-                    }
-
-                    form.submit();
-                });
-            });
-
-
-            // update store status
-            document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
-                checkbox.addEventListener('change', function() {
-                    const storeId = this.id.replace('statusCheckbox', '');
-                    const form = document.getElementById('statusForm' + storeId);
-
-                    if (this.checked) {
-                        form.innerHTML += '<input type="hidden" name="status" value="active">';
-                    } else {
-                        form.innerHTML += '<input type="hidden" name="status" value="Inactive">';
-                    }
-
-                    form.submit();
-                });
-            });
 
         });
     </script>

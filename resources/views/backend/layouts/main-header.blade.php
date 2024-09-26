@@ -4,9 +4,9 @@
             <!-- logo -->
             <div class="text-left navbar-brand-wrapper">
                 {{-- <label for="">Kari Store</label> --}}
-                {{-- <a class="navbar-brand brand-logo" href="index.html"><img src={{asset("backend/assets/images/logo.png")}} alt=""></a>
-                <a class="navbar-brand brand-logo-mini" href="index.html"><img src="backend/assets/images/logo-icon-dark.png"
-                        alt=""></a> --}}
+                <a class="navbar-brand brand-logo" href="index.html"><img src={{asset("backend/assets/images/logo.svg")}} alt=""></a>
+                <!-- <a class="navbar-brand brand-logo-mini" href="index.html"><img src="backend/assets/images/logo-icon-dark.png"
+                        alt=""></a> -->
             </div>
             <!-- Top bar left -->
             <ul class="nav navbar-nav mr-auto">

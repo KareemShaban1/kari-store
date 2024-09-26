@@ -18,16 +18,44 @@ class WebsitePartsController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
-        $WebsiteParts = WebsiteParts::all();
+    public function index(Request $request)
+{
+    if ($request->ajax()) {
+        $websiteParts = WebsiteParts::select(['id', 'key', 'value', 'image']);
 
+        return datatables()->of($websiteParts)
+            ->addColumn('value', function ($row) {
+                return $row->value == 0 ?
+                    '<span class="text-danger">' . trans('websiteParts_trans.Hide') . '</span>' :
+                    '<span class="text-success">' . trans('websiteParts_trans.Show') . '</span>';
+            })
+            ->addColumn('image', function ($row) {
+                $imageUrl = $row->image_url;
+                return '<img src="' . $imageUrl . '" height="50" width="50" alt="Image">';
+            })
+            ->addColumn('control', function ($row) {
+                $editUrl = route('admin.websiteParts.edit', $row->id);
+                $deleteUrl = route('admin.websiteParts.destroy', $row->id);
 
-        return view('backend.dashboards.admin.website_parts.index',compact('WebsiteParts'));
+                return '
+                    <a href="' . $editUrl . '" class="btn btn-warning btn-sm">
+                        <i class="fa fa-edit"></i>
+                    </a>
+                    <form action="' . $deleteUrl . '" method="POST" style="display:inline">
+                        ' . csrf_field() . method_field('DELETE') . '
+                        <button type="submit" class="btn btn-danger btn-sm">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                    </form>';
+            })
+            ->rawColumns(['value', 'image', 'control'])
+            ->make(true);
     }
+
+    return view('backend.dashboards.admin.website_parts.index');
+}
+
 
     /**
      * Show the form for creating a new resource.
@@ -55,7 +83,7 @@ class WebsitePartsController extends Controller
             'image' => 'nullable|string',
         ]);
         $data = $request->except('image');
-        
+
         if($request->file('image')){
             $data['image'] = $this->ProcessImage($request, 'image', 'website_part');
         }
@@ -104,7 +132,7 @@ class WebsitePartsController extends Controller
             'value' => 'nullable|string',
             'image' => 'nullable|string',
         ]);
-        
+
         $WebsitePart= WebsiteParts::findOrFail($id);
 
 

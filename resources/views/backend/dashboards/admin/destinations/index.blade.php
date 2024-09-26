@@ -30,15 +30,13 @@
             <div class="card card-statistics h-100">
                 <div class="card-body">
 
-                    <table id="table_id" class="display">
+                    <table id="custom_table" class="display">
                         <thead>
                             <tr>
                                 <th></th>
                                 <th>{{ trans('destinations_trans.Place_Name') }}</th>
                                 <th>{{ trans('destinations_trans.Charge_Amount') }}</th>
-                                <th>{{ trans('destinations_trans.Parent_Id') }}</th>
                                 <th>{{ trans('destinations_trans.Parent') }}</th>
-
                                 <th>{{ trans('destinations_trans.Control') }}</th>
 
                             </tr>
@@ -49,13 +47,9 @@
                                     <td>{{ $destination->id }}</td>
                                     <td>{{ $destination->name }}</td>
                                     <td>{{ $destination->price }}</td>
-                                    <td>{{ $destination->parent_id }}</td>
                                     <td>{{ $destination->parent->name ?? '' }}</td>
 
                                     <td>
-                                        <a href="" class="btn btn-primary btn-sm">
-                                            <i class="fa fa-eye"></i>
-                                        </a>
                                         <a href="{{ Route('admin.destinations.edit', $destination->id) }}"
                                             class="btn btn-warning btn-sm">
                                             <i class="fa fa-edit"></i>
@@ -71,11 +65,6 @@
                                                 <i class="fa fa-trash"></i>
                                             </button>
                                         </form>
-
-                                        {{-- <a href="" class="btn btn-danger btn-sm">
-                                    <i class="fa fa-trash"></i> 
-                                    
-                                </a>     --}}
                                     </td>
 
                                 </tr>
@@ -117,3 +106,4 @@
         });
     </script>
 @endpush
+

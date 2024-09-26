@@ -14,8 +14,10 @@
 
                  @foreach ($stores as $store)
                      <div class="stores-logo">
-                         <img src="{{ $store->logo_image_url }}" alt="#" style="margin-bottom: 10px;">
-                         <p>{{ $store->name }}</p>
+                         <a href="{{ route('shop.index', $store->id) }}">
+                             <img src="{{ $store->logo_image_url }}" alt="#" style="margin-bottom: 10px;">
+                             <p>{{ $store->name }}</p>
+                         </a>
                      </div>
                  @endforeach
 

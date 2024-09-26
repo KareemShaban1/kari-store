@@ -20,7 +20,7 @@ return new class extends Migration
             $table->foreignId('product_id')->constrained('products')->cascadeOnDelete();
             $table->longText('description')->nullable();
             $table->string('sku');
-            $table->float('price')->default(0); 
+            $table->float('price')->default(0);
             $table->float('compare_price')->nullable();
             $table->unsignedSmallInteger('quantity')->default(0);
             $table->string('image')->nullable();

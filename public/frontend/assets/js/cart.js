@@ -18,9 +18,6 @@
             data: {
                 _token: csrf_token,
             },
-            //  success: response =>{
-            //           $(`#${id}`).remove();
-            //  }
             success: function (response) {
                 toastr.error("تم حذف المنتج من العربة بنجاح");
 

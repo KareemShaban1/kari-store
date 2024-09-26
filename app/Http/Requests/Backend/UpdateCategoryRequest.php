@@ -25,7 +25,7 @@ class UpdateCategoryRequest extends FormRequest
     public function rules()
     {
         $id = $this->route('category');
-        // dd($id);
+ 
         return 
         [
             'name'=>[
@@ -36,7 +36,7 @@ class UpdateCategoryRequest extends FormRequest
                 
             ],
             'parent_id' => 'nullable|exists:categories,id',
-            'slug' => 'required|string|unique:categories,slug',
+            // 'slug' => 'required|string|unique:categories,slug',
             'description' => 'nullable|string',
             'image' => 'nullable|string',
             'featured' => 'boolean',
