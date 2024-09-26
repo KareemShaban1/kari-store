@@ -44,7 +44,6 @@ config('fortify.middleware', ['web']) ,  'localeCookieRedirect', 'localizationRe
             'guest:'.config('fortify.guard'),
             $limiter ? 'throttle:'.$limiter : null,
         ]));
-        
 
 
 
