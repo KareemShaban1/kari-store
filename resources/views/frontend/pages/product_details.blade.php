@@ -66,7 +66,7 @@
 
                                 <input type="hidden" name="product_id" value="{{ $product->id }}">
 
-                               
+
 
                                 <div class="bottom-content">
                                     <div class="row align-items-end">
@@ -78,7 +78,7 @@
                                             </div>
                                         </div>
 
-                                        
+
 
                                     </div>
                                 </div>
@@ -209,7 +209,7 @@
                           <div class="col-sm-6">
                               <div class="form-group">
                                   <label for="review-name">Your Name</label>
-                                  
+
                                   <input class="form-control" name="name" value="{{ old('name', Auth::user() ? Auth::user()->first_name . ' ' . Auth::user()->last_name : '') }}" type="text" id="review-name" required>
                               </div>
                           </div>
@@ -272,7 +272,7 @@
                        <div class="col-sm-6">
                            <div class="form-group">
                                <label for="review-name">Your Name</label>
-                               
+
                                <input class="form-control" name="name" value="{{ old('name', Auth::user() ? Auth::user()->first_name . ' ' . Auth::user()->last_name : '') }}" type="text" id="review-name" required>
                            </div>
                        </div>
@@ -331,7 +331,7 @@
                         img.style.opacity = 1;
                     });
                     current.src = e.target.src;
-                    //adding class 
+                    //adding class
                     //current.classList.add("fade-in");
                     //opacity
                     e.target.style.opacity = opacity;
@@ -365,11 +365,16 @@
                                 $('.total-items').text(response.totalItems);
                             }
                         },
-                        error: function(error) {
-
-                            // Handle the error, e.g., show an error message
-                            console.log(error);
-                        }
+                        error: function(xhr) {
+                if (xhr.status === 401) {
+                    // If user is unauthorized (not authenticated), redirect to login page
+                    window.location.href = "{{ route('login') }}";
+                } else {
+                    // Handle other errors, e.g., show an error message
+                    console.log(xhr);
+                    toastr.error('An error occurred. Please try again.');
+                }
+            }
                     });
                 });
             });

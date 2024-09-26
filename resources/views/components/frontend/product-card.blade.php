@@ -7,13 +7,16 @@
             <span class="sale-tag"> - {{ Currency::convertNumberToArabic($product->sale_percent) }} %</span>
         @endif
         <div class="button">
-            <a href="{{ Route('products.show_product', [$product->id, $product->slug]) }}" class="btn">
+            <!-- <a href="{{ Route('products.show_product', [$product->id, $product->slug]) }}" class="btn">
                 {{ trans('front_home_trans.Show_Product') }}
-            </a>
+            </a> -->
 
-            {{-- <div>
-                <button id="addToCartButton" class="btn" type="button" style="width: 100%;">Add to Cart</button>
-            </div> --}}
+            <form action="{{ route('cart.quickStore') }}" method="POST">
+                @csrf
+                <input type="hidden" name="product_id" value="{{ $product->id }}">
+                <input type="hidden" name="quantity" id="quantity" value="1">
+                <button type="submit" class="btn">Add To Cart</button>
+            </form>
 
         </div>
         @if ($product->quantity == 0)

@@ -284,8 +284,8 @@
                     <li class="menu-item"><a href="{{ Route('shop_grid.index') }}"
                             class="menu-link">{{ trans('front_home_trans.Shop') }}</a></li>
 
-                    <li class="menu-item"><a href="{{ Route('offers.index') }}"
-                            class="menu-link">{{ trans('front_home_trans.Offers') }}</a></li>
+                    <!-- <li class="menu-item"><a href="{{ Route('offers.index') }}"
+                            class="menu-link">{{ trans('front_home_trans.Offers') }}</a></li> -->
                     <li class="menu-item menu-dropdown">
                         <span class="menu-link">{{ trans('front_home_trans.Categories') }}<i
                                 class="ion ion-ios-arrow-down m-1"></i></span>
